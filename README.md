@@ -17,7 +17,7 @@ Site estático da guilda Lua Crescente.
 │   │   ├── i18n/
 │   │   │   └── translations-es-LATAM.js
 │   │   ├── recipes/
-│   │   │   ├── recipes-data.js
+│   │   │   ├── assets/data/recipes/categories/*.js
 │   │   │   └── recipe-metadata.js
 │   │   └── ui-translations.js
 │   ├── img/

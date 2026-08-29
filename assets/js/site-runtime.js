@@ -1,6 +1,8 @@
 // Lua Crescente — runtime compartilhado das páginas
 // A lógica de dados fica em assets/data/.
 
+var DATA = window.DATA || [];
+
 // ---------------------------------------------------------------------
 // Sub-receitas e fontes pesquisadas (BDO Codex / BDOlytics / guias PT-BR).
 // Itens aqui viram expansíveis em cascata dentro da árvore. Itens sem
@@ -11,16 +13,22 @@
 // Itens que são material-base (não têm sub-receita), com fonte confirmada.
 
 
-// Índice: nome do item -> todas as definições para permitir cascatas
-// contextuais quando o mesmo item possui receitas com diferentes quantidades.
+// Índices das cascatas. São reconstruídos quando uma categoria é carregada.
 const EXPAND_INDEX = {};
 const EXPAND_INDEX_ALL = {};
+function clearExpandIndexes(){
+  Object.keys(EXPAND_INDEX).forEach(k=>delete EXPAND_INDEX[k]);
+  Object.keys(EXPAND_INDEX_ALL).forEach(k=>delete EXPAND_INDEX_ALL[k]);
+}
 function registerExpandDefinition(name, def){
   if(!name || !def) return;
   (EXPAND_INDEX_ALL[name] ||= []).push(def);
   if(!EXPAND_INDEX[name]) EXPAND_INDEX[name] = def;
 }
-DATA.forEach(item=>{
+function rebuildExpandIndex(){
+  clearExpandIndexes();
+  DATA.forEach(item=>{
+
   if(item.isGroup){
     if(item.routes){
       item.routes.forEach(r=> (r.variants||[]).forEach(v=>{
@@ -43,6 +51,7 @@ DATA.forEach(item=>{
 Object.entries(SUBRECIPES).forEach(([name, info])=>{
   if(Array.isArray(info.children) && info.children.length) registerExpandDefinition(name, {children:info.children, note:info.note});
 });
+}
 
 const SOURCE_INDEX = {...LEAF_SOURCES};
 
@@ -797,6 +806,39 @@ function renderFarmacoCards(item){
   }).join('');
 }
 
+function renderRootShell(item, idx){
+  const rawRootIcon = ROOT_ITEM_ICONS[item.name] ?? ((item.group==='Culinária' || item.group==='Rações') ? (CULINARY_ICON_OVERRIDES[item.name] ?? CULINARY_ICON_IDS[item.name]) : '');
+  const rootIcon = rawRootIcon ? (typeof rawRootIcon === 'number' ? codexIcon(rawRootIcon) : rawRootIcon) : '';
+  return `<div class="root-item" data-idx="${idx}" data-lazy-root="1">
+    <div class="root-head">
+      <span class="chevron"></span>
+      ${rootIcon ? `<img class="root-item-icon" src="${assetIcon(rootIcon)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'">` : ''}
+      <span class="root-name">${tName(item.name)}</span>
+      ${item.routes ? `<span class="tag">${currentLang==='es'?'Rutas':'Rotas'}</span>`:''}
+    </div>
+    <div class="body" data-lazy-body="1"></div>
+  </div>`;
+}
+
+function hydrateRoot(el){
+  if(!el || el.dataset.hydrated==='1') return;
+  const idx=Number(el.dataset.idx);
+  const item=DATA[idx];
+  if(!item || item.farmacoGroup) return;
+  let inner='';
+  if(item.isGroup){
+    inner = item.routes ? renderVariantRoutes(item.routes, nextUid(), [item.name]) : renderVariantList(item.variants, [item.name]);
+  } else if(item.routes){
+    inner = renderRoutes(item.routes, idx, [item.name]);
+  } else {
+    inner = renderChildren(item.children, [item.name]);
+  }
+  const body=el.querySelector('[data-lazy-body]');
+  if(!body) return;
+  body.innerHTML = `${item.effect? `<div class="root-effect">✨ ${item.effect}</div>`:''}${item.note? `<div class="sub-recipe-note root-note">${translateFreeText(item.note)}</div>`:''}${item.source? `<div class="sub-recipe-note root-note">📍 ${currentLang==='es'?translateFreeText(item.source):item.source}</div>`:''}${inner}`;
+  el.dataset.hydrated='1';
+}
+
 function renderRoot(item, idx){
   // Fármacos: o título da seção não é um container/card.
   // Os únicos containers visuais são os cards independentes de cada Fármaco.
@@ -805,6 +847,7 @@ function renderRoot(item, idx){
     // entram diretamente na lista, sem título ou container-pai.
     return renderFarmacoCards(item);
   }
+  return renderRootShell(item, idx);
 
   let inner = '';
   if(item.isGroup){
@@ -858,51 +901,48 @@ const GROUP_LABELS = {
   pt: {'Fármacos da Harmonia':'Fármacos da Harmonia','Fármacos Base':'Fármacos Base','Elixires Base':'Elixires Base','Sangues':'Sangues','Seivas':'Seivas','Fármacos Tradicionais':'Fármacos Tradicionais','Perfumes':'Perfumes','Culinária':'Culinária','Rações':'Rações','Culinária Especial':'Culinária Especial','Pergaminhos':'Pergaminhos','Trabalhadores energia':'Trabalhadores energia','Poções':'Poções','Itens Tesouro':'Itens Tesouro'},
   es: {'Fármacos da Harmonia':'Fármacos de la Armonía','Fármacos Base':'Fármacos Base','Elixires Base':'Elixires Base','Sangues':'Sangres','Seivas':'Savia','Fármacos Tradicionais':'Fármacos Tradicionales','Perfumes':'Perfumes','Culinária':'Cocina','Rações':'Alimentos de montarias e mascotes','Culinária Especial':'Cocina Especial','Pergaminhos':'Pergaminos','Trabalhadores energia':'Energía de trabajadores','Poções':'Pociones','Itens Tesouro':'Tesoros'}
 };
-let activeGroup = 'Todos';
+let activeGroup = 'Culinária';
+
+window.applyRecipeData = function(nextData, group){
+  DATA = Array.isArray(nextData) ? nextData : [];
+  window.DATA = DATA;
+  activeGroup = group || activeGroup;
+  rebuildExpandIndex();
+  buildSidebar();
+};
 
 function buildSidebar(){
   const sidebar = document.getElementById('groupSidebar');
-  if(!sidebar || typeof DATA==='undefined') return;
-  const counts = {};
-  let totalItems = 0;
-  DATA.forEach(item=>{
-    // Grupos de receitas (ex.: Fármacos da Harmonia/Base/Tradicionais)
-    // representam vários itens de categoria dentro da primeira rota, não um único item.
-    const itemCount = item.isGroup && Array.isArray(item.routes)
-      ? new Set((item.routes[0]?.variants || []).map(v => v.title.replace(/\s+[-—]\s+100 unidades$/i,'').trim())).size
-      : 1;
-    counts[item.group] = (counts[item.group]||0) + itemCount;
-    totalItems += itemCount;
-  });
-  const groups = GROUP_ORDER;
-  const allBtn = `<button class="group-btn ${activeGroup==='Todos'?'active':''}" data-group="Todos">
-      <span class="g-icon">📖</span><span class="g-name">${currentLang==='es'?'Todos':'Todos'}</span><span class="g-count">${totalItems}</span>
-    </button>`;
-  const groupBtns = groups.map(g=> `
+  if(!sidebar) return;
+  const counts = window.RECIPE_GROUP_COUNTS || {};
+  const groups = window.RECIPE_GROUPS || GROUP_ORDER;
+  sidebar.innerHTML = `<div class="sidebar-label" data-i18n="groups">Grupos</div>` + groups.map(g=> `
     <button class="group-btn ${activeGroup===g?'active':''}" data-group="${g}">
-      <span class="g-icon">${GROUP_ICONS[g]||'•'}</span><span class="g-name">${(GROUP_LABELS[currentLang]||GROUP_LABELS.pt)[g]||g}</span><span class="g-count">${counts[g]}</span>
+      <span class="g-icon">${GROUP_ICONS[g]||'•'}</span><span class="g-name">${(GROUP_LABELS[currentLang]||GROUP_LABELS.pt)[g]||g}</span><span class="g-count">${counts[g] ?? 0}</span>
     </button>`).join('');
-  sidebar.innerHTML = `<div class="sidebar-label" data-i18n="groups">Grupos</div>${allBtn}${groupBtns}`;
 }
+
 
 document.getElementById('groupSidebar')?.addEventListener('click', (e)=>{
   const btn = e.target.closest('.group-btn');
   if(!btn) return;
-  activeGroup = btn.dataset.group;
+  const group = btn.dataset.group;
+  if(group===activeGroup) return;
+  activeGroup = group;
   buildSidebar();
-  draw(document.getElementById('search').value);
+  window.loadRecipeCategory?.(group);
 });
 
 function draw(filter){
   if(!listEl || typeof DATA==='undefined') return;
   const q = (filter||'').trim().toLowerCase();
   const filtered = DATA.map((item,i)=>({item,i}))
-    .filter(({item})=> activeGroup==='Todos' || item.group===activeGroup)
+    .filter(({item})=> item.group===activeGroup)
     .filter(({item})=> !q || itemMatches(item,q));
   listEl.innerHTML = filtered.map(({item,i})=> renderRoot(item,i)).join('');
   emptyEl.style.display = filtered.length? 'none':'block';
   if(q){
-    document.querySelectorAll('.root-item').forEach(el=> el.classList.add('open'));
+    document.querySelectorAll('.root-item').forEach(el=> { hydrateRoot(el); el.classList.add('open'); });
   }
 }
 
@@ -925,7 +965,9 @@ listEl?.addEventListener('click', (e)=>{
   }
   const head = e.target.closest('.root-head');
   if(head){
-    head.closest('.root-item').classList.toggle('open');
+    const root=head.closest('.root-item');
+    hydrateRoot(root);
+    root.classList.toggle('open');
     return;
   }
   const row = e.target.closest('.ingredient-row');
@@ -936,9 +978,8 @@ listEl?.addEventListener('click', (e)=>{
 
 document.getElementById('search')?.addEventListener('input', (e)=> draw(e.target.value));
 document.getElementById('expandAll')?.addEventListener('click', ()=>{
-  // "Expandir tudo" precisa abrir a árvore inteira, não apenas os cards-raiz.
-  // As subreceitas usam a classe .sub-open e os cards de Fármacos usam .open.
-  document.querySelectorAll('.root-item, .farmaco-card').forEach(el=>el.classList.add('open'));
+  document.querySelectorAll('.root-item').forEach(el=>{ hydrateRoot(el); el.classList.add('open'); });
+  document.querySelectorAll('.farmaco-card').forEach(el=>el.classList.add('open'));
   document.querySelectorAll('li.has-sub').forEach(el=>el.classList.add('sub-open'));
 });
 document.getElementById('collapseAll')?.addEventListener('click', ()=>{
@@ -947,7 +988,23 @@ document.getElementById('collapseAll')?.addEventListener('click', ()=>{
   document.querySelectorAll('li.has-sub').forEach(el=>el.classList.remove('sub-open'));
 });
 
-if(listEl){ buildSidebar(); const params=new URLSearchParams(location.search); const initialSearch=params.get('search')||''; const searchEl=document.getElementById('search'); if(searchEl) searchEl.value=initialSearch; draw(initialSearch); const initialItem=params.get('item'); if(initialItem){ requestAnimationFrame(()=>{ const idx=DATA.findIndex(i=>i.name===initialItem); const el=document.querySelector(`.root-item[data-idx="${idx}"]`); if(el){el.classList.add('open'); el.scrollIntoView({block:'start'});} }); }}
+if(listEl){
+  const params=new URLSearchParams(location.search);
+  const initialSearch=params.get('search')||'';
+  const initialGroup=params.get('group') || (document.body.dataset.page==='culinaria' ? 'Culinária' : 'Culinária');
+  activeGroup = window.RECIPE_GROUP_COUNTS?.[initialGroup] != null ? initialGroup : (window.RECIPE_GROUPS?.[0] || GROUP_ORDER[0]);
+  buildSidebar();
+  const searchEl=document.getElementById('search'); if(searchEl) searchEl.value=initialSearch;
+  window.__LC_AFTER_CATEGORY_LOAD = function(){
+    const currentSearch=document.getElementById('search')?.value||'';
+    draw(currentSearch);
+    const initialItem=params.get('item');
+    if(initialItem){
+      requestAnimationFrame(()=>{ const idx=DATA.findIndex(i=>i.name===initialItem); const el=document.querySelector(`.root-item[data-idx="${idx}"]`); if(el){hydrateRoot(el); el.classList.add('open'); el.scrollIntoView({block:'start'});} });
+    }
+  };
+  if(window.loadRecipeCategory){ window.loadRecipeCategory(activeGroup).then(()=>window.__LC_AFTER_CATEGORY_LOAD?.()).catch(err=>console.error(err)); }
+}
 
 // ---- Seletor de idioma ----
 const langSwitch = document.getElementById('langSwitch');
@@ -993,19 +1050,19 @@ function hideGuildModal(restoreFocus=true){
   document.body.classList.remove('modal-open');
   if(restoreFocus && lastFocusedElement && typeof lastFocusedElement.focus==='function') lastFocusedElement.focus();
 }
-function openGuildModal(push=true){
+function openGuildModal(){
   if(!guildModal) return;
   lastFocusedElement=document.activeElement;
   guildModal.classList.add('open');
   guildModal.setAttribute('aria-hidden','false');
   document.body.classList.add('modal-open');
   closeMobileMenu();
-  if(push && location.hash!=='#sobre') history.pushState({modal:'guild'},'',location.pathname+'#sobre');
   requestAnimationFrame(()=>guildModal.querySelector('.guild-modal-close')?.focus());
 }
-function closeGuildModal(){
-  if(!guildModal) return;
-  if(location.hash==='#sobre') history.back(); else hideGuildModal();
+function closeGuildModal(e){
+  e?.preventDefault?.();
+  e?.stopPropagation?.();
+  hideGuildModal();
 }
 
 function setPage(page){
@@ -1021,8 +1078,9 @@ document.querySelectorAll('[data-page]').forEach(el=>{
   if(el.classList.contains('site-tab')) return;
   el.addEventListener('click',()=>setPage(el.dataset.page));
 });
-document.querySelectorAll('[data-modal="guild"]').forEach(el=>el.addEventListener('click',()=>openGuildModal()));
+document.querySelectorAll('[data-modal="guild"]').forEach(el=>el.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();openGuildModal();}));
 guildModal?.querySelectorAll('[data-guild-modal-close]').forEach(el=>el.addEventListener('click',closeGuildModal));
+guildModal?.querySelector('.guild-modal-dialog')?.addEventListener('click',(e)=>e.stopPropagation());
 const backToTop=document.getElementById('backToTop');
 if(backToTop){
   const updateBackToTop=()=>backToTop.classList.toggle('is-visible',window.scrollY>420);
@@ -1031,8 +1089,6 @@ if(backToTop){
   backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&guildModal?.classList.contains('open'))closeGuildModal()});
-window.addEventListener('popstate',()=>{ if(location.hash==='#sobre') openGuildModal(false); else hideGuildModal(false); });
-if(location.hash==='#sobre') openGuildModal(false);
 
 // Busca grande da Home: manda pra aba de Alquimia e Culinária já filtrando
 document.getElementById('homeSearchForm')?.addEventListener('submit', (e)=>{
