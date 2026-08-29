@@ -917,7 +917,7 @@ function buildSidebar(){
   const counts = window.RECIPE_GROUP_COUNTS || {};
   const groups = window.RECIPE_GROUPS || GROUP_ORDER;
   sidebar.innerHTML = `<div class="sidebar-label" data-i18n="groups">Grupos</div>` + groups.map(g=> `
-    <button class="group-btn ${activeGroup===g?'active':''}" data-group="${g}">
+    <button type="button" class="group-btn ${activeGroup===g?'active':''}" data-group="${g}" aria-pressed="${activeGroup===g?'true':'false'}">
       <span class="g-icon">${GROUP_ICONS[g]||'•'}</span><span class="g-name">${(GROUP_LABELS[currentLang]||GROUP_LABELS.pt)[g]||g}</span><span class="g-count">${counts[g] ?? 0}</span>
     </button>`).join('');
 }
@@ -926,11 +926,16 @@ function buildSidebar(){
 document.getElementById('groupSidebar')?.addEventListener('click', (e)=>{
   const btn = e.target.closest('.group-btn');
   if(!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
   const group = btn.dataset.group;
-  if(group===activeGroup) return;
+  if(!group || group===activeGroup) return;
   activeGroup = group;
   buildSidebar();
-  window.loadRecipeCategory?.(group);
+  document.getElementById('groupSidebar')?.setAttribute('aria-busy','true');
+  window.loadRecipeCategory?.(group)?.catch(err=>console.error(err)).finally(()=>{
+    if(activeGroup===group) document.getElementById('groupSidebar')?.removeAttribute('aria-busy');
+  });
 });
 
 function draw(filter){
@@ -1073,11 +1078,15 @@ function setPage(page){
 }
 
 syncActiveNav();
-document.querySelectorAll('.site-tab').forEach(a=>a.addEventListener('click',()=>closeMobileMenu()));
-document.querySelectorAll('[data-page]').forEach(el=>{
-  if(el.classList.contains('site-tab')) return;
-  el.addEventListener('click',()=>setPage(el.dataset.page));
+document.querySelectorAll('.site-tab').forEach(a=>{
+  a.addEventListener('click',()=>closeMobileMenu());
 });
+
+// IMPORTANTE: não usar querySelectorAll('[data-page]') aqui.
+// A página de Receitas possui <body data-page="culinaria"> e isso fazia
+// com que QUALQUER clique dentro da página chegasse ao body e chamasse
+// setPage('culinaria'), recarregando /receitas.html do nada.
+// Apenas elementos de navegação reais devem controlar a troca de página.
 document.querySelectorAll('[data-modal="guild"]').forEach(el=>el.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();openGuildModal();}));
 guildModal?.querySelectorAll('[data-guild-modal-close]').forEach(el=>el.addEventListener('click',closeGuildModal));
 guildModal?.querySelector('.guild-modal-dialog')?.addEventListener('click',(e)=>e.stopPropagation());
