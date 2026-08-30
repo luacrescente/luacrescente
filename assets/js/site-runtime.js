@@ -909,6 +909,11 @@ window.applyRecipeData = function(nextData, group){
   activeGroup = group || activeGroup;
   rebuildExpandIndex();
   buildSidebar();
+  // Sem isto, trocar de categoria na sidebar atualiza o DATA e o botão ativo,
+  // mas a lista visível (#list) continua mostrando a categoria anterior até
+  // uma busca ser digitada. Precisa redesenhar a lista sempre que os dados
+  // da categoria terminam de carregar (clique na sidebar ou carga inicial).
+  draw(document.getElementById('search')?.value || '');
 };
 
 function buildSidebar(){
