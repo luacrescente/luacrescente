@@ -42,7 +42,7 @@ Preservar o comportamento existente. Alterações devem ser pequenas, rastreáve
 - Se uma alteração causar regressão, restaurar a última versão funcional em vez de reescrever componentes sem diagnóstico.
 
 ## Dados
-- `assets/data/recipes/categories/*.js` contém o catálogo separado por categoria; a categoria é carregada sob demanda.
+- `assets/data/recipes/categories/*.json` contém o catálogo separado por categoria; a categoria é carregada sob demanda.
 - `assets/data/recipes/recipe-metadata.js` contém sub-receitas e fontes auxiliares.
 - `assets/data/i18n/translations-es-LATAM.js` contém nomes de itens em espanhol LATAM.
 - `assets/data/ui-translations.js` contém textos da interface.

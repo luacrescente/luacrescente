@@ -1432,3 +1432,15 @@ body::before,body::after{content:none !important;display:none !important;}
 .boss-agenda-backdrop{z-index:0;}
 .boss-agenda-dialog{z-index:1;}
 .boss-agenda-modal.open{display:flex;}
+
+/* v65 — sidebar de categorias sempre acima da lista durante a rolagem */
+.group-sidebar{
+  position:sticky !important;
+  z-index:10 !important;
+  background:rgba(15,17,22,.985) !important;
+  isolation:isolate;
+}
+.alch-main{
+  position:relative;
+  z-index:1;
+}

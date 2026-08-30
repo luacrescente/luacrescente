@@ -258,7 +258,7 @@ function assetIcon(file){
   if(!file) return '';
   const s=String(file);
   if(/^https?:\/\//i.test(s) || s.startsWith('/') || s.startsWith('data:')) return s;
-  return 'assets/img/' + s.replace(/^\.\//,'').replace(/^assets\/img\//,'');
+  return '/assets/img/' + s.replace(/^\.\//,'').replace(/^assets\/img\//,'');
 }
 
 function codexIcon(id){
@@ -901,7 +901,8 @@ const GROUP_LABELS = {
   pt: {'Fármacos da Harmonia':'Fármacos da Harmonia','Fármacos Base':'Fármacos Base','Elixires Base':'Elixires Base','Sangues':'Sangues','Seivas':'Seivas','Fármacos Tradicionais':'Fármacos Tradicionais','Perfumes':'Perfumes','Culinária':'Culinária','Rações':'Rações','Culinária Especial':'Culinária Especial','Pergaminhos':'Pergaminhos','Trabalhadores energia':'Trabalhadores energia','Poções':'Poções','Itens Tesouro':'Itens Tesouro'},
   es: {'Fármacos da Harmonia':'Fármacos de la Armonía','Fármacos Base':'Fármacos Base','Elixires Base':'Elixires Base','Sangues':'Sangres','Seivas':'Savia','Fármacos Tradicionais':'Fármacos Tradicionales','Perfumes':'Perfumes','Culinária':'Cocina','Rações':'Alimentos de montarias e mascotes','Culinária Especial':'Cocina Especial','Pergaminhos':'Pergaminos','Trabalhadores energia':'Energía de trabajadores','Poções':'Pociones','Itens Tesouro':'Tesoros'}
 };
-let activeGroup = 'Culinária';
+let activeGroup = '';
+let categoryRequestToken = 0;
 
 window.applyRecipeData = function(nextData, group){
   DATA = Array.isArray(nextData) ? nextData : [];
@@ -934,12 +935,22 @@ document.getElementById('groupSidebar')?.addEventListener('click', (e)=>{
   e.preventDefault();
   e.stopPropagation();
   const group = btn.dataset.group;
-  if(!group || group===activeGroup) return;
+  if(!group) return;
+  const token = ++categoryRequestToken;
   activeGroup = group;
   buildSidebar();
   document.getElementById('groupSidebar')?.setAttribute('aria-busy','true');
-  window.loadRecipeCategory?.(group)?.catch(err=>console.error(err)).finally(()=>{
-    if(activeGroup===group) document.getElementById('groupSidebar')?.removeAttribute('aria-busy');
+  window.loadRecipeCategory?.(group).then(data=>{
+    if(token === categoryRequestToken && activeGroup === group){
+      window.applyRecipeData?.(data, group);
+    }
+  }).catch(err=>{
+    if(token !== categoryRequestToken || activeGroup !== group) return;
+    if(listEl){ listEl.innerHTML=''; }
+    if(emptyEl){ emptyEl.style.display='block'; emptyEl.textContent='Não foi possível carregar esta categoria.'; }
+    console.error('[Receitas]',err);
+  }).finally(()=>{
+    if(token === categoryRequestToken) document.getElementById('groupSidebar')?.removeAttribute('aria-busy');
   });
 });
 
@@ -1001,7 +1012,7 @@ document.getElementById('collapseAll')?.addEventListener('click', ()=>{
 if(listEl){
   const params=new URLSearchParams(location.search);
   const initialSearch=params.get('search')||'';
-  const initialGroup=params.get('group') || (document.body.dataset.page==='culinaria' ? 'Culinária' : 'Culinária');
+  const initialGroup=params.get('group') || document.body.dataset.defaultGroup || '';
   activeGroup = window.RECIPE_GROUP_COUNTS?.[initialGroup] != null ? initialGroup : (window.RECIPE_GROUPS?.[0] || GROUP_ORDER[0]);
   buildSidebar();
   const searchEl=document.getElementById('search'); if(searchEl) searchEl.value=initialSearch;
@@ -1013,7 +1024,7 @@ if(listEl){
       requestAnimationFrame(()=>{ const idx=DATA.findIndex(i=>i.name===initialItem); const el=document.querySelector(`.root-item[data-idx="${idx}"]`); if(el){hydrateRoot(el); el.classList.add('open'); el.scrollIntoView({block:'start'});} });
     }
   };
-  if(window.loadRecipeCategory){ window.loadRecipeCategory(activeGroup).then(()=>window.__LC_AFTER_CATEGORY_LOAD?.()).catch(err=>console.error(err)); }
+  if(window.loadRecipeCategory){ window.loadRecipeCategory(activeGroup).then(()=>window.__LC_AFTER_CATEGORY_LOAD?.()).catch(err=>{ console.error('[Receitas]',err); if(emptyEl){ emptyEl.style.display='block'; emptyEl.textContent='Não foi possível carregar a categoria.'; } }); }
 }
 
 // ---- Seletor de idioma ----
