@@ -1123,30 +1123,36 @@ document.getElementById('homeSearchForm')?.addEventListener('submit', (e)=>{
 });
 
 // Grade "Receitas em destaque" na Home: alguns atalhos pra árvore, um de cada grupo
-function openItemFromHome(name){
-  location.href='/receitas.html?item='+encodeURIComponent(name);
+// Inclui o grupo (categoria) de cada item, para abrir direto na categoria certa
+// em vez de depender da categoria padrão carregada em receitas.html.
+function openItemFromHome(name, group){
+  const qs = new URLSearchParams();
+  if(group) qs.set('group', group);
+  qs.set('item', name);
+  location.href='/receitas.html?'+qs.toString();
 }
 
 function buildHomePopular(){
   // Seleção visual baseada nas receitas que já existem na DATA.
   // Contadores reais de visualização exigem um armazenamento/backend; não inventamos números.
+  // "group" precisa bater exatamente com as chaves de window.RECIPE_GROUPS (recipe-loader.js).
   const picks = [
-    { name:'Fármaco da Harmonia', icon:'🧪', type:'Alquimia' },
-    { name:'Perfume de Coragem', icon:'🌸', type:'Alquimia' },
-    { name:'Refeição Simples de Cron', icon:'🍲', type:'Culinária' },
-    { name:'Bênção de Criatura Mística - PA Total', icon:'✨', type:'Alquimia' },
-    { name:'Perfume da Perseverança', icon:'🌸', type:'Alquimia' },
-    { name:'Fármaco da Armadura de Aço', icon:'🧪', type:'Alquimia' }
+    { name:'Fármaco da Harmonia', group:'Fármacos da Harmonia', icon:'🧪', type:'Alquimia' },
+    { name:'Perfume de Coragem', group:'Perfumes', icon:'🌸', type:'Alquimia' },
+    { name:'Refeição Simples de Cron', group:'Culinária', icon:'🍲', type:'Culinária' },
+    { name:'Bênção de Criatura Mística - PA Total', group:'Pergaminhos', icon:'✨', type:'Alquimia' },
+    { name:'Perfume da Perseverança', group:'Perfumes', icon:'🌸', type:'Alquimia' },
+    { name:'Fármaco da Armadura de Aço', group:'Fármacos Tradicionais', icon:'🧪', type:'Alquimia' }
   ];
   const homeGrid=document.getElementById('homePopularGrid');
   if(!homeGrid) return;
   document.getElementById('homePopularGrid').innerHTML = picks.map(p=>`
-    <button class="home-pop-item" data-name="${p.name}">
+    <button class="home-pop-item" data-name="${p.name}" data-group="${p.group}">
       <span class="hp-icon">${p.icon}</span><span class="hp-meta"><span class="hp-name">${tName(p.name)}</span><span class="hp-type">${currentLang==='es'?(p.type==='Culinária'?'Cocina':p.type):p.type}</span></span>
     </button>
   `).join('');
   document.querySelectorAll('.home-pop-item').forEach(btn=>{
-    btn.addEventListener('click', ()=> openItemFromHome(btn.dataset.name));
+    btn.addEventListener('click', ()=> openItemFromHome(btn.dataset.name, btn.dataset.group));
   });
 }
 
