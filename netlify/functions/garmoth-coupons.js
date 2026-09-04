@@ -9,11 +9,34 @@ const API_URLS = [
   'https://api.garmoth.com/api/coupons'
 ];
 
+// Headers que imitam um navegador real. O antigo user-agent "compatible; ...Coupons/1.0"
+// se identificava explicitamente como bot, o que faz proteções tipo Cloudflare barrarem
+// a requisição com 403 antes mesmo de tentar servir o conteúdo.
 const headers = {
-  'user-agent': 'Mozilla/5.0 (compatible; Lua-Crescente-Coupons/1.0; +https://luacrescente.netlify.app)',
-  'accept': 'application/json,text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
-  'accept-language': 'pt-BR,pt;q=0.9,en;q=0.8'
+  'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+  'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+  'accept-language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+  'referer': 'https://garmoth.com/',
+  'upgrade-insecure-requests': '1',
+  'sec-fetch-mode': 'navigate',
+  'sec-fetch-site': 'same-origin',
+  'sec-fetch-dest': 'document'
 };
+const apiHeaders = {
+  ...headers,
+  'accept': 'application/json,text/plain,*/*',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-site': 'same-site',
+  'referer': 'https://garmoth.com/coupons?server=sa'
+};
+
+// Plano B: se o Garmoth continuar bloqueando (403/JS challenge), busca a mesma página
+// através de um leitor de páginas de terceiros. Ele usa outro IP/infra e costuma passar
+// por bloqueios básicos de bot, além de já renderizar conteúdo carregado via JavaScript.
+const READER_URLS = [
+  'https://r.jina.ai/https://garmoth.com/coupons?server=sa'
+];
 
 function json(body, statusCode = 200) {
   return {
@@ -216,10 +239,45 @@ function normalizeApi(payload) {
 async function fetchApiCoupons() {
   for(const url of API_URLS) {
     try {
-      const r=await fetch(url,{headers,redirect:'follow'});
+      const r=await fetch(url,{headers:apiHeaders,redirect:'follow'});
       if(!r.ok) continue;
       const p=await r.json(); const c=normalizeApi(p);
       if(c.length) return c;
+    } catch (_) {}
+  }
+  return [];
+}
+
+// Parser para o texto "limpo" devolvido pelo leitor de páginas (sem tags HTML).
+// O código do cupom normalmente aparece como texto visível na página (não só
+// como valor de <input>), então procuramos tokens que parecem cupom e olhamos
+// o texto ao redor pra achar validade e recompensas ("5x Nome do Item").
+function parseReaderText(text) {
+  if(!text) return [];
+  const found=[];
+  const tokenRe=/\b(?:[A-Z0-9]{4}-){2,8}[A-Z0-9]{2,8}\b|\b[A-Z0-9]{10,32}\b/g;
+  for(const m of text.matchAll(tokenRe)) {
+    const code=normalizeCode(m[0]);
+    if(!looksLikeCoupon(code)) continue;
+    const start=Math.max(0,m.index-600);
+    const end=Math.min(text.length,m.index+2000);
+    const block=text.slice(start,end);
+    const items=[];
+    for(const lm of block.matchAll(/(\d+)\s*[xX]\s+([^\n]{2,80})/g)) {
+      items.push(`${lm[1]}x ${lm[2].trim()}`);
+    }
+    found.push({code,expiry:expiryFrom(block),items,images:[],source:'Garmoth (reader)'});
+  }
+  return uniqueCoupons(found);
+}
+async function fetchReaderCoupons() {
+  for(const url of READER_URLS) {
+    try {
+      const r=await fetch(url,{headers:{'accept':'text/plain,text/markdown,text/html;q=0.9,*/*;q=0.8'},redirect:'follow'});
+      if(!r.ok) continue;
+      const text=await r.text();
+      const coupons=parseReaderText(text);
+      if(coupons.length) return coupons;
     } catch (_) {}
   }
   return [];
@@ -291,10 +349,14 @@ exports.handler=async function(event){
   try {
     const api=await fetchApiCoupons();
     if(api.length) return json({source:'garmoth-api',region:'sa',updatedAt:new Date().toISOString(),coupons:api});
-    const page=await fetchPage();
-    const coupons=parseGarmothHtml(page.html,page.url);
-    if(coupons.length) return json({source:'garmoth-page',region:'sa',updatedAt:new Date().toISOString(),coupons});
-    throw new Error('Garmoth respondeu, mas nenhum cupom foi identificado.');
+    try {
+      const page=await fetchPage();
+      const coupons=parseGarmothHtml(page.html,page.url);
+      if(coupons.length) return json({source:'garmoth-page',region:'sa',updatedAt:new Date().toISOString(),coupons});
+    } catch(_) { /* segue pro plano B (leitor de páginas) antes de desistir */ }
+    const readerCoupons=await fetchReaderCoupons();
+    if(readerCoupons.length) return json({source:'garmoth-reader',region:'sa',updatedAt:new Date().toISOString(),coupons:readerCoupons});
+    throw new Error('Garmoth respondeu, mas nenhum cupom foi identificado (API, página e leitor falharam).');
   } catch(error) {
     return json({source:'cache',region:'sa',updatedAt:new Date().toISOString(),coupons:KNOWN_CURRENT,warning:String(error.message||error)});
   }
