@@ -19,6 +19,8 @@
     font-family:'Inter',sans-serif;
     min-height:100vh;
     padding:0;
+    display:flex;
+    flex-direction:column;
   }
 
   /* ---- Navegação principal do site ---- */
@@ -1196,13 +1198,14 @@
      aviso legal. */
   .site-footer{
     max-width:none;
-    margin:28px 0 0;
+    margin-top:auto;
     padding:0;
+    width:100%;
     background:rgba(11,12,16,.92);
     border-top:1px solid var(--border);
   }
   .footer-columns-wrap{max-width:1180px;margin:0 auto;padding:34px 32px 24px;}
-  .footer-columns{display:flex;flex-wrap:wrap;gap:34px 48px;}
+  .footer-columns{display:flex;flex-wrap:wrap;justify-content:space-between;gap:34px 48px;}
   .footer-col-brand{flex:1 1 220px;min-width:200px;}
   .footer-col{flex:0 1 160px;min-width:140px;display:flex;flex-direction:column;gap:9px;}
   .footer-brand{display:flex;align-items:center;gap:10px;color:#c9a24b;font-weight:800;font-size:15px;letter-spacing:.02em;}
@@ -1218,7 +1221,7 @@
   .footer-legal-bar{
     border-top:1px solid rgba(255,255,255,.06);
     padding:14px 32px;
-    color:#7f8790;text-align:left;font-size:10px;line-height:1.6;
+    color:#7f8790;text-align:center;font-size:10px;line-height:1.6;
   }
   .footer-legal-bar strong{color:#a7adb5;font-weight:500;}
   @media(max-width:760px){
@@ -1508,6 +1511,28 @@ body::before,body::after{content:none !important;display:none !important;}
 .alch-main{
   position:relative;
   z-index:1;
+}
+
+/* v75 — corrige o menu sanduíche da sidebar no mobile: a regra v65 acima
+   (position:sticky !important / z-index:10 !important) tinha prioridade
+   maior que a regra do painel deslizante (que não usava !important),
+   então a sidebar nunca saía do lugar normal e ficava atrás do fundo
+   escurecido — parecendo "borrada" e travando os cliques. Como esta regra
+   tem uma classe a mais (.mobile-open), ela vence mesmo com !important
+   dos dois lados. */
+.group-sidebar.mobile-open{
+  position:fixed !important;
+  z-index:121 !important;
+}
+/* O .site-page (ancestral da sidebar) tem seu próprio contexto de
+   empilhamento com z-index baixo (pra ficar atrás do menu durante a
+   rolagem normal). Isso significa que NADA dentro dele — nem a sidebar
+   com z-index:121 — consegue aparecer visualmente acima do menu, porque
+   a comparação de z-index só vale dentro do mesmo contexto. Quando o
+   painel mobile está aberto, elevamos o contexto do .site-page inteiro
+   pra ele poder ficar por cima do menu, como um menu gaveta de verdade. */
+body.group-sidebar-open .site-page{
+  z-index:130 !important;
 }
 
 /* v66 — corrige o menu (.site-nav) ficando atrás da sidebar ao rolar.
