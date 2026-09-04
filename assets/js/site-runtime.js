@@ -1212,7 +1212,7 @@ async function loadBdoCoupons(){
           return `<div class="coupon-reward" title="${escapeHtml(name)}">${img?`<img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" data-itemid="${escapeHtml((img.match(/item\/(\d+)\.png/i)||[])[1]||'')}" data-name="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src='/.netlify/functions/garmoth-coupons?icon='+encodeURIComponent(this.dataset.itemid||'')+'&name='+encodeURIComponent(this.dataset.name||'')}else{this.onerror=null;this.style.display='none';this.parentElement.querySelector('.reward-fallback').style.display='flex'}">`:''}<span class="reward-fallback">${escapeHtml(name.slice(0,2).toUpperCase())}</span>${qty?`<span class="reward-qty">${escapeHtml(qty)}</span>`:''}<span class="reward-name">${escapeHtml(name)}</span></div>`;
         }).join('')}
         </div>
-        <div class="coupon-card-foot"><span>${payload.source==='cache'?'Última atualização conhecida':'Atualizado automaticamente'}</span><a href="https://garmoth.com/coupons/?server=sa" target="_blank" rel="noopener noreferrer">Garmoth ↗</a></div>
+        <div class="coupon-card-foot"><span>${payload.source==='cache'?'Última atualização conhecida':(payload.source==='discord'?'Atualizado via Discord':'Atualizado automaticamente')}</span><a href="https://garmoth.com/coupons/?server=sa" target="_blank" rel="noopener noreferrer">Garmoth ↗</a></div>
       </article>`;
     }).join('');
 

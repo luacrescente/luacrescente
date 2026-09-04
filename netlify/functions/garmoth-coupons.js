@@ -9,6 +9,12 @@ const API_URLS = [
   'https://api.garmoth.com/api/coupons'
 ];
 
+// Fonte principal: o bot oficial do Garmoth já posta cada cupom novo no canal
+// #cupom do Discord da guilda assim que é lançado. Ler dali é muito mais
+// confiável do que tentar acessar garmoth.com direto (que bloqueia com 403).
+// O ID do canal pode ser sobrescrito por variável de ambiente se precisar.
+const DISCORD_COUPON_CHANNEL_ID = process.env.DISCORD_COUPON_CHANNEL_ID || '1444891990452994199';
+
 // Headers que imitam um navegador real. O antigo user-agent "compatible; ...Coupons/1.0"
 // se identificava explicitamente como bot, o que faz proteções tipo Cloudflare barrarem
 // a requisição com 403 antes mesmo de tentar servir o conteúdo.
@@ -282,6 +288,63 @@ async function fetchReaderCoupons() {
   }
   return [];
 }
+
+// Extrai um cupom de um embed de mensagem do Discord (formato que o bot do
+// Garmoth usa: título, descrição, campos "Expires"/"Items" e uma thumbnail
+// com o ícone do item). Só aceita embeds que mencionem o Garmoth, pra não
+// confundir com outras mensagens do canal.
+function parseDiscordEmbedCoupon(embed) {
+  if(!embed) return null;
+  const fields = Array.isArray(embed.fields) ? embed.fields : [];
+  const haystack = [embed.title, embed.description, embed.footer && embed.footer.text, embed.author && embed.author.name]
+    .concat(fields.map(f=>`${f.name} ${f.value}`))
+    .filter(Boolean).join('\n');
+  if(!/garmoth/i.test(haystack)) return null;
+
+  const tokenRe=/\b(?:[A-Z0-9]{4}-){2,8}[A-Z0-9]{2,8}\b|\b[A-Z0-9]{10,32}\b/g;
+  const codeCandidates=[...haystack.matchAll(tokenRe)].map(m=>normalizeCode(m[0]));
+  const code=codeCandidates.find(looksLikeCoupon);
+  if(!code) return null;
+
+  const expiryField=fields.find(f=>/expir|⏳/i.test(f.name||''));
+  const itemsField=fields.find(f=>/item|🎁|recompensa/i.test(f.name||''));
+  let expiry=expiryField ? String(expiryField.value||'').trim() : 'Cupom ativo';
+  expiry=decodeHtml(expiry).replace(/\n+/g,' ').trim();
+  if(expiry && !/expir/i.test(expiry)) expiry=`Expira ${expiry}`;
+
+  const itemLines=itemsField ? String(itemsField.value||'').split(/\n+/).map(s=>decodeHtml(s.trim())).filter(Boolean) : [];
+  const thumb=(embed.thumbnail && embed.thumbnail.url) || (embed.image && embed.image.url) || '';
+  const items=itemLines.map((line,i)=>{
+    const m=line.match(/^(\d+)\s*[xX]\s*(.*)$/);
+    const qty=m?m[1]:'';
+    const name=m?m[2].trim():line;
+    return {name,qty,image:i===0?thumb:''};
+  });
+
+  return {code,expiry,items,images:thumb?[thumb]:[],source:'Garmoth (Discord)'};
+}
+
+async function fetchDiscordCoupons() {
+  const token=process.env.DISCORD_BOT_TOKEN;
+  if(!token) throw new Error('DISCORD_BOT_TOKEN não configurado');
+  const r=await fetch(`https://discord.com/api/v10/channels/${DISCORD_COUPON_CHANNEL_ID}/messages?limit=30`,{
+    headers:{'authorization':`Bot ${token}`}
+  });
+  if(!r.ok) throw new Error(`Discord API ${r.status}`);
+  const messages=await r.json();
+  if(!Array.isArray(messages)) throw new Error('Discord API retornou formato inesperado');
+  const found=[];
+  // Mensagens vêm da mais nova pra mais antiga; mantemos essa ordem.
+  for(const msg of messages) {
+    const embeds=Array.isArray(msg.embeds) ? msg.embeds : [];
+    for(const embed of embeds) {
+      const parsed=parseDiscordEmbedCoupon(embed);
+      if(parsed) found.push(parsed);
+    }
+  }
+  return uniqueCoupons(found);
+}
+
 async function fetchPage() {
   let last='';
   for(const url of GARMOTH_URLS) {
@@ -347,6 +410,14 @@ exports.handler=async function(event){
     return {statusCode:404,body:''};
   }
   try {
+    // Fonte principal: canal do Discord onde o bot do Garmoth posta cada
+    // cupom assim que é lançado. Muito mais confiável que acessar garmoth.com
+    // direto, que vem bloqueando com 403.
+    try {
+      const discordCoupons=await fetchDiscordCoupons();
+      if(discordCoupons.length) return json({source:'discord',region:'sa',updatedAt:new Date().toISOString(),coupons:discordCoupons});
+    } catch(_) { /* segue pras tentativas de acessar o Garmoth direto */ }
+
     const api=await fetchApiCoupons();
     if(api.length) return json({source:'garmoth-api',region:'sa',updatedAt:new Date().toISOString(),coupons:api});
     try {
@@ -356,7 +427,7 @@ exports.handler=async function(event){
     } catch(_) { /* segue pro plano B (leitor de páginas) antes de desistir */ }
     const readerCoupons=await fetchReaderCoupons();
     if(readerCoupons.length) return json({source:'garmoth-reader',region:'sa',updatedAt:new Date().toISOString(),coupons:readerCoupons});
-    throw new Error('Garmoth respondeu, mas nenhum cupom foi identificado (API, página e leitor falharam).');
+    throw new Error('Garmoth respondeu, mas nenhum cupom foi identificado (Discord, API, página e leitor falharam).');
   } catch(error) {
     return json({source:'cache',region:'sa',updatedAt:new Date().toISOString(),coupons:KNOWN_CURRENT,warning:String(error.message||error)});
   }
