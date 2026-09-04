@@ -1120,3 +1120,23 @@
 @media(max-width:700px){.coupons-section{padding-left:18px;padding-right:18px}}
 
 .ingredient-icon{width:22px;height:22px;object-fit:contain;display:block;flex:0 0 22px;margin-right:6px;vertical-align:middle;}
+
+/* v71 — botão "Ver todos os cupons" (antes era link pro Garmoth) e modal
+   com os cupons no estilo do card que o bot posta no Discord, trocando
+   o mascote/dragão pelo símbolo da guilda e "Garmoth Coupons" por
+   "Enceladus Cupons". */
+.coupons-link{cursor:pointer;font:inherit;}
+.coupons-modal-dialog{max-width:640px;}
+.discord-coupon-list{display:flex;flex-direction:column;gap:14px;margin-top:16px;max-height:60vh;overflow-y:auto;padding-right:4px;}
+.discord-coupon-card{position:relative;background:#1a1e23;border:1px solid #2c3138;border-radius:8px;padding:14px 16px 12px 18px;overflow:hidden;}
+.discord-coupon-card:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#e8c85d,#8b6c25);}
+.discord-coupon-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.discord-coupon-brand{color:#8fb4e0;font-weight:700;font-size:15px;}
+.discord-coupon-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:0 0 44px;background:#11151a;border:1px solid #2c3138;}
+.discord-coupon-code{margin-top:10px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:9px 12px;font-family:Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:.02em;color:#f2e6c4;word-break:break-all;}
+.discord-coupon-field-label{font-size:12px;color:#9aa1a9;margin-top:11px;font-weight:600;display:flex;align-items:center;gap:5px;}
+.discord-coupon-field-value{font-size:13px;color:#dde1e6;margin-top:2px;}
+.discord-coupon-item-row{display:flex;align-items:center;gap:9px;margin-top:8px;}
+.discord-coupon-item-icon{width:44px;height:44px;border:1px solid rgba(201,162,75,.4);border-radius:6px;object-fit:cover;background:#101216;}
+.discord-coupon-footer{margin-top:11px;padding-top:9px;border-top:1px solid #262b31;font-size:10.5px;color:#767f89;}
+@media(max-width:700px){.discord-coupon-list{max-height:56vh;}}

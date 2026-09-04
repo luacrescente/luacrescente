@@ -293,6 +293,26 @@ async function fetchReaderCoupons() {
 // Garmoth usa: título, descrição, campos "Expires"/"Items" e uma thumbnail
 // com o ícone do item). Só aceita embeds que mencionem o Garmoth, pra não
 // confundir com outras mensagens do canal.
+// O Discord posta a validade como um timestamp dinâmico do próprio Discord,
+// tipo "<t:1790899140:R>", que o cliente Discord troca por "em 14 dias" na
+// hora de exibir. Como recebemos o texto cru pela API, fazemos essa conta
+// nós mesmos aqui.
+function formatDiscordTimestamps(raw) {
+  if(!raw) return raw;
+  return raw.replace(/<t:(-?\d+):[a-zA-Z]>/g,(_,secs)=>{
+    const ms=Number(secs)*1000;
+    if(!Number.isFinite(ms)) return '';
+    const diff=ms-Date.now();
+    if(diff<=0) return 'expirado';
+    const hours=diff/3600000;
+    if(hours<20) return `em ${Math.max(1,Math.round(hours))} hora${Math.round(hours)===1?'':'s'}`;
+    const days=Math.round(diff/86400000);
+    if(days<60) return `em ${days} dia${days===1?'':'s'}`;
+    const months=Math.round(days/30);
+    return `em ${months} ${months===1?'mês':'meses'}`;
+  });
+}
+
 function parseDiscordEmbedCoupon(embed) {
   if(!embed) return null;
   const fields = Array.isArray(embed.fields) ? embed.fields : [];
@@ -309,11 +329,15 @@ function parseDiscordEmbedCoupon(embed) {
   const expiryField=fields.find(f=>/expir|⏳/i.test(f.name||''));
   const itemsField=fields.find(f=>/item|🎁|recompensa/i.test(f.name||''));
   let expiry=expiryField ? String(expiryField.value||'').trim() : 'Cupom ativo';
+  expiry=formatDiscordTimestamps(expiry);
   expiry=decodeHtml(expiry).replace(/\n+/g,' ').trim();
   if(expiry && !/expir/i.test(expiry)) expiry=`Expira ${expiry}`;
 
   const itemLines=itemsField ? String(itemsField.value||'').split(/\n+/).map(s=>decodeHtml(s.trim())).filter(Boolean) : [];
-  const thumb=(embed.thumbnail && embed.thumbnail.url) || (embed.image && embed.image.url) || '';
+  // O Discord usa "thumbnail" pro avatar do bot (o dragãozinho, no canto
+  // superior direito) e "image" pro ícone do item em si (abaixo dos campos).
+  // Tínhamos isso invertido, por isso aparecia o mascote no lugar do item.
+  const thumb=(embed.image && embed.image.url) || (embed.thumbnail && embed.thumbnail.url) || '';
   const items=itemLines.map((line,i)=>{
     const m=line.match(/^(\d+)\s*[xX]\s*(.*)$/);
     const qty=m?m[1]:'';

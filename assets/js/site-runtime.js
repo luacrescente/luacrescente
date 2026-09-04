@@ -1172,6 +1172,68 @@ function rewardIconFallback(name){
   return id ? `/.netlify/functions/garmoth-coupons?icon=${encodeURIComponent(id)}` : '';
 }
 
+let lastCouponsPayload=null;
+const couponsModal=document.getElementById('couponsModal');
+const couponsModalList=document.getElementById('couponsModalList');
+
+// Monta os cartões no estilo da mensagem que o bot posta no Discord, mas com
+// o símbolo da guilda (Lua Crescente) e "Enceladus Cupons" no lugar do
+// dragãozinho e do nome "Garmoth Coupons".
+function renderCouponsModal(payload){
+  if(!couponsModalList) return;
+  const coupons=Array.isArray(payload?.coupons)?payload.coupons:[];
+  if(!coupons.length){
+    couponsModalList.innerHTML='<div class="coupons-status coupons-error">Os cupons estão temporariamente indisponíveis.</div>';
+    return;
+  }
+  couponsModalList.innerHTML=coupons.map(c=>{
+    const code=String(c.code||'').trim();
+    const expiry=String(c.expiry||'Cupom ativo');
+    const items=Array.isArray(c.items)?c.items:[];
+    const itemsHtml=items.length?items.map(item=>{
+      const raw=typeof item==='string'?item:(item?.name||'Recompensa');
+      const m=String(raw).match(/^(\d+)x\s*(.*)$/i);
+      const qty=(typeof item==='object' && item?.qty) ? String(item.qty) : (m?m[1]:'');
+      const name=(typeof item==='object' && item?.name) ? String(item.name) : (m?m[2]:String(raw));
+      const img=(typeof item==='object' && item?.image) ? String(item.image) : rewardIconFallback(name);
+      return `<div class="discord-coupon-item-row">${img?`<img class="discord-coupon-item-icon" src="${escapeHtml(img)}" alt="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer">`:''}<span class="discord-coupon-field-value">${qty?escapeHtml(qty)+'x ':''}${escapeHtml(name)}</span></div>`;
+    }).join(''):'<div class="discord-coupon-field-value">Recompensas do cupom</div>';
+    return `<article class="discord-coupon-card">
+      <div class="discord-coupon-head">
+        <span class="discord-coupon-brand">Enceladus Cupons</span>
+        <img class="discord-coupon-avatar" src="/assets/img/enceladus-mascote.png" alt="Lua Crescente">
+      </div>
+      <div class="discord-coupon-code">${escapeHtml(code)}</div>
+      <div class="discord-coupon-field-label">⏳ Expira</div>
+      <div class="discord-coupon-field-value">${escapeHtml(expiry)}</div>
+      <div class="discord-coupon-field-label">🎁 Itens</div>
+      ${itemsHtml}
+      <div class="discord-coupon-footer">Fornecido pela guilda · Lua Crescente</div>
+    </article>`;
+  }).join('');
+}
+function hideCouponsModal(restoreFocus=true){
+  if(!couponsModal) return;
+  couponsModal.classList.remove('open');
+  couponsModal.setAttribute('aria-hidden','true');
+  document.body.classList.remove('modal-open');
+  if(restoreFocus && lastFocusedElement && typeof lastFocusedElement.focus==='function') lastFocusedElement.focus();
+}
+function openCouponsModal(){
+  if(!couponsModal) return;
+  lastFocusedElement=document.activeElement;
+  if(lastCouponsPayload) renderCouponsModal(lastCouponsPayload);
+  couponsModal.classList.add('open');
+  couponsModal.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  closeMobileMenu();
+  requestAnimationFrame(()=>couponsModal.querySelector('.guild-modal-close')?.focus());
+}
+document.getElementById('openCouponsModalBtn')?.addEventListener('click',openCouponsModal);
+couponsModal?.querySelectorAll('[data-coupons-modal-close]').forEach(el=>el.addEventListener('click',()=>hideCouponsModal()));
+couponsModal?.querySelector('.coupons-modal-dialog')?.addEventListener('click',(e)=>e.stopPropagation());
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&couponsModal?.classList.contains('open'))hideCouponsModal()});
+
 async function loadBdoCoupons(){
   const track=document.getElementById('couponTrack');
   if(!track) return;
@@ -1181,6 +1243,8 @@ async function loadBdoCoupons(){
     const payload=await r.json();
     const coupons=Array.isArray(payload.coupons)?payload.coupons:[];
     if(!coupons.length) throw new Error('nenhum cupom ativo encontrado');
+    lastCouponsPayload=payload;
+    renderCouponsModal(payload);
 
     track.innerHTML=coupons.map(c=>{
       const code=String(c.code||'').trim();
@@ -1191,7 +1255,7 @@ async function loadBdoCoupons(){
       const moreCount=Math.max(0,fallbackItems.length-visibleCount);
       return `<article class="coupon-card ${c.source==='fallback'?'coupon-card-fallback':''}">
         <div class="coupon-card-head">
-          <div class="coupon-badge">GARMOTH.COM</div>
+          <div class="coupon-badge">ENCELADUS CUPONS</div>
           <span class="coupon-server">🇧🇷 SA</span>
         </div>
         <div class="coupon-code-row">
@@ -1212,7 +1276,7 @@ async function loadBdoCoupons(){
           return `<div class="coupon-reward" title="${escapeHtml(name)}">${img?`<img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" data-itemid="${escapeHtml((img.match(/item\/(\d+)\.png/i)||[])[1]||'')}" data-name="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src='/.netlify/functions/garmoth-coupons?icon='+encodeURIComponent(this.dataset.itemid||'')+'&name='+encodeURIComponent(this.dataset.name||'')}else{this.onerror=null;this.style.display='none';this.parentElement.querySelector('.reward-fallback').style.display='flex'}">`:''}<span class="reward-fallback">${escapeHtml(name.slice(0,2).toUpperCase())}</span>${qty?`<span class="reward-qty">${escapeHtml(qty)}</span>`:''}<span class="reward-name">${escapeHtml(name)}</span></div>`;
         }).join('')}
         </div>
-        <div class="coupon-card-foot"><span>${payload.source==='cache'?'Última atualização conhecida':(payload.source==='discord'?'Atualizado via Discord':'Atualizado automaticamente')}</span><a href="https://garmoth.com/coupons/?server=sa" target="_blank" rel="noopener noreferrer">Garmoth ↗</a></div>
+        <div class="coupon-card-foot"><span>${payload.source==='cache'?'Última atualização conhecida':(payload.source==='discord'?'Atualizado via Discord':'Atualizado automaticamente')}</span></div>
       </article>`;
     }).join('');
 
@@ -1226,7 +1290,7 @@ async function loadBdoCoupons(){
       }catch{}
     }));
   }catch(err){
-    track.innerHTML='<div class="coupons-status coupons-error">Os cupons estão temporariamente indisponíveis. <a href="https://garmoth.com/coupons/?server=sa" target="_blank" rel="noopener noreferrer">Ver cupons no Garmoth ↗</a></div>';
+    track.innerHTML='<div class="coupons-status coupons-error">Os cupons estão temporariamente indisponíveis. Tente novamente em instantes.</div>';
     console.warn('[Cupons]',err);
   }
 }

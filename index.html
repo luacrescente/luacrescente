@@ -7,7 +7,7 @@
 <title>Lua Crescente · Santuário</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/coupons.css?v=55">
+<link rel="stylesheet" href="/assets/css/coupons.css?v=71">
 <meta name="lua-crescente-build" content="v57">
   <link rel="stylesheet" href="/assets/css/site.css?v=66">
   
@@ -104,9 +104,9 @@
       <div class="coupons-head">
         <div>
           <h2 class="coupons-title" id="bdoCouponsTitle">🎟️ Cupons do BDO</h2>
-          <p class="coupons-sub">Cupons ativos do servidor SA, atualizados automaticamente pelo Garmoth.</p>
+          <p class="coupons-sub">Cupons ativos do servidor SA, atualizados automaticamente pelo canal de cupons da guilda no Discord.</p>
         </div>
-        <a class="coupons-link" href="https://garmoth.com/coupons/?server=sa" target="_blank" rel="noopener noreferrer">Ver no Garmoth ↗</a>
+        <button class="coupons-link" type="button" id="openCouponsModalBtn">Ver todos os cupons ↗</button>
       </div>
       <div id="couponTrack" class="coupons-track" aria-live="polite">
         <div class="coupons-status">Carregando cupons…</div>
@@ -135,6 +135,16 @@
     <div class="guild-modal-note" data-i18n="modal_note">um lugar que possam chamar de lar.</div>
   </div>
 </div>
+<div class="guild-modal coupons-modal" id="couponsModal" aria-hidden="true">
+  <div class="guild-modal-backdrop" data-coupons-modal-close></div>
+  <div class="guild-modal-dialog coupons-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="couponsModalTitle">
+    <button class="guild-modal-close" type="button" aria-label="Fechar" data-coupons-modal-close>×</button>
+    <div class="guild-modal-eyebrow">Lua Crescente · Cupons</div>
+    <h2 id="couponsModalTitle">🎟️ Todos os cupons ativos</h2>
+    <p style="margin-top:-6px;">Lidos automaticamente do canal de cupons da guilda no Discord.</p>
+    <div id="couponsModalList" class="discord-coupon-list"><div class="coupons-status">Carregando cupons…</div></div>
+  </div>
+</div>
 <footer class="site-footer" aria-label="Aviso legal">
   santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. <strong>© 2026 santuarioluacrescente.netlify.app</strong>
 </footer>
@@ -145,6 +155,6 @@
 <script src="/assets/js/world-cycle.js?v=64" defer></script>
 <script src="/assets/js/guild-boss-timer.js?v=64" defer></script>
 <script src="/assets/js/boss-timer.js?v=64" defer></script>
-<script src="/assets/js/site-runtime.js?v=66" defer></script>
+<script src="/assets/js/site-runtime.js?v=71" defer></script>
 </body>
 </html>
