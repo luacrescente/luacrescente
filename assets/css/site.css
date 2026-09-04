@@ -1190,36 +1190,42 @@
   }
 
 
-  /* Rodapé global — exibido em todas as páginas da SPA */
+  /* Rodapé global — exibido em todas as páginas da SPA. Ponta a ponta da
+     tela, na mesma cor do menu principal, em colunas (igual a sites
+     grandes de referência do BDO), com uma barra final estreita pro
+     aviso legal. */
   .site-footer{
-    max-width:1180px;
-    margin:28px auto 0;
+    max-width:none;
+    margin:28px 0 0;
     padding:0;
+    background:rgba(11,12,16,.92);
+    border-top:1px solid var(--border);
   }
-  .footer-nav-inner{
-    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
-    padding:22px 32px 16px;
-    border-top:1px solid rgba(201,162,75,.18);
-  }
-  .footer-brand{display:flex;align-items:center;gap:10px;color:#c9a24b;font-weight:800;font-size:14px;letter-spacing:.02em;}
-  .footer-brand-icon{width:28px;height:28px;border-radius:50%;object-fit:cover;}
-  .footer-links{display:flex;flex-wrap:wrap;gap:8px 22px;}
-  .footer-links a,.footer-links button{
-    background:none;border:none;padding:0;margin:0;font:inherit;
-    color:#9aa1a9;font-size:12.5px;cursor:pointer;text-decoration:none;
+  .footer-columns-wrap{max-width:1180px;margin:0 auto;padding:34px 32px 24px;}
+  .footer-columns{display:flex;flex-wrap:wrap;gap:34px 48px;}
+  .footer-col-brand{flex:1 1 220px;min-width:200px;}
+  .footer-col{flex:0 1 160px;min-width:140px;display:flex;flex-direction:column;gap:9px;}
+  .footer-brand{display:flex;align-items:center;gap:10px;color:#c9a24b;font-weight:800;font-size:15px;letter-spacing:.02em;}
+  .footer-brand-icon{width:30px;height:30px;border-radius:50%;object-fit:cover;}
+  .footer-brand-tag{margin:10px 0 0;color:#7f8790;font-size:11.5px;line-height:1.55;max-width:240px;}
+  .footer-col-title{color:#9aa1a9;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;}
+  .footer-col a,.footer-col button{
+    background:none;border:none;padding:0;margin:0;font:inherit;text-align:left;
+    color:#c7cbd1;font-size:13px;cursor:pointer;text-decoration:none;
     transition:color .15s;
   }
-  .footer-links a:hover,.footer-links button:hover{color:var(--gold,#d7b95b);}
-  .footer-legal{
-    padding:14px 32px 22px;
-    color:#7f8790;text-align:center;font-size:10px;line-height:1.6;
-    border-top:1px solid rgba(255,255,255,.04);
+  .footer-col a:hover,.footer-col button:hover{color:var(--gold,#c9a24b);}
+  .footer-legal-bar{
+    border-top:1px solid rgba(255,255,255,.06);
+    padding:14px 32px;
+    color:#7f8790;text-align:left;font-size:10px;line-height:1.6;
   }
-  .footer-legal strong{color:#a7adb5;font-weight:500;}
-  @media(max-width:700px){
-    .footer-nav-inner{padding:18px 18px 12px;flex-direction:column;align-items:flex-start;}
-    .footer-links{gap:8px 16px;font-size:11px;}
-    .footer-legal{padding:12px 18px 20px;font-size:9px;}
+  .footer-legal-bar strong{color:#a7adb5;font-weight:500;}
+  @media(max-width:760px){
+    .footer-columns-wrap{padding:26px 18px 18px;}
+    .footer-columns{gap:24px;}
+    .footer-col-brand{flex-basis:100%;}
+    .footer-legal-bar{padding:12px 18px;font-size:9px;}
   }
 
   /* Modais de rodapé (privacidade, termos, changelog) — reaproveita a

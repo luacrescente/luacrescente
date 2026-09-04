@@ -1295,14 +1295,15 @@ const FOOTER_TERMS_HTML = `
 // nova, troque o conteúdo abaixo — o texto da versão anterior não fica
 // mais disponível pra leitura (por pedido explícito do dono do site).
 const FOOTER_CHANGELOG_HTML = `
-  <div class="changelog-version">Versão 72</div>
+  <div class="changelog-version">Versão 73</div>
   <div class="changelog-date">4 de setembro de 2026</div>
   <ul>
     <li>Cupons: até 4 ícones de recompensa (com selo de quantidade) na área principal do site, e todos os itens com ícone no modal "Ver todos os cupons".</li>
     <li>Corrigido o modal de cupons pra mostrar a descrição completa de cada um corretamente.</li>
     <li>Cupons agora ficam limitados a no máximo 10 simultâneos — os mais antigos saem da lista automaticamente conforme novos chegam.</li>
     <li>Menu sanduíche para a lista de categorias de receitas no modo mobile (antes ocupava a tela toda em lista fixa).</li>
-    <li>Rodapé reformulado em estilo menu, com links pra Receitas, Sala de Aula, Política de Privacidade, Termos de Serviço e este Registro de Alterações.</li>
+    <li>Rodapé redesenhado em colunas, ponta a ponta da tela e na cor do menu principal, com links pra Receitas, Sala de Aula, Cupons, Política de Privacidade, Termos de Serviço e este Registro de Alterações.</li>
+    <li>Botão "Ver todos os cupons" com o mesmo estilo do botão "Saiba mais sobre a guilda", pra padronizar a aparência dos botões do site.</li>
     <li>Créditos dos cupons atualizados para "Provided by Lua Crescente".</li>
   </ul>
 `;

@@ -1125,7 +1125,8 @@
    com os cupons no estilo do card que o bot posta no Discord, trocando
    o mascote/dragão pelo símbolo da guilda e "Garmoth Coupons" por
    "Enceladus Cupons". */
-.coupons-link{cursor:pointer;font:inherit;}
+.coupons-link{cursor:pointer;font:inherit;background:transparent;border:1px solid #806b3d;color:var(--gold,#c9a24b);padding:9px 14px;border-radius:6px;font-weight:600;font-size:11px;letter-spacing:.02em;transition:background .15s ease;}
+.coupons-link:hover{background:rgba(201,162,75,.08);}
 .coupons-modal-dialog{max-width:640px;}
 .discord-coupon-list{display:flex;flex-direction:column;gap:14px;margin-top:16px;max-height:60vh;overflow-y:auto;padding-right:4px;}
 .discord-coupon-card{position:relative;background:#1a1e23;border:1px solid #2c3138;border-radius:8px;padding:14px 16px 12px 18px;overflow:hidden;}
