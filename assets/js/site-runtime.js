@@ -939,6 +939,7 @@ document.getElementById('groupSidebar')?.addEventListener('click', (e)=>{
   const token = ++categoryRequestToken;
   activeGroup = group;
   buildSidebar();
+  closeGroupSidebarMobile();
   document.getElementById('groupSidebar')?.setAttribute('aria-busy','true');
   window.loadRecipeCategory?.(group).then(data=>{
     if(token === categoryRequestToken && activeGroup === group){
@@ -952,6 +953,27 @@ document.getElementById('groupSidebar')?.addEventListener('click', (e)=>{
   }).finally(()=>{
     if(token === categoryRequestToken) document.getElementById('groupSidebar')?.removeAttribute('aria-busy');
   });
+});
+
+// v72 — menu sanduíche da sidebar de categorias no mobile
+function openGroupSidebarMobile(){
+  document.getElementById('groupSidebar')?.classList.add('mobile-open');
+  document.body.classList.add('group-sidebar-open');
+  document.getElementById('groupSidebarToggle')?.setAttribute('aria-expanded','true');
+}
+function closeGroupSidebarMobile(){
+  document.getElementById('groupSidebar')?.classList.remove('mobile-open');
+  document.body.classList.remove('group-sidebar-open');
+  document.getElementById('groupSidebarToggle')?.setAttribute('aria-expanded','false');
+}
+document.getElementById('groupSidebarToggle')?.addEventListener('click',()=>{
+  const sidebar=document.getElementById('groupSidebar');
+  if(sidebar?.classList.contains('mobile-open')) closeGroupSidebarMobile();
+  else openGroupSidebarMobile();
+});
+document.getElementById('groupSidebarBackdrop')?.addEventListener('click', closeGroupSidebarMobile);
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape' && document.getElementById('groupSidebar')?.classList.contains('mobile-open')) closeGroupSidebarMobile();
 });
 
 function draw(filter){
@@ -1186,18 +1208,22 @@ function renderCouponsModal(payload){
     couponsModalList.innerHTML='<div class="coupons-status coupons-error">Os cupons estão temporariamente indisponíveis.</div>';
     return;
   }
-  couponsModalList.innerHTML=coupons.map(c=>{
+  couponsModalList.innerHTML=coupons.slice(0,10).map(c=>{
     const code=String(c.code||'').trim();
     const expiry=String(c.expiry||'Cupom ativo');
     const items=Array.isArray(c.items)?c.items:[];
-    const itemsHtml=items.length?items.map(item=>{
+    const fallbackItems=items.length?items:['Recompensas do cupom'];
+    // Modal mostra TODOS os itens do cupom (sem limite), no mesmo estilo de
+    // ícone+quantidade da área comum, só que sem cortar em 4.
+    const itemsHtml=fallbackItems.map(item=>{
       const raw=typeof item==='string'?item:(item?.name||'Recompensa');
       const m=String(raw).match(/^(\d+)x\s*(.*)$/i);
-      const qty=(typeof item==='object' && item?.qty) ? String(item.qty) : (m?m[1]:'');
+      const qty=(typeof item==='object' && item?.qty!==undefined && String(item.qty)!=='') ? String(item.qty) : (m?m[1]:'');
       const name=(typeof item==='object' && item?.name) ? String(item.name) : (m?m[2]:String(raw));
       const img=(typeof item==='object' && item?.image) ? String(item.image) : rewardIconFallback(name);
-      return `<div class="discord-coupon-item-row">${img?`<img class="discord-coupon-item-icon" src="${escapeHtml(img)}" alt="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer">`:''}<span class="discord-coupon-field-value">${qty?escapeHtml(qty)+'x ':''}${escapeHtml(name)}</span></div>`;
-    }).join(''):'<div class="discord-coupon-field-value">Recompensas do cupom</div>';
+      return `<div class="modal-reward" title="${escapeHtml(name)}">${img?`<img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:''}<span class="modal-reward-fallback" style="${img?'display:none':''}">${escapeHtml(name.slice(0,2).toUpperCase())}</span>${qty?`<span class="modal-reward-qty">${escapeHtml(qty)}</span>`:''}<span class="modal-reward-name">${escapeHtml(name)}</span></div>`;
+    }).join('');
+    const postedLine=c.postedAt?`${escapeHtml(c.postedAt)} - `:'';
     return `<article class="discord-coupon-card">
       <div class="discord-coupon-head">
         <span class="discord-coupon-brand">Enceladus Cupons</span>
@@ -1207,8 +1233,8 @@ function renderCouponsModal(payload){
       <div class="discord-coupon-field-label">⏳ Expira</div>
       <div class="discord-coupon-field-value">${escapeHtml(expiry)}</div>
       <div class="discord-coupon-field-label">🎁 Itens</div>
-      ${itemsHtml}
-      <div class="discord-coupon-footer">Fornecido pela guilda · Lua Crescente</div>
+      <div class="discord-coupon-item-grid">${itemsHtml}</div>
+      <div class="discord-coupon-footer">${postedLine}Provided by Lua Crescente</div>
     </article>`;
   }).join('');
 }
@@ -1234,6 +1260,87 @@ couponsModal?.querySelectorAll('[data-coupons-modal-close]').forEach(el=>el.addE
 couponsModal?.querySelector('.coupons-modal-dialog')?.addEventListener('click',(e)=>e.stopPropagation());
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&couponsModal?.classList.contains('open'))hideCouponsModal()});
 
+// --- Rodapé: modais de Política de Privacidade, Termos de Serviço e Registro
+// de Alterações. O conteúdo fica centralizado aqui (em vez de duplicado nas
+// 3 páginas) pra ser fácil de manter.
+const FOOTER_PRIVACY_HTML = `
+  <p>O Santuário Lua Crescente é um projeto feito por fãs, mantido voluntariamente pela guilda, sem fins lucrativos e sem qualquer vínculo com a Pearl Abyss ou o Black Desert Online.</p>
+  <h3>O que não coletamos</h3>
+  <p>O site não tem cadastro, login ou formulários, então não pedimos nem armazenamos nome, e-mail, senha ou qualquer dado pessoal.</p>
+  <h3>Preferência de idioma</h3>
+  <p>A escolha de idioma (Português/Espanhol) fica salva só no seu navegador (armazenamento local), pra lembrar sua preferência na próxima visita. Essa informação não é enviada a nenhum servidor.</p>
+  <h3>Hospedagem</h3>
+  <p>O site é hospedado pela Netlify, que pode registrar logs técnicos básicos de acesso (como endereço IP e navegador) por motivos de segurança e operação da própria hospedagem, fora do nosso controle direto.</p>
+  <h3>Cupons</h3>
+  <p>Os cupons exibidos são lidos automaticamente do canal de cupons da guilda no Discord através de uma função própria do site. Nenhum dado seu é enviado ao Discord nesse processo.</p>
+  <h3>Terceiros</h3>
+  <p>Alguns ícones de itens são carregados de servidores de imagem de terceiros (como o CDN do Discord) apenas para exibição visual.</p>
+  <h3>Sem anúncios e sem rastreamento</h3>
+  <p>Não exibimos anúncios, não vendemos dados e não usamos ferramentas de rastreamento de terceiros.</p>
+  <p>Dúvidas sobre esta política podem ser tiradas com a administração da guilda no Discord.</p>
+`;
+const FOOTER_TERMS_HTML = `
+  <p>O Santuário Lua Crescente é mantido por voluntários da guilda Lua Crescente, sem fins lucrativos, e não é afiliado à Pearl Abyss nem ao Black Desert Online. Todas as marcas, nomes e conteúdos do jogo pertencem aos seus respectivos donos.</p>
+  <h3>Uso do conteúdo</h3>
+  <p>Receitas, cronogramas, cupons e demais informações são fornecidos gratuitamente, "como estão", como referência para a comunidade. Podem conter imprecisões ou ficar desatualizados, já que o jogo muda com o tempo.</p>
+  <h3>Cupons</h3>
+  <p>Os cupons são exibidos como cortesia, extraídos automaticamente do canal de cupons da guilda no Discord. A validade, disponibilidade e regras de resgate de cada cupom são de responsabilidade da Pearl Abyss, não do site.</p>
+  <h3>Isenção de responsabilidade</h3>
+  <p>O site não se responsabiliza por eventuais perdas, prejuízos ou decisões tomadas com base nas informações aqui apresentadas. Sempre confira dados importantes em fontes oficiais do jogo.</p>
+  <h3>Alterações</h3>
+  <p>O conteúdo e o funcionamento do site podem mudar a qualquer momento, sem aviso prévio, conforme a guilda achar necessário.</p>
+  <p>Dúvidas sobre estes termos podem ser tiradas com a administração da guilda no Discord.</p>
+`;
+// Registro de alterações: guarda só a versão atual. Ao publicar uma versão
+// nova, troque o conteúdo abaixo — o texto da versão anterior não fica
+// mais disponível pra leitura (por pedido explícito do dono do site).
+const FOOTER_CHANGELOG_HTML = `
+  <div class="changelog-version">Versão 72</div>
+  <div class="changelog-date">4 de setembro de 2026</div>
+  <ul>
+    <li>Cupons: até 4 ícones de recompensa (com selo de quantidade) na área principal do site, e todos os itens com ícone no modal "Ver todos os cupons".</li>
+    <li>Corrigido o modal de cupons pra mostrar a descrição completa de cada um corretamente.</li>
+    <li>Cupons agora ficam limitados a no máximo 10 simultâneos — os mais antigos saem da lista automaticamente conforme novos chegam.</li>
+    <li>Menu sanduíche para a lista de categorias de receitas no modo mobile (antes ocupava a tela toda em lista fixa).</li>
+    <li>Rodapé reformulado em estilo menu, com links pra Receitas, Sala de Aula, Política de Privacidade, Termos de Serviço e este Registro de Alterações.</li>
+    <li>Créditos dos cupons atualizados para "Provided by Lua Crescente".</li>
+  </ul>
+`;
+const FOOTER_MODAL_CONTENT = {privacy:FOOTER_PRIVACY_HTML, terms:FOOTER_TERMS_HTML, changelog:FOOTER_CHANGELOG_HTML};
+document.getElementById('footerPrivacyContent')?.insertAdjacentHTML('beforeend', FOOTER_PRIVACY_HTML);
+document.getElementById('footerTermsContent')?.insertAdjacentHTML('beforeend', FOOTER_TERMS_HTML);
+document.getElementById('footerChangelogContent')?.insertAdjacentHTML('beforeend', FOOTER_CHANGELOG_HTML);
+
+function hideFooterModal(modal, restoreFocus=true){
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.classList.remove('modal-open');
+  if(restoreFocus && lastFocusedElement && typeof lastFocusedElement.focus==='function') lastFocusedElement.focus();
+}
+function openFooterModal(key){
+  const idMap={privacy:'footerPrivacyModal',terms:'footerTermsModal',changelog:'footerChangelogModal'};
+  const modal=document.getElementById(idMap[key]);
+  if(!modal) return;
+  lastFocusedElement=document.activeElement;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  closeMobileMenu();
+  requestAnimationFrame(()=>modal.querySelector('.guild-modal-close')?.focus());
+}
+document.querySelectorAll('[data-footer-modal]').forEach(btn=>{
+  btn.addEventListener('click', ()=> openFooterModal(btn.dataset.footerModal));
+});
+document.querySelectorAll('.footer-modal').forEach(modal=>{
+  modal.querySelectorAll('[data-footer-modal-close]').forEach(el=>el.addEventListener('click',()=>hideFooterModal(modal)));
+  modal.querySelector('.footer-modal-dialog')?.addEventListener('click',(e)=>e.stopPropagation());
+});
+document.addEventListener('keydown', e=>{
+  if(e.key!=='Escape') return;
+  document.querySelectorAll('.footer-modal.open').forEach(modal=>hideFooterModal(modal));
+});
+
 async function loadBdoCoupons(){
   const track=document.getElementById('couponTrack');
   if(!track) return;
@@ -1246,12 +1353,12 @@ async function loadBdoCoupons(){
     lastCouponsPayload=payload;
     renderCouponsModal(payload);
 
-    track.innerHTML=coupons.map(c=>{
+    track.innerHTML=coupons.slice(0,10).map(c=>{
       const code=String(c.code||'').trim();
       const expiry=String(c.expiry||'Cupom ativo');
-      const items=Array.isArray(c.items)?c.items.slice(0,8):[];
+      const items=Array.isArray(c.items)?c.items:[];
       const fallbackItems=items.length?items:['Recompensas do cupom'];
-      const visibleCount=Math.min(3,fallbackItems.length);
+      const visibleCount=Math.min(4,fallbackItems.length);
       const moreCount=Math.max(0,fallbackItems.length-visibleCount);
       return `<article class="coupon-card ${c.source==='fallback'?'coupon-card-fallback':''}">
         <div class="coupon-card-head">

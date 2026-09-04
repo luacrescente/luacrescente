@@ -97,7 +97,7 @@ function uniqueCoupons(list) {
     const k=normalizeCode(c.code).toUpperCase();
     if(!looksLikeCoupon(k)||seen.has(k)) return false;
     seen.add(k); return true;
-  }).slice(0,8);
+  }).slice(0,10);
 }
 function extractRewardEntries(block, base) {
   const entries=[];
@@ -313,7 +313,7 @@ function formatDiscordTimestamps(raw) {
   });
 }
 
-function parseDiscordEmbedCoupon(embed) {
+function parseDiscordEmbedCoupon(embed, postedAt) {
   if(!embed) return null;
   const fields = Array.isArray(embed.fields) ? embed.fields : [];
   const haystack = [embed.title, embed.description, embed.footer && embed.footer.text, embed.author && embed.author.name]
@@ -345,7 +345,9 @@ function parseDiscordEmbedCoupon(embed) {
     return {name,qty,image:i===0?thumb:''};
   });
 
-  return {code,expiry,items,images:thumb?[thumb]:[],source:'Garmoth (Discord)'};
+  // O rodapé original diz "Provided by Garmoth.com" — como o site não é mais
+  // afiliado a eles, usamos nossa própria atribuição aqui.
+  return {code,expiry,items,images:thumb?[thumb]:[],postedAt:postedAt||'',provider:'Lua Crescente',source:'Garmoth (Discord)'};
 }
 
 async function fetchDiscordCoupons() {
@@ -361,8 +363,9 @@ async function fetchDiscordCoupons() {
   // Mensagens vêm da mais nova pra mais antiga; mantemos essa ordem.
   for(const msg of messages) {
     const embeds=Array.isArray(msg.embeds) ? msg.embeds : [];
+    const postedAt=msg.timestamp ? String(msg.timestamp).slice(0,10) : '';
     for(const embed of embeds) {
-      const parsed=parseDiscordEmbedCoupon(embed);
+      const parsed=parseDiscordEmbedCoupon(embed,postedAt);
       if(parsed) found.push(parsed);
     }
   }

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
 <meta name="lua-crescente-build" content="v64">
-  <link rel="stylesheet" href="/assets/css/site.css?v=66">
+  <link rel="stylesheet" href="/assets/css/site.css?v=72">
   
 </head><body data-page="culinaria" data-default-group="Culinária"><div class="site-background-wrap" aria-hidden="true"><img class="site-background" src="/assets/img/santuario-bg.webp?v=64" alt="" onerror="this.onerror=null;this.src='/assets/img/santuario-bg.jpg?v=64';"></div>
 <div class="utility-top-bar" id="utilityTopBar" role="region" aria-label="Informações do mundo e próximos bosses">
@@ -61,6 +61,11 @@
   </header>
 
   <div class="alch-layout">
+    <button type="button" id="groupSidebarToggle" class="group-sidebar-toggle" aria-expanded="false" aria-controls="groupSidebar">
+      <span class="hamburger-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span data-i18n="groups">Grupos</span>
+    </button>
+    <div id="groupSidebarBackdrop" class="group-sidebar-backdrop"></div>
     <aside class="group-sidebar" id="groupSidebar">
       <div class="sidebar-label" data-i18n="groups">Grupos</div>
       <!-- preenchido via JS -->
@@ -86,9 +91,48 @@
   </div>
 </section>
 <button id="backToTop" class="back-to-top" type="button" aria-label="Voltar ao topo" title="Voltar ao topo">↑ <span>Topo</span></button>
-<footer class="site-footer" aria-label="Aviso legal">
-  santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. <strong>© 2026 santuarioluacrescente.netlify.app</strong>
+<footer class="site-footer site-footer-nav" aria-label="Rodapé">
+  <div class="footer-nav-inner">
+    <div class="footer-brand">
+      <img src="/assets/img/enceladus-mascote.png" alt="Lua Crescente" class="footer-brand-icon">
+      <span>Lua Crescente</span>
+    </div>
+    <nav class="footer-links" aria-label="Links do rodapé">
+      <a href="/receitas.html">Receitas</a>
+      <a href="/sala-de-aula.html">Sala de Aula</a>
+      <button type="button" data-footer-modal="privacy">Política de Privacidade</button>
+      <button type="button" data-footer-modal="terms">Termos de Serviço</button>
+      <button type="button" data-footer-modal="changelog">Registro de Alterações</button>
+    </nav>
+  </div>
+  <div class="footer-legal">
+    santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. <strong>© 2026 santuarioluacrescente.netlify.app</strong>
+  </div>
 </footer>
+<div class="guild-modal footer-modal" id="footerPrivacyModal" aria-hidden="true">
+  <div class="guild-modal-backdrop" data-footer-modal-close></div>
+  <div class="guild-modal-dialog footer-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="footerPrivacyTitle">
+    <button class="guild-modal-close" type="button" aria-label="Fechar" data-footer-modal-close>×</button>
+    <h2 id="footerPrivacyTitle">Política de Privacidade</h2>
+    <div id="footerPrivacyContent" class="footer-modal-body"></div>
+  </div>
+</div>
+<div class="guild-modal footer-modal" id="footerTermsModal" aria-hidden="true">
+  <div class="guild-modal-backdrop" data-footer-modal-close></div>
+  <div class="guild-modal-dialog footer-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="footerTermsTitle">
+    <button class="guild-modal-close" type="button" aria-label="Fechar" data-footer-modal-close>×</button>
+    <h2 id="footerTermsTitle">Termos de Serviço</h2>
+    <div id="footerTermsContent" class="footer-modal-body"></div>
+  </div>
+</div>
+<div class="guild-modal footer-modal" id="footerChangelogModal" aria-hidden="true">
+  <div class="guild-modal-backdrop" data-footer-modal-close></div>
+  <div class="guild-modal-dialog footer-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="footerChangelogTitle">
+    <button class="guild-modal-close" type="button" aria-label="Fechar" data-footer-modal-close>×</button>
+    <h2 id="footerChangelogTitle">Registro de Alterações</h2>
+    <div id="footerChangelogContent" class="footer-modal-body"></div>
+  </div>
+</div>
 
 <script src="/assets/data/recipes/recipe-metadata.js?v=64"></script>
 <script src="/assets/js/recipe-loader.js?v=64"></script>
@@ -97,6 +141,6 @@
 <script src="/assets/js/world-cycle.js?v=64" defer></script>
 <script src="/assets/js/guild-boss-timer.js?v=64" defer></script>
 <script src="/assets/js/boss-timer.js?v=64" defer></script>
-<script src="/assets/js/site-runtime.js?v=71" defer></script>
+<script src="/assets/js/site-runtime.js?v=72" defer></script>
 </body>
 </html>
