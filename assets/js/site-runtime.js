@@ -1198,9 +1198,7 @@ let lastCouponsPayload=null;
 const couponsModal=document.getElementById('couponsModal');
 const couponsModalList=document.getElementById('couponsModalList');
 
-// Monta os cartões no estilo da mensagem que o bot posta no Discord, mas com
-// o símbolo da guilda (Lua Crescente) e "Enceladus Cupons" no lugar do
-// dragãozinho e do nome "Garmoth Coupons".
+// Monta os cartões de cupom — design próprio da Lua Crescente (v76).
 function renderCouponsModal(payload){
   if(!couponsModalList) return;
   const coupons=Array.isArray(payload?.coupons)?payload.coupons:[];
@@ -1208,35 +1206,45 @@ function renderCouponsModal(payload){
     couponsModalList.innerHTML='<div class="coupons-status coupons-error">Os cupons estão temporariamente indisponíveis.</div>';
     return;
   }
+  // v76 — card próprio da Lua Crescente (não é mais uma cópia do embed do
+  // Discord): mais simples de manter, com selo de validade, botão de
+  // copiar e grade de itens com ícone+quantidade.
   couponsModalList.innerHTML=coupons.slice(0,10).map(c=>{
     const code=String(c.code||'').trim();
     const expiry=String(c.expiry||'Cupom ativo');
     const items=Array.isArray(c.items)?c.items:[];
     const fallbackItems=items.length?items:['Recompensas do cupom'];
-    // Modal mostra TODOS os itens do cupom (sem limite), no mesmo estilo de
-    // ícone+quantidade da área comum, só que sem cortar em 4.
     const itemsHtml=fallbackItems.map(item=>{
       const raw=typeof item==='string'?item:(item?.name||'Recompensa');
       const m=String(raw).match(/^(\d+)x\s*(.*)$/i);
       const qty=(typeof item==='object' && item?.qty!==undefined && String(item.qty)!=='') ? String(item.qty) : (m?m[1]:'');
       const name=(typeof item==='object' && item?.name) ? String(item.name) : (m?m[2]:String(raw));
       const img=(typeof item==='object' && item?.image) ? String(item.image) : rewardIconFallback(name);
-      return `<div class="modal-reward" title="${escapeHtml(name)}">${img?`<img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:''}<span class="modal-reward-fallback" style="${img?'display:none':''}">${escapeHtml(name.slice(0,2).toUpperCase())}</span>${qty?`<span class="modal-reward-qty">${escapeHtml(qty)}</span>`:''}<span class="modal-reward-name">${escapeHtml(name)}</span></div>`;
+      return `<div class="lc-item" title="${escapeHtml(name)}">${img?`<img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:''}<span class="lc-item-fallback" style="${img?'display:none':''}">${escapeHtml(name.slice(0,2).toUpperCase())}</span>${qty?`<span class="lc-item-qty">${escapeHtml(qty)}</span>`:''}<span class="lc-item-name">${escapeHtml(name)}</span></div>`;
     }).join('');
-    const postedLine=c.postedAt?`${escapeHtml(c.postedAt)} - `:'';
-    return `<article class="discord-coupon-card">
-      <div class="discord-coupon-head">
-        <span class="discord-coupon-brand">Enceladus Cupons</span>
-        <img class="discord-coupon-avatar" src="/assets/img/enceladus-mascote.png" alt="Lua Crescente">
+    const postedLine=c.postedAt?`${escapeHtml(c.postedAt)} · `:'';
+    return `<article class="lc-coupon-card">
+      <div class="lc-coupon-top">
+        <span class="lc-coupon-tag">🎟️ Cupom da guilda</span>
+        <span class="lc-coupon-expiry">⏳ ${escapeHtml(expiry)}</span>
       </div>
-      <div class="discord-coupon-code">${escapeHtml(code)}</div>
-      <div class="discord-coupon-field-label">⏳ Expira</div>
-      <div class="discord-coupon-field-value">${escapeHtml(expiry)}</div>
-      <div class="discord-coupon-field-label">🎁 Itens</div>
-      <div class="discord-coupon-item-grid">${itemsHtml}</div>
-      <div class="discord-coupon-footer">${postedLine}Provided by Lua Crescente</div>
+      <div class="lc-coupon-code-row">
+        <span class="lc-coupon-code">${escapeHtml(code)}</span>
+        <button class="lc-coupon-copy" type="button" data-coupon="${escapeHtml(code)}" aria-label="Copiar código">Copiar</button>
+      </div>
+      <div class="lc-coupon-items">${itemsHtml}</div>
+      <div class="lc-coupon-foot">${postedLine}Provided by Lua Crescente</div>
     </article>`;
   }).join('');
+  couponsModalList.querySelectorAll('.lc-coupon-copy').forEach(btn=>btn.addEventListener('click',async()=>{
+    try{
+      await navigator.clipboard.writeText(btn.dataset.coupon);
+      const old=btn.textContent;
+      btn.textContent='Copiado!';
+      btn.classList.add('is-copied');
+      setTimeout(()=>{btn.textContent=old;btn.classList.remove('is-copied');},1300);
+    }catch{}
+  }));
 }
 function hideCouponsModal(restoreFocus=true){
   if(!couponsModal) return;
@@ -1304,10 +1312,10 @@ const FOOTER_TERMS_HTML = `
 // nova, troque o conteúdo abaixo — o texto da versão anterior não fica
 // mais disponível pra leitura (por pedido explícito do dono do site).
 const FOOTER_CHANGELOG_HTML = `
-  <div class="changelog-version">Versão 75</div>
+  <div class="changelog-version">Versão 76</div>
   <div class="changelog-date">4 de setembro de 2026</div>
   <ul>
-    <li>Corrigido de vez o menu sanduíche de categorias no mobile: um CSS antigo (com !important) fazia a sidebar nunca sair do lugar e ficar presa atrás do fundo escurecido, parecendo borrada e travando os cliques. Agora abre como um painel de verdade, nítido e clicável, por cima de todo o resto da página.</li>
+    <li>Cards do modal "Todos os cupons ativos" refeitos do zero, com um visual próprio da Lua Crescente (inspirado no Discord, mas não é mais uma cópia): selo de validade, código em destaque com botão de copiar funcional, e grade de itens com ícone e quantidade.</li>
   </ul>
 `;
 const FOOTER_MODAL_CONTENT = {privacy:FOOTER_PRIVACY_HTML, terms:FOOTER_TERMS_HTML, changelog:FOOTER_CHANGELOG_HTML};

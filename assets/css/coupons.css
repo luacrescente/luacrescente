@@ -1122,29 +1122,30 @@
 .ingredient-icon{width:22px;height:22px;object-fit:contain;display:block;flex:0 0 22px;margin-right:6px;vertical-align:middle;}
 
 /* v71 — botão "Ver todos os cupons" (antes era link pro Garmoth) e modal
-   com os cupons no estilo do card que o bot posta no Discord, trocando
-   o mascote/dragão pelo símbolo da guilda e "Garmoth Coupons" por
-   "Enceladus Cupons". */
+   com os cupons num card próprio da Lua Crescente (v76: parou de imitar
+   o embed do Discord — design mais simples e nosso). */
 .coupons-link{cursor:pointer;font:inherit;background:transparent;border:1px solid #806b3d;color:var(--gold,#c9a24b);padding:9px 14px;border-radius:6px;font-weight:600;font-size:11px;letter-spacing:.02em;transition:background .15s ease;}
 .coupons-link:hover{background:rgba(201,162,75,.08);}
 .coupons-modal-dialog{max-width:640px;}
 .discord-coupon-list{display:flex;flex-direction:column;gap:14px;margin-top:16px;max-height:60vh;overflow-y:auto;padding-right:4px;}
-.discord-coupon-card{position:relative;background:#1a1e23;border:1px solid #2c3138;border-radius:8px;padding:14px 16px 12px 18px;overflow:hidden;}
-.discord-coupon-card:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#e8c85d,#8b6c25);}
-.discord-coupon-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
-.discord-coupon-brand{color:#8fb4e0;font-weight:700;font-size:15px;}
-.discord-coupon-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:0 0 44px;background:#11151a;border:1px solid #2c3138;}
-.discord-coupon-code{margin-top:10px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:9px 12px;font-family:Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:.02em;color:#f2e6c4;word-break:break-all;}
-.discord-coupon-field-label{font-size:12px;color:#9aa1a9;margin-top:11px;font-weight:600;display:flex;align-items:center;gap:5px;}
-.discord-coupon-field-value{font-size:13px;color:#dde1e6;margin-top:2px;}
-.discord-coupon-item-row{display:flex;align-items:center;gap:9px;margin-top:8px;}
-.discord-coupon-item-icon{width:44px;height:44px;border:1px solid rgba(201,162,75,.4);border-radius:6px;object-fit:cover;background:#101216;}
-.discord-coupon-footer{margin-top:11px;padding-top:9px;border-top:1px solid #262b31;font-size:10.5px;color:#767f89;}
 @media(max-width:700px){.discord-coupon-list{max-height:56vh;}}
-.discord-coupon-item-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
-.modal-reward{position:relative;display:block;flex:0 0 46px;width:46px;height:46px;padding:3px;border:1px solid #a78227;border-radius:5px;background:#0c0f13;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);box-sizing:border-box;}
-.modal-reward img{width:38px;height:38px;display:block;border-radius:2px;object-fit:contain;}
-.modal-reward-fallback{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:2px;background:#1a1f25;color:#d7b95b;font-size:10px;font-weight:800;}
-.modal-reward-qty{position:absolute;right:-2px;bottom:-2px;min-width:16px;height:16px;padding:1px 3px;border-radius:3px;background:#0b0d10;border:1px solid #d0a936;color:#fff;font-size:9px;font-weight:800;line-height:12px;text-align:center;box-shadow:0 1px 3px #000;}
-.modal-reward-name{position:absolute;left:50%;bottom:calc(100% + 7px);transform:translateX(-50%);width:170px;padding:6px 7px;border:1px solid #4a5058;border-radius:4px;background:#11151a;color:#e7eaee;font-size:10px;line-height:1.25;text-align:center;opacity:0;pointer-events:none;transition:.12s;z-index:20;box-shadow:0 6px 18px #0008;}
-.modal-reward:hover .modal-reward-name{opacity:1;}
+
+/* v76 — card de cupom próprio (não é mais uma imitação do Discord) */
+.lc-coupon-card{position:relative;background:linear-gradient(160deg,#1c1f26,#15171d);border:1px solid #2c3138;border-radius:10px;padding:16px 18px;box-sizing:border-box;}
+.lc-coupon-card:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:10px 0 0 10px;background:linear-gradient(#e8c85d,#8b6c25);}
+.lc-coupon-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.lc-coupon-tag{font-size:11px;font-weight:700;color:#d7b95b;letter-spacing:.03em;}
+.lc-coupon-expiry{font-size:11px;color:#9aa1a9;white-space:nowrap;}
+.lc-coupon-code-row{display:flex;align-items:center;gap:10px;margin-top:12px;}
+.lc-coupon-code{flex:1;min-width:0;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:10px 14px;font-family:'Courier New',monospace;font-weight:700;font-size:14px;letter-spacing:.04em;color:#f2e6c4;word-break:break-all;}
+.lc-coupon-copy{flex:0 0 auto;background:transparent;border:1px solid #806b3d;color:var(--gold,#c9a24b);border-radius:6px;padding:10px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:background .15s ease;}
+.lc-coupon-copy:hover{background:rgba(201,162,75,.1);}
+.lc-coupon-copy.is-copied{background:rgba(120,190,120,.15);border-color:#7abf7a;color:#a8dba8;}
+.lc-coupon-items{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.lc-item{position:relative;display:block;flex:0 0 46px;width:46px;height:46px;padding:3px;border:1px solid #a78227;border-radius:6px;background:#0c0f13;box-sizing:border-box;}
+.lc-item img{width:38px;height:38px;display:block;border-radius:3px;object-fit:contain;}
+.lc-item-fallback{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:3px;background:#1a1f25;color:#d7b95b;font-size:10px;font-weight:800;}
+.lc-item-qty{position:absolute;right:-3px;bottom:-3px;min-width:16px;height:16px;padding:1px 3px;border-radius:3px;background:#0b0d10;border:1px solid #d0a936;color:#fff;font-size:9px;font-weight:800;line-height:12px;text-align:center;box-shadow:0 1px 3px #000;}
+.lc-item-name{position:absolute;left:50%;bottom:calc(100% + 7px);transform:translateX(-50%);width:170px;padding:6px 7px;border:1px solid #4a5058;border-radius:4px;background:#11151a;color:#e7eaee;font-size:10px;line-height:1.25;text-align:center;opacity:0;pointer-events:none;transition:.12s;z-index:20;box-shadow:0 6px 18px #0008;}
+.lc-item:hover .lc-item-name{opacity:1;}
+.lc-coupon-foot{margin-top:13px;padding-top:10px;border-top:1px solid #262b31;font-size:10.5px;color:#767f89;}
