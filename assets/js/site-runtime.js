@@ -1312,10 +1312,13 @@ const FOOTER_TERMS_HTML = `
 // nova, troque o conteúdo abaixo — o texto da versão anterior não fica
 // mais disponível pra leitura (por pedido explícito do dono do site).
 const FOOTER_CHANGELOG_HTML = `
-  <div class="changelog-version">Versão 76</div>
-  <div class="changelog-date">4 de setembro de 2026</div>
+  <div class="changelog-version">Versão 77</div>
+  <div class="changelog-date">12 de setembro de 2026</div>
   <ul>
-    <li>Cards do modal "Todos os cupons ativos" refeitos do zero, com um visual próprio da Lua Crescente (inspirado no Discord, mas não é mais uma cópia): selo de validade, código em destaque com botão de copiar funcional, e grade de itens com ícone e quantidade.</li>
+    <li>Sala de Aula agora é alimentada automaticamente pelos guias publicados no Blogger: grid de guias, menu lateral por categoria, busca por título/tag e leitura de artigo com índice, tudo com o layout do site.</li>
+    <li>Home passa a exibir sempre os 3 guias mais recentes na seção "Sala de Aula", atualizados sozinhos conforme novos guias são publicados.</li>
+    <li>Corrigido o botão "Ver todos os guias" da Home, que não estava navegando para a Sala de Aula.</li>
+    <li>Adicionado um painel de fundo na Sala de Aula para melhorar o contraste de leitura sobre a imagem de fundo do site.</li>
   </ul>
 `;
 const FOOTER_MODAL_CONTENT = {privacy:FOOTER_PRIVACY_HTML, terms:FOOTER_TERMS_HTML, changelog:FOOTER_CHANGELOG_HTML};
