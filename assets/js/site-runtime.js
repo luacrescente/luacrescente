@@ -2,6 +2,18 @@
 // A lógica de dados fica em assets/data/.
 
 var DATA = window.DATA || [];
+// Ícones neutros (SVG, herdam a cor do botão) usados nos botões de compartilhar/copiar link/imagem.
+window.LC_ICONS = (function(){
+  const svg = (inner)=>`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${inner}</svg>`;
+  return {
+    share: svg('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>'),
+    link: svg('<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'),
+    image: svg('<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>'),
+    check: svg('<polyline points="20 6 9 17 4 12"/>'),
+    download: svg('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>')
+  };
+})();
+
 
 // ---------------------------------------------------------------------
 // Sub-receitas e fontes pesquisadas (BDO Codex / BDOlytics / guias PT-BR).
@@ -788,12 +800,14 @@ function renderFarmacoCards(item){
           : renderChildren(imm.children || [], [item.name, base.title, 'Imortalidade']))
       : '';
     const icon = VARIANT_ITEM_ICONS[base.title] || ROOT_ITEM_ICONS[base.title];
-    return `<div class="root-item" data-idx="farmaco-${i}">
+    return `<div class="root-item" data-idx="farmaco-${i}" data-item-name="${escapeHtml(base.title)}" data-item-group="${escapeHtml(item.group)}">
       <div class="root-head">
         <span class="chevron"></span>
         ${icon ? `<img class="root-item-icon" src="${assetIcon(icon)}" alt="" loading="eager" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'">` : ''}
         <span class="root-name">${tName(base.title)}</span>
         ${imm ? '<span class="tag">ROTAS</span>' : ''}
+        <button type="button" class="export-list-btn" data-export-name="${escapeHtml(base.title)}" data-export-group="${escapeHtml(item.group)}" data-export-payload="${escapeHtml(JSON.stringify(buildExportPayload(base.title, base.effect, base.routes, base.children, imm)))}" aria-label="${SUPPORTS_NATIVE_SHARE?'Compartilhar imagem da lista de ingredientes':'Copiar imagem da lista de ingredientes'}" title="${SUPPORTS_NATIVE_SHARE?'Compartilhar imagem da lista de ingredientes':'Copiar imagem da lista de ingredientes'}">${LC_ICONS.image}</button>
+        <button type="button" class="copy-link-btn" data-copy-name="${escapeHtml(base.title)}" data-copy-group="${escapeHtml(item.group)}" aria-label="${SUPPORTS_NATIVE_SHARE?'Compartilhar esta receita':'Copiar link desta receita'}" title="${SUPPORTS_NATIVE_SHARE?'Compartilhar esta receita':'Copiar link desta receita'}">${SUPPORTS_NATIVE_SHARE?LC_ICONS.share:LC_ICONS.link}</button>
       </div>
       <div class="body">
         ${base.effect ? `<div class="root-effect">✨ ${tName(base.effect)}</div>` : ''}
@@ -809,12 +823,14 @@ function renderFarmacoCards(item){
 function renderRootShell(item, idx){
   const rawRootIcon = ROOT_ITEM_ICONS[item.name] ?? ((item.group==='Culinária' || item.group==='Rações') ? (CULINARY_ICON_OVERRIDES[item.name] ?? CULINARY_ICON_IDS[item.name]) : '');
   const rootIcon = rawRootIcon ? (typeof rawRootIcon === 'number' ? codexIcon(rawRootIcon) : rawRootIcon) : '';
-  return `<div class="root-item" data-idx="${idx}" data-lazy-root="1">
+  return `<div class="root-item" data-idx="${idx}" data-lazy-root="1" data-item-name="${escapeHtml(item.name)}" data-item-group="${escapeHtml(item.group)}">
     <div class="root-head">
       <span class="chevron"></span>
       ${rootIcon ? `<img class="root-item-icon" src="${assetIcon(rootIcon)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'">` : ''}
       <span class="root-name">${tName(item.name)}</span>
       ${item.routes ? `<span class="tag">${currentLang==='es'?'Rutas':'Rotas'}</span>`:''}
+      <button type="button" class="export-list-btn" data-export-name="${escapeHtml(item.name)}" data-export-group="${escapeHtml(item.group)}" data-export-payload="${escapeHtml(JSON.stringify(buildExportPayload(item.name, item.effect, item.routes, item.children, null)))}" aria-label="${SUPPORTS_NATIVE_SHARE?'Compartilhar imagem da lista de ingredientes':'Copiar imagem da lista de ingredientes'}" title="${SUPPORTS_NATIVE_SHARE?'Compartilhar imagem da lista de ingredientes':'Copiar imagem da lista de ingredientes'}">${LC_ICONS.image}</button>
+      <button type="button" class="copy-link-btn" data-copy-name="${escapeHtml(item.name)}" data-copy-group="${escapeHtml(item.group)}" aria-label="${SUPPORTS_NATIVE_SHARE?'Compartilhar esta receita':'Copiar link desta receita'}" title="${SUPPORTS_NATIVE_SHARE?'Compartilhar esta receita':'Copiar link desta receita'}">${SUPPORTS_NATIVE_SHARE?LC_ICONS.share:LC_ICONS.link}</button>
     </div>
     <div class="body" data-lazy-body="1"></div>
   </div>`;
@@ -989,7 +1005,236 @@ function draw(filter){
   }
 }
 
+function buildRecipeLink(name, group){
+  const qs = new URLSearchParams();
+  if(group) qs.set('group', group);
+  qs.set('item', name);
+  return location.origin + '/receitas.html?' + qs.toString();
+}
+
+// Monta os dados (nome, efeito, rotas com ingrediente+quantidade) que ficam
+// guardados no próprio botão "📋", prontos pra virar texto quando a pessoa
+// clicar em "copiar lista de ingredientes". Não resolve sub-receitas nem
+// alternativas em cascata — é só a lista direta de ingredientes da receita,
+// como pedido no roadmap.
+function buildExportPayload(name, effect, routes, children, imm){
+  const toPairs = (list)=> (list||[]).filter(c=>c && c.name).map(c=>({name:c.name, qty: c.qty ?? null}));
+  const result = { name, effect: effect || null, routes: [] };
+  if(routes && routes.length){
+    result.routes = routes.map(r=>({ label: r.label || null, children: toPairs(r.children) }));
+  } else {
+    result.routes = [{ label: null, children: toPairs(children) }];
+  }
+  if(imm){
+    result.routes.push({
+      label: 'Imortalidade',
+      children: toPairs(imm.routes ? imm.routes[0]?.children : imm.children)
+    });
+  }
+  return result;
+}
+
+function slugify(name){
+  return String(name)
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'')
+    .toLowerCase() || 'receita';
+}
+
+// Desenha a lista de ingredientes como uma imagem PNG (canvas puro, sem
+// biblioteca nenhuma), no visual do site, pronta pra colar/enviar no Discord
+// como imagem em vez de link.
+function renderIngredientListImage(name, routeLabel, effect, items){
+  const width = 640;
+  const padX = 28;
+  const titleSize = 24;
+  const effectSize = 14;
+  const itemSize = 16;
+  const lineHeight = 28;
+
+  const measure = document.createElement('canvas').getContext('2d');
+  function wrapText(text, maxWidth, font){
+    measure.font = font;
+    const words = String(text).split(' ');
+    const lines = [];
+    let current = '';
+    words.forEach(w=>{
+      const test = current ? `${current} ${w}` : w;
+      if(measure.measureText(test).width > maxWidth && current){ lines.push(current); current = w; }
+      else current = test;
+    });
+    if(current) lines.push(current);
+    return lines;
+  }
+
+  const titleText = name + (routeLabel ? ` (${routeLabel})` : '');
+  const effectLines = effect ? wrapText(effect, width - padX*2, `italic ${effectSize}px Arial`) : [];
+  const effectBlockHeight = effectLines.length ? effectLines.length*(effectSize+8) + 16 : 0;
+  const height = padX + titleSize + 16 + effectBlockHeight + 24 + itemSize + 14 + items.length*lineHeight + 24 + 13 + padX;
+
+  const scale = Math.min(window.devicePixelRatio || 1, 2);
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.ceil(width*scale);
+  canvas.height = Math.ceil(height*scale);
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  ctx.fillStyle = '#15171d';
+  ctx.fillRect(0, 0, width, height);
+  ctx.strokeStyle = '#c9a24b';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(1, 1, width-2, height-2);
+
+  let y = padX;
+  ctx.fillStyle = '#c9a24b';
+  ctx.font = `bold ${titleSize}px Georgia, serif`;
+  ctx.fillText(titleText, padX, y + titleSize);
+  y += titleSize + 16;
+
+  if(effectLines.length){
+    ctx.fillStyle = '#9b968a';
+    ctx.font = `italic ${effectSize}px Arial`;
+    effectLines.forEach((line, i)=>{ ctx.fillText(i===0 ? `✨ ${line}` : `   ${line}`, padX, y + effectSize); y += effectSize + 8; });
+    y += 8;
+  }
+
+  ctx.strokeStyle = '#272b35';
+  ctx.beginPath(); ctx.moveTo(padX, y); ctx.lineTo(width-padX, y); ctx.stroke();
+  y += 24;
+
+  ctx.fillStyle = '#e8e3d5';
+  ctx.font = `bold ${itemSize}px Arial`;
+  ctx.fillText('Ingredientes:', padX, y + itemSize);
+  y += itemSize + 14;
+
+  ctx.font = `${itemSize}px Arial`;
+  items.forEach(it=>{
+    const qtyPart = it.qty!=null ? `${it.qty}x  ` : '';
+    ctx.fillStyle = '#c9a24b';
+    ctx.fillText('•', padX, y + itemSize);
+    ctx.fillStyle = '#e8e3d5';
+    ctx.fillText(`${qtyPart}${it.name}`, padX+18, y + itemSize);
+    y += lineHeight;
+  });
+
+  y += 10;
+  ctx.strokeStyle = '#272b35';
+  ctx.beginPath(); ctx.moveTo(padX, y); ctx.lineTo(width-padX, y); ctx.stroke();
+  y += 24;
+
+  ctx.fillStyle = '#8a7139';
+  ctx.font = '13px Arial';
+  ctx.fillText('🌙 Lua Crescente — Santuário da Guilda', padX, y + 13);
+
+  return canvas;
+}
+
+// Detecta suporte ao menu nativo de compartilhar do dispositivo (Web Share API).
+// Hoje isso existe basicamente em navegadores mobile; em desktop cai no
+// comportamento antigo de copiar o link.
+const SUPPORTS_NATIVE_SHARE = typeof navigator!=='undefined' && typeof navigator.share==='function';
+
 listEl?.addEventListener('click', (e)=>{
+  const exportBtn = e.target.closest('.export-list-btn');
+  if(exportBtn){
+    e.preventDefault();
+    e.stopPropagation();
+    let payload;
+    try{ payload = JSON.parse(exportBtn.dataset.exportPayload || '{}'); }catch{ payload = {}; }
+    const routes = Array.isArray(payload.routes) && payload.routes.length ? payload.routes : [{label:null, children:[]}];
+    let routeIdx = 0;
+    // Se a receita já estiver aberta na tela com uma rota específica selecionada
+    // (ex.: "Rota 2" ou "Imortalidade"), exporta essa mesma rota em vez de
+    // sempre cair na primeira.
+    const rootEl = exportBtn.closest('.root-item');
+    const activeTab = rootEl?.querySelector('[data-lazy-body] > .route-tabs > .route-tab.active, .body > .route-tabs.farmaco-route-tabs > .route-tab.active');
+    if(activeTab && activeTab.dataset.idx != null){
+      const parsedIdx = Number(activeTab.dataset.idx);
+      if(Number.isFinite(parsedIdx) && routes[parsedIdx]) routeIdx = parsedIdx;
+    }
+    const route = routes[routeIdx] || routes[0];
+    const name = payload.name || exportBtn.dataset.exportName;
+    const items = (route.children && route.children.length) ? route.children : [{name:'(sem ingredientes cadastrados)', qty:null}];
+    const showFeedback=(icon)=>{
+      const old = exportBtn.innerHTML;
+      exportBtn.innerHTML = icon || LC_ICONS.check;
+      exportBtn.classList.add('is-copied');
+      setTimeout(()=>{ exportBtn.innerHTML = old; exportBtn.classList.remove('is-copied'); }, 1300);
+    };
+    const canvas = renderIngredientListImage(name, route.label, payload.effect, items);
+    canvas.toBlob(async (blob)=>{
+      if(!blob){
+        // Fallback raríssimo (navegador sem suporte a canvas.toBlob): copia texto simples.
+        const text = `${name}${route.label?` (${route.label})`:''}\n` + items.map(c=>`• ${c.qty!=null?`${c.qty}x `:''}${c.name}`).join('\n');
+        window.prompt('Copie a lista abaixo:', text);
+        return;
+      }
+      const filename = `receita-${slugify(name)}.png`;
+      // No celular (com suporte a compartilhar arquivo), abre o menu nativo
+      // já com a imagem anexada — pra mandar direto pro Discord/WhatsApp.
+      if(SUPPORTS_NATIVE_SHARE && navigator.canShare){
+        try{
+          const file = new File([blob], filename, {type:'image/png'});
+          if(navigator.canShare({files:[file]})){
+            await navigator.share({files:[file], title:name});
+            showFeedback(LC_ICONS.check);
+            return;
+          }
+        }catch(err){
+          if(err && err.name === 'AbortError') return; // usuário cancelou o menu, não faz nada
+          // qualquer outro erro cai nos fallbacks abaixo
+        }
+      }
+      // No PC, copia a imagem direto pra área de transferência (colar com Ctrl+V no Discord).
+      if(navigator.clipboard && window.ClipboardItem){
+        try{
+          await navigator.clipboard.write([new window.ClipboardItem({'image/png': blob})]);
+          showFeedback(LC_ICONS.check);
+          return;
+        }catch(err){ /* cai no fallback de download abaixo */ }
+      }
+      // Último recurso: baixa o PNG pro computador da pessoa.
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 4000);
+      showFeedback(LC_ICONS.download);
+    }, 'image/png');
+    return;
+  }
+  const copyBtn = e.target.closest('.copy-link-btn');
+  if(copyBtn){
+    e.preventDefault();
+    e.stopPropagation();
+    const name = copyBtn.dataset.copyName;
+    const link = buildRecipeLink(name, copyBtn.dataset.copyGroup);
+    const showFeedback=()=>{
+      const old = copyBtn.innerHTML;
+      copyBtn.innerHTML = LC_ICONS.check;
+      copyBtn.classList.add('is-copied');
+      setTimeout(()=>{ copyBtn.innerHTML = old; copyBtn.classList.remove('is-copied'); }, 1300);
+    };
+    const copyToClipboard=()=>{
+      if(navigator.clipboard?.writeText){
+        navigator.clipboard.writeText(link).then(showFeedback).catch(()=>{ window.prompt('Copie o link abaixo:', link); });
+      } else {
+        window.prompt('Copie o link abaixo:', link);
+      }
+    };
+    if(SUPPORTS_NATIVE_SHARE){
+      navigator.share({ title: `${name} — Lua Crescente`, url: link })
+        .then(showFeedback)
+        .catch(err=>{
+          // AbortError = a própria pessoa cancelou o menu de compartilhar; não é um erro real.
+          if(err && err.name === 'AbortError') return;
+          copyToClipboard();
+        });
+    } else {
+      copyToClipboard();
+    }
+    return;
+  }
   const farmacoHead = e.target.closest('.farmaco-card-head');
   if(farmacoHead){
     if(e.target.closest('.tag')) return;
@@ -1039,14 +1284,26 @@ if(listEl){
   buildSidebar();
   const searchEl=document.getElementById('search'); if(searchEl) searchEl.value=initialSearch;
   window.__LC_AFTER_CATEGORY_LOAD = function(){
-    const currentSearch=document.getElementById('search')?.value||'';
-    draw(currentSearch);
     const initialItem=params.get('item');
     if(initialItem){
-      requestAnimationFrame(()=>{ const idx=DATA.findIndex(i=>i.name===initialItem); const el=document.querySelector(`.root-item[data-idx="${idx}"]`); if(el){hydrateRoot(el); el.classList.add('open'); el.scrollIntoView({block:'start'});} });
+      requestAnimationFrame(()=>{
+        let el;
+        try{ el = document.querySelector(`.root-item[data-item-name="${CSS.escape(initialItem)}"]`); }catch{ el = null; }
+        if(!el){ const idx=DATA.findIndex(i=>i.name===initialItem); el=document.querySelector(`.root-item[data-idx="${idx}"]`); }
+        if(el){ hydrateRoot(el); el.classList.add('open'); el.scrollIntoView({block:'start'}); }
+      });
     }
   };
-  if(window.loadRecipeCategory){ window.loadRecipeCategory(activeGroup).then(()=>window.__LC_AFTER_CATEGORY_LOAD?.()).catch(err=>{ console.error('[Receitas]',err); if(emptyEl){ emptyEl.style.display='block'; emptyEl.textContent='Não foi possível carregar a categoria.'; } }); }
+  if(window.loadRecipeCategory){
+    window.loadRecipeCategory(activeGroup).then(data=>{
+      // BUG CORRIGIDO (v78): a promessa resolvida trazia os dados da categoria,
+      // mas eles nunca eram entregues a `applyRecipeData`/`DATA`, então a lista
+      // de receitas ficava vazia ("Nenhum item encontrado") até o usuário clicar
+      // manualmente numa categoria na barra lateral.
+      window.applyRecipeData?.(data, activeGroup);
+      window.__LC_AFTER_CATEGORY_LOAD?.();
+    }).catch(err=>{ console.error('[Receitas]',err); if(emptyEl){ emptyEl.style.display='block'; emptyEl.textContent='Não foi possível carregar a categoria.'; } });
+  }
 }
 
 // ---- Seletor de idioma ----
@@ -1109,7 +1366,7 @@ function closeGuildModal(e){
 }
 
 function setPage(page){
-  const urls={home:'/',culinaria:'/receitas.html','sala-de-aula':'/sala-de-aula.html'};
+  const urls={home:'/',culinaria:'/receitas.html','sala-de-aula':'/sala-de-aula.html',combos:'/combos.html'};
   const target=urls[page]||urls.home;
   if(location.pathname.endsWith('/'+target) || (target==='index.html' && (location.pathname.endsWith('/') || location.pathname.endsWith('index.html')))) return;
   location.href=target;
@@ -1311,20 +1568,127 @@ const FOOTER_TERMS_HTML = `
 // Registro de alterações: guarda só a versão atual. Ao publicar uma versão
 // nova, troque o conteúdo abaixo — o texto da versão anterior não fica
 // mais disponível pra leitura (por pedido explícito do dono do site).
+// IMPORTANTE: sempre que subir o número aqui, o sininho "🔔 Novidades" do
+// rodapé aparece de novo pra quem já visitou o site antes.
+const CURRENT_CHANGELOG_VERSION = 88;
 const FOOTER_CHANGELOG_HTML = `
-  <div class="changelog-version">Versão 77</div>
-  <div class="changelog-date">12 de setembro de 2026</div>
+  <div class="changelog-version">Versão ${CURRENT_CHANGELOG_VERSION}</div>
+  <div class="changelog-date">28 de setembro de 2026</div>
   <ul>
-    <li>Sala de Aula agora é alimentada automaticamente pelos guias publicados no Blogger: grid de guias, menu lateral por categoria, busca por título/tag e leitura de artigo com índice, tudo com o layout do site.</li>
-    <li>Home passa a exibir sempre os 3 guias mais recentes na seção "Sala de Aula", atualizados sozinhos conforme novos guias são publicados.</li>
-    <li>Corrigido o botão "Ver todos os guias" da Home, que não estava navegando para a Sala de Aula.</li>
-    <li>Adicionado um painel de fundo na Sala de Aula para melhorar o contraste de leitura sobre a imagem de fundo do site.</li>
+    <li>A página de combos passou a se chamar "Artefatos" no menu e agora usa os nomes oficiais em português e os valores conferidos à mão (só o combo, com Pedras da Luz e com Pedras Amplificadas).</li>
+    <li>Todo combo agora mostra as 4 Pedras da Luz; quando o combo só pede 3, o 4º espaço aparece como "Qualquer Pedra da Luz".</li>
+    <li>Novo botão de imagem em cada combo, pra mandar a ficha pronta no Discord.</li>
+    <li>Botões de compartilhar, copiar link e imagem agora usam ícones neutros (os mesmos padrões da maioria dos sites), nos Artefatos e nas Receitas.</li>
+    <li>Ajuste de cor nos filtros de categoria, que estavam transparentes demais.</li>
   </ul>
 `;
 const FOOTER_MODAL_CONTENT = {privacy:FOOTER_PRIVACY_HTML, terms:FOOTER_TERMS_HTML, changelog:FOOTER_CHANGELOG_HTML};
 document.getElementById('footerPrivacyContent')?.insertAdjacentHTML('beforeend', FOOTER_PRIVACY_HTML);
 document.getElementById('footerTermsContent')?.insertAdjacentHTML('beforeend', FOOTER_TERMS_HTML);
 document.getElementById('footerChangelogContent')?.insertAdjacentHTML('beforeend', FOOTER_CHANGELOG_HTML);
+
+// ---- Aviso de "novidade" automático (sininho no rodapé) ----
+// Guarda no navegador de cada visitante qual foi a última versão vista.
+// Se a versão atual do site for maior, mostra um sininho "🔔 Novidades"
+// ao lado do link "Registro de Alterações". 100% local, sem custo, sem
+// backend — some sozinho assim que a pessoa abre o Registro de Alterações.
+const LAST_SEEN_CHANGELOG_KEY = 'luaCrescenteLastSeenChangelog';
+function updateChangelogBadge(){
+  let lastSeen = 0;
+  try{ lastSeen = parseInt(localStorage.getItem(LAST_SEEN_CHANGELOG_KEY), 10) || 0; }catch{}
+  const hasNews = lastSeen < CURRENT_CHANGELOG_VERSION;
+  document.querySelectorAll('.changelog-badge').forEach(el=>{ el.style.display = hasNews ? 'inline-flex' : 'none'; });
+}
+function markChangelogAsSeen(){
+  try{ localStorage.setItem(LAST_SEEN_CHANGELOG_KEY, String(CURRENT_CHANGELOG_VERSION)); }catch{}
+  updateChangelogBadge();
+}
+updateChangelogBadge();
+
+// ---- Contador "dias desde a fundação da guilda" (rodapé) ----
+// Data fixa informada pelo dono do site; calculado sozinho a partir da hora
+// local do navegador, sem depender de nenhum serviço externo.
+const GUILD_FOUNDING_DATE = new Date(2025, 11, 4); // 4 de dezembro de 2025
+function daysSinceFounding(){
+  const today = new Date();
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const startOfFounding = new Date(GUILD_FOUNDING_DATE.getFullYear(), GUILD_FOUNDING_DATE.getMonth(), GUILD_FOUNDING_DATE.getDate());
+  return Math.max(0, Math.round((startOfToday - startOfFounding) / 86400000));
+}
+function updateFoundingCounter(){
+  const el = document.getElementById('footerFoundingCounter');
+  if(!el) return;
+  const days = daysSinceFounding();
+  el.textContent = currentLang==='es'
+    ? `🌙 Caminando juntos hace ${days} día${days===1?'':'s'}`
+    : `🌙 Caminhando juntos há ${days} dia${days===1?'':'s'}`;
+}
+updateFoundingCounter();
+
+// ---- Aviso de aniversário da guilda (banner + contagem regressiva) ----
+// Aparece a partir de 5 dias antes do aniversário de fundação (04/12) e some
+// sozinho no dia seguinte. Fechável com X — o fechamento vale só pra aquela
+// visita (sessionStorage): numa aba/sessão nova, se ainda estiver dentro da
+// janela dos 5 dias, o aviso aparece de novo.
+const ANNIVERSARY_DISMISS_KEY = 'luaCrescenteAnniversaryBannerDismissed';
+function daysUntilNextAnniversary(){
+  const today = new Date();
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  let anniversary = new Date(today.getFullYear(), GUILD_FOUNDING_DATE.getMonth(), GUILD_FOUNDING_DATE.getDate());
+  if(anniversary < startOfToday){
+    anniversary = new Date(today.getFullYear()+1, GUILD_FOUNDING_DATE.getMonth(), GUILD_FOUNDING_DATE.getDate());
+  }
+  return Math.round((anniversary - startOfToday) / 86400000);
+}
+function updateAnniversaryBanner(){
+  const banner = document.getElementById('anniversaryBanner');
+  const textEl = document.getElementById('anniversaryBannerText');
+  if(!banner || !textEl) return;
+  let dismissed = false;
+  try{ dismissed = sessionStorage.getItem(ANNIVERSARY_DISMISS_KEY) === '1'; }catch{}
+  const days = daysUntilNextAnniversary();
+  if(dismissed || days < 0 || days > 5){ banner.hidden = true; return; }
+  if(days === 0){
+    textEl.textContent = currentLang==='es'
+      ? '🎉 ¡Hoy es el aniversario de Lua Crescente! 🎂'
+      : '🎉 Hoje é o aniversário da Lua Crescente! 🎂';
+  } else {
+    textEl.textContent = currentLang==='es'
+      ? `🎉 Faltan ${days} día${days===1?'':'s'} para el aniversario de Lua Crescente!`
+      : `🎉 Faltam ${days} dia${days===1?'':'s'} pro aniversário da Lua Crescente!`;
+  }
+  banner.hidden = false;
+}
+document.getElementById('anniversaryBannerClose')?.addEventListener('click', ()=>{
+  const banner = document.getElementById('anniversaryBanner');
+  if(banner) banner.hidden = true;
+  try{ sessionStorage.setItem(ANNIVERSARY_DISMISS_KEY, '1'); }catch{}
+});
+updateAnniversaryBanner();
+
+// ---- Tema sazonal automático (Halloween, Natal, aniversário da guilda) ----
+// Troca sozinho, sem nenhuma configuração manual, com base só na data do
+// sistema. Cada janela de datas abaixo é só um número — pra ajustar ano a
+// ano (ou adicionar uma nova data especial), basta editar aqui.
+function getActiveSeasonalTheme(){
+  const today = new Date();
+  const m = today.getMonth(); // 0-indexado
+  const d = today.getDate();
+  // Aniversário da guilda tem prioridade (data mais específica e especial).
+  if(m === GUILD_FOUNDING_DATE.getMonth() && d === GUILD_FOUNDING_DATE.getDate()) return 'anniversary';
+  if(m === 9 && d >= 25 && d <= 31) return 'halloween'; // 25–31 de outubro
+  if(m === 11 && d >= 20 && d <= 26) return 'christmas'; // 20–26 de dezembro
+  return null;
+}
+function applySeasonalTheme(){
+  const theme = getActiveSeasonalTheme();
+  if(theme){ document.body.dataset.season = theme; } else { delete document.body.dataset.season; }
+  const badge = document.getElementById('seasonalBadge');
+  if(!badge) return;
+  const icons = { anniversary:'🎉', halloween:'🎃', christmas:'🎄' };
+  badge.textContent = theme ? icons[theme] : '';
+}
+applySeasonalTheme();
 
 function hideFooterModal(modal, restoreFocus=true){
   if(!modal) return;
@@ -1345,7 +1709,10 @@ function openFooterModal(key){
   requestAnimationFrame(()=>modal.querySelector('.guild-modal-close')?.focus());
 }
 document.querySelectorAll('[data-footer-modal]').forEach(btn=>{
-  btn.addEventListener('click', ()=> openFooterModal(btn.dataset.footerModal));
+  btn.addEventListener('click', ()=>{
+    openFooterModal(btn.dataset.footerModal);
+    if(btn.dataset.footerModal === 'changelog') markChangelogAsSeen();
+  });
 });
 document.querySelectorAll('.footer-modal').forEach(modal=>{
   modal.querySelectorAll('[data-footer-modal-close]').forEach(el=>el.addEventListener('click',()=>hideFooterModal(modal)));

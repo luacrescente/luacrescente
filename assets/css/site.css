@@ -516,6 +516,20 @@
   .boss-agenda-eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:9px}
   .boss-agenda-dialog h2{font-family:'Cinzel',serif;color:var(--text);font-size:clamp(25px,4vw,36px);margin:0 0 8px}
   .boss-agenda-intro{margin:0 0 22px;color:var(--text-dim);font-size:13px;line-height:1.65}
+  .boss-notify-toggle{
+    display:inline-flex;align-items:center;gap:6px;
+    margin:0 0 22px;padding:9px 16px;
+    border:1px solid var(--gold-dim);
+    border-radius:8px;
+    background:rgba(201,162,75,.08);
+    color:var(--gold);
+    font-size:12.5px;font-weight:600;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .boss-notify-toggle:hover:not(:disabled){background:rgba(201,162,75,.18);}
+  .boss-notify-toggle.is-on{background:rgba(201,162,75,.22);}
+  .boss-notify-toggle:disabled{opacity:.55;cursor:not-allowed;}
   .boss-agenda-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .boss-agenda-day{border:1px solid rgba(55,59,68,.72);border-radius:8px;background:rgba(8,11,15,.64);overflow:hidden}
   .boss-agenda-day h3{margin:0;padding:11px 13px;border-bottom:1px solid rgba(55,59,68,.58);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:rgba(201,162,75,.035)}
@@ -811,6 +825,40 @@
     color:var(--gold);
   }
   .tag.group{border-color:var(--group);color:var(--group);}
+  .copy-link-btn{
+    flex:0 0 auto;
+    width:28px;height:28px;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--border);
+    border-radius:7px;
+    background:transparent;
+    color:var(--text-dim);
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .copy-link-btn:hover{background:var(--panel-2);color:var(--gold);border-color:var(--gold-dim);}
+  .copy-link-btn.is-copied{color:var(--gold);border-color:var(--gold-dim);}
+  .export-list-btn{
+    flex:0 0 auto;
+    width:28px;height:28px;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--border);
+    border-radius:7px;
+    background:transparent;
+    color:var(--text-dim);
+    font-size:13px;
+    line-height:1;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .export-list-btn:hover{background:var(--panel-2);color:var(--gold);border-color:var(--gold-dim);}
+  .export-list-btn.is-copied{color:var(--gold);border-color:var(--gold-dim);}
+  @media (max-width:600px){
+    .copy-link-btn{width:26px;height:26px;font-size:13px;}
+    .export-list-btn{width:26px;height:26px;font-size:12px;}
+  }
   .body{
     display:none;
     padding:4px 16px 16px 16px;
@@ -1218,11 +1266,30 @@
     transition:color .15s;
   }
   .footer-col a:hover,.footer-col button:hover{color:var(--gold,#c9a24b);}
+  .changelog-badge{
+    display:inline-flex;align-items:center;gap:3px;
+    margin-left:8px;
+    padding:2px 7px;
+    border-radius:999px;
+    background:rgba(201,162,75,.16);
+    color:#e0b563;
+    font-size:10px;font-weight:700;letter-spacing:.02em;
+    white-space:nowrap;
+    animation:changelogBadgePulse 2.2s ease-in-out infinite;
+  }
+  @keyframes changelogBadgePulse{
+    0%,100%{opacity:1;}
+    50%{opacity:.6;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .changelog-badge{animation:none;}
+  }
   .footer-legal-bar{
     border-top:1px solid rgba(255,255,255,.06);
     padding:14px 32px;
     color:#7f8790;text-align:center;font-size:10px;line-height:1.6;
   }
+  .footer-founding-counter{margin:0 0 8px;color:#8a7a4a;font-size:11.5px;font-style:italic;}
   .footer-legal-bar strong{color:#a7adb5;font-weight:500;}
   @media(max-width:760px){
     .footer-columns-wrap{padding:26px 18px 18px;}
@@ -1555,3 +1622,115 @@ body.group-sidebar-open .site-page{
 @media (max-width:700px){
   .back-to-top{bottom:54px;}
 }
+
+/* ---- Aviso de aniversário da guilda ---- */
+.anniversary-banner{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .3s ease;
+}
+.anniversary-banner:not([hidden]){max-height:80px;}
+.anniversary-banner-inner{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  padding:11px 44px 11px 20px;
+  position:relative;
+  background:linear-gradient(90deg, rgba(201,162,75,.16), rgba(201,162,75,.28), rgba(201,162,75,.16));
+  border-bottom:1px solid var(--gold-dim);
+  text-align:center;
+}
+.anniversary-banner-text{
+  color:var(--gold);
+  font-size:13.5px;
+  font-weight:600;
+  letter-spacing:.01em;
+}
+.anniversary-banner-close{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  background:none;border:none;
+  width:26px;height:26px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);
+  font-size:20px;line-height:1;
+  cursor:pointer;
+  border-radius:6px;
+  transition:background .15s ease;
+}
+.anniversary-banner-close:hover{background:rgba(201,162,75,.18);}
+@media (max-width:600px){
+  .anniversary-banner-inner{padding:10px 40px 10px 14px;}
+  .anniversary-banner-text{font-size:12px;}
+}
+
+/* ---- Tema sazonal automático ---- */
+/* Troca só algumas variáveis de cor (efeito cascata em botões, bordas,
+   textos em destaque etc.) + um selinho pequeno do lado do logo. Calculado
+   sozinho pela data do sistema, sem precisar configurar nada manualmente. */
+.seasonal-badge{
+  margin-left:6px;
+  font-size:14px;
+  vertical-align:middle;
+  line-height:1;
+}
+body[data-season="halloween"]{
+  --gold:#ff8a3d;
+  --gold-dim:#b35a1e;
+}
+body[data-season="christmas"]{
+  --gold:#e0574f;
+  --gold-dim:#8f3530;
+  --group:#2f8f5b;
+}
+body[data-season="anniversary"]{
+  --gold:#ffd166;
+  --gold-dim:#c9a24b;
+}
+
+/* ---- Página Combos de Artefato ---- */
+.combo-layout{max-width:1000px;margin:0 auto;padding:0 20px 40px;}
+.combo-tabs{display:flex;gap:10px;margin:0 0 14px;}
+.combo-tab{
+  flex:1 1 0;padding:12px 16px;border:1px solid var(--border);border-radius:10px;
+  background:var(--panel);color:var(--text-dim);font-size:14px;font-weight:700;cursor:pointer;
+  transition:background .15s ease,color .15s ease,border-color .15s ease;
+}
+.combo-tab:hover{background:var(--panel-2);color:var(--text);}
+.combo-tab.active{background:rgba(201,162,75,.16);border-color:var(--gold-dim);color:var(--gold);}
+.combo-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;}
+.combo-chip{
+  padding:7px 13px;border:1px solid var(--border);border-radius:999px;background:var(--panel);
+  color:var(--text);font-size:12px;cursor:pointer;
+}
+.combo-chip span{opacity:.6;margin-left:3px;font-size:11px;}
+.combo-chip:hover{color:var(--text);border-color:var(--gold-dim);}
+.combo-chip:hover{background:var(--panel-2);}
+.combo-chip.active{color:var(--gold);border-color:var(--gold-dim);background:#2a2415;}
+.combo-list .root-item{cursor:pointer;}
+.combo-en{font-style:normal;font-weight:500;font-size:11.5px;color:var(--text-dim);margin-left:6px;}
+.combo-summary{padding:0 20px 12px 46px;color:var(--text-dim);font-size:12px;line-height:1.5;}
+.combo-item.open .combo-summary{display:none;}
+.tag.combo-flag{border-color:var(--crimson);color:#d39a8e;}
+.combo-block-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dim);margin:4px 0 8px;}
+.combo-stones{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:6px;}
+.combo-stones li{padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.02);font-size:13px;color:var(--text);}
+.combo-stone-alt{margin-left:6px;font-size:11px;color:var(--gold-dim);}
+.combo-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.combo-tiers.two{grid-template-columns:repeat(2,1fr);}
+.combo-tier{border:1px solid var(--border);border-radius:8px;padding:10px 12px;background:rgba(255,255,255,.02);}
+.combo-tier-title{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;}
+.combo-stats{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;}
+.combo-stats li{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--text-dim);}
+.combo-stats b{font-weight:700;white-space:nowrap;}
+.combo-stats b.pos{color:#7fd39a;}
+.combo-stats b.neg{color:#e0847a;}
+.combo-empty-col{color:var(--text-dim);font-size:12px;}
+.combo-note{margin:22px 0 0;color:var(--text-dim);font-size:12px;line-height:1.7;}
+@media (max-width:760px){
+  .combo-layout{padding:0 12px 32px;}
+  .combo-tiers,.combo-tiers.two{grid-template-columns:1fr;}
+  .combo-summary{padding-left:20px;}
+  .combo-tab{font-size:13px;padding:10px 8px;}
+}
+
+.copy-link-btn svg,.export-list-btn svg{width:15px;height:15px;display:block;}
+.combo-actions{display:flex;gap:8px;flex:0 0 auto;}
+.combo-stones li.is-free{border-style:dashed;color:var(--text-dim);}

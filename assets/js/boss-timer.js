@@ -178,6 +178,7 @@
     const modal = document.getElementById('bossAgendaModal');
     if(!modal) return;
     renderAgenda();
+    updateNotifyToggleUI();
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('boss-agenda-open');
@@ -198,16 +199,94 @@
         <div class="boss-agenda-eyebrow">Lua Crescente · Bosses</div>
         <h2 id="bossAgendaTitle">Agenda dos Bosses</h2>
         <p class="boss-agenda-intro">Horários semanais dos bosses no servidor da América do Sul.</p>
+        <button type="button" class="boss-notify-toggle" id="bossNotifyToggle" aria-pressed="false">🔕 Avisar 5 min antes de um chefe aparecer</button>
         <div class="boss-agenda-grid" id="bossAgendaGrid"></div>
       </div>`;
 
     document.body.appendChild(modal);
     renderAgenda();
+    updateNotifyToggleUI();
 
     modal.querySelector('.boss-agenda-backdrop')?.addEventListener('click', closeAgenda);
     modal.querySelector('.boss-agenda-close')?.addEventListener('click', closeAgenda);
+    modal.querySelector('#bossNotifyToggle')?.addEventListener('click', handleNotifyToggleClick);
 
     return modal;
+  }
+
+  // ---- Notificação do navegador "chefe chegando" (opt-in) ----
+  // Só dispara se a pessoa clicou pra ativar E o navegador concedeu a
+  // permissão de notificação. Fica guardado no localStorage do navegador da
+  // pessoa (por dispositivo), nunca ativado sozinho.
+  const NOTIFY_KEY = 'luaCrescenteBossNotifyEnabled';
+  const NOTIFY_LEAD_MS = 5 * 60 * 1000; // avisa 5 minutos antes
+  let lastNotifiedTs = null;
+
+  function isNotifyEnabled(){
+    if(typeof Notification === 'undefined') return false;
+    let flag = false;
+    try{ flag = localStorage.getItem(NOTIFY_KEY) === '1'; }catch{}
+    return flag && Notification.permission === 'granted';
+  }
+
+  function updateNotifyToggleUI(){
+    const btn = document.getElementById('bossNotifyToggle');
+    if(!btn) return;
+    if(typeof Notification === 'undefined'){
+      btn.textContent = '🔕 Seu navegador não suporta notificações';
+      btn.disabled = true;
+      btn.setAttribute('aria-pressed', 'false');
+      return;
+    }
+    const enabled = isNotifyEnabled();
+    btn.disabled = false;
+    btn.setAttribute('aria-pressed', String(enabled));
+    btn.classList.toggle('is-on', enabled);
+    if(Notification.permission === 'denied'){
+      btn.textContent = '🔕 Notificações bloqueadas no navegador';
+      btn.disabled = true;
+    } else {
+      btn.textContent = enabled
+        ? '🔔 Avisos ativados (clique pra desativar)'
+        : '🔕 Avisar 5 min antes de um chefe aparecer';
+    }
+  }
+
+  function handleNotifyToggleClick(){
+    if(typeof Notification === 'undefined') return;
+    if(isNotifyEnabled()){
+      try{ localStorage.setItem(NOTIFY_KEY, '0'); }catch{}
+      updateNotifyToggleUI();
+      return;
+    }
+    Notification.requestPermission().then(permission=>{
+      if(permission === 'granted'){
+        try{ localStorage.setItem(NOTIFY_KEY, '1'); }catch{}
+        try{
+          new Notification('🔔 Avisos de chefe ativados!', {
+            body: 'A Lua Crescente vai te avisar 5 minutos antes de um chefe aparecer.',
+            icon: '/assets/img/enceladus-mascote.png'
+          });
+        }catch{}
+      } else {
+        try{ localStorage.setItem(NOTIFY_KEY, '0'); }catch{}
+      }
+      updateNotifyToggleUI();
+    });
+  }
+
+  function maybeNotifyBoss(next, diff){
+    if(!next || !isNotifyEnabled()) return;
+    if(diff > 0 && diff <= NOTIFY_LEAD_MS && lastNotifiedTs !== next.ts){
+      lastNotifiedTs = next.ts;
+      try{
+        new Notification(`⚔️ ${next.names.join(' + ')} em ${Math.ceil(diff/60000)} min!`, {
+          body: `Spawn às ${next.time} · Lua Crescente`,
+          icon: '/assets/img/enceladus-mascote.png',
+          tag: 'lua-crescente-boss-' + next.ts
+        });
+      }catch{}
+    }
   }
 
   function update(){
@@ -252,6 +331,8 @@
 
     bar.classList.toggle('is-soon', diff <= 10 * 60 * 1000);
     bar.classList.toggle('is-imminent', diff <= 2 * 60 * 1000);
+
+    maybeNotifyBoss(next, diff);
   }
 
   function init(){
