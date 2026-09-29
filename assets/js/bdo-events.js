@@ -120,7 +120,7 @@
     // Janela visível
     let maxEnd = today0.getTime() + 14 * DAY_MS;
     prepared.forEach(p => { if(p._end.getTime() > maxEnd) maxEnd = p._end.getTime(); });
-    const windowStart = new Date(today0.getTime() - 1 * DAY_MS); // 1 dia de folga à esquerda
+    const windowStart = new Date(today0.getTime()); // 1 dia de folga à esquerda
     const windowEnd = new Date(maxEnd + 2 * DAY_MS);
 
     const totalDays = Math.round((windowEnd - windowStart) / DAY_MS) + 1;
