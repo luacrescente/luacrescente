@@ -1570,16 +1570,12 @@ const FOOTER_TERMS_HTML = `
 // mais disponível pra leitura (por pedido explícito do dono do site).
 // IMPORTANTE: sempre que subir o número aqui, o sininho "🔔 Novidades" do
 // rodapé aparece de novo pra quem já visitou o site antes.
-const CURRENT_CHANGELOG_VERSION = 88;
+const CURRENT_CHANGELOG_VERSION = 90;
 const FOOTER_CHANGELOG_HTML = `
-  <div class="changelog-version">Versão ${CURRENT_CHANGELOG_VERSION}</div>
-  <div class="changelog-date">28 de setembro de 2026</div>
+  <div class="changelog-version">Versão 90</div>
+  <div class="changelog-date">29 de setembro de 2026</div>
   <ul>
-    <li>A página de combos passou a se chamar "Artefatos" no menu e agora usa os nomes oficiais em português e os valores conferidos à mão (só o combo, com Pedras da Luz e com Pedras Amplificadas).</li>
-    <li>Todo combo agora mostra as 4 Pedras da Luz; quando o combo só pede 3, o 4º espaço aparece como "Qualquer Pedra da Luz".</li>
-    <li>Novo botão de imagem em cada combo, pra mandar a ficha pronta no Discord.</li>
-    <li>Botões de compartilhar, copiar link e imagem agora usam ícones neutros (os mesmos padrões da maioria dos sites), nos Artefatos e nas Receitas.</li>
-    <li>Ajuste de cor nos filtros de categoria, que estavam transparentes demais.</li>
+    <li>Nova seção "Eventos" na Home, abaixo dos cupons: uma linha do tempo automática com os eventos em andamento no BDO, lida direto do site oficial da Pearl Abyss. Clique num evento pra abrir a página dele.</li>
   </ul>
 `;
 const FOOTER_MODAL_CONTENT = {privacy:FOOTER_PRIVACY_HTML, terms:FOOTER_TERMS_HTML, changelog:FOOTER_CHANGELOG_HTML};

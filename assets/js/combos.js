@@ -13,7 +13,7 @@
   const tabs = document.querySelectorAll('.combo-tab');
   const params = new URLSearchParams(location.search);
   const CACHE = {};
-  const FILES = { combate:'/assets/data/combos/combos-combate.json?v=3', lifeskill:'/assets/data/combos/combos-lifeskill.json?v=3' };
+  const FILES = { combate:'/assets/data/combos/combos-combate.json?v=4', lifeskill:'/assets/data/combos/combos-lifeskill.json?v=4' };
   const SUPPORTS_SHARE = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
 
   const state = {
