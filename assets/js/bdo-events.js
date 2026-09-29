@@ -12,7 +12,7 @@
   const DAY_MS = 86400000;
   const DAY_WIDTH = 46; // px por dia na linha do tempo
 
-  const COLORS = ['#c9a24b','#4a7a72','#8a4a3d','#6b7fd7','#b3599a','#5a9e5a','#c97a3d'];
+  const COLORS = ['#c9522e','#3f7d99','#7a4fb0','#2f8f5b','#b0862f','#c94b7a','#4a7a72','#7a5a3d'];
 
   function colorFor(id){
     let h = 0;
@@ -69,9 +69,9 @@
       const label = msLeft <= 0 ? 'Encerrado' : (daysLeft <= 1 ? 'termina hoje' : `${daysLeft}d restantes`);
       const color = colorFor(e.id || e.title);
       rows += `<a class="events-row" href="${esc(e.link)}" target="_blank" rel="noopener" style="top:${i*40}px">
-        <span class="events-bar" style="left:${x1}px;width:${w}px;background:${color}22;border-color:${color};">
+        <span class="events-bar" style="left:${x1}px;width:${w}px;background:${color};border:1px solid ${color};">
           <span class="events-bar-label">${esc(e.title)}</span>
-          <span class="events-bar-days" style="color:${color}">${label}</span>
+          <span class="events-bar-days">${label}</span>
         </span>
       </a>`;
     });

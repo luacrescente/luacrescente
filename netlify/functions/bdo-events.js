@@ -3,9 +3,9 @@
 // pronto no servidor, sem precisar de JavaScript). Se a Pearl Abyss mudar o
 // layout dessas páginas um dia, essa function para de achar os padrões
 // abaixo e simplesmente devolve uma lista vazia — não quebra o resto do site.
-const LIST_URL = 'https://www.sa.playblackdesert.com/pt-BR/News/Notice?boardType=3&progressType=1';
-const DETAIL_URL = (id) => `https://www.sa.playblackdesert.com/pt-BR/News/Detail?groupContentNo=${id}&countryType=pt-BR`;
-const EVENT_PAGE_URL = (id) => `https://www.sa.playblackdesert.com/pt-BR/News/Detail?groupContentNo=${id}&countryType=pt-BR`;
+const LIST_URL = (page) => `https://www.sa.playblackdesert.com/pt-BR/News/Notice?boardType=3&progressType=1&Page=${page}`;
+const DETAIL_URL = (id) => `https://www.sa.playblackdesert.com/News/Notice/Detail?groupContentNo=${id}&countryType=pt-BR`;
+const EVENT_PAGE_URL = DETAIL_URL;
 
 // Mesmo cabeçalho "de navegador real" já usado na function dos cupons —
 // evita bloqueio básico de bot (403) por parte de proteções tipo Cloudflare.
@@ -16,7 +16,8 @@ const headers = {
   'referer': 'https://www.sa.playblackdesert.com/pt-BR/News/Notice?boardType=3'
 };
 
-const MAX_EVENTS = 18; // limite de páginas de evento lidas por chamada, pra não sobrecarregar o site da PA
+const MAX_EVENTS = 60;   // teto de eventos lidos no total (todas as páginas somadas)
+const MAX_PAGES = 4;     // teto de páginas da listagem visitadas, pra não sobrecarregar o site da PA
 
 const MONTHS = {
   janeiro:0, fevereiro:1, março:2, marco:2, abril:3, maio:4, junho:5,
@@ -82,7 +83,7 @@ function extractIds(listHtml) {
   const seen = new Set();
   const re = /Detail\?groupContentNo=(\d+)/g;
   let m;
-  while ((m = re.exec(listHtml)) && ids.length < MAX_EVENTS) {
+  while ((m = re.exec(listHtml))) {
     if (seen.has(m[1])) continue;
     seen.add(m[1]);
     ids.push(m[1]);
@@ -120,10 +121,20 @@ function extractImage(html) {
 
 exports.handler = async function () {
   try {
-    const listRes = await fetch(LIST_URL, { headers });
-    if (!listRes.ok) return json({ events: [], error: 'lista indisponível ('+listRes.status+')' });
-    const listHtml = await listRes.text();
-    const ids = extractIds(listHtml);
+    const allIds = [];
+    const seenIds = new Set();
+    for (let page = 1; page <= MAX_PAGES && allIds.length < MAX_EVENTS; page++) {
+      const listRes = await fetch(LIST_URL(page), { headers });
+      if (!listRes.ok) {
+        if (page === 1) return json({ events: [], error: 'lista indisponível ('+listRes.status+')' });
+        break; // páginas seguintes falharam — segue só com o que já achou
+      }
+      const listHtml = await listRes.text();
+      const pageIds = extractIds(listHtml).filter(id => !seenIds.has(id));
+      if (!pageIds.length) break; // página vazia ou repetida = acabaram as páginas
+      pageIds.forEach(id => { seenIds.add(id); allIds.push(id); });
+    }
+    const ids = allIds.slice(0, MAX_EVENTS);
 
     const events = [];
     await Promise.all(ids.map(async (id) => {
@@ -147,7 +158,7 @@ exports.handler = async function () {
 
     events.sort((a, b) => new Date(a.start) - new Date(b.start));
 
-    return json({ events, fetchedAt: new Date().toISOString() });
+    return json({ events, fetchedAt: new Date().toISOString(), pagesRead: Math.min(MAX_PAGES, Math.ceil(ids.length / 20) || 1) });
   } catch (err) {
     return json({ events: [], error: String(err && err.message || err) }, 200);
   }

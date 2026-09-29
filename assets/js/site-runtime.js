@@ -1575,7 +1575,9 @@ const FOOTER_CHANGELOG_HTML = `
   <div class="changelog-version">Versão 90</div>
   <div class="changelog-date">29 de setembro de 2026</div>
   <ul>
-    <li>Nova seção "Eventos" na Home, abaixo dos cupons: uma linha do tempo automática com os eventos em andamento no BDO, lida direto do site oficial da Pearl Abyss. Clique num evento pra abrir a página dele.</li>
+    <li>Nova seção "Eventos" na Home, abaixo dos cupons: uma linha do tempo automática com os eventos em andamento no BDO, lida direto do site oficial da Pearl Abyss (com paginação, pra não perder nenhum evento). Clique num evento pra abrir a página dele.</li>
+    <li>Cada evento ganhou uma cor sólida própria e o quadro passou a ter fundo escuro fixo, igual ao resto do site, em vez de deixar a imagem de fundo aparecer por trás.</li>
+    <li>Corrigido um bug de CSS que criava uma barra de rolagem vertical desnecessária no quadro de eventos; agora ele só cresce/encolhe verticalmente sozinho, mostrando sempre todos os eventos de uma vez (a rolagem horizontal pras datas continua normal).</li>
   </ul>
 `;
 const FOOTER_MODAL_CONTENT = {privacy:FOOTER_PRIVACY_HTML, terms:FOOTER_TERMS_HTML, changelog:FOOTER_CHANGELOG_HTML};
