@@ -1,9 +1,8 @@
-/* Seção "Eventos" da Home — v6
+/* Seção "Eventos" da Home — v7
    - Duas abas: Temporários / Permanentes
-   - Timeline tipo Garmoth: barra por evento
-   - Janela começa 2 dias antes de hoje
+   - Todas as barras começam 2 dias atrás com setinha ‹ (parece contínuo, igual Garmoth)
    - Badge "Xd" FORA da barra (direita)
-   - Permanentes: barra cinza, sem badge, sem ∞
+   - Permanentes: barra cinza, sem badge
 */
 (function(){
   'use strict';
@@ -11,12 +10,10 @@
   const root = document.getElementById('eventsTimeline');
   if(!root) return;
 
-  const CACHE_KEY = 'luaCrescenteEventsCache_v6';
-  const START_KEY = 'luaCrescenteEventStart_v6';
+  const CACHE_KEY = 'luaCrescenteEventsCache_v7';
   const DAY_MS = 86400000;
   const DAY_WIDTH = 44;
   const ROW_HEIGHT = 36;
-  const BAR_HEIGHT = 24;
   const PERMANENT_WINDOW_DAYS = 60;
   const DAYS_BACK = 2;
 
@@ -41,14 +38,6 @@
 
   const PALETTE = ['#7a5a3d','#7a3d4a','#a04a2e','#3f6d89','#5a4f8a','#3f7a5a','#8a6a3d','#5a6a7a'];
   function colorForIndex(i){ return PALETTE[i % PALETTE.length]; }
-
-  function readStarts(){
-    try{ const raw = localStorage.getItem(START_KEY); return raw ? JSON.parse(raw) : {}; }
-    catch{ return {}; }
-  }
-  function writeStarts(map){
-    try{ localStorage.setItem(START_KEY, JSON.stringify(map)); }catch{}
-  }
 
   let allEvents = [];
   let activeTab = 'temporary';
@@ -82,43 +71,23 @@
 
     const now = new Date();
     const today0 = startOfDay(now);
-    const starts = readStarts();
 
-    const prepared = valid.map((e, idx) => {
-      const idKey = String(e.id);
-      let startISO = starts[idKey];
-      if(!startISO){
-        startISO = today0.toISOString();
-        starts[idKey] = startISO;
-      }
-      const realStart = startOfDay(new Date(startISO));
-
-      let endDate;
-      if(e.isPermanent){
-        endDate = new Date(today0.getTime() + PERMANENT_WINDOW_DAYS * DAY_MS);
-      } else {
-        const dLeft = Math.max(0, Number(e.daysLeft) || 0);
-        endDate = new Date(today0.getTime() + dLeft * DAY_MS);
-      }
-
-      const effectiveStart = realStart.getTime() < today0.getTime() ? today0 : realStart;
-      const cameFromBefore = realStart.getTime() < today0.getTime();
-
-      return { ...e, _start: effectiveStart, _end: endDate, _cameFromBefore: cameFromBefore, _idx: idx };
-    });
-
-    writeStarts(starts);
-
-    let maxEnd = today0.getTime() + 14 * DAY_MS;
-    prepared.forEach(p => { if(p._end.getTime() > maxEnd) maxEnd = p._end.getTime(); });
-
-    // 2 dias pra trás (regra do usuário)
+    // Todas as barras começam 2 dias atrás (parece contínuo)
     const windowStart = new Date(today0.getTime() - DAYS_BACK * DAY_MS);
+
+    // Descobre o maior fim pra dimensionar a janela
+    let maxEnd = today0.getTime() + 14 * DAY_MS;
+    valid.forEach(e => {
+      if(e.isPermanent) return;
+      const end = new Date(today0.getTime() + Math.max(0, Number(e.daysLeft) || 0) * DAY_MS);
+      if(end.getTime() > maxEnd) maxEnd = end.getTime();
+    });
     const windowEnd = new Date(maxEnd + 2 * DAY_MS);
 
     const totalDays = Math.round((windowEnd - windowStart) / DAY_MS) + 1;
     const dayX = (d) => Math.round((startOfDay(d) - windowStart) / DAY_MS) * DAY_WIDTH;
 
+    // Régua
     let ruler = '';
     for(let i = 0; i < totalDays; i++){
       const d = new Date(windowStart.getTime() + i * DAY_MS);
@@ -133,43 +102,46 @@
 
     const todayX = dayX(today0);
 
+    // Barras — TODAS começam em windowStart com setinha
     let rows = '';
-    prepared.forEach((p, i) => {
-      const x1raw = dayX(p._start);
-      const x2raw = dayX(p._end) + DAY_WIDTH;
-      const x1 = Math.max(0, x1raw);
+    valid.forEach((e, i) => {
+      const endDate = e.isPermanent
+        ? new Date(today0.getTime() + PERMANENT_WINDOW_DAYS * DAY_MS)
+        : new Date(today0.getTime() + Math.max(0, Number(e.daysLeft) || 0) * DAY_MS);
+
+      const x1 = 0; // sempre começa na borda esquerda
+      const x2raw = dayX(endDate) + DAY_WIDTH;
       const x2 = Math.min(totalDays * DAY_WIDTH, x2raw);
       const w = Math.max(DAY_WIDTH, x2 - x1);
-      const color = p.isPermanent ? '#4a4f5a' : colorForIndex(p._idx);
 
-      let label;
-      if(p.isPermanent){
-        label = '';
-      } else {
-        const msLeft = p._end - now;
+      const color = e.isPermanent ? '#4a4f5a' : colorForIndex(i);
+
+      let label = '';
+      if(!e.isPermanent){
+        const msLeft = endDate - now;
         const daysLeft = Math.max(0, Math.ceil(msLeft / DAY_MS));
         if(msLeft <= 0) label = 'Encerrado';
         else if(daysLeft <= 1) label = 'Hoje';
         else label = `${daysLeft}d`;
       }
 
-      const badgeHtml = (!p.isPermanent && label)
+      const badgeHtml = (!e.isPermanent && label)
         ? `<span class="events-bar-days" style="left:${x2 + 6}px">${esc(label)}</span>`
         : '';
 
-      rows += `<a class="events-row${p._cameFromBefore?' came-from-before':''}${p.isPermanent?' is-permanent':''}"
-                  href="${esc(p.link)}" target="_blank" rel="noopener"
+      rows += `<a class="events-row${e.isPermanent?' is-permanent':''} came-from-before"
+                  href="${esc(e.link)}" target="_blank" rel="noopener"
                   style="top:${i*ROW_HEIGHT}px"
-                  data-title="${esc(p.title)}">
+                  data-title="${esc(e.title)}">
         <span class="events-bar" style="left:${x1}px;width:${w}px;background:${color};">
-          ${p._cameFromBefore ? '<span class="events-bar-arrow" aria-hidden="true">‹</span>' : ''}
-          <span class="events-bar-label">${esc(p.title)}</span>
+          <span class="events-bar-arrow" aria-hidden="true">‹</span>
+          <span class="events-bar-label">${esc(e.title)}</span>
         </span>
         ${badgeHtml}
       </a>`;
     });
 
-    const rowsHeight = prepared.length * ROW_HEIGHT;
+    const rowsHeight = valid.length * ROW_HEIGHT;
     const canvasHeight = 30 + rowsHeight + 6;
 
     root.innerHTML = tabsHtml + `
@@ -184,7 +156,6 @@
     bindStickyLabels();
     bindTabs();
 
-    // Rola pro começo (o marcador de hoje fica 2 dias da borda esquerda)
     const scroller = root.querySelector('.events-scroll');
     if(scroller) scroller.scrollLeft = 0;
   }
