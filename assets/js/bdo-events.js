@@ -1,24 +1,23 @@
-/* Seção "Eventos" da Home — v4
-   - Lê os eventos da Netlify Function (que lê a lista da PA)
+/* Seção "Eventos" da Home — v5
+   - Duas abas: Temporários (com prazo) / Permanentes (∞)
    - Timeline tipo Garmoth: barra por evento, largura = duração
-   - Eventos com prazo em cima (menor daysLeft primeiro)
-   - Permanentes embaixo, barra cinza + tag ∞
+   - Nome do evento "gruda" na esquerda quando rola (sticky dentro da barra)
+   - Eventos que começaram antes de hoje: barra começa em "hoje" com setinha ‹
    - Clique → abre a página do evento na PA
-   - Data de início: guardada em localStorage na primeira vez que vê o evento
 */
 (function(){
   'use strict';
 
-  const el = document.getElementById('eventsTimeline');
-  if(!el) return;
+  const root = document.getElementById('eventsTimeline');
+  if(!root) return;
 
-  const CACHE_KEY = 'luaCrescenteEventsCache_v4';
-  const START_KEY = 'luaCrescenteEventStart_v4';
+  const CACHE_KEY = 'luaCrescenteEventsCache_v5';
+  const START_KEY = 'luaCrescenteEventStart_v5';
   const DAY_MS = 86400000;
-  const DAY_WIDTH = 40;
-  const ROW_HEIGHT = 38;
-  const BAR_HEIGHT = 26;
-  const PERMANENT_WINDOW_DAYS = 90;
+  const DAY_WIDTH = 44;
+  const ROW_HEIGHT = 36;
+  const BAR_HEIGHT = 24;
+  const PERMANENT_WINDOW_DAYS = 60;
 
   function cacheTTL(){
     const now = new Date();
@@ -39,32 +38,51 @@
   const WEEKDAYS = ['Do','Se','Te','Qu','Qu','Se','Sá'];
   const MONTHS_SHORT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 
-  // ---- localStorage: quando cada evento foi visto pela 1ª vez ----
+  // Cores neutras (sem categorizar) — igual Garmoth
+  const PALETTE = ['#7a5a3d','#7a3d4a','#a04a2e','#3f6d89','#5a4f8a','#3f7a5a','#8a6a3d','#5a6a7a'];
+  function colorForIndex(i){ return PALETTE[i % PALETTE.length]; }
+
+  // ---- localStorage: guarda a 1ª vez que cada evento foi visto ----
   function readStarts(){
-    try{
-      const raw = localStorage.getItem(START_KEY);
-      return raw ? JSON.parse(raw) : {};
-    }catch{ return {}; }
+    try{ const raw = localStorage.getItem(START_KEY); return raw ? JSON.parse(raw) : {}; }
+    catch{ return {}; }
   }
   function writeStarts(map){
     try{ localStorage.setItem(START_KEY, JSON.stringify(map)); }catch{}
   }
-  function rememberStart(id, iso){
-    const map = readStarts();
-    if(!map[id]){ map[id] = iso; writeStarts(map); }
-    return map[id];
-  }
 
-  // Cores neutras — uma paleta simples, sem "categorizar"
-  const PALETTE = ['#8a6a3d','#7a3d4a','#a04a2e','#3f6d89','#5a4f8a','#3f7a5a','#7a5a3d','#5a6a7a'];
+  // ---- Estado da UI ----
+  let allEvents = [];
+  let activeTab = 'temporary'; // 'temporary' | 'permanent'
 
-  function colorForIndex(i){
-    return PALETTE[i % PALETTE.length];
-  }
+  // ---- Render principal ----
+  function render(){
+    if(!allEvents.length){
+      root.innerHTML = '<div class="events-status">Nenhum evento em andamento encontrado no momento.</div>';
+      return;
+    }
 
-  function render(events){
-    if(!Array.isArray(events) || !events.length){
-      el.innerHTML = '<div class="events-status">Nenhum evento em andamento encontrado no momento.</div>';
+    const tempEvents = allEvents.filter(e => !e.isPermanent);
+    const permEvents = allEvents.filter(e => e.isPermanent);
+    const list = activeTab === 'temporary' ? tempEvents : permEvents;
+
+    // Filtra inválidos
+    const valid = list.filter(e => e && e.title && e.link);
+
+    // Monta header com as abas
+    const tabsHtml = `
+      <div class="events-tabs" role="tablist">
+        <button type="button" class="events-tab ${activeTab==='temporary'?'active':''}" data-tab="temporary" role="tab" aria-selected="${activeTab==='temporary'}">
+          ⏱️ Temporários
+        </button>
+        <button type="button" class="events-tab ${activeTab==='permanent'?'active':''}" data-tab="permanent" role="tab" aria-selected="${activeTab==='permanent'}">
+          ∞ Permanentes
+        </button>
+      </div>`;
+
+    if(!valid.length){
+      root.innerHTML = tabsHtml + '<div class="events-status">Nenhum evento nesta categoria no momento.</div>';
+      bindTabs();
       return;
     }
 
@@ -73,16 +91,14 @@
     const starts = readStarts();
 
     // Prepara cada evento com data de início e fim
-    const prepared = events.map((e, idx) => {
+    const prepared = valid.map((e, idx) => {
       const idKey = String(e.id);
-      let startISO;
-      if(starts[idKey]){
-        startISO = starts[idKey];
-      } else {
+      let startISO = starts[idKey];
+      if(!startISO){
         startISO = today0.toISOString();
         starts[idKey] = startISO;
       }
-      const startDate = startOfDay(new Date(startISO));
+      const realStart = startOfDay(new Date(startISO));
 
       let endDate;
       if(e.isPermanent){
@@ -92,31 +108,25 @@
         endDate = new Date(today0.getTime() + dLeft * DAY_MS);
       }
 
-      return {
-        ...e,
-        _start: startDate,
-        _end: endDate,
-        _idx: idx
-      };
+      // Se o início real é anterior a hoje, "esconde" — barra começa em hoje
+      const effectiveStart = realStart.getTime() < today0.getTime() ? today0 : realStart;
+      const cameFromBefore = realStart.getTime() < today0.getTime();
+
+      return { ...e, _start: effectiveStart, _end: endDate, _cameFromBefore: cameFromBefore, _idx: idx };
     });
 
     writeStarts(starts);
 
     // Janela visível
-    let minStart = today0.getTime();
     let maxEnd = today0.getTime() + 14 * DAY_MS;
-    prepared.forEach(p => {
-      if(p._start.getTime() < minStart) minStart = p._start.getTime();
-      if(p._end.getTime() > maxEnd) maxEnd = p._end.getTime();
-    });
-    // Garante pelo menos 3 dias antes de hoje
-    const windowStart = new Date(Math.min(minStart, today0.getTime() - 3 * DAY_MS));
+    prepared.forEach(p => { if(p._end.getTime() > maxEnd) maxEnd = p._end.getTime(); });
+    const windowStart = new Date(today0.getTime() - 1 * DAY_MS); // 1 dia de folga à esquerda
     const windowEnd = new Date(maxEnd + 2 * DAY_MS);
 
     const totalDays = Math.round((windowEnd - windowStart) / DAY_MS) + 1;
     const dayX = (d) => Math.round((startOfDay(d) - windowStart) / DAY_MS) * DAY_WIDTH;
 
-    // Régua de dias
+    // Régua
     let ruler = '';
     for(let i = 0; i < totalDays; i++){
       const d = new Date(windowStart.getTime() + i * DAY_MS);
@@ -129,61 +139,122 @@
       </div>`;
     }
 
-    // Linha "agora"
-    const nowX = Math.round((now - windowStart) / DAY_MS * DAY_WIDTH);
-    const nowLabel = now.toTimeString().slice(0,5);
+    // Linha "hoje"
+    const todayX = dayX(today0);
 
     // Barras
     let rows = '';
     prepared.forEach((p, i) => {
       const x1raw = dayX(p._start);
       const x2raw = dayX(p._end) + DAY_WIDTH;
-      const startedBefore = x1raw < 0;
       const x1 = Math.max(0, x1raw);
       const x2 = Math.min(totalDays * DAY_WIDTH, x2raw);
       const w = Math.max(DAY_WIDTH, x2 - x1);
-
       const color = p.isPermanent ? '#4a4f5a' : colorForIndex(p._idx);
 
       let label;
       if(p.isPermanent){
-        label = 'Permanente';
+        label = '∞';
       } else {
         const msLeft = p._end - now;
         const daysLeft = Math.max(0, Math.ceil(msLeft / DAY_MS));
         if(msLeft <= 0) label = 'Encerrado';
-        else if(daysLeft <= 1) label = 'termina hoje';
-        else label = `${daysLeft}d restantes`;
+        else if(daysLeft <= 1) label = 'hoje';
+        else label = `${daysLeft}d`;
       }
 
-      rows += `<a class="events-row" href="${esc(p.link)}" target="_blank" rel="noopener"
-                  style="top:${i*ROW_HEIGHT}px" title="${esc(p.title)} — ${esc(label)}">
-        <span class="events-bar${startedBefore?' started-before':''}${p.isPermanent?' is-permanent':''}"
-              style="left:${x1}px;width:${w}px;background:${color};">
-          ${startedBefore ? '<span class="events-bar-arrow">‹</span>' : ''}
+      // Largura fixa pro "label" do título (sticky na esquerda)
+      // A barra rola, mas o título acompanha a borda esquerda visível
+      rows += `<a class="events-row${p._cameFromBefore?' came-from-before':''}${p.isPermanent?' is-permanent':''}"
+                  href="${esc(p.link)}" target="_blank" rel="noopener"
+                  style="top:${i*ROW_HEIGHT}px"
+                  data-title="${esc(p.title)}"
+                  data-label="${esc(label)}">
+        <span class="events-bar" style="left:${x1}px;width:${w}px;background:${color};">
+          ${p._cameFromBefore ? '<span class="events-bar-arrow" aria-hidden="true">‹</span>' : ''}
           <span class="events-bar-label">${esc(p.title)}</span>
-          <span class="events-bar-days">${p.isPermanent ? '∞' : esc(label)}</span>
+          <span class="events-bar-days">${esc(label)}</span>
         </span>
       </a>`;
     });
 
     const rowsHeight = prepared.length * ROW_HEIGHT;
-    const canvasHeight = 34 + rowsHeight + 8;
+    const canvasHeight = 30 + rowsHeight + 6;
 
-    el.innerHTML = `
+    root.innerHTML = tabsHtml + `
       <div class="events-scroll">
         <div class="events-canvas" style="width:${totalDays*DAY_WIDTH}px;height:${canvasHeight}px">
-          <div class="events-ruler" style="height:34px">${ruler}</div>
-          <div class="events-now-line" style="left:${nowX}px;height:${canvasHeight}px"><span>${nowLabel}</span></div>
-          <div class="events-rows" style="top:34px;height:${rowsHeight}px">${rows}</div>
+          <div class="events-ruler" style="height:30px">${ruler}</div>
+          <div class="events-today-line" style="left:${todayX}px;height:${canvasHeight}px"></div>
+          <div class="events-rows" style="top:30px;height:${rowsHeight}px">${rows}</div>
         </div>
       </div>`;
 
-    const scroller = el.querySelector('.events-scroll');
-    if(scroller){
-      const target = Math.max(0, nowX - (scroller.clientWidth / 2));
-      scroller.scrollLeft = target;
+    // Sticky labels: escuta o scroll do container e move o título
+    bindStickyLabels();
+    bindTabs();
+
+    // Rola pra mostrar hoje com uma folga
+    const scroller = root.querySelector('.events-scroll');
+    if(scroller) scroller.scrollLeft = Math.max(0, todayX - 60);
+  }
+
+  // O título "gruda" na esquerda visível quando a barra rola pra fora
+  function bindStickyLabels(){
+    const scroller = root.querySelector('.events-scroll');
+    if(!scroller) return;
+
+    const rows = Array.from(root.querySelectorAll('.events-row'));
+
+    function update(){
+      const sl = scroller.scrollLeft;
+      const viewW = scroller.clientWidth;
+      rows.forEach(row => {
+        const bar = row.querySelector('.events-bar');
+        const label = row.querySelector('.events-bar-label');
+        const arrow = row.querySelector('.events-bar-arrow');
+        if(!bar || !label) return;
+
+        const barLeft = parseFloat(bar.style.left) || 0;
+        const barWidth = parseFloat(bar.style.width) || 0;
+        const barRight = barLeft + barWidth;
+
+        // Se a barra ficou totalmente fora da esquerda, esconde o título
+        if(barRight < sl){
+          label.style.transform = '';
+          label.style.opacity = '0';
+          return;
+        }
+        label.style.opacity = '1';
+
+        // Se o lado esquerdo da barra tá pra fora, "gruda" o título no início visível
+        if(barLeft < sl){
+          const offset = sl - barLeft;
+          const maxOffset = Math.max(0, barWidth - label.offsetWidth - 60);
+          label.style.transform = `translateX(${Math.min(offset, maxOffset)}px)`;
+          if(arrow) arrow.style.opacity = '0';
+        } else {
+          label.style.transform = '';
+          if(arrow) arrow.style.opacity = '0.85';
+        }
+      });
     }
+
+    scroller.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+    // Primeira atualização depois do layout
+    requestAnimationFrame(update);
+  }
+
+  function bindTabs(){
+    root.querySelectorAll('.events-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        if(tab === activeTab) return;
+        activeTab = tab;
+        render();
+      });
+    });
   }
 
   function readCache(){
@@ -201,20 +272,25 @@
 
   async function load(){
     const cached = readCache();
-    if(cached){ render(cached); return; }
+    if(cached && cached.length){
+      allEvents = cached;
+      render();
+      return;
+    }
     try{
       const res = await fetch('/.netlify/functions/bdo-events?ts=' + Date.now(), {cache:'no-store'});
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       if(data.error && (!data.events || !data.events.length)){
-        el.innerHTML = '<div class="events-status">Não foi possível carregar os eventos agora. Tente novamente mais tarde.</div>';
+        root.innerHTML = '<div class="events-status">Não foi possível carregar os eventos agora. Tente novamente mais tarde.</div>';
         return;
       }
-      writeCache(data.events || []);
-      render(data.events || []);
+      allEvents = data.events || [];
+      writeCache(allEvents);
+      render();
     }catch(err){
       console.error('[Eventos]', err);
-      el.innerHTML = '<div class="events-status">Não foi possível carregar os eventos agora.</div>';
+      root.innerHTML = '<div class="events-status">Não foi possível carregar os eventos agora.</div>';
     }
   }
 

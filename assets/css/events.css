@@ -1,4 +1,4 @@
-/* ---- Seção "Eventos" (Home) — v4 ---- */
+/* ---- Seção "Eventos" (Home) — v5 ---- */
 .events-section{max-width:1180px;margin:0 auto;padding:22px 32px 0;}
 .events-shell{
   border:1px solid rgba(201,162,75,.18);
@@ -11,6 +11,30 @@
 .events-status{padding:24px 4px;color:var(--text-dim);font-size:13px;}
 .events-timeline{margin-top:16px;}
 
+/* ---- Tabs ---- */
+.events-tabs{
+  display:flex;gap:4px;margin:0 0 14px;
+  border-bottom:1px solid var(--border);
+  padding-bottom:0;
+}
+.events-tab{
+  background:transparent;
+  border:0;
+  border-bottom:2px solid transparent;
+  color:var(--text-dim);
+  font-family:inherit;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 14px;
+  margin-bottom:-1px;
+  cursor:pointer;
+  transition:color .15s ease, border-color .15s ease;
+  white-space:nowrap;
+}
+.events-tab:hover{color:var(--text);}
+.events-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* ---- Scroll container ---- */
 .events-scroll{
   overflow-x:auto;
   overflow-y:hidden;
@@ -26,11 +50,13 @@
 .events-scroll::-webkit-scrollbar-thumb:hover{background:rgba(201,162,75,.55);}
 
 .events-canvas{position:relative;}
+
+/* ---- Régua de dias ---- */
 .events-ruler{position:relative;border-bottom:1px solid var(--border);background:var(--panel);}
 .events-ruler-day{
-  position:absolute;top:0;width:40px;height:100%;
+  position:absolute;top:0;width:44px;height:100%;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  color:var(--text-dim);font-size:10px;line-height:1.25;
+  color:var(--text-dim);font-size:10px;line-height:1.2;
   border-left:1px solid rgba(255,255,255,.05);
   box-sizing:border-box;
   overflow:hidden;
@@ -38,71 +64,90 @@
 .events-ruler-wd{opacity:.7;font-size:9px;}
 .events-ruler-n{font-weight:700;color:var(--text);font-size:11px;}
 .events-ruler-m{
-  position:absolute;top:1px;left:2px;
+  position:absolute;top:1px;left:3px;
   font-size:8px;font-weight:800;
   color:var(--gold);
   text-transform:uppercase;letter-spacing:.05em;
   line-height:1;
 }
 .events-ruler-day.is-today .events-ruler-n{color:var(--gold);}
-.events-ruler-day.is-first-of-month{border-left:1px solid rgba(201,162,75,.35);}
+.events-ruler-day.is-first-of-month{border-left:1px solid rgba(201,162,75,.30);}
 
-.events-now-line{
+/* ---- Linha "hoje" ---- */
+.events-today-line{
   position:absolute;top:0;width:0;
-  border-left:1px solid var(--gold);
-  z-index:2;pointer-events:none;
-}
-.events-now-line span{
-  position:absolute;top:-2px;left:4px;
-  font-size:10px;color:var(--gold);
-  background:var(--panel);padding:1px 4px;border-radius:4px;
-  white-space:nowrap;
+  border-left:1px dashed rgba(201,162,75,.55);
+  z-index:1;pointer-events:none;
 }
 
+/* ---- Linhas de evento ---- */
 .events-rows{position:absolute;left:0;right:0;}
 .events-row{
   position:absolute;left:0;right:0;
-  height:38px;
+  height:36px;
   display:block;text-decoration:none;
 }
 .events-bar{
   position:absolute;top:5px;
-  height:26px;
+  height:24px;
   border-radius:5px;
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;gap:6px;
   padding:0 10px;
   white-space:nowrap;overflow:hidden;
-  box-shadow:0 1px 2px rgba(0,0,0,.35);
-  transition:filter .15s ease, transform .1s ease;
+  box-shadow:0 1px 2px rgba(0,0,0,.3);
+  transition:filter .15s ease;
   box-sizing:border-box;
   cursor:pointer;
 }
-.events-row:hover .events-bar{filter:brightness(1.14);transform:translateY(-1px);}
-.events-bar.started-before{
-  border-top-left-radius:2px;
-  border-bottom-left-radius:2px;
-}
+.events-row:hover .events-bar{filter:brightness(1.14);}
+
+/* Setinha ‹ pra eventos que começaram antes da janela */
 .events-bar-arrow{
-  color:#fff;font-size:14px;font-weight:800;
-  line-height:1;flex:0 0 auto;opacity:.85;margin-right:-2px;
+  color:#fff;
+  font-size:14px;
+  font-weight:800;
+  line-height:1;
+  flex:0 0 auto;
+  opacity:.85;
+  margin-right:-2px;
+  transition:opacity .1s ease;
 }
+
+/* Título "sticky" dentro da barra — o JS move com transform */
 .events-bar-label{
-  color:#fff;font-size:12px;font-weight:700;
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
   text-shadow:0 1px 2px rgba(0,0,0,.35);
-  overflow:hidden;text-overflow:ellipsis;
-  flex:1 1 auto;min-width:0;
+  white-space:nowrap;
+  flex:0 1 auto;
+  min-width:0;
+  transition:transform .08s linear;
+  will-change:transform;
+  padding-right:6px;
 }
 .events-bar-days{
   font-size:10px;font-weight:700;flex:0 0 auto;color:#fff;
-  background:rgba(0,0,0,.28);padding:2px 7px;border-radius:999px;
+  background:rgba(0,0,0,.30);padding:2px 7px;border-radius:999px;
   white-space:nowrap;
+  margin-left:auto;
 }
-.events-bar.is-permanent{
-  border:1px dashed rgba(255,255,255,.20);
+
+/* Permanentes: barra tracejada + cinza (já aplicado inline no JS) */
+.events-row.is-permanent .events-bar{
+  border:1px dashed rgba(255,255,255,.18);
+}
+
+/* Barra que começou antes da janela — leve degradê da esquerda */
+.events-row.came-from-before .events-bar{
+  border-top-left-radius:2px;
+  border-bottom-left-radius:2px;
+  background-image:linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,0) 40px);
 }
 
 @media (max-width:700px){
   .events-section{padding-left:14px;padding-right:14px;}
   .events-shell{padding:16px 14px 16px;}
   .events-title{font-size:17px;}
+  .events-tab{font-size:12px;padding:7px 10px;}
 }
