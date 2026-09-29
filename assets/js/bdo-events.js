@@ -1,9 +1,9 @@
-/* Seção "Eventos" da Home — v5
-   - Duas abas: Temporários (com prazo) / Permanentes (∞)
-   - Timeline tipo Garmoth: barra por evento, largura = duração
-   - Nome do evento "gruda" na esquerda quando rola (sticky dentro da barra)
-   - Eventos que começaram antes de hoje: barra começa em "hoje" com setinha ‹
-   - Clique → abre a página do evento na PA
+/* Seção "Eventos" da Home — v6
+   - Duas abas: Temporários / Permanentes
+   - Timeline tipo Garmoth: barra por evento
+   - Janela começa 2 dias antes de hoje
+   - Badge "Xd" FORA da barra (direita)
+   - Permanentes: barra cinza, sem badge, sem ∞
 */
 (function(){
   'use strict';
@@ -11,13 +11,14 @@
   const root = document.getElementById('eventsTimeline');
   if(!root) return;
 
-  const CACHE_KEY = 'luaCrescenteEventsCache_v5';
-  const START_KEY = 'luaCrescenteEventStart_v5';
+  const CACHE_KEY = 'luaCrescenteEventsCache_v6';
+  const START_KEY = 'luaCrescenteEventStart_v6';
   const DAY_MS = 86400000;
   const DAY_WIDTH = 44;
   const ROW_HEIGHT = 36;
   const BAR_HEIGHT = 24;
   const PERMANENT_WINDOW_DAYS = 60;
+  const DAYS_BACK = 2;
 
   function cacheTTL(){
     const now = new Date();
@@ -38,11 +39,9 @@
   const WEEKDAYS = ['Do','Se','Te','Qu','Qu','Se','Sá'];
   const MONTHS_SHORT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 
-  // Cores neutras (sem categorizar) — igual Garmoth
   const PALETTE = ['#7a5a3d','#7a3d4a','#a04a2e','#3f6d89','#5a4f8a','#3f7a5a','#8a6a3d','#5a6a7a'];
   function colorForIndex(i){ return PALETTE[i % PALETTE.length]; }
 
-  // ---- localStorage: guarda a 1ª vez que cada evento foi visto ----
   function readStarts(){
     try{ const raw = localStorage.getItem(START_KEY); return raw ? JSON.parse(raw) : {}; }
     catch{ return {}; }
@@ -51,11 +50,9 @@
     try{ localStorage.setItem(START_KEY, JSON.stringify(map)); }catch{}
   }
 
-  // ---- Estado da UI ----
   let allEvents = [];
-  let activeTab = 'temporary'; // 'temporary' | 'permanent'
+  let activeTab = 'temporary';
 
-  // ---- Render principal ----
   function render(){
     if(!allEvents.length){
       root.innerHTML = '<div class="events-status">Nenhum evento em andamento encontrado no momento.</div>';
@@ -65,11 +62,8 @@
     const tempEvents = allEvents.filter(e => !e.isPermanent);
     const permEvents = allEvents.filter(e => e.isPermanent);
     const list = activeTab === 'temporary' ? tempEvents : permEvents;
-
-    // Filtra inválidos
     const valid = list.filter(e => e && e.title && e.link);
 
-    // Monta header com as abas
     const tabsHtml = `
       <div class="events-tabs" role="tablist">
         <button type="button" class="events-tab ${activeTab==='temporary'?'active':''}" data-tab="temporary" role="tab" aria-selected="${activeTab==='temporary'}">
@@ -90,7 +84,6 @@
     const today0 = startOfDay(now);
     const starts = readStarts();
 
-    // Prepara cada evento com data de início e fim
     const prepared = valid.map((e, idx) => {
       const idKey = String(e.id);
       let startISO = starts[idKey];
@@ -108,7 +101,6 @@
         endDate = new Date(today0.getTime() + dLeft * DAY_MS);
       }
 
-      // Se o início real é anterior a hoje, "esconde" — barra começa em hoje
       const effectiveStart = realStart.getTime() < today0.getTime() ? today0 : realStart;
       const cameFromBefore = realStart.getTime() < today0.getTime();
 
@@ -117,16 +109,16 @@
 
     writeStarts(starts);
 
-    // Janela visível
     let maxEnd = today0.getTime() + 14 * DAY_MS;
     prepared.forEach(p => { if(p._end.getTime() > maxEnd) maxEnd = p._end.getTime(); });
-    const windowStart = new Date(today0.getTime()); // 1 dia de folga à esquerda
+
+    // 2 dias pra trás (regra do usuário)
+    const windowStart = new Date(today0.getTime() - DAYS_BACK * DAY_MS);
     const windowEnd = new Date(maxEnd + 2 * DAY_MS);
 
     const totalDays = Math.round((windowEnd - windowStart) / DAY_MS) + 1;
     const dayX = (d) => Math.round((startOfDay(d) - windowStart) / DAY_MS) * DAY_WIDTH;
 
-    // Régua
     let ruler = '';
     for(let i = 0; i < totalDays; i++){
       const d = new Date(windowStart.getTime() + i * DAY_MS);
@@ -139,10 +131,8 @@
       </div>`;
     }
 
-    // Linha "hoje"
     const todayX = dayX(today0);
 
-    // Barras
     let rows = '';
     prepared.forEach((p, i) => {
       const x1raw = dayX(p._start);
@@ -154,27 +144,28 @@
 
       let label;
       if(p.isPermanent){
-        label = '∞';
+        label = '';
       } else {
         const msLeft = p._end - now;
         const daysLeft = Math.max(0, Math.ceil(msLeft / DAY_MS));
         if(msLeft <= 0) label = 'Encerrado';
-        else if(daysLeft <= 1) label = 'hoje';
+        else if(daysLeft <= 1) label = 'Hoje';
         else label = `${daysLeft}d`;
       }
 
-      // Largura fixa pro "label" do título (sticky na esquerda)
-      // A barra rola, mas o título acompanha a borda esquerda visível
+      const badgeHtml = (!p.isPermanent && label)
+        ? `<span class="events-bar-days" style="left:${x2 + 6}px">${esc(label)}</span>`
+        : '';
+
       rows += `<a class="events-row${p._cameFromBefore?' came-from-before':''}${p.isPermanent?' is-permanent':''}"
                   href="${esc(p.link)}" target="_blank" rel="noopener"
                   style="top:${i*ROW_HEIGHT}px"
-                  data-title="${esc(p.title)}"
-                  data-label="${esc(label)}">
+                  data-title="${esc(p.title)}">
         <span class="events-bar" style="left:${x1}px;width:${w}px;background:${color};">
           ${p._cameFromBefore ? '<span class="events-bar-arrow" aria-hidden="true">‹</span>' : ''}
           <span class="events-bar-label">${esc(p.title)}</span>
-          <span class="events-bar-days">${esc(label)}</span>
         </span>
+        ${badgeHtml}
       </a>`;
     });
 
@@ -190,25 +181,20 @@
         </div>
       </div>`;
 
-    // Sticky labels: escuta o scroll do container e move o título
     bindStickyLabels();
     bindTabs();
 
-    // Rola pra mostrar hoje com uma folga
+    // Rola pro começo (o marcador de hoje fica 2 dias da borda esquerda)
     const scroller = root.querySelector('.events-scroll');
-    if(scroller) scroller.scrollLeft = Math.max(0, todayX - 60);
+    if(scroller) scroller.scrollLeft = 0;
   }
 
-  // O título "gruda" na esquerda visível quando a barra rola pra fora
   function bindStickyLabels(){
     const scroller = root.querySelector('.events-scroll');
     if(!scroller) return;
-
     const rows = Array.from(root.querySelectorAll('.events-row'));
-
     function update(){
       const sl = scroller.scrollLeft;
-      const viewW = scroller.clientWidth;
       rows.forEach(row => {
         const bar = row.querySelector('.events-bar');
         const label = row.querySelector('.events-bar-label');
@@ -219,7 +205,6 @@
         const barWidth = parseFloat(bar.style.width) || 0;
         const barRight = barLeft + barWidth;
 
-        // Se a barra ficou totalmente fora da esquerda, esconde o título
         if(barRight < sl){
           label.style.transform = '';
           label.style.opacity = '0';
@@ -227,7 +212,6 @@
         }
         label.style.opacity = '1';
 
-        // Se o lado esquerdo da barra tá pra fora, "gruda" o título no início visível
         if(barLeft < sl){
           const offset = sl - barLeft;
           const maxOffset = Math.max(0, barWidth - label.offsetWidth - 60);
@@ -239,10 +223,8 @@
         }
       });
     }
-
     scroller.addEventListener('scroll', update, {passive:true});
     window.addEventListener('resize', update);
-    // Primeira atualização depois do layout
     requestAnimationFrame(update);
   }
 
