@@ -1734,3 +1734,188 @@ body[data-season="anniversary"]{
 .copy-link-btn svg,.export-list-btn svg{width:15px;height:15px;display:block;}
 .combo-actions{display:flex;gap:8px;flex:0 0 auto;}
 .combo-stones li.is-free{border-style:dashed;color:var(--text-dim);}
+
+/* ---- Cards de guias (layout destaque + grade) — v1 ---- */
+.guide-layout{
+  display:grid;
+  grid-template-columns:1.7fr 1fr;
+  gap:12px;
+  align-items:stretch;
+}
+
+/* --- Card grande (destaque) --- */
+.guide-card-featured{
+  position:relative;
+  display:block;
+  min-height:280px;
+  overflow:hidden;
+  border:1px solid #30343c;
+  border-radius:10px;
+  background:#10141a;
+  text-decoration:none;
+  color:var(--text);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.guide-card-featured::before{
+  content:"";
+  position:absolute;inset:0;
+  background:var(--guide-image) center/cover no-repeat;
+  opacity:.55;
+  transition:transform .3s ease, opacity .3s ease;
+}
+.guide-card-featured::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(5,8,12,.05) 0%, rgba(5,8,12,.30) 40%, rgba(5,8,12,.94) 100%);
+}
+.guide-card-featured:hover{
+  transform:translateY(-2px);
+  border-color:#67542d;
+  box-shadow:0 14px 40px rgba(0,0,0,.35);
+}
+.guide-card-featured:hover::before{
+  transform:scale(1.04);
+  opacity:.70;
+}
+
+.guide-badge{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:2;
+  padding:3px 8px;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+  color:#fff;
+  background:rgba(63,109,137,.92);
+  border:1px solid rgba(120,170,200,.5);
+  border-radius:4px;
+  backdrop-filter:blur(4px);
+  box-shadow:0 2px 6px rgba(0,0,0,.35);
+}
+
+.guide-featured-content{
+  position:absolute;
+  z-index:1;
+  left:22px;
+  right:22px;
+  bottom:20px;
+}
+.guide-featured-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(20px,2.2vw,28px);
+  line-height:1.15;
+  margin:8px 0 10px;
+  color:#f0ebdd;
+  text-shadow:0 3px 18px rgba(0,0,0,.6);
+}
+.guide-featured-desc{
+  font-size:13px;
+  line-height:1.55;
+  color:#c4bfb3;
+  margin:0;
+  max-width:520px;
+  text-shadow:0 2px 10px rgba(0,0,0,.55);
+}
+
+/* --- Coluna da direita (cards pequenos) --- */
+.guide-side{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  align-content:stretch;
+}
+.guide-card-small{
+  position:relative;
+  display:block;
+  min-height:134px;
+  overflow:hidden;
+  border:1px solid #30343c;
+  border-radius:10px;
+  background:#10141a;
+  text-decoration:none;
+  color:var(--text);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.guide-card-small::before{
+  content:"";
+  position:absolute;inset:0;
+  background:var(--guide-image) center/cover no-repeat;
+  opacity:.48;
+  transition:transform .3s ease, opacity .3s ease;
+}
+.guide-card-small::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(5,8,12,.05) 0%, rgba(5,8,12,.42) 45%, rgba(5,8,12,.95) 100%);
+}
+.guide-card-small:hover{
+  transform:translateY(-2px);
+  border-color:#67542d;
+  box-shadow:0 12px 32px rgba(0,0,0,.32);
+}
+.guide-card-small:hover::before{
+  transform:scale(1.04);
+  opacity:.62;
+}
+.guide-card-small .guide-badge{
+  top:8px;
+  right:8px;
+  font-size:8px;
+  padding:2px 6px;
+}
+
+.guide-small-content{
+  position:absolute;
+  z-index:1;
+  left:14px;
+  right:14px;
+  bottom:12px;
+}
+.guide-small-title{
+  font-family:'Cinzel',serif;
+  font-size:15px;
+  line-height:1.25;
+  margin:6px 0 0;
+  color:#eee8db;
+  text-shadow:0 2px 12px rgba(0,0,0,.55);
+}
+
+/* --- Tags (reaproveita o estilo que já existe) --- */
+.guide-layout .guide-tag{
+  display:inline-block;
+  font-size:9px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:3px 7px;
+  border:1px solid rgba(201,162,75,.45);
+  border-radius:4px;
+  color:#d7bd7d;
+  background:rgba(12,14,18,.62);
+}
+
+/* --- Responsivo --- */
+@media (max-width:900px){
+  .guide-layout{
+    grid-template-columns:1fr;
+  }
+  .guide-card-featured{
+    min-height:220px;
+  }
+  .guide-side{
+    grid-template-columns:1fr 1fr;
+  }
+}
+@media (max-width:600px){
+  .guide-side{
+    grid-template-columns:1fr;
+  }
+  .guide-featured-title{
+    font-size:20px;
+  }
+  .guide-featured-desc{
+    font-size:12px;
+  }
+}

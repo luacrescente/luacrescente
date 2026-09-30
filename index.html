@@ -77,7 +77,7 @@
     <p class="home-search-hint" data-i18n="home_search_hint">Pesquise qualquer item da árvore de Receitas.</p>
   </div>
 
-  <div class="home-section">
+    <div class="home-section">
     <div class="home-section-head">
       <div>
         <h2 class="home-section-title">📖 <span data-i18n="classroom">Sala de Aula</span></h2>
@@ -85,16 +85,30 @@
       </div>
       <button class="home-section-link gold-link" type="button" data-page="sala-de-aula" onclick="setPage('sala-de-aula')"><span data-i18n="all_guides">VER TODOS OS GUIAS →</span></button>
     </div>
-    <div class="guide-grid">
-      <button class="guide-card" type="button" style="--guide-image:url('/assets/img/santuario-bg.webp')" data-page="sala-de-aula">
-        <div class="guide-content"><span class="guide-tag" data-i18n="tag_alchemy">Alquimia</span><h3 class="guide-title" data-i18n="guide_alchemy">Guia de Alquimia</h3><p class="guide-desc" data-i18n="guide_alchemy_desc">Aprenda desde os primeiros passos até as combinações mais avançadas.</p><span class="guide-read" data-i18n="read_guide">Ler guia →</span></div>
-      </button>
-      <button class="guide-card" type="button" style="--guide-image:url('/assets/img/santuario-bg.webp')" data-page="sala-de-aula">
-        <div class="guide-content"><span class="guide-tag" data-i18n="tag_cooking">Culinária</span><h3 class="guide-title" data-i18n="guide_cooking">Guia de Culinária</h3><p class="guide-desc" data-i18n="guide_cooking_desc">Ingredientes, utensílios, receitas e dicas para os cozinheiros da guilda.</p><span class="guide-read" data-i18n="read_guide">Ler guia →</span></div>
-      </button>
-      <button class="guide-card" type="button" style="--guide-image:url('/assets/img/santuario-bg.webp')" data-page="sala-de-aula">
-        <div class="guide-content"><span class="guide-tag" data-i18n="tag_production">Produção</span><h3 class="guide-title" data-i18n="guide_production">Produção e Cadeias</h3><p class="guide-desc" data-i18n="guide_production_desc">Entenda as cadeias de produção e organize seus materiais.</p><span class="guide-read" data-i18n="read_guide">Ler guia →</span></div>
-      </button>
+    <div class="guide-layout">
+      <a class="guide-card-featured" href="/sala-de-aula.html" style="--guide-image:url('/assets/img/santuario-bg.webp')">
+        <span class="guide-badge">DESTAQUE</span>
+        <div class="guide-featured-content">
+          <span class="guide-tag" data-i18n="tag_alchemy">Alquimia</span>
+          <h3 class="guide-featured-title" data-i18n="guide_alchemy">Guia de Alquimia</h3>
+          <p class="guide-featured-desc" data-i18n="guide_alchemy_desc">Aprenda desde os primeiros passos até as combinações mais avançadas.</p>
+        </div>
+      </a>
+      <div class="guide-side">
+        <a class="guide-card-small" href="/sala-de-aula.html" style="--guide-image:url('/assets/img/santuario-bg.webp')">
+          <span class="guide-badge">NOVO</span>
+          <div class="guide-small-content">
+            <span class="guide-tag" data-i18n="tag_cooking">Culinária</span>
+            <h3 class="guide-small-title" data-i18n="guide_cooking">Guia de Culinária</h3>
+          </div>
+        </a>
+        <a class="guide-card-small" href="/sala-de-aula.html" style="--guide-image:url('/assets/img/santuario-bg.webp')">
+          <div class="guide-small-content">
+            <span class="guide-tag" data-i18n="tag_production">Produção</span>
+            <h3 class="guide-small-title" data-i18n="guide_production">Produção e Cadeias</h3>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -233,7 +247,7 @@
 <script src="/assets/js/world-cycle.js?v=64" defer></script>
 <script src="/assets/js/guild-boss-timer.js?v=86" defer></script>
 <script src="/assets/js/boss-timer.js?v=86" defer></script>
-<script src="/assets/js/bdo-events.js?v=6" defer></script>
+<script src="/assets/js/bdo-events.js?v=7" defer></script>
 <script src="/assets/js/blog-loader.js?v=2"></script>
 <script src="/assets/js/home-guides.js?v=2"></script>
 <script src="/assets/js/site-runtime.js?v=91" defer></script>
