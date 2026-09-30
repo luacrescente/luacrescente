@@ -419,7 +419,6 @@ const ROOT_ITEM_ICONS = {
   'Perfume do Desejo': codexIcon(1411),
   'Perfume da Perseverança': codexIcon(1413),
   'Perfume de Rapidez': codexIcon(735),
-  'Perfume de Rapidez': codexIcon(735),
   'Perfume de Espírito': codexIcon(781),
   'Perfume de Espírito da Respiração': codexIcon(872),
   'Perfume do Encanto': codexIcon(1161),
@@ -493,7 +492,6 @@ const CULINARY_ICON_IDS = {
   'Pão de Teff':'pao-de-teff.png',
   'Sanduíche Teff':'sanduiche-teff.png',
   'Chá com Leite':'cha-com-leite.png',
-  'Refeição da Onda de Okilua':'refeicao-da-onda-de-okilua.png',
   'Refeição da Onda de Okilua':'refeicao-da-onda-de-okilua.png',
   'Lagosta Assada em Manteiga':9477,
   'Chá com Leite de Delotia':9329,
@@ -580,13 +578,9 @@ const CULINARY_ICON_IDS = {
   'Molho Vermelho':9065,
   'Molho Branco':9003,
   'Sungnyung':9275,
-  'Chá com Aroma Fino':'cha-com-aroma-fino.png',
-  'Pão de Teff':'pao-de-teff.png',
-  'Sanduíche Teff':'sanduiche-de-teff.png',
   'Prato Especial de Frutos do Mar de Margoria':9634,
   'Refeição Especial de Eil':9360,
   'Vinho de Tamareira':9219,
-  'Chá com Leite':'cha-com-leite.png',
   'Licor de Mel':9206,
   'Biscoito de Colmeia':9266,
   'Chá de Jujuba':820839,
@@ -610,18 +604,14 @@ const CULINARY_ICON_IDS = {
   'Refeição de Cron Saborosa':9695,
   'Ginkgo Torrado':820843,
   'Churrasco de Marmota':9488,
-  
   'Sanduíche de Cogumelo Arco-Íris':9316,
   'Mingau de Feijão Vermelho':820825,
   'Tteok de Feijão':820849,
   'Grelhado de Cogumelo Arco-Íris com Queijo':9483,
-  "Refeição de O'dyllita":9638,
 };
 
-// Correções de ícones da Culinária — v93
-// Ícones de ingredientes-base usados pelas cascatas de Culinária.
 const COMMON_INGREDIENT_ICON_IDS = {
-'Rosa':7319,
+  'Rosa':7319,
   'Pistache':7017,
   'Trigo':7001,
   'Cevada':7002,
@@ -632,7 +622,6 @@ const COMMON_INGREDIENT_ICON_IDS = {
   'Leite':9065,
   'Chá com Cheiro Forte':9292,
   'Molho Base':9018,
-
   'Alho':7302,
   'Aloés':7347,
   'Arroz':820117,
@@ -665,16 +654,12 @@ const COMMON_INGREDIENT_ICON_IDS = {
   'Yuzu Especial':7362,
   'Pão de Teff Esponjoso':9299,
   'Açúcar':9002,
-  'Água Mineral':9059,
   'Queijo':9062,
-  'Manteiga':9063,
-  'Tempero':9006,
-  'Vinagre':9066,
-
   'Azeite de Oliva':9004,
   'Açúcar Mascavo':9009,
   'Carne de Tigre':7959,
-  'Cerveja':9213,};
+  'Cerveja':9213,
+};
 
 const GENERIC_SUBSTITUTION_OPTIONS = {
   'Carne': [
@@ -759,7 +744,6 @@ const CULINARY_ICON_OVERRIDES = {
 };
 
 const VARIANT_ITEM_ICONS = {
-  // Fármacos da Onda — ícones oficiais do BDO Codex.
   'Fármaco da Onda': 'https://bdocodex.com/items/new_icon/03_etc/08_potion/00767693.webp',
   'Fármaco da Onda Azul': 'https://bdocodex.com/items/new_icon/03_etc/08_potion/00767694.webp',
   'Fármaco da Onda Azul Profunda': 'https://bdocodex.com/items/new_icon/03_etc/08_potion/00767695.webp',
@@ -782,15 +766,9 @@ function renderFarmacoCards(item){
     immortalByBase[key] = v;
   });
 
-  // Cada Fármaco é um root-item independente, exatamente como os cards
-  // de Bênção de Criatura Mística. Não existe container-pai envolvendo os cards.
   return bases.map((base, i)=>{
     const imm = immortalByBase[base.title];
     const uid = nextUid();
-    // A receita do próprio Fármaco pode ter rotas internas (ex.: Onda Azul Profunda).
-    // Nesse caso, as rotas internas precisam ser renderizadas diretamente; não
-    // podem ser colocadas dentro de uma rota intermediária com `routes`, porque
-    // renderRoutes espera `children` em cada pane.
     const baseInner = base.routes
       ? renderRoutes(base.routes, nextUid(), [item.name, base.title])
       : renderChildren(base.children || [], [item.name, base.title]);
@@ -856,43 +834,10 @@ function hydrateRoot(el){
 }
 
 function renderRoot(item, idx){
-  // Fármacos: o título da seção não é um container/card.
-  // Os únicos containers visuais são os cards independentes de cada Fármaco.
   if(item.farmacoGroup){
-    // A categoria é apenas o filtro/sidebar; os cards dos Fármacos
-    // entram diretamente na lista, sem título ou container-pai.
     return renderFarmacoCards(item);
   }
   return renderRootShell(item, idx);
-
-  let inner = '';
-  if(item.isGroup){
-    inner = item.routes ? renderVariantRoutes(item.routes, nextUid(), [item.name]) : renderVariantList(item.variants, [item.name]);
-  } else if(item.routes){
-    inner = renderRoutes(item.routes, idx, [item.name]);
-  } else {
-    inner = renderChildren(item.children, [item.name]);
-  }
-
-  return `
-  <div class="root-item" data-idx="${idx}">
-    <div class="root-head">
-      <span class="chevron"></span>
-      ${(() => {
-        const rawRootIcon = ROOT_ITEM_ICONS[item.name] ?? ((item.group==='Culinária' || item.group==='Rações') ? (CULINARY_ICON_OVERRIDES[item.name] ?? CULINARY_ICON_IDS[item.name]) : '');
-        const rootIcon = rawRootIcon ? (typeof rawRootIcon === 'number' ? codexIcon(rawRootIcon) : rawRootIcon) : '';
-        return rootIcon ? `<img class="root-item-icon" src="${assetIcon(rootIcon)}" alt="" loading="eager" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'">` : '';
-      })()}
-      <span class="root-name">${tName(item.name)}</span>
-      ${item.routes && !item.farmacoGroup ? `<span class="tag">${currentLang==='es'?'Rutas':'Rotas'}</span>`:''}
-    </div>
-    <div class="body">
-      ${item.effect? `<div class="root-effect">✨ ${item.effect}</div>`:''}
-      ${item.note? `<div class="sub-recipe-note root-note">${translateFreeText(item.note)}</div>`:''}
-      ${item.source? `<div class="sub-recipe-note root-note">📍 ${currentLang==='es'?translateFreeText(item.source):item.source}</div>`:''}
-      ${inner}
-    </div>
-  </div>`;
 }
 
 function itemMatches(item, q){
@@ -926,10 +871,6 @@ window.applyRecipeData = function(nextData, group){
   activeGroup = group || activeGroup;
   rebuildExpandIndex();
   buildSidebar();
-  // Sem isto, trocar de categoria na sidebar atualiza o DATA e o botão ativo,
-  // mas a lista visível (#list) continua mostrando a categoria anterior até
-  // uma busca ser digitada. Precisa redesenhar a lista sempre que os dados
-  // da categoria terminam de carregar (clique na sidebar ou carga inicial).
   draw(document.getElementById('search')?.value || '');
 };
 
@@ -971,7 +912,6 @@ document.getElementById('groupSidebar')?.addEventListener('click', (e)=>{
   });
 });
 
-// v72 — menu sanduíche da sidebar de categorias no mobile
 function openGroupSidebarMobile(){
   document.getElementById('groupSidebar')?.classList.add('mobile-open');
   document.body.classList.add('group-sidebar-open');
@@ -1012,11 +952,6 @@ function buildRecipeLink(name, group){
   return location.origin + '/receitas.html?' + qs.toString();
 }
 
-// Monta os dados (nome, efeito, rotas com ingrediente+quantidade) que ficam
-// guardados no próprio botão "📋", prontos pra virar texto quando a pessoa
-// clicar em "copiar lista de ingredientes". Não resolve sub-receitas nem
-// alternativas em cascata — é só a lista direta de ingredientes da receita,
-// como pedido no roadmap.
 function buildExportPayload(name, effect, routes, children, imm){
   const toPairs = (list)=> (list||[]).filter(c=>c && c.name).map(c=>({name:c.name, qty: c.qty ?? null}));
   const result = { name, effect: effect || null, routes: [] };
@@ -1041,9 +976,6 @@ function slugify(name){
     .toLowerCase() || 'receita';
 }
 
-// Desenha a lista de ingredientes como uma imagem PNG (canvas puro, sem
-// biblioteca nenhuma), no visual do site, pronta pra colar/enviar no Discord
-// como imagem em vez de link.
 function renderIngredientListImage(name, routeLabel, effect, items){
   const width = 640;
   const padX = 28;
@@ -1129,9 +1061,6 @@ function renderIngredientListImage(name, routeLabel, effect, items){
   return canvas;
 }
 
-// Detecta suporte ao menu nativo de compartilhar do dispositivo (Web Share API).
-// Hoje isso existe basicamente em navegadores mobile; em desktop cai no
-// comportamento antigo de copiar o link.
 const SUPPORTS_NATIVE_SHARE = typeof navigator!=='undefined' && typeof navigator.share==='function';
 
 listEl?.addEventListener('click', (e)=>{
@@ -1143,9 +1072,6 @@ listEl?.addEventListener('click', (e)=>{
     try{ payload = JSON.parse(exportBtn.dataset.exportPayload || '{}'); }catch{ payload = {}; }
     const routes = Array.isArray(payload.routes) && payload.routes.length ? payload.routes : [{label:null, children:[]}];
     let routeIdx = 0;
-    // Se a receita já estiver aberta na tela com uma rota específica selecionada
-    // (ex.: "Rota 2" ou "Imortalidade"), exporta essa mesma rota em vez de
-    // sempre cair na primeira.
     const rootEl = exportBtn.closest('.root-item');
     const activeTab = rootEl?.querySelector('[data-lazy-body] > .route-tabs > .route-tab.active, .body > .route-tabs.farmaco-route-tabs > .route-tab.active');
     if(activeTab && activeTab.dataset.idx != null){
@@ -1164,14 +1090,11 @@ listEl?.addEventListener('click', (e)=>{
     const canvas = renderIngredientListImage(name, route.label, payload.effect, items);
     canvas.toBlob(async (blob)=>{
       if(!blob){
-        // Fallback raríssimo (navegador sem suporte a canvas.toBlob): copia texto simples.
         const text = `${name}${route.label?` (${route.label})`:''}\n` + items.map(c=>`• ${c.qty!=null?`${c.qty}x `:''}${c.name}`).join('\n');
         window.prompt('Copie a lista abaixo:', text);
         return;
       }
       const filename = `receita-${slugify(name)}.png`;
-      // No celular (com suporte a compartilhar arquivo), abre o menu nativo
-      // já com a imagem anexada — pra mandar direto pro Discord/WhatsApp.
       if(SUPPORTS_NATIVE_SHARE && navigator.canShare){
         try{
           const file = new File([blob], filename, {type:'image/png'});
@@ -1181,19 +1104,16 @@ listEl?.addEventListener('click', (e)=>{
             return;
           }
         }catch(err){
-          if(err && err.name === 'AbortError') return; // usuário cancelou o menu, não faz nada
-          // qualquer outro erro cai nos fallbacks abaixo
+          if(err && err.name === 'AbortError') return;
         }
       }
-      // No PC, copia a imagem direto pra área de transferência (colar com Ctrl+V no Discord).
       if(navigator.clipboard && window.ClipboardItem){
         try{
           await navigator.clipboard.write([new window.ClipboardItem({'image/png': blob})]);
           showFeedback(LC_ICONS.check);
           return;
-        }catch(err){ /* cai no fallback de download abaixo */ }
+        }catch(err){ }
       }
-      // Último recurso: baixa o PNG pro computador da pessoa.
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url; a.download = filename;
@@ -1226,7 +1146,6 @@ listEl?.addEventListener('click', (e)=>{
       navigator.share({ title: `${name} — Lua Crescente`, url: link })
         .then(showFeedback)
         .catch(err=>{
-          // AbortError = a própria pessoa cancelou o menu de compartilhar; não é um erro real.
           if(err && err.name === 'AbortError') return;
           copyToClipboard();
         });
@@ -1271,7 +1190,6 @@ document.getElementById('expandAll')?.addEventListener('click', ()=>{
   document.querySelectorAll('li.has-sub').forEach(el=>el.classList.add('sub-open'));
 });
 document.getElementById('collapseAll')?.addEventListener('click', ()=>{
-  // Recolhe todos os níveis para manter o par "expandir/recolher" consistente.
   document.querySelectorAll('.root-item, .farmaco-card').forEach(el=>el.classList.remove('open'));
   document.querySelectorAll('li.has-sub').forEach(el=>el.classList.remove('sub-open'));
 });
@@ -1296,10 +1214,6 @@ if(listEl){
   };
   if(window.loadRecipeCategory){
     window.loadRecipeCategory(activeGroup).then(data=>{
-      // BUG CORRIGIDO (v78): a promessa resolvida trazia os dados da categoria,
-      // mas eles nunca eram entregues a `applyRecipeData`/`DATA`, então a lista
-      // de receitas ficava vazia ("Nenhum item encontrado") até o usuário clicar
-      // manualmente numa categoria na barra lateral.
       window.applyRecipeData?.(data, activeGroup);
       window.__LC_AFTER_CATEGORY_LOAD?.();
     }).catch(err=>{ console.error('[Receitas]',err); if(emptyEl){ emptyEl.style.display='block'; emptyEl.textContent='Não foi possível carregar a categoria.'; } });
@@ -1377,11 +1291,6 @@ document.querySelectorAll('.site-tab').forEach(a=>{
   a.addEventListener('click',()=>closeMobileMenu());
 });
 
-// IMPORTANTE: não usar querySelectorAll('[data-page]') aqui.
-// A página de Receitas possui <body data-page="culinaria"> e isso fazia
-// com que QUALQUER clique dentro da página chegasse ao body e chamasse
-// setPage('culinaria'), recarregando /receitas.html do nada.
-// Apenas elementos de navegação reais devem controlar a troca de página.
 document.querySelectorAll('[data-modal="guild"]').forEach(el=>el.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();openGuildModal();}));
 guildModal?.querySelectorAll('[data-guild-modal-close]').forEach(el=>el.addEventListener('click',closeGuildModal));
 guildModal?.querySelector('.guild-modal-dialog')?.addEventListener('click',(e)=>e.stopPropagation());
@@ -1394,16 +1303,12 @@ if(backToTop){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&guildModal?.classList.contains('open'))closeGuildModal()});
 
-// Busca grande da Home: manda pra aba de Alquimia e Culinária já filtrando
 document.getElementById('homeSearchForm')?.addEventListener('submit', (e)=>{
   e.preventDefault();
   const q = document.getElementById('homeSearchInput').value.trim();
   location.href = '/receitas.html' + (q ? '?search='+encodeURIComponent(q) : '');
 });
 
-// Grade "Receitas em destaque" na Home: alguns atalhos pra árvore, um de cada grupo
-// Inclui o grupo (categoria) de cada item, para abrir direto na categoria certa
-// em vez de depender da categoria padrão carregada em receitas.html.
 function openItemFromHome(name, group){
   const qs = new URLSearchParams();
   if(group) qs.set('group', group);
@@ -1412,9 +1317,6 @@ function openItemFromHome(name, group){
 }
 
 function buildHomePopular(){
-  // Seleção visual baseada nas receitas que já existem na DATA.
-  // Contadores reais de visualização exigem um armazenamento/backend; não inventamos números.
-  // "group" precisa bater exatamente com as chaves de window.RECIPE_GROUPS (recipe-loader.js).
   const picks = [
     { name:'Fármaco da Harmonia', group:'Fármacos da Harmonia', icon:'🧪', type:'Alquimia' },
     { name:'Perfume de Coragem', group:'Perfumes', icon:'🌸', type:'Alquimia' },
@@ -1435,8 +1337,6 @@ function buildHomePopular(){
   });
 }
 
-// v108 — Cupons com miniaturas reais das recompensas.
-// Cupons: carregamento isolado. Se a fonte externa falhar, o restante do site continua normal.
 function rewardIconFallback(name){
   const ids={
     'High-quality Food Box':757423,
@@ -1455,7 +1355,6 @@ let lastCouponsPayload=null;
 const couponsModal=document.getElementById('couponsModal');
 const couponsModalList=document.getElementById('couponsModalList');
 
-// Monta os cartões de cupom — design próprio da Lua Crescente (v76).
 function renderCouponsModal(payload){
   if(!couponsModalList) return;
   const coupons=Array.isArray(payload?.coupons)?payload.coupons:[];
@@ -1463,9 +1362,6 @@ function renderCouponsModal(payload){
     couponsModalList.innerHTML='<div class="coupons-status coupons-error">Os cupons estão temporariamente indisponíveis.</div>';
     return;
   }
-  // v76 — card próprio da Lua Crescente (não é mais uma cópia do embed do
-  // Discord): mais simples de manter, com selo de validade, botão de
-  // copiar e grade de itens com ícone+quantidade.
   couponsModalList.innerHTML=coupons.slice(0,10).map(c=>{
     const code=String(c.code||'').trim();
     const expiry=String(c.expiry||'Cupom ativo');
@@ -1521,12 +1417,8 @@ function openCouponsModal(){
   requestAnimationFrame(()=>couponsModal.querySelector('.guild-modal-close')?.focus());
 }
 document.getElementById('openCouponsModalBtn')?.addEventListener('click',openCouponsModal);
-// Link "Cupons do BDO" no rodapé: se o modal existe nesta página (só a
-// Home tem), abre ele direto em vez de só rolar até a seção. Em outras
-// páginas, navega pra Home com #bdoCoupons, que também abre o modal
-// sozinho assim que os cupons carregarem (ver loadBdoCoupons mais abaixo).
 document.getElementById('footerCouponsLink')?.addEventListener('click',(e)=>{
-  if(!couponsModal) return; // não estamos na Home, deixa navegar normalmente
+  if(!couponsModal) return;
   e.preventDefault();
   openCouponsModal();
 });
@@ -1534,9 +1426,6 @@ couponsModal?.querySelectorAll('[data-coupons-modal-close]').forEach(el=>el.addE
 couponsModal?.querySelector('.coupons-modal-dialog')?.addEventListener('click',(e)=>e.stopPropagation());
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&couponsModal?.classList.contains('open'))hideCouponsModal()});
 
-// --- Rodapé: modais de Política de Privacidade, Termos de Serviço e Registro
-// de Alterações. O conteúdo fica centralizado aqui (em vez de duplicado nas
-// 3 páginas) pra ser fácil de manter.
 const FOOTER_PRIVACY_HTML = `
   <p>O Santuário Lua Crescente é um projeto feito por fãs, mantido voluntariamente pela guilda, sem fins lucrativos e sem qualquer vínculo com a Pearl Abyss ou o Black Desert Online.</p>
   <h3>O que não coletamos</h3>
@@ -1565,12 +1454,7 @@ const FOOTER_TERMS_HTML = `
   <p>O conteúdo e o funcionamento do site podem mudar a qualquer momento, sem aviso prévio, conforme a guilda achar necessário.</p>
   <p>Dúvidas sobre estes termos podem ser tiradas com a administração da guilda no Discord.</p>
 `;
-// Registro de alterações: guarda só a versão atual. Ao publicar uma versão
-// nova, troque o conteúdo abaixo — o texto da versão anterior não fica
-// mais disponível pra leitura (por pedido explícito do dono do site).
-// IMPORTANTE: sempre que subir o número aqui, o sininho "🔔 Novidades" do
-// rodapé aparece de novo pra quem já visitou o site antes.
-const CURRENT_CHANGELOG_VERSION = 90;
+const CURRENT_CHANGELOG_VERSION = 100;
 const FOOTER_CHANGELOG_HTML = `
   <div class="changelog-version">Versão 90</div>
   <div class="changelog-date">29 de setembro de 2026</div>
@@ -1585,11 +1469,6 @@ document.getElementById('footerPrivacyContent')?.insertAdjacentHTML('beforeend',
 document.getElementById('footerTermsContent')?.insertAdjacentHTML('beforeend', FOOTER_TERMS_HTML);
 document.getElementById('footerChangelogContent')?.insertAdjacentHTML('beforeend', FOOTER_CHANGELOG_HTML);
 
-// ---- Aviso de "novidade" automático (sininho no rodapé) ----
-// Guarda no navegador de cada visitante qual foi a última versão vista.
-// Se a versão atual do site for maior, mostra um sininho "🔔 Novidades"
-// ao lado do link "Registro de Alterações". 100% local, sem custo, sem
-// backend — some sozinho assim que a pessoa abre o Registro de Alterações.
 const LAST_SEEN_CHANGELOG_KEY = 'luaCrescenteLastSeenChangelog';
 function updateChangelogBadge(){
   let lastSeen = 0;
@@ -1603,10 +1482,7 @@ function markChangelogAsSeen(){
 }
 updateChangelogBadge();
 
-// ---- Contador "dias desde a fundação da guilda" (rodapé) ----
-// Data fixa informada pelo dono do site; calculado sozinho a partir da hora
-// local do navegador, sem depender de nenhum serviço externo.
-const GUILD_FOUNDING_DATE = new Date(2025, 11, 4); // 4 de dezembro de 2025
+const GUILD_FOUNDING_DATE = new Date(2025, 11, 4);
 function daysSinceFounding(){
   const today = new Date();
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -1623,11 +1499,6 @@ function updateFoundingCounter(){
 }
 updateFoundingCounter();
 
-// ---- Aviso de aniversário da guilda (banner + contagem regressiva) ----
-// Aparece a partir de 5 dias antes do aniversário de fundação (04/12) e some
-// sozinho no dia seguinte. Fechável com X — o fechamento vale só pra aquela
-// visita (sessionStorage): numa aba/sessão nova, se ainda estiver dentro da
-// janela dos 5 dias, o aviso aparece de novo.
 const ANNIVERSARY_DISMISS_KEY = 'luaCrescenteAnniversaryBannerDismissed';
 function daysUntilNextAnniversary(){
   const today = new Date();
@@ -1664,18 +1535,13 @@ document.getElementById('anniversaryBannerClose')?.addEventListener('click', ()=
 });
 updateAnniversaryBanner();
 
-// ---- Tema sazonal automático (Halloween, Natal, aniversário da guilda) ----
-// Troca sozinho, sem nenhuma configuração manual, com base só na data do
-// sistema. Cada janela de datas abaixo é só um número — pra ajustar ano a
-// ano (ou adicionar uma nova data especial), basta editar aqui.
 function getActiveSeasonalTheme(){
   const today = new Date();
-  const m = today.getMonth(); // 0-indexado
+  const m = today.getMonth();
   const d = today.getDate();
-  // Aniversário da guilda tem prioridade (data mais específica e especial).
   if(m === GUILD_FOUNDING_DATE.getMonth() && d === GUILD_FOUNDING_DATE.getDate()) return 'anniversary';
-  if(m === 9 && d >= 25 && d <= 31) return 'halloween'; // 25–31 de outubro
-  if(m === 11 && d >= 20 && d <= 26) return 'christmas'; // 20–26 de dezembro
+  if(m === 9 && d >= 25 && d <= 31) return 'halloween';
+  if(m === 11 && d >= 20 && d <= 26) return 'christmas';
   return null;
 }
 function applySeasonalTheme(){
@@ -1732,8 +1598,6 @@ async function loadBdoCoupons(){
     if(!coupons.length) throw new Error('nenhum cupom ativo encontrado');
     lastCouponsPayload=payload;
     renderCouponsModal(payload);
-    // Se chegou aqui vindo de outra página com o link "Cupons do BDO" do
-    // rodapé (#bdoCoupons na URL), abre o modal automaticamente.
     if(location.hash==='#bdoCoupons') openCouponsModal();
 
     track.innerHTML=coupons.slice(0,10).map(c=>{
@@ -1760,8 +1624,6 @@ async function loadBdoCoupons(){
           const m=String(raw).match(/^(\d+)x\s*(.*)$/i);
           const qty=(typeof item==='object' && item?.qty!==undefined && String(item.qty)!=='') ? String(item.qty) : (m?m[1]:'');
           const name=(typeof item==='object' && item?.name) ? String(item.name) : (m?m[2]:String(raw));
-          // Imagens só são usadas quando vêm associadas à própria recompensa.
-          // A lista paralela de imagens pode omitir itens e deslocar os ícones.
           const img=(typeof item==='object' && item?.image) ? String(item.image) : rewardIconFallback(name);
           return `<div class="coupon-reward" title="${escapeHtml(name)}">${img?`<img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" data-itemid="${escapeHtml((img.match(/item\/(\d+)\.png/i)||[])[1]||'')}" data-name="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src='/.netlify/functions/garmoth-coupons?icon='+encodeURIComponent(this.dataset.itemid||'')+'&name='+encodeURIComponent(this.dataset.name||'')}else{this.onerror=null;this.style.display='none';this.parentElement.querySelector('.reward-fallback').style.display='flex'}">`:''}<span class="reward-fallback">${escapeHtml(name.slice(0,2).toUpperCase())}</span>${qty?`<span class="reward-qty">${escapeHtml(qty)}</span>`:''}<span class="reward-name">${escapeHtml(name)}</span></div>`;
         }).join('')}
@@ -1788,3 +1650,430 @@ function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':
 window.addEventListener('DOMContentLoaded',loadBdoCoupons);
 
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>{applyLanguage();syncActiveNav();});}else{applyLanguage();syncActiveNav();}
+
+// =====================================================================
+// v97 — Ícones dos itens novos (IDs verificados no BDOCodex)
+// =====================================================================
+
+// --- Culinária ---
+Object.assign(CULINARY_ICON_IDS, {
+  'Pote de Mel Especial': 54032,
+  'Frutos do Mar Frito': 9420,
+  'Holmick': 9486,
+});
+
+// --- Reagentes + Elixires + Poções ---
+Object.assign(ROOT_ITEM_ICONS, {
+  // --- Reagentes de Alquimia (21) ---
+  'Reagente em pó Puro':        codexIcon(5302),
+  'Reagente Líquido Limpo':     codexIcon(5301),
+  'Reagente de Marcação':       codexIcon(761),
+  'Essência da Abundância':     codexIcon(5204),
+  'Essência da Destruição':     codexIcon(5216),
+  'Essência da Natureza':       codexIcon(5206),
+  'Essência de Chama Carmesim': codexIcon(5202),
+  'Essência de Encantamento':   codexIcon(5210),
+  'Essência do Liquor':         codexIcon(9057),
+  'Essência do Poder Mágico':   codexIcon(5212),
+  'Óleo da Corrupção':          codexIcon(6604),
+  'Óleo da Tempestade':         codexIcon(6602),
+  'Óleo de Coragem':            codexIcon(6603),
+  'Óleo de Regeneração':        codexIcon(6601),
+  'Óleo de Tranquilidade':      codexIcon(6605),
+  'Endurecedor de Madeira':     codexIcon(4684),
+  'Erva Venenosa':              codexIcon(5603),
+  'Esmalte de Couro':           codexIcon(6183),
+  'Polidor de Gema':            codexIcon(4481),
+  'Pólvora Vegetal':            codexIcon(5604),
+  'Solvente de Metal':          codexIcon(4076),
+
+  // --- Elixires Base (completos) ---
+  'Elixir de Antídoto':           codexIcon(729),
+  'Elixir de Espírito Looney':    codexIcon(777),
+  'Elixir de Espírito Looney Poderoso': codexIcon(778),
+  'Elixir de Pescador':           codexIcon(726),
+  'Elixir da Vontade':            codexIcon(702),
+  'Elixir das Asas':              codexIcon(684),
+  'Elixir de Amizade':            codexIcon(664),
+  'Elixir de Grifo':              codexIcon(740),
+  'Elixir de Mão Dourada':        codexIcon(674),
+  'Elixir de Resistência':        codexIcon(706),
+  'Elixir de Ressurreição':       codexIcon(668),
+  'Elixir do Tempo':              codexIcon(749),
+  'Elixir de Trabalhador':        codexIcon(724),
+  'Elixir de Treinamento':        codexIcon(753),
+  'Elixir de Experiência':        codexIcon(714),
+  'Elixir de Espinhos':           codexIcon(666),
+  'Elixir de Espírito Weenie':    codexIcon(773),
+  'Elixir da Energia':            codexIcon(682),
+  'Elixir do Selo':               codexIcon(631),
+  'Elixir de Hemostasia':         codexIcon(730),
+  'Elixir de Caça a Humano':      codexIcon(670),
+  'Elixir de Caça a Humanoide':   codexIcon(678),
+  'Elixir de Boas Lembranças':    codexIcon(42413), // ⚠️ confere, não tá aparecendo
+
+  // --- Elixires Base Superior (38) ---
+  'Elixir da Fúria Infinita':              codexIcon(705),
+  'Elixir do Frenesi Infinito':            codexIcon(673),
+  'Elixir de Concentração Avançada':       codexIcon(701),
+  'Elixir de Defesa de Aço':               codexIcon(717),
+  'Elixir Poderoso de Vida':               codexIcon(709),
+  'Elixir de Estamina Esmagadora':         codexIcon(723),
+  'Elixir do Vento Fluente':               codexIcon(689),
+  'Elixir da Rapidez Intrépida':           codexIcon(691),
+  'Elixir de Feitiço Ágil':                codexIcon(693),
+  'Elixir de Choque Poderoso':             codexIcon(763),
+  'Elixir de Ceifador de Alma':            codexIcon(713),
+  'Elixir de Morte Brutal':                codexIcon(687),
+  'Elixir de Perfuração Brutal':           codexIcon(681),
+  'Elixir de Pilhagem Forte':              codexIcon(677),
+  'Elixir de Assassino Letal':             codexIcon(697),
+  'Elixir de Detecção Afiada':             codexIcon(699),
+  'Elixir de Carnificina Brutal':          codexIcon(719),
+  'Elixir do Céu Impiedoso':               codexIcon(721),
+  'Elixir Perfeito de Caça a Humano':      codexIcon(671),
+  'Elixir da Vontade Extraordinária':      codexIcon(703),
+  'Elixir das Asas Ascendentes':           codexIcon(685),
+  'Elixir de Melhoria de Amizade':         codexIcon(665),
+  'Elixir de Caça a Humanoide Feroz':      codexIcon(679),
+  'Elixir de Grifo Poderoso':              codexIcon(741),
+  'Elixir de Gloriosa Mão Dourada':        codexIcon(675),
+  'Elixir de Mentalidade Limpa':           codexIcon(711),
+  'Elixir de Resistência Afiada':          codexIcon(707),
+  'Elixir de Ressurreição Poderosa':       codexIcon(669),
+  'Elixir de Tempo Fluente':               codexIcon(750),
+  'Elixir de Trabalhador Habilidoso':      codexIcon(725),
+  'Elixir de Treinamento de Especialistas': codexIcon(754),
+  'Elixir de Experiência Esplêndida':      codexIcon(715),
+  'Elixir de Espinho Afiado':              codexIcon(667),
+  'Elixir de Espírito Weenie Afluente':    codexIcon(774),
+  'Elixir de Energia Afluente':            codexIcon(683),
+  'Elixir do Selo Ágil':                   codexIcon(695),
+  'Elixir de Espiral Brilhante':           codexIcon(783), // ⚠️ chute +1
+  'Elixir de Pescador Habilidoso':         codexIcon(727), // ⚠️ confere, não tá aparecendo
+
+  // --- Poções ---
+  'Poção de WP (M)':   codexIcon(828),
+  'Poção de WP (G)':   codexIcon(829),
+  'Poção de WP (XG)':  codexIcon(594),
+  'Poção de HP (XG)':  codexIcon(56093),
+  'Poção de MP (XG)':  codexIcon(56094),
+  'Poção de SP (M)':   codexIcon(832),
+  'Poção de SP (G)':   codexIcon(833),
+  'Poção de SP (XG)':  codexIcon(598),
+});
+// v97 — ícones da sidebar pra categorias novas + limpeza das removidas
+Object.assign(GROUP_ICONS, {
+  'Reagentes de Alquimia': '⚗️',
+  'Elixires Base Superior': '✨',
+});
+delete GROUP_ICONS['Seivas']; // categoria removida
+// v97.1 — corrige o ícone do grupo renomeado
+Object.assign(GROUP_ICONS, {
+  'Fármacos Base da Harmonia': '🧪',
+});
+// =====================================================================
+// v102 — Timeline do Registro de Alterações (10 versões)
+// =====================================================================
+
+const CHANGELOG_DATA = [
+  {
+    version: 100, date: '2026-09-30', tag: 'site',
+    added: [
+      'Ícones da sidebar pra "Reagentes de Alquimia" e "Elixires Base Superior"',
+      'Ícone do Discord no rodapé com contador de membros online',
+      'Seção "Últimos Vídeos" do YouTube na Home',
+      'Seção "Avisos da Guilda" na Home, puxando do Discord',
+      'Timeline de changelog com as 10 últimas versões'
+    ],
+    changed: ['Home agora mostra 5 cards de guia (era 3)'],
+    fixed: [
+      'Ícones de ~80 itens novos (elixires, reagentes, poções) que estavam quebrados',
+      'Ícone do grupo "Fármacos Base da Harmonia"'
+    ]
+  },
+  {
+    version: 99, date: '2026-09-29', tag: 'site',
+    added: [
+      'Categoria "Elixires Base Superior" com 38 itens',
+      'Categoria "Reagentes de Alquimia" com 23 itens',
+      'Poção de HP (XG), MP (XG), SP (M/G/XG)'
+    ],
+    changed: [
+      'Elixires Base expandidos de 20 pra 44 itens',
+      'Fármacos Base renomeados pra "Fármacos Base da Harmonia"'
+    ]
+  },
+  {
+    version: 98, date: '2026-09-29', tag: 'site',
+    added: ['Culinária: "Frutos do Mar Frito", "Holmick", "Pote de Mel Especial"'],
+    changed: [
+      'Culinária passou de 150 pra 153 itens',
+      'Culinária Especial: 10 itens agora mostram aviso de "Oficina Real"'
+    ]
+  },
+  {
+    version: 97, date: '2026-09-28', tag: 'site',
+    changed: [
+      'Sangues reduzidos de 35 pra 5 (só os craftáveis)',
+      'Trabalhadores energia reduzidos de 8 pra 2',
+      'Poções atualizadas (8 → 15)',
+      'Ração Orgânica ganhou 2ª rota (com Saurel Desidratado)'
+    ],
+    fixed: ['Seivas removida do menu (não tinha receita craftável)']
+  },
+  {
+    version: 96, date: '2026-09-27', tag: 'site',
+    fixed: ['Barra de rolagem lateral da sidebar de grupos agora segue o tema']
+  },
+  {
+    version: 95, date: '2026-09-25', tag: 'site',
+    added: [
+      'Página "Artefatos" (Combos de Pedras da Luz)',
+      'Filtros de categoria e busca nos Combos',
+      'Exportar combo como imagem'
+    ]
+  },
+  {
+    version: 94, date: '2026-09-22', tag: 'site',
+    added: [
+      'Sala de Aula integrada com Blogger',
+      'Cards de guia na Home puxando os mais recentes'
+    ],
+    changed: ['Sala de Aula deixou de ser placeholder']
+  },
+  {
+    version: 93, date: '2026-09-18', tag: 'site',
+    added: [
+      'Sistema de idiomas PT / Espanhol LATAM',
+      'Traduções de nomes de item (BDO Codex /sp/)'
+    ]
+  },
+  {
+    version: 92, date: '2026-09-15', tag: 'site',
+    changed: ['Sistema de Receitas refeito: categorias carregam sob demanda'],
+    fixed: [
+      'Árvores de receita mostram sub-receitas em cascata',
+      'Substituições de grupo listadas como opções individuais'
+    ]
+  },
+  {
+    version: 90, date: '2026-09-12', tag: 'site',
+    added: [
+      'Seção "Eventos" na Home (linha do tempo automática)',
+      'Abas Temporários / Permanentes',
+      'Seção de Cupons do BDO'
+    ]
+  }
+];
+
+function changelogRelativeDate(isoDate){
+  const now = new Date();
+  const then = new Date(isoDate + 'T12:00:00');
+  const diffDays = Math.floor((now - then) / 86400000);
+  if(diffDays <= 0) return 'hoje';
+  if(diffDays === 1) return 'há 1 dia';
+  if(diffDays < 30) return `há ${diffDays} dias`;
+  const months = Math.floor(diffDays / 30);
+  return months === 1 ? 'há 1 mês' : `há ${months} meses`;
+}
+
+function renderChangelogTimeline(){
+  const el = document.getElementById('footerChangelogContent');
+  if(!el) return;
+
+  const summaryOf = (v)=>{
+    const parts = [];
+    if(v.added?.length) parts.push(`${v.added.length} Adicionado`);
+    if(v.changed?.length) parts.push(`${v.changed.length} Alterado`);
+    if(v.fixed?.length) parts.push(`${v.fixed.length} Corrigido`);
+    return parts.join(' · ');
+  };
+
+  const renderGroup = (label, items, icon)=>{
+    if(!items?.length) return '';
+    return `<div class="cl-group">
+      <div class="cl-group-label">${label}</div>
+      ${items.map(i=>`<div class="cl-item"><span class="cl-item-icon">${icon}</span><span>${i}</span></div>`).join('')}
+    </div>`;
+  };
+
+  el.innerHTML = `<div class="cl-timeline">${
+    CHANGELOG_DATA.map(v=>`
+      <article class="cl-entry">
+        <header class="cl-entry-head">
+          <span class="cl-tag cl-tag-${v.tag}">${v.tag === 'site' ? '🌐 Site' : '📱 App'}</span>
+          <span class="cl-version">v${v.version}</span>
+          <span class="cl-date">${v.date}</span>
+          <span class="cl-relative">${changelogRelativeDate(v.date)}</span>
+          <span class="cl-summary">${summaryOf(v)}</span>
+        </header>
+        ${renderGroup('ADICIONADO', v.added, '➕')}
+        ${renderGroup('ALTERADO', v.changed, '✏️')}
+        ${renderGroup('CORRIGIDO', v.fixed, '✓')}
+      </article>
+    `).join('')
+  }</div>`;
+}
+
+renderChangelogTimeline();
+// =====================================================================
+// v103 — Vídeos do YouTube, Avisos do Discord e Contador de membros
+// =====================================================================
+
+async function loadYouTubeVideos(){
+  const grid = document.getElementById('videoGrid');
+  if(!grid) return;
+  try{
+    const r = await fetch('/.netlify/functions/youtube-videos?ts=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const videos = Array.isArray(data.videos) ? data.videos : [];
+    if(!videos.length) throw new Error('sem vídeos');
+
+    grid.innerHTML = videos.slice(0, 5).map(v => `
+      <button type="button" class="video-card" data-video-id="${escapeHtml(v.id)}" data-video-title="${escapeHtml(v.title)}">
+        <span class="video-thumb-wrap">
+          <img class="video-thumb" src="${escapeHtml(v.thumbnail)}" alt="" loading="lazy" referrerpolicy="no-referrer">
+          <span class="video-play" aria-hidden="true">▶</span>
+        </span>
+        <span class="video-info">
+          <span class="video-title">${escapeHtml(v.title)}</span>
+          <span class="video-meta">${relativeDate(v.published)}${v.source==='lore' ? ' · 🌙 Lore' : ' · 📚 Tutorial'}</span>
+        </span>
+      </button>
+    `).join('');
+
+    grid.querySelectorAll('.video-card').forEach(btn => {
+      btn.addEventListener('click', () => openVideoModal(btn.dataset.videoId, btn.dataset.videoTitle));
+    });
+  }catch(err){
+    console.warn('[Vídeos]', err);
+    grid.innerHTML = '<div class="video-status">Não foi possível carregar os vídeos agora.</div>';
+  }
+}
+
+async function loadDiscordAnnouncements(){
+  const grid = document.getElementById('announcementGrid');
+  if(!grid) return;
+  try{
+    const r = await fetch('/.netlify/functions/discord-announcements?ts=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const posts = Array.isArray(data.announcements) ? data.announcements : [];
+    if(!posts.length) throw new Error('sem avisos');
+
+    grid.innerHTML = posts.slice(0, 5).map((p, i) => `
+      <button type="button" class="announcement-card" data-idx="${i}">
+        ${p.image ? `<span class="announcement-thumb-wrap"><img class="announcement-thumb" src="${escapeHtml(p.image)}" alt="" loading="lazy" referrerpolicy="no-referrer"></span>` : ''}
+        <span class="announcement-info">
+          <span class="announcement-title">${escapeHtml(p.title)}</span>
+          <span class="announcement-meta">${relativeDate(p.timestamp)} · ${escapeHtml(p.author)}</span>
+        </span>
+      </button>
+    `).join('');
+
+    grid.querySelectorAll('.announcement-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = posts[Number(btn.dataset.idx)];
+        if(p) openAnnouncementModal(p);
+      });
+    });
+  }catch(err){
+    console.warn('[Avisos]', err);
+    grid.innerHTML = '<div class="announcement-status">Não foi possível carregar os avisos agora.</div>';
+  }
+}
+
+async function loadDiscordCounter(){
+  const el = document.getElementById('discordOnlineCount');
+  if(!el) return;
+  try{
+    const r = await fetch('/.netlify/functions/discord-guild?ts=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    if(typeof data.online === 'number'){
+      el.textContent = `${data.online} On`;
+    } else {
+      el.textContent = 'Discord';
+    }
+  }catch(err){
+    el.textContent = 'Discord';
+  }
+}
+
+function openVideoModal(id, title){
+  const modal = document.getElementById('homeModal');
+  const content = document.getElementById('homeModalContent');
+  if(!modal || !content) return;
+  content.innerHTML = `
+    <h2 id="homeModalTitle" class="home-modal-title">${escapeHtml(title || 'Vídeo')}</h2>
+    <div class="video-embed">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0"
+        title="${escapeHtml(title || 'Vídeo')}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  `;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+}
+
+function openAnnouncementModal(post){
+  const modal = document.getElementById('homeModal');
+  const content = document.getElementById('homeModalContent');
+  if(!modal || !content) return;
+  content.innerHTML = `
+    <h2 id="homeModalTitle" class="home-modal-title">${escapeHtml(post.title)}</h2>
+    <div class="home-modal-meta">${relativeDate(post.timestamp)} · ${escapeHtml(post.author)}</div>
+    ${post.image ? `<img class="home-modal-image" src="${escapeHtml(post.image)}" alt="" referrerpolicy="no-referrer">` : ''}
+    <div class="home-modal-body">${escapeHtml(post.body).replace(/\n/g, '<br>')}</div>
+  `;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+}
+
+function closeHomeModal(){
+  const modal = document.getElementById('homeModal');
+  const content = document.getElementById('homeModalContent');
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  // Pra parar o vídeo quando fechar
+  if(content) content.innerHTML = '';
+}
+
+document.querySelectorAll('[data-home-modal-close]').forEach(el => {
+  el.addEventListener('click', closeHomeModal);
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeHomeModal();
+});
+
+function relativeDate(iso){
+  if(!iso) return '';
+  const then = new Date(iso);
+  const now = new Date();
+  const diff = Math.floor((now - then) / 1000);
+  if(diff < 60) return 'agora';
+  if(diff < 3600) return `há ${Math.floor(diff/60)} min`;
+  if(diff < 86400) return `há ${Math.floor(diff/3600)} h`;
+  const days = Math.floor(diff / 86400);
+  if(days === 1) return 'há 1 dia';
+  if(days < 30) return `há ${days} dias`;
+  const months = Math.floor(days / 30);
+  return months === 1 ? 'há 1 mês' : `há ${months} meses`;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  if(document.body.getAttribute('data-page') === 'home'){
+    loadYouTubeVideos();
+    loadDiscordAnnouncements();
+  }
+  loadDiscordCounter();
+});

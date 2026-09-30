@@ -1,9 +1,9 @@
 /**
- * home-guides.js — v2
+ * home-guides.js — v3
  * Substitui os cards de exemplo da seção "Sala de Aula" da Home
  * pelos 3 guias mais recentes publicados no Blogger.
  * Layout: 1 card em destaque + 2 cards menores na coluna da direita.
- * Se a API falhar ou não houver posts, os cards originais permanecem.
+ * Se a API falhar ou não houver posts, os cards hardcoded permanecem.
  */
 (function () {
   'use strict';
@@ -48,7 +48,7 @@
     var layout = document.querySelector('.guide-layout');
     if (!layout || !posts || !posts.length) return;
 
-    var latest = posts.slice(0, 3);
+    var latest = posts.slice(0, 5);
     if (!latest.length) return;
 
     var featured = latest[0];
