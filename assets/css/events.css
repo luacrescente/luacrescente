@@ -139,3 +139,12 @@
   .events-bar-label{font-size:11px;}
   .events-bar-days{font-size:9px;padding:0 6px;}
 }
+
+/* v6 — contraste melhor pros eventos permanentes */
+.events-row.is-permanent .events-bar{
+  background:#3a3f48 !important;
+  border:1px dashed rgba(255,255,255,.22) !important;
+}
+.events-row.is-permanent .events-bar-label{
+  color:#d8d4c8 !important;
+}
