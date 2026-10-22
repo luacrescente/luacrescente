@@ -1,0 +1,16 @@
+{
+  "maps": [
+    {
+      "slug": "edania-interior",
+      "title": "Edania Interior"
+    },
+    {
+      "slug": "edania-exterior",
+      "title": "Edania Exterior"
+    },
+    {
+      "slug": "dokkebi",
+      "title": "Dokkebi"
+    }
+  ]
+}
