@@ -1,0 +1,538 @@
+/* =====================================================================
+   pesca.css — Mapa de Pesca — v14 FINAL
+   ===================================================================== */
+
+.pesca-wrap{
+  position:relative;
+  max-width:1400px;
+  margin:24px auto 40px;
+  height:calc(100vh - 200px);
+  min-height:620px;
+  display:flex;
+  flex-direction:column;
+  background:rgba(15,17,22,.88);
+  border:1px solid rgba(190,150,55,.34);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.32);
+  color:#e6edf3;
+  --pe-accent:#c9a24b;
+  --pe-fg:#e6edf3;
+  --pe-dim:#9b968a;
+}
+.pesca-wrap.is-fullscreen{
+  position:fixed; inset:0; max-width:none; margin:0;
+  height:100vh; min-height:0; border-radius:0; border:0; z-index:9999;
+}
+
+.pesca-topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; padding:10px 14px;
+  border-bottom:1px solid rgba(190,150,55,.22);
+  background:rgba(15,17,22,.96); flex:0 0 auto;
+}
+.pesca-topbar-title{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+.pesca-eyebrow{
+  font-size:9.5px; font-weight:800; letter-spacing:.14em;
+  text-transform:uppercase; color:#8a7139;
+}
+.pesca-topbar-title h1{
+  font-family:'Cinzel',serif; font-size:15px; margin:0;
+  color:var(--pe-accent); letter-spacing:.02em; line-height:1.2;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.pesca-topbar-actions{ display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+
+.pesca-search-wrap{ position:relative; min-width:240px; }
+#pesca-q{
+  width:100%; box-sizing:border-box;
+  background:rgba(33,38,45,.9);
+  border:1px solid rgba(190,150,55,.32);
+  border-radius:7px; padding:8px 12px;
+  color:#d8d4ca; font:inherit; font-size:12px;
+}
+#pesca-q::placeholder{ color:#8a7d68; }
+#pesca-q:focus{ outline:none; border-color:var(--pe-accent); }
+
+.pesca-hits{
+  position:absolute; left:0; right:0; top:calc(100% + 6px); z-index:9;
+  max-height:320px; overflow-y:auto; padding:4px;
+  background:rgba(13,17,23,.98);
+  border:1px solid rgba(190,150,55,.35); border-radius:8px;
+  box-shadow:0 10px 28px rgba(0,0,0,.65);
+}
+.pesca-hits.hidden{ display:none; }
+.pesca-hits .hits-h{
+  position:sticky; top:-4px; z-index:1;
+  background:rgba(13,17,23,.98);
+  display:flex; align-items:center; gap:6px;
+  padding:5px 6px; margin:-4px -4px 3px;
+  border-bottom:1px solid rgba(190,150,55,.22);
+  border-radius:8px 8px 0 0;
+  color:var(--pe-dim); font-size:11px;
+}
+.pesca-hits .hits-h b{ color:var(--pe-fg); font-variant-numeric:tabular-nums; }
+.pesca-hits .hits-x{ margin-left:auto; padding:0 3px; cursor:pointer; font-size:12px; }
+.pesca-hits .it,
+.pesca-hits .none{
+  padding:6px 8px; border-radius:5px; font-size:12px;
+  display:flex; gap:8px; align-items:center;
+}
+.pesca-hits .it{ cursor:pointer; }
+.pesca-hits .it:hover{ background:rgba(255,255,255,.08); }
+.pesca-hits .it .ic{
+  width:22px; height:22px; flex:none; border-radius:3px; background:#0d1117;
+  border:1px solid rgba(190,150,55,.28); object-fit:contain;
+}
+.pesca-hits .it .meta{ display:flex; flex-direction:column; gap:1px; min-width:0; flex:1; }
+.pesca-hits .it .nm{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pesca-hits .it .sub{ color:var(--pe-dim); font-size:10.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pesca-hits .none{ color:var(--pe-dim); cursor:default; }
+
+.pesca-fs{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:8px 13px; background:rgba(33,38,45,.9);
+  border:1px solid rgba(190,150,55,.32); border-radius:7px;
+  color:#d8d4ca; font:inherit; font-size:12px; font-weight:600;
+  cursor:pointer; white-space:nowrap;
+}
+.pesca-fs:hover{ color:var(--pe-accent); border-color:var(--pe-accent); background:rgba(201,162,75,.08); }
+
+.pesca-stage{
+  position:relative; flex:1 1 auto; min-height:0;
+  overflow:hidden; background:#0a0d10;
+}
+#pesca-canvas{
+  position:absolute; inset:0; display:block;
+  cursor:grab; touch-action:none;
+}
+#pesca-canvas.drag{ cursor:grabbing; }
+
+.pesca-panel{
+  background:rgba(20,24,30,.94);
+  border:1px solid rgba(190,150,55,.30);
+  border-radius:10px;
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 14px 40px rgba(0,0,0,.5);
+}
+
+.pesca-sidebar{
+  position:absolute; top:12px; left:12px; width:270px;
+  max-height:calc(100% - 24px); padding:14px 16px;
+  display:flex; flex-direction:column; z-index:8;
+}
+.pesca-head{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:8px; cursor:pointer; user-select:none;
+  padding-bottom:10px; border-bottom:1px solid rgba(190,150,55,.18);
+  margin-bottom:12px;
+}
+.pesca-sidebar-title{
+  font-family:'Cinzel',serif; color:var(--pe-accent);
+  font-size:14px; font-weight:700; margin:0;
+  letter-spacing:.02em; line-height:1.2;
+}
+.pesca-caret{
+  flex:none; color:var(--pe-accent);
+  font-size:10.5px; font-weight:600; opacity:.85;
+}
+.pesca-body{
+  min-height:0; overflow-y:auto; padding-right:3px;
+  display:flex; flex-direction:column; gap:10px;
+}
+#pesca-ui.collapsed #pesca-ui-body{ display:none; }
+#pesca-ui.collapsed{ padding-bottom:14px; }
+#pesca-ui.collapsed .pesca-head{ margin-bottom:0; padding-bottom:0; border-bottom:0; }
+
+.pesca-sec{
+  font-size:9.5px; font-weight:800; letter-spacing:.12em;
+  text-transform:uppercase; color:#8a7a5a; margin:2px 0 -4px;
+}
+.pesca-layer{
+  display:flex; align-items:center; gap:9px;
+  padding:7px 9px; border-radius:6px; cursor:pointer;
+  user-select:none; font-size:12.5px; color:var(--pe-dim);
+}
+.pesca-layer:hover{ background:rgba(255,255,255,.03); color:var(--pe-fg); }
+.pesca-layer input{ accent-color:var(--pe-accent); }
+.pesca-layer .dot{
+  flex:0 0 14px; width:14px; height:14px; border-radius:50%;
+  box-shadow:0 0 0 1.5px rgba(0,0,0,.5);
+}
+.pesca-layer .nm{ flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+.pesca-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.pesca-row button{
+  flex:1 1 auto; background:rgba(33,38,45,.85); color:var(--pe-fg);
+  border:1px solid rgba(190,150,55,.28); border-radius:6px;
+  padding:8px 10px; cursor:pointer; font-size:11.5px;
+  font-family:inherit; white-space:nowrap;
+}
+.pesca-row button:hover{ color:var(--pe-accent); border-color:var(--pe-accent); background:rgba(201,162,75,.08); }
+
+.pesca-note{
+  font-size:11px; line-height:1.5; color:var(--pe-dim);
+  padding-top:6px; border-top:1px solid rgba(190,150,55,.18);
+}
+
+.pesca-sel{
+  position:absolute; top:12px; right:12px; width:340px;
+  max-height:calc(100% - 24px); padding:14px 16px;
+  overflow-y:auto; z-index:8; color:var(--pe-fg);
+}
+.pesca-sel-close{
+  position:absolute; top:8px; right:8px;
+  width:26px; height:26px; background:transparent; border:0;
+  color:var(--pe-dim); font-size:18px; cursor:pointer;
+  border-radius:5px; line-height:1;
+}
+.pesca-sel-close:hover{ background:rgba(255,255,255,.06); color:var(--pe-fg); }
+.pesca-sel-t{
+  font-family:'Cinzel',serif; font-size:15px; font-weight:700;
+  color:var(--pe-accent); margin:0 26px 4px 0; line-height:1.25;
+}
+.pesca-sel-s{ font-size:11.5px; color:var(--pe-dim); margin-bottom:12px; }
+.pesca-sel-content{ display:flex; flex-direction:column; gap:12px; }
+
+.pesca-group-title{
+  font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  color:#8a7a5a; font-weight:800; margin:0 0 6px;
+}
+
+.pesca-coord{
+  display:flex; align-items:center; gap:6px; font-size:11.5px;
+  color:var(--pe-dim); margin-bottom:12px;
+}
+.pesca-coord-pin{ font-size:13px; }
+.pesca-coord-val{ font-variant-numeric:tabular-nums; color:#e6edf3; }
+.pesca-copy-bm{
+  margin-left:auto; background:transparent;
+  border:1px solid rgba(190,150,55,.35); color:var(--pe-accent);
+  font:inherit; font-size:10px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase;
+  padding:5px 9px; border-radius:4px; cursor:pointer;
+}
+.pesca-copy-bm:hover{ background:rgba(201,162,75,.10); }
+
+.pesca-info-cards{
+  display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;
+}
+.pesca-info-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(190,150,55,.20);
+  border-radius:7px; padding:9px 11px;
+}
+.pesca-info-lbl{
+  font-size:9px; font-weight:800; letter-spacing:.13em;
+  text-transform:uppercase; color:#8a7a5a; margin-bottom:3px;
+}
+.pesca-info-val{
+  font-size:16px; font-weight:700; color:#e6edf3;
+  font-variant-numeric:tabular-nums; line-height:1.1;
+}
+
+.pesca-what-label{
+  font-size:11.5px; font-weight:600; color:#e6edf3; margin-bottom:6px;
+}
+
+.pesca-tabs{
+  display:flex; border-bottom:1px solid rgba(190,150,55,.22);
+  margin-bottom:12px;
+}
+.pesca-tab{
+  flex:1; background:transparent; border:0; padding:8px 6px;
+  color:var(--pe-dim); font:inherit; font-size:11px; font-weight:600;
+  cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.pesca-tab.active{ color:#e6edf3; border-bottom-color:var(--pe-accent); }
+.pesca-tab:hover{ color:#e6edf3; }
+
+.pesca-fish-list{ display:flex; flex-direction:column; gap:4px; }
+.pesca-fish{
+  display:flex; align-items:center; gap:9px;
+  padding:5px 7px; border-radius:5px;
+  background:rgba(0,0,0,.18); cursor:default;
+}
+.pesca-fish:hover{ background:rgba(255,255,255,.07); }
+.pesca-fish img{
+  width:26px; height:26px; flex:0 0 26px; border-radius:3px;
+  border:1px solid rgba(190,150,55,.24); object-fit:contain;
+  background:#0d1117;
+}
+.pesca-fish .nm{
+  flex:1; min-width:0; font-size:12px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:500;
+}
+.pesca-fish .nm.gr-0{ color:#d0d0d0; }
+.pesca-fish .nm.gr-1{ color:#5ff369; }
+.pesca-fish .nm.gr-2{ color:#0391c4; }
+.pesca-fish .nm.gr-3{ color:#f6c232; }
+.pesca-fish .nm.gr-4{ color:#d36200; }
+.pesca-fish .nm.gr-5{ color:#ff8b37; }
+.pesca-fish .nm:not(.gr-0):not(.gr-1):not(.gr-2):not(.gr-3):not(.gr-4):not(.gr-5){ color:#d0d0d0; }
+.pesca-fish .pc{
+  flex:0 0 auto; font-size:10.5px; color:var(--pe-dim);
+  font-variant-numeric:tabular-nums; min-width:44px; text-align:right;
+}
+
+.pesca-ic-empty{
+  width:26px; height:26px; flex:0 0 26px; border-radius:3px;
+  background:rgba(190,150,55,.08); border:1px dashed rgba(190,150,55,.2);
+  display:inline-block; position:relative;
+}
+.pesca-ic-empty::after{
+  content:''; position:absolute; inset:0;
+  background:center/60% no-repeat url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a24b' stroke-width='1.6'><path d='M2 12c2-4 5-6 9-6 3 0 6 1 8 3l3-2v10l-3-2c-2 2-5 3-8 3-4 0-7-2-9-6z'/><circle cx='9' cy='11' r='1.2' fill='%23c9a24b'/></svg>");
+  opacity:.5;
+}
+
+.pesca-hotspot-info{
+  display:grid; grid-template-columns:auto 1fr; gap:4px 10px;
+  font-size:12px; padding:8px 10px; border-radius:6px;
+  background:rgba(0,0,0,.18); border:1px solid rgba(190,150,55,.16);
+}
+.pesca-hotspot-info dt{ color:var(--pe-dim); font-size:11px; }
+.pesca-hotspot-info dd{ margin:0; color:var(--pe-fg); font-variant-numeric:tabular-nums; }
+
+.pesca-tip{
+  position:absolute; pointer-events:none; padding:6px 9px; font-size:12px;
+  background:rgba(13,17,23,.96); border:1px solid rgba(190,150,55,.28);
+  border-radius:7px; display:none; white-space:nowrap; z-index:5;
+  color:var(--pe-fg); box-shadow:0 6px 18px rgba(0,0,0,.5);
+}
+.pesca-tip .k{ color:var(--pe-dim); font-size:11px; }
+
+.pesca-hover-tip{
+  position:fixed; z-index:99999; pointer-events:none;
+  background:rgba(13,17,23,.97);
+  border:1px solid rgba(190,150,55,.35); border-radius:9px;
+  padding:10px 12px; min-width:250px; max-width:320px;
+  color:var(--pe-fg); font-size:12px; line-height:1.35;
+  box-shadow:0 14px 40px rgba(0,0,0,.7);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  animation:pesca-tip-in .12s ease-out;
+}
+@keyframes pesca-tip-in{
+  from{ opacity:0; transform:translateY(3px); }
+  to{ opacity:1; transform:none; }
+}
+.pesca-tip-h{
+  font-family:'Cinzel',serif; font-size:14px; font-weight:700;
+  color:var(--pe-accent); letter-spacing:.02em; margin-bottom:2px;
+}
+.pesca-tip-sub{
+  font-size:9.5px; font-weight:800; letter-spacing:.14em;
+  text-transform:uppercase; color:#8a7139; margin-bottom:8px;
+}
+.pesca-tip-h3{
+  font-size:10px; font-weight:800; letter-spacing:.12em;
+  text-transform:uppercase; color:#8a7a5a; margin:10px 0 5px;
+}
+.pesca-tip-foot{
+  font-size:10px; color:#6b6862; margin-top:8px; padding-top:6px;
+  border-top:1px solid rgba(190,150,55,.16); text-align:center; font-style:italic;
+}
+.pesca-hover-tip .pesca-fish{ padding:4px 6px; background:rgba(255,255,255,.03); }
+.pesca-hover-tip .pesca-fish img{ width:24px; height:24px; flex:0 0 24px; }
+.pesca-hover-tip .pesca-hotspot-info{ padding:6px 8px; font-size:11.5px; margin-bottom:8px; }
+.pesca-hover-tip .pesca-hotspot-info dt{ font-size:10.5px; }
+.pesca-hover-tip .pesca-hotspot-info dd{ font-size:11.5px; }
+
+.pesca-grupo{ margin-bottom:14px; }
+.pesca-grupo:last-child{ margin-bottom:0; }
+.pesca-grupo-h{
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  color:#8a7a5a; font-weight:800; margin:0 0 6px; padding-bottom:4px;
+  border-bottom:1px solid rgba(190,150,55,.14);
+}
+.pesca-grupo-pct{ color:var(--pe-dim); font-weight:600; letter-spacing:0; }
+
+.pesca-comp{ margin-bottom:12px; }
+.pesca-comp-bar{
+  display:flex; height:6px; border-radius:3px; overflow:hidden;
+  background:rgba(255,255,255,.06);
+}
+.pesca-comp-bar span{ display:block; height:100%; transition:width .3s ease; }
+.pesca-comp-leg{
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;
+  font-size:10px; color:var(--pe-dim);
+}
+.pesca-comp-leg span{ display:inline-flex; align-items:center; gap:4px; }
+.pesca-comp-leg i{ display:inline-block; width:8px; height:8px; border-radius:2px; }
+
+.pesca-empty{ color:var(--pe-dim); font-size:12px; padding:8px 0; }
+
+.pesca-toast{
+  position:absolute; left:50%; bottom:26px; transform:translateX(-50%);
+  padding:8px 14px; font-size:12.5px;
+  background:rgba(11,12,16,.96); border:1px solid var(--pe-accent);
+  border-radius:7px; color:var(--pe-accent);
+  opacity:0; transition:opacity .25s; pointer-events:none; z-index:50;
+}
+.pesca-toast.show{ opacity:1; }
+
+.pesca-sel::-webkit-scrollbar,
+.pesca-body::-webkit-scrollbar,
+.pesca-hits::-webkit-scrollbar{ width:6px; }
+.pesca-sel::-webkit-scrollbar-thumb,
+.pesca-body::-webkit-scrollbar-thumb,
+.pesca-hits::-webkit-scrollbar-thumb{
+  background:rgba(190,150,55,.3); border-radius:3px;
+}
+.pesca-sel::-webkit-scrollbar-thumb:hover,
+.pesca-body::-webkit-scrollbar-thumb:hover,
+.pesca-hits::-webkit-scrollbar-thumb:hover{ background:rgba(190,150,55,.5); }
+.pesca-sel::-webkit-scrollbar-track,
+.pesca-body::-webkit-scrollbar-track,
+.pesca-hits::-webkit-scrollbar-track{ background:transparent; }
+
+@media (max-width:900px){
+  .pesca-wrap{ margin:12px 10px 24px; height:auto; min-height:0; }
+  .pesca-topbar{ flex-direction:column; align-items:stretch; gap:8px; }
+  .pesca-topbar-actions{ flex-direction:row; gap:6px; }
+  .pesca-search-wrap{ flex:1 1 auto; min-width:0; }
+  .pesca-stage{ height:72vh; min-height:480px; }
+  .pesca-sidebar{ width:calc(100% - 24px); max-height:38%; }
+  .pesca-sel{
+    width:calc(100% - 24px); left:12px; right:12px;
+    top:auto; bottom:12px; max-height:60%;
+  }
+  .pesca-hover-tip{ display:none !important; }
+}
+
+/* ===== FIM DA PARTE 1 ===== */
+/* =====================================================================
+   Card de peixe no hover do painel de seleção
+   ===================================================================== */
+.pesca-fish-card{
+  position:fixed;
+  z-index:99998;
+  pointer-events:none;
+  background:rgba(13,17,23,.98);
+  border:1px solid rgba(190,150,55,.45);
+  border-radius:9px;
+  padding:12px 14px;
+  min-width:280px;
+  max-width:340px;
+  color:#e6edf3;
+  font-size:12px;
+  line-height:1.45;
+  box-shadow:0 16px 44px rgba(0,0,0,.78);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  display:none;
+  animation:pesca-tip-in .12s ease-out;
+}
+
+.pesca-fish-card .fc-head{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding-bottom:8px;
+  margin-bottom:8px;
+  border-bottom:1px solid rgba(190,150,55,.20);
+}
+.pesca-fish-card .fc-ic{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border-radius:4px;
+  border:1px solid rgba(190,150,55,.35);
+  background:#0d1117;
+  object-fit:contain;
+}
+.pesca-fish-card .fc-name{
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.02em;
+  line-height:1.2;
+}
+.pesca-fish-card .fc-grade{
+  font-size:9.5px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#8a7139;
+  margin-top:3px;
+}
+
+.pesca-fish-card dl{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:4px 12px;
+  margin:0;
+}
+.pesca-fish-card dt{
+  color:#9b968a;
+  font-size:11px;
+}
+.pesca-fish-card dd{
+  margin:0;
+  color:#e6edf3;
+  font-variant-numeric:tabular-nums;
+  font-size:11.5px;
+}
+
+.pesca-fish-card .fc-desc{
+  margin-top:10px;
+  padding-top:8px;
+  border-top:1px solid rgba(190,150,55,.16);
+  font-size:11.5px;
+  line-height:1.5;
+  color:#d8d4ca;
+  white-space:pre-line;
+}
+.pesca-fish-card .fc-desc span{
+  font-weight:600;
+}
+
+.pesca-fish-card .fc-guides-h{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#8a7a5a;
+  margin:10px 0 5px;
+  padding-top:8px;
+  border-top:1px solid rgba(190,150,55,.16);
+}
+.pesca-fish-card .fc-guide{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 7px;
+  border-radius:5px;
+  background:rgba(255,255,255,.03);
+  font-size:11.5px;
+  margin-bottom:3px;
+}
+.pesca-fish-card .fc-guide-ic{
+  width:24px;
+  height:24px;
+  flex:0 0 24px;
+  border-radius:3px;
+  border:1px solid rgba(190,150,55,.28);
+  background:#0d1117;
+  object-fit:contain;
+}
+
+.pesca-fish-card .fc-foot{
+  font-size:10px;
+  color:#6b6862;
+  margin-top:8px;
+  padding-top:6px;
+  border-top:1px solid rgba(190,150,55,.14);
+  font-style:italic;
+  text-align:center;
+}
+
+.pesca-fish-card.gr-0{ border-color:rgba(208,208,208,.5); }
+.pesca-fish-card.gr-1{ border-color:rgba(95,243,105,.5); }
+.pesca-fish-card.gr-2{ border-color:rgba(3,145,196,.55); }
+.pesca-fish-card.gr-3{ border-color:rgba(246,194,50,.55); }
+.pesca-fish-card.gr-4{ border-color:rgba(211,98,0,.6); }
+.pesca-fish-card.gr-5{ border-color:rgba(255,139,55,.7); }
+
+/* ===== FIM DO ARQUIVO ===== */
