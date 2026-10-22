@@ -1,1 +1,3333 @@
-[{"name": "Delotia", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Selva", "qty": 2, "amplified": false}, {"name": "Pedra da Luz do Vento: Sorte", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Sorte"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Vida +17%"], "normal": ["EXP de Vida +17%"], "amplified": null}}, {"name": "Mão de Manos", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Paraíso", "qty": 2, "amplified": false}, {"name": "Pedra da Luz do Vento: Sorte", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Sorte"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Vida +30"], "normal": ["Maestria de Vida +30"], "amplified": null}}, {"name": "Fortaleza Natural", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Selva", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Paraíso", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Vento: Sorte", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Sorte"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Vida +12%", "Maestria de Vida +20"], "normal": ["EXP de Vida +12%", "Maestria de Vida +20"], "amplified": null}}, {"name": "Curioso", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Pradaria", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Coleta +5%"], "normal": ["EXP de Coleta +14%"], "amplified": null}}, {"name": "Amigo das Fadas", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Pradaria", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Coleta +8%"], "normal": ["EXP de Coleta +20%"], "amplified": null}}, {"name": "Pluck", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Pradaria", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Coleta +16%"], "normal": ["EXP de Coleta +25%"], "amplified": null}}, {"name": "Trevo de Quatro Folhas", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Floresta", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["Maestria de Coleta +8"], "normal": ["Maestria de Coleta +23"], "amplified": null}}, {"name": "Eco do Espírito", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Floresta", "qty": 4, "amplified": false}], "tiers": {"combo": ["Maestria de Coleta +15"], "normal": ["Maestria de Coleta +35"], "amplified": null}}, {"name": "Amante da Natureza", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Floresta", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Coleta +30"], "normal": ["Maestria de Coleta +45"], "amplified": null}}, {"name": "Doninha Aqui e Ali", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Pradaria", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Floresta", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Fogo: Ímpeto", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Fogo Amplificada: Ímpeto"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Taxa de Drop de Coleta +5%", "EXP de Coleta +10%", "Maestria de Coleta +20", "Coleta +1"], "normal": ["Taxa de Drop de Coleta +5%", "EXP de Coleta +10%", "Maestria de Coleta +20", "Coleta +1"], "amplified": null}}, {"name": "Ouriço Bocejando", "group": "Lifeskill", "category": "Coleta", "lightstones": [{"name": "Pedra da Luz da Grama: Pradaria", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Floresta", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Vento: Sorte", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Sorte"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Taxa de Drop de Coleta +10%", "EXP de Coleta +10%", "Maestria de Coleta +20", "Coleta +1"], "normal": ["Taxa de Drop de Coleta +10%", "EXP de Coleta +10%", "Maestria de Coleta +20", "Coleta +1"], "amplified": null}}, {"name": "Postura Ideal", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Oportunidade", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Pesca +5%"], "normal": ["EXP de Pesca +14%"], "amplified": null}}, {"name": "Grande Captura", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Oportunidade", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Pesca +8%"], "normal": ["EXP de Pesca +20%"], "amplified": null}}, {"name": "Pescador Experiente", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Oportunidade", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Pesca +16%"], "normal": ["EXP de Pesca +25%"], "amplified": null}}, {"name": "Reflexos", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Corrente", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["Maestria de Pesca +8"], "normal": ["Maestria de Pesca +23"], "amplified": null}}, {"name": "Peixe Dançante", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Corrente", "qty": 4, "amplified": false}], "tiers": {"combo": ["Maestria de Pesca +15"], "normal": ["Maestria de Pesca +35"], "amplified": null}}, {"name": "Segredos do Pescador", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Corrente", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Pesca +30"], "normal": ["Maestria de Pesca +45"], "amplified": null}}, {"name": "Isca Divina", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Oportunidade", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Corrente", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Vento: Pulmão", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Pulmão"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Tempo de Auto-Pesca -15%", "EXP de Pesca +10%", "Maestria de Pesca +20", "Pesca +1"], "normal": ["Tempo de Auto-Pesca -15%", "EXP de Pesca +10%", "Maestria de Pesca +20", "Pesca +1"], "amplified": null}}, {"name": "Boca de Baleia", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Oportunidade", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Corrente", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Vento: Pena", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Pena"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Chance de Pesca de Espécie Grande Nobre +6%", "EXP de Pesca +10%", "Maestria de Pesca +20", "Pesca +1"], "normal": ["Chance de Pesca de Espécie Grande Nobre +6%", "EXP de Pesca +10%", "Maestria de Pesca +20", "Pesca +1"], "amplified": null}}, {"name": "Gaivota Afiada", "group": "Lifeskill", "category": "Pesca", "lightstones": [{"name": "Pedra da Luz da Grama: Oportunidade", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Corrente", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Vento: Sorte", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Sorte"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Chance de Pesca de Espécie Rara de Peixe +5%", "EXP de Pesca +10%", "Maestria de Pesca +20", "Pesca +1"], "normal": ["Chance de Pesca de Espécie Rara de Peixe +5%", "EXP de Pesca +10%", "Maestria de Pesca +20", "Pesca +1"], "amplified": null}}, {"name": "Escultura", "group": "Lifeskill", "category": "Caça", "lightstones": [{"name": "Pedra da Luz da Grama: Armadilha", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Caça +5%"], "normal": ["EXP de Caça +14%"], "amplified": null}}, {"name": "Olho de Falcão", "group": "Lifeskill", "category": "Caça", "lightstones": [{"name": "Pedra da Luz da Grama: Armadilha", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Caça +8%"], "normal": ["EXP de Caça +20%"], "amplified": null}}, {"name": "Instinto do Caçador", "group": "Lifeskill", "category": "Caça", "lightstones": [{"name": "Pedra da Luz da Grama: Armadilha", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Caça +16%"], "normal": ["EXP de Caça +25%"], "amplified": null}}, {"name": "Primeiro Tiro do Amanhecer", "group": "Lifeskill", "category": "Caça", "lightstones": [{"name": "Pedra da Luz da Grama: Perseguição", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["Maestria de Caça +8"], "normal": ["Maestria de Caça +23"], "amplified": null}}, {"name": "Armadilha Fechada", "group": "Lifeskill", "category": "Caça", "lightstones": [{"name": "Pedra da Luz da Grama: Perseguição", "qty": 4, "amplified": false}], "tiers": {"combo": ["Maestria de Caça +15"], "normal": ["Maestria de Caça +35"], "amplified": null}}, {"name": "Marcador Lendário", "group": "Lifeskill", "category": "Caça", "lightstones": [{"name": "Pedra da Luz da Grama: Perseguição", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Caça +30"], "normal": ["Maestria de Caça +45"], "amplified": null}}, {"name": "Fera Encolhida", "group": "Lifeskill", "category": "Caça", "lightstones": [{"name": "Pedra da Luz da Grama: Armadilha", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Perseguição", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Fogo: Zelo", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Fogo Amplificada: Zelo"}, {"name": "Pedra da Luz do Fogo: Garras", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Fogo Amplificada: Garras"}], "tiers": {"combo": ["EXP de Caça +7%", "Maestria de Caça +15"], "normal": ["EXP de Caça +7%", "Maestria de Caça +15"], "amplified": null}}, {"name": "Num Piscar de Olhos", "group": "Lifeskill", "category": "Caça", "lightstones": [{"name": "Pedra da Luz da Grama: Armadilha", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Perseguição", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Fogo: Zelo", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Fogo Amplificada: Zelo"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Velocidade de Recarga de Mosquete +10%", "EXP de Caça +10%", "Maestria de Caça +20"], "normal": ["Velocidade de Recarga de Mosquete +10%", "EXP de Caça +10%", "Maestria de Caça +20"], "amplified": null}}, {"name": "Caldeirão da Bruxa", "group": "Lifeskill", "category": "Culinária", "lightstones": [{"name": "Pedra da Luz da Grama: Método", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Culinária +5%"], "normal": ["EXP de Culinária +14%"], "amplified": null}}, {"name": "Grande Chef", "group": "Lifeskill", "category": "Culinária", "lightstones": [{"name": "Pedra da Luz da Grama: Método", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Culinária +8%"], "normal": ["EXP de Culinária +20%"], "amplified": null}}, {"name": "Chef Excelente", "group": "Lifeskill", "category": "Culinária", "lightstones": [{"name": "Pedra da Luz da Grama: Método", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Culinária +16%"], "normal": ["EXP de Culinária +25%"], "amplified": null}}, {"name": "Festa de Sabores", "group": "Lifeskill", "category": "Culinária", "lightstones": [{"name": "Pedra da Luz da Grama: Mistura", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["Maestria de Culinária +8"], "normal": ["Maestria de Culinária +23"], "amplified": null}}, {"name": "Melhor Culinária de Todas", "group": "Lifeskill", "category": "Culinária", "lightstones": [{"name": "Pedra da Luz da Grama: Mistura", "qty": 4, "amplified": false}], "tiers": {"combo": ["Maestria de Culinária +15"], "normal": ["Maestria de Culinária +35"], "amplified": null}}, {"name": "Chef Imperial", "group": "Lifeskill", "category": "Culinária", "lightstones": [{"name": "Pedra da Luz da Grama: Mistura", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Culinária +30"], "normal": ["Maestria de Culinária +45"], "amplified": null}}, {"name": "Base da Culinária", "group": "Lifeskill", "category": "Culinária", "lightstones": [{"name": "Pedra da Luz da Grama: Método", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Mistura", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Vento: Pena", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Pena"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Tempo de Culinária -2s", "EXP de Culinária +10%", "Maestria de Culinária +25"], "normal": ["Tempo de Culinária -2s", "EXP de Culinária +10%", "Maestria de Culinária +25"], "amplified": null}}, {"name": "Alquimia Antiga", "group": "Lifeskill", "category": "Alquimia", "lightstones": [{"name": "Pedra da Luz da Grama: Tempo", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Alquimia +5%"], "normal": ["EXP de Alquimia +14%"], "amplified": null}}, {"name": "Coletor de Estrelas Caídas", "group": "Lifeskill", "category": "Alquimia", "lightstones": [{"name": "Pedra da Luz da Grama: Tempo", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Alquimia +8%"], "normal": ["EXP de Alquimia +20%"], "amplified": null}}, {"name": "Alquimista Misterioso", "group": "Lifeskill", "category": "Alquimia", "lightstones": [{"name": "Pedra da Luz da Grama: Tempo", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Alquimia +16%"], "normal": ["EXP de Alquimia +25%"], "amplified": null}}, {"name": "Novo Reagente", "group": "Lifeskill", "category": "Alquimia", "lightstones": [{"name": "Pedra da Luz da Grama: Maleabilidade", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["Maestria de Alquimia +8"], "normal": ["Maestria de Alquimia +23"], "amplified": null}}, {"name": "Sonhador", "group": "Lifeskill", "category": "Alquimia", "lightstones": [{"name": "Pedra da Luz da Grama: Maleabilidade", "qty": 4, "amplified": false}], "tiers": {"combo": ["Maestria de Alquimia +15"], "normal": ["Maestria de Alquimia +35"], "amplified": null}}, {"name": "Alquimista Imperial", "group": "Lifeskill", "category": "Alquimia", "lightstones": [{"name": "Pedra da Luz da Grama: Maleabilidade", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Alquimia +30"], "normal": ["Maestria de Alquimia +45"], "amplified": null}}, {"name": "Um Pedaço de Estrela, Uma Colher de Lua", "group": "Lifeskill", "category": "Alquimia", "lightstones": [{"name": "Pedra da Luz da Grama: Tempo", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Maleabilidade", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Vento: Pena", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Pena"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Tempo de Alquimia -2s", "EXP de Alquimia +10%", "Maestria de Alquimia +25"], "normal": ["Tempo de Alquimia -2s", "EXP de Alquimia +10%", "Maestria de Alquimia +25"], "amplified": null}}, {"name": "Mãos Habilidosas", "group": "Lifeskill", "category": "Processamento", "lightstones": [{"name": "Pedra da Luz da Grama: Ferramenta", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Processamento +5%"], "normal": ["EXP de Processamento +14%"], "amplified": null}}, {"name": "Poder Crescente", "group": "Lifeskill", "category": "Processamento", "lightstones": [{"name": "Pedra da Luz da Grama: Ferramenta", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Processamento +8%"], "normal": ["EXP de Processamento +20%"], "amplified": null}}, {"name": "Mão Processada", "group": "Lifeskill", "category": "Processamento", "lightstones": [{"name": "Pedra da Luz da Grama: Ferramenta", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Processamento +16%"], "normal": ["EXP de Processamento +25%"], "amplified": null}}, {"name": "Zumbido na Oficina", "group": "Lifeskill", "category": "Processamento", "lightstones": [{"name": "Pedra da Luz da Grama: Discrição", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["Maestria de Processamento +8"], "normal": ["Maestria de Processamento +23"], "amplified": null}}, {"name": "Pegadas Profundas", "group": "Lifeskill", "category": "Processamento", "lightstones": [{"name": "Pedra da Luz da Grama: Discrição", "qty": 4, "amplified": false}], "tiers": {"combo": ["Maestria de Processamento +15"], "normal": ["Maestria de Processamento +35"], "amplified": null}}, {"name": "Multiuso", "group": "Lifeskill", "category": "Processamento", "lightstones": [{"name": "Pedra da Luz da Grama: Discrição", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Processamento +30"], "normal": ["Maestria de Processamento +45"], "amplified": null}}, {"name": "Click Clack", "group": "Lifeskill", "category": "Processamento", "lightstones": [{"name": "Pedra da Luz da Grama: Ferramenta", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Discrição", "qty": 1, "amplified": false}, {"name": "Pedra da Luz do Vento: Pena", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Pena"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Chance de Sucesso de Processamento +20%", "EXP de Processamento +10%", "Maestria de Processamento +25"], "normal": ["Chance de Sucesso de Processamento +20%", "EXP de Processamento +10%", "Maestria de Processamento +25"], "amplified": null}}, {"name": "Comuna", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Arrancada", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Treinamento +5%"], "normal": ["EXP de Treinamento +14%"], "amplified": null}}, {"name": "Cultura", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Arrancada", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Treinamento +8%"], "normal": ["EXP de Treinamento +20%"], "amplified": null}}, {"name": "Cultura Abençoada", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Arrancada", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Treinamento +16%"], "normal": ["EXP de Treinamento +25%"], "amplified": null}}, {"name": "Treinador Ascendente", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Puro Sangue", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["Maestria de Treinamento +8"], "normal": ["Maestria de Treinamento +23"], "amplified": null}}, {"name": "Juba Dourada", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Puro Sangue", "qty": 4, "amplified": false}], "tiers": {"combo": ["Maestria de Treinamento +15"], "normal": ["Maestria de Treinamento +35"], "amplified": null}}, {"name": "Glória do Grande Prêmio", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Puro Sangue", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Treinamento +30"], "normal": ["Maestria de Treinamento +45"], "amplified": null}}, {"name": "Levado pelo Vento", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Arrancada", "qty": 2, "amplified": false}, {"name": "Pedra da Luz da Grama: Puro Sangue", "qty": 2, "amplified": false}], "tiers": {"combo": ["EXP de Montaria +5%", "EXP de Treinamento +5%", "Maestria de Treinamento +10"], "normal": ["EXP de Montaria +5%", "EXP de Treinamento +8%", "Maestria de Treinamento +15"], "amplified": null}}, {"name": "Rumo ao Pôr do Sol", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Arrancada", "qty": 2, "amplified": false}, {"name": "Pedra da Luz da Grama: Puro Sangue", "qty": 1, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Montaria +15%", "EXP de Treinamento +10%", "Maestria de Treinamento +20"], "normal": ["EXP de Montaria +15%", "EXP de Treinamento +13%", "Maestria de Treinamento +25"], "amplified": null}}, {"name": "Cavalos Sobre Flores", "group": "Lifeskill", "category": "Treinamento", "lightstones": [{"name": "Pedra da Luz da Grama: Arrancada", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Puro Sangue", "qty": 2, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Montaria +25%"], "normal": ["EXP de Montaria +25%", "EXP de Treinamento +3%", "Maestria de Treinamento +10"], "amplified": null}}, {"name": "Comerciante", "group": "Lifeskill", "category": "Comércio", "lightstones": [{"name": "Pedra da Luz da Grama: Carroça", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Comércio +5%"], "normal": ["EXP de Comércio +14%"], "amplified": null}}, {"name": "Rápido de Pensamento", "group": "Lifeskill", "category": "Comércio", "lightstones": [{"name": "Pedra da Luz da Grama: Carroça", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Comércio +8%"], "normal": ["EXP de Comércio +20%"], "amplified": null}}, {"name": "O Ciclo", "group": "Lifeskill", "category": "Comércio", "lightstones": [{"name": "Pedra da Luz da Grama: Carroça", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Comércio +16%"], "normal": ["EXP de Comércio +25%"], "amplified": null}}, {"name": "Negociador Mestre", "group": "Lifeskill", "category": "Comércio", "lightstones": [{"name": "Pedra da Luz da Grama: Pechinchador", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Escambo +16%"], "normal": ["EXP de Escambo +25%"], "amplified": null}}, {"name": "Fruto da Espera", "group": "Lifeskill", "category": "Agricultura", "lightstones": [{"name": "Pedra da Luz da Grama: Colheita", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Agricultura +5%"], "normal": ["EXP de Agricultura +14%"], "amplified": null}}, {"name": "Cultivo", "group": "Lifeskill", "category": "Agricultura", "lightstones": [{"name": "Pedra da Luz da Grama: Colheita", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Agricultura +8%"], "normal": ["EXP de Agricultura +20%"], "amplified": null}}, {"name": "Solo Mágico", "group": "Lifeskill", "category": "Agricultura", "lightstones": [{"name": "Pedra da Luz da Grama: Colheita", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Agricultura +16%"], "normal": ["EXP de Agricultura +25%"], "amplified": null}}, {"name": "Timoneiro Oscilante", "group": "Lifeskill", "category": "Navegação", "lightstones": [{"name": "Pedra da Luz da Grama: Inexplorado", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Navegação +5%"], "normal": ["EXP de Navegação +14%"], "amplified": null}}, {"name": "Além do Horizonte", "group": "Lifeskill", "category": "Navegação", "lightstones": [{"name": "Pedra da Luz da Grama: Inexplorado", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Navegação +8%"], "normal": ["EXP de Navegação +20%"], "amplified": null}}, {"name": "Perseguindo o Pôr do Sol", "group": "Lifeskill", "category": "Navegação", "lightstones": [{"name": "Pedra da Luz da Grama: Inexplorado", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["EXP de Navegação +16%"], "normal": ["EXP de Navegação +25%"], "amplified": null}}, {"name": "Músculo do Marinheiro", "group": "Lifeskill", "category": "Navegação", "lightstones": [{"name": "Pedra da Luz da Grama: Azul", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["Maestria de Navegação +8"], "normal": ["Maestria de Navegação +23"], "amplified": null}}, {"name": "Âncora Enferrujada", "group": "Lifeskill", "category": "Navegação", "lightstones": [{"name": "Pedra da Luz da Grama: Azul", "qty": 4, "amplified": false}], "tiers": {"combo": ["Maestria de Navegação +15"], "normal": ["Maestria de Navegação +35"], "amplified": null}}, {"name": "A Grande Maré", "group": "Lifeskill", "category": "Navegação", "lightstones": [{"name": "Pedra da Luz da Grama: Azul", "qty": 3, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Navegação +30"], "normal": ["Maestria de Navegação +45"], "amplified": null}}, {"name": "Abraço do Oceano", "group": "Lifeskill", "category": "Navegação", "lightstones": [{"name": "Pedra da Luz da Grama: Inexplorado", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Pechinchador", "qty": 1, "amplified": false}, {"name": "Pedra da Luz da Grama: Azul", "qty": 1, "amplified": false}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Desejo da Sereia III", "EXP de Navegação +10%", "EXP de Escambo +10%", "Maestria de Navegação +45"], "normal": ["Desejo da Sereia III", "EXP de Navegação +10%", "EXP de Escambo +10%", "Maestria de Navegação +50"], "amplified": null}}, {"name": "Dono da Escala", "group": "Lifeskill", "category": "Escambo", "lightstones": [{"name": "Pedra da Luz da Grama: Pechinchador", "qty": 3, "amplified": false}, {"name": "Sem pedra", "qty": 1, "amplified": false, "free": true}], "tiers": {"combo": ["EXP de Escambo +5%"], "normal": ["EXP de Escambo +14%"], "amplified": null}}, {"name": "Estudioso do Escambo", "group": "Lifeskill", "category": "Escambo", "lightstones": [{"name": "Pedra da Luz da Grama: Pechinchador", "qty": 4, "amplified": false}], "tiers": {"combo": ["EXP de Escambo +8%"], "normal": ["EXP de Escambo +20%"], "amplified": null}}, {"name": "Seleção e Foco: Coleta", "group": "Lifeskill", "category": "Utilidade", "lightstones": [{"name": "Pedra da Luz da Grama: Pradaria", "qty": 2, "amplified": false}, {"name": "Pedra da Luz do Vento: Cabeça", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Cabeça"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Coleta -500", "EXP de Coleta +35%"], "normal": ["Maestria de Coleta -500", "EXP de Coleta +35%"], "amplified": null}}, {"name": "Seleção e Foco: Pesca", "group": "Lifeskill", "category": "Utilidade", "lightstones": [{"name": "Pedra da Luz da Grama: Oportunidade", "qty": 2, "amplified": false}, {"name": "Pedra da Luz do Vento: Cabeça", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Cabeça"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Pesca -500", "EXP de Pesca +35%"], "normal": ["Maestria de Pesca -500", "EXP de Pesca +35%"], "amplified": null}}, {"name": "Seleção e Foco: Caça", "group": "Lifeskill", "category": "Utilidade", "lightstones": [{"name": "Pedra da Luz da Grama: Armadilha", "qty": 2, "amplified": false}, {"name": "Pedra da Luz do Vento: Cabeça", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Cabeça"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Caça -500", "EXP de Caça +35%"], "normal": ["Maestria de Caça -500", "EXP de Caça +35%"], "amplified": null}}, {"name": "Seleção e Foco: Culinária", "group": "Lifeskill", "category": "Utilidade", "lightstones": [{"name": "Pedra da Luz da Grama: Método", "qty": 2, "amplified": false}, {"name": "Pedra da Luz do Vento: Cabeça", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Cabeça"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Culinária -500", "EXP de Culinária +35%"], "normal": ["Maestria de Culinária -500", "EXP de Culinária +35%"], "amplified": null}}, {"name": "Seleção e Foco: Alquimia", "group": "Lifeskill", "category": "Utilidade", "lightstones": [{"name": "Pedra da Luz da Grama: Tempo", "qty": 2, "amplified": false}, {"name": "Pedra da Luz do Vento: Cabeça", "qty": 1, "amplified": true, "ampName": "Pedra da Luz do Vento Amplificada: Cabeça"}, {"name": "Pedra da Luz de Cinco Cores", "qty": 1, "amplified": false}], "tiers": {"combo": ["Maestria de Alquimia -500", "EXP de Alquimia +35%"], "normal": ["Maestria de Alquimia -500", "EXP de Alquimia +35%"], "amplified": null}}]
+[
+  {
+    "name": "Delotia",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Vida: +17%"
+      ],
+      "normal": [
+        "XP de Vida: +26%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Mão de Manos",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Paraíso",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Paraíso"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Paraíso",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Paraíso"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Paraíso",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Paraíso"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Todas as Maestrias: +30"
+      ],
+      "normal": [
+        "Todas as Maestrias: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Fortaleza Natural",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Paraíso",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Paraíso"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Vida: +12%",
+        "Todas as Maestrias: +20"
+      ],
+      "normal": [
+        "XP de Vida: +18%",
+        "Todas as Maestrias: +25"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Curiosidade",
+    "group": "Lifeskill",
+    "category": "Coleta",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Coleta: +5%"
+      ],
+      "normal": [
+        "XP de Coleta: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Postura de Primeira",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Pesca: +5%"
+      ],
+      "normal": [
+        "XP de Pesca: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Escultura",
+    "group": "Lifeskill",
+    "category": "Caça",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Caça: +5%"
+      ],
+      "normal": [
+        "XP de Caça: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Caldeirão da Bruxa",
+    "group": "Lifeskill",
+    "category": "Culinária",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Culinária: +5%"
+      ],
+      "normal": [
+        "XP de Culinária: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Livro de Alquimia do Ancestral",
+    "group": "Lifeskill",
+    "category": "Alquimia",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Alquimia: +5%"
+      ],
+      "normal": [
+        "XP de Alquimia: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Talento Manual",
+    "group": "Lifeskill",
+    "category": "Processamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Processamento: +5%"
+      ],
+      "normal": [
+        "XP de Processamento: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Comunhão",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Treino: +5%"
+      ],
+      "normal": [
+        "XP de Treino: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Barganhador",
+    "group": "Lifeskill",
+    "category": "Comércio",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Comércio: +5%"
+      ],
+      "normal": [
+        "XP de Comércio: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Virtude da Espera",
+    "group": "Lifeskill",
+    "category": "Agricultura",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Cultivo: +5%"
+      ],
+      "normal": [
+        "XP de Cultivo: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Timoneiro Balançante",
+    "group": "Lifeskill",
+    "category": "Navegação",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Navegação: +5%"
+      ],
+      "normal": [
+        "XP de Navegação: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Dono da Balança",
+    "group": "Lifeskill",
+    "category": "Comércio",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Comércio: +5%"
+      ],
+      "normal": [
+        "XP de Comércio: +14%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Amigo da Fada",
+    "group": "Lifeskill",
+    "category": "Coleta",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Coleta: +8%"
+      ],
+      "normal": [
+        "XP de Coleta: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Peixe Grande",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Pesca: +8%"
+      ],
+      "normal": [
+        "XP de Pesca: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Olho de Falcão",
+    "group": "Lifeskill",
+    "category": "Caça",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Caça: +8%"
+      ],
+      "normal": [
+        "XP de Caça: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Cozinheiro Especial",
+    "group": "Lifeskill",
+    "category": "Culinária",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Culinária: +8%"
+      ],
+      "normal": [
+        "XP de Culinária: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Colecionador de Estrela Quebrada",
+    "group": "Lifeskill",
+    "category": "Alquimia",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Alquimia: +8%"
+      ],
+      "normal": [
+        "XP de Alquimia: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Fonte de Energia",
+    "group": "Lifeskill",
+    "category": "Processamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Processamento: +8%"
+      ],
+      "normal": [
+        "XP de Processamento: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Ritmo Otimista",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Treino: +8%"
+      ],
+      "normal": [
+        "XP de Treino: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Senso Acurado",
+    "group": "Lifeskill",
+    "category": "Comércio",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Comércio: +8%"
+      ],
+      "normal": [
+        "XP de Comércio: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Fim da Paciência",
+    "group": "Lifeskill",
+    "category": "Agricultura",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Cultivo: +8%"
+      ],
+      "normal": [
+        "XP de Cultivo: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Na Fronteira do Céu e Mar",
+    "group": "Lifeskill",
+    "category": "Navegação",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Navegação: +8%"
+      ],
+      "normal": [
+        "XP de Navegação: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Bolsista em Permuta",
+    "group": "Lifeskill",
+    "category": "Comércio",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Comércio: +8%"
+      ],
+      "normal": [
+        "XP de Comércio: +20%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Coletador de Raízes",
+    "group": "Lifeskill",
+    "category": "Coleta",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Coleta: +16%"
+      ],
+      "normal": [
+        "XP de Coleta: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Pescador Experiente",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Pesca: +16%"
+      ],
+      "normal": [
+        "XP de Pesca: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Ponta de Caçador",
+    "group": "Lifeskill",
+    "category": "Caça",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Caça: +16%"
+      ],
+      "normal": [
+        "XP de Caça: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Cozinheiro Gourmet",
+    "group": "Lifeskill",
+    "category": "Culinária",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Culinária: +16%"
+      ],
+      "normal": [
+        "XP de Culinária: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Alquimista Desconhecido",
+    "group": "Lifeskill",
+    "category": "Alquimia",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Alquimia: +16%"
+      ],
+      "normal": [
+        "XP de Alquimia: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Mão Processada",
+    "group": "Lifeskill",
+    "category": "Processamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Processamento: +16%"
+      ],
+      "normal": [
+        "XP de Processamento: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Tala da Sorte",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Treino: +16%"
+      ],
+      "normal": [
+        "XP de Treino: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Roda da Vida",
+    "group": "Lifeskill",
+    "category": "Comércio",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Carroça",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Carroça"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Comércio: +16%"
+      ],
+      "normal": [
+        "XP de Comércio: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Terra com Magia",
+    "group": "Lifeskill",
+    "category": "Agricultura",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Negligência",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Negligência"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Cultivo: +16%"
+      ],
+      "normal": [
+        "XP de Cultivo: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Companheiro do Pôr do Sol",
+    "group": "Lifeskill",
+    "category": "Navegação",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Navegação: +16%"
+      ],
+      "normal": [
+        "XP de Navegação: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Mestre da Negociação",
+    "group": "Lifeskill",
+    "category": "Comércio",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Comércio: +16%"
+      ],
+      "normal": [
+        "XP de Comércio: +25%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Trevo de Quatro Folhas",
+    "group": "Lifeskill",
+    "category": "Coleta",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Coleta: +8"
+      ],
+      "normal": [
+        "Maestria em Coleta: +23"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Reflexos",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Pesca: +8"
+      ],
+      "normal": [
+        "Maestria em Pesca: +23"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Tiro Atravessador da Madrugada",
+    "group": "Lifeskill",
+    "category": "Caça",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Caça: +8"
+      ],
+      "normal": [
+        "Maestria em Caça: +23"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Banquete do Sabor",
+    "group": "Lifeskill",
+    "category": "Culinária",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Culinária: +8"
+      ],
+      "normal": [
+        "Maestria em Culinária: +23"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Reagente Vital",
+    "group": "Lifeskill",
+    "category": "Alquimia",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Alquimia: +8"
+      ],
+      "normal": [
+        "Maestria em Alquimia: +23"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Cantarolar do Fabricante",
+    "group": "Lifeskill",
+    "category": "Processamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Processamento: +8"
+      ],
+      "normal": [
+        "Maestria em Processamento: +23"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Acordar do Cocheiro",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Treinamento: +8"
+      ],
+      "normal": [
+        "Maestria em Treinamento: +23"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Tendão de Marinheiro",
+    "group": "Lifeskill",
+    "category": "Navegação",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Sem pedra",
+        "qty": 1,
+        "amplified": false,
+        "free": true
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Navegação: +8"
+      ],
+      "normal": [
+        "Maestria em Navegação: +23"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Eco do Espírito",
+    "group": "Lifeskill",
+    "category": "Coleta",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Coleta: +15"
+      ],
+      "normal": [
+        "Maestria em Coleta: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Peixe-Dançante",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Pesca: +15"
+      ],
+      "normal": [
+        "Maestria em Pesca: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Armadilha Fechada",
+    "group": "Lifeskill",
+    "category": "Caça",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Caça: +15"
+      ],
+      "normal": [
+        "Maestria em Caça: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Culinária é Vida",
+    "group": "Lifeskill",
+    "category": "Culinária",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Culinária: +15"
+      ],
+      "normal": [
+        "Maestria em Culinária: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Sonhador",
+    "group": "Lifeskill",
+    "category": "Alquimia",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Alquimia: +15"
+      ],
+      "normal": [
+        "Maestria em Alquimia: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Pegada Afundada",
+    "group": "Lifeskill",
+    "category": "Processamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Processamento: +15"
+      ],
+      "normal": [
+        "Maestria em Processamento: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Moican Dourado",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Treinamento: +15"
+      ],
+      "normal": [
+        "Maestria em Treinamento: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Âncora Enferrujada",
+    "group": "Lifeskill",
+    "category": "Navegação",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Navegação: +15"
+      ],
+      "normal": [
+        "Maestria em Navegação: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Pessoa da Natureza",
+    "group": "Lifeskill",
+    "category": "Coleta",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Coleta: +30"
+      ],
+      "normal": [
+        "Maestria em Coleta: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Truque de Pescador",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Pesca: +30"
+      ],
+      "normal": [
+        "Maestria em Pesca: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Pistoleiro Lendário",
+    "group": "Lifeskill",
+    "category": "Caça",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Caça: +30"
+      ],
+      "normal": [
+        "Maestria em Caça: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Chefe Imperial",
+    "group": "Lifeskill",
+    "category": "Culinária",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Culinária: +30"
+      ],
+      "normal": [
+        "Maestria em Culinária: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Alquimista Imperial",
+    "group": "Lifeskill",
+    "category": "Alquimia",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Alquimia: +30"
+      ],
+      "normal": [
+        "Maestria em Alquimia: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Mão Talentosa",
+    "group": "Lifeskill",
+    "category": "Processamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Processamento: +30"
+      ],
+      "normal": [
+        "Maestria em Processamento: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Grand Prix da Honra",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Treinamento: +30"
+      ],
+      "normal": [
+        "Maestria em Treinamento: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Água Grandiosa",
+    "group": "Lifeskill",
+    "category": "Navegação",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Navegação: +30"
+      ],
+      "normal": [
+        "Maestria em Navegação: +45"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Doninha Aqui e Ali",
+    "group": "Lifeskill",
+    "category": "Coleta",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Chance de obter item da coleta: +5%",
+        "XP de Coleta: +10%",
+        "Maestria em Coleta: +20",
+        "Nível de Coleta: +1"
+      ],
+      "normal": [
+        "Chance de obter item da coleta: +5%",
+        "XP de Coleta: +16%",
+        "Maestria em Coleta: +25",
+        "Nível de Coleta: +1"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Ouriço Bocejando",
+    "group": "Lifeskill",
+    "category": "Coleta",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Floresta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Floresta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Chance de obter item da coleta: +10%",
+        "XP de Coleta: +10%",
+        "Maestria em Coleta: +20",
+        "Nível de Coleta: +1"
+      ],
+      "normal": [
+        "Chance de obter item da coleta: +10%",
+        "XP de Coleta: +13%",
+        "Maestria em Coleta: +25",
+        "Nível de Coleta: +1",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Isca Divina",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Tempo de pesca automático: -15%",
+        "XP de Pesca: +10%",
+        "Maestria em Pesca: +20",
+        "Nível de Pesca: +1"
+      ],
+      "normal": [
+        "Tempo de pesca automático: -15%",
+        "XP de Pesca: +16%",
+        "Maestria em Pesca: +25",
+        "Nível de Pesca: +1"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Boca de Baleia",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Paraíso",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Paraíso"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Chance de pegar peixe grande: +6",
+        "XP de Pesca: +10%",
+        "Maestria em Pesca: +20",
+        "Nível de Pesca: +1"
+      ],
+      "normal": [
+        "Chance de pegar peixe grande: +6",
+        "XP de Pesca: +13%",
+        "Maestria em Pesca: +25",
+        "Nível de Pesca: +1",
+        "Todas as Maestrias: +5"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Gaivota Afiada",
+    "group": "Lifeskill",
+    "category": "Pesca",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Corrente",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Corrente"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Chance de pegar Peixe Raro: +5",
+        "XP de Pesca: +10%",
+        "Maestria em Pesca: +20",
+        "Nível de Pesca: +1"
+      ],
+      "normal": [
+        "Chance de pegar Peixe Raro: +5",
+        "XP de Pesca: +13%",
+        "Maestria em Pesca: +25",
+        "Nível de Pesca: +1",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Fera Encolhida",
+    "group": "Lifeskill",
+    "category": "Caça",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Caça: +7%",
+        "Maestria em Caça: +15"
+      ],
+      "normal": [
+        "XP de Caça: +16%",
+        "Maestria em Caça: +20"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Num Piscar de Olhos",
+    "group": "Lifeskill",
+    "category": "Caça",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perseguição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perseguição"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Velocidade de Recarga do Mosquete: +10%",
+        "XP de Caça: +10%",
+        "Maestria em Caça: +20"
+      ],
+      "normal": [
+        "Velocidade de Recarga do Mosquete: +10%",
+        "XP de Caça: +13%",
+        "Maestria em Caça: +30"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Base da Culinária",
+    "group": "Lifeskill",
+    "category": "Culinária",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Mistura",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Mistura"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Tempo cozinhando: -2 sec",
+        "XP de Culinária: +10%",
+        "Maestria em Culinária: +25"
+      ],
+      "normal": [
+        "Tempo cozinhando: -2 sec",
+        "XP de Culinária: +13%",
+        "Maestria em Culinária: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Um Fragmento de Estrela",
+    "group": "Lifeskill",
+    "category": "Alquimia",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Maleabilidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Maleabilidade"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Tempo fazendo alquimia: -2 sec",
+        "XP de Alquimia: +10%",
+        "Maestria em Alquimia: +25"
+      ],
+      "normal": [
+        "Tempo fazendo alquimia: -2 sec",
+        "XP de Alquimia: +13%",
+        "Maestria em Alquimia: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Click Clack!",
+    "group": "Lifeskill",
+    "category": "Processamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Discrição",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Discrição"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Taxa de sucesso no processamento: +20%",
+        "XP de Processamento: +10%",
+        "Maestria em Processamento: +25"
+      ],
+      "normal": [
+        "Taxa de sucesso no processamento: +20%",
+        "XP de Processamento: +13%",
+        "Maestria em Processamento: +35"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Esvoaçante",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Montaria: +5%",
+        "XP de Treino: +5%",
+        "Maestria em Treinamento: +10"
+      ],
+      "normal": [
+        "XP de Montaria: +5%",
+        "XP de Treino: +11%",
+        "Maestria em Treinamento: +20"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Dento do Pôr do Sol",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Montaria: +15%",
+        "XP de Treino: +10%",
+        "Maestria em Treinamento: +20"
+      ],
+      "normal": [
+        "XP de Montaria: +15%",
+        "XP de Treino: +16%",
+        "Maestria em Treinamento: +25"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Cavalo no meu lugar",
+    "group": "Lifeskill",
+    "category": "Treinamento",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Puro Sangue",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Puro Sangue"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "XP de Montaria: +25%"
+      ],
+      "normal": [
+        "XP de Montaria: +25%",
+        "XP de Treino: +3%",
+        "Maestria em Treinamento: +10"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Abraço do Mar",
+    "group": "Lifeskill",
+    "category": "Navegação",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Perspicácia",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Perspicácia"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Azul",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Azul"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Desejo da Sereia: +3",
+        "XP de Navegação: +10%",
+        "XP de Comércio: +10%",
+        "Maestria em Navegação: +45"
+      ],
+      "normal": [
+        "Desejo da Sereia: +3",
+        "XP de Navegação: +13%",
+        "XP de Comércio: +13%",
+        "Maestria em Navegação: +50"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Seleção e Foco: Coleta",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Pradaria",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Pradaria"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Coleta: -500",
+        "XP de Coleta: +35%"
+      ],
+      "normal": [
+        "Maestria em Coleta: -500",
+        "XP de Coleta: +41%",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Seleção e Foco: Pesca",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Oportunidade",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Oportunidade"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Pesca: -500",
+        "XP de Pesca: +35%"
+      ],
+      "normal": [
+        "Maestria em Pesca: -500",
+        "XP de Pesca: +41%",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Seleção e Foco: Caça",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Armadilha",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Armadilha"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Caça: -500",
+        "XP de Caça: +35%"
+      ],
+      "normal": [
+        "Maestria em Caça: -500",
+        "XP de Caça: +41%",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Seleção e Foco: Culinária",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Método",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Método"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Culinária: -500",
+        "XP de Culinária: +35%"
+      ],
+      "normal": [
+        "Maestria em Culinária: -500",
+        "XP de Culinária: +41%",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Seleção e Foco: Alquimia",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Tempo",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Tempo"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Alquimia: -500",
+        "XP de Alquimia: +35%"
+      ],
+      "normal": [
+        "Maestria em Alquimia: -500",
+        "XP de Alquimia: +41%",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Seleção e Foco: Processamento",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Ferramenta",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Ferramenta"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Processamento: -500",
+        "XP de Processamento: +35%"
+      ],
+      "normal": [
+        "Maestria em Processamento: -500",
+        "XP de Processamento: +41%",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Seleção e Foco: Treinamento",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Arrancada",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Arrancada"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Treinamento: -500",
+        "XP de Treino: +35%"
+      ],
+      "normal": [
+        "Maestria em Treinamento: -500",
+        "XP de Treino: +41%",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  },
+  {
+    "name": "Seleção e Foco: Navegação",
+    "group": "Lifeskill",
+    "category": "Utilidade",
+    "lightstones": [
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Desconhecido",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Desconhecido"
+      },
+      {
+        "name": "Pedra da Luz da Grama: Selva",
+        "qty": 1,
+        "amplified": true,
+        "ampName": "Pedra da Luz da Grama Amplificada: Selva"
+      },
+      {
+        "name": "Pedra da Luz de Cinco Cores",
+        "qty": 1,
+        "amplified": false
+      }
+    ],
+    "tiers": {
+      "combo": [
+        "Maestria em Navegação: -500",
+        "XP de Navegação: +35%"
+      ],
+      "normal": [
+        "Maestria em Navegação: -500",
+        "XP de Navegação: +41%",
+        "XP de Vida: +3%"
+      ],
+      "amplified": null
+    }
+  }
+]
