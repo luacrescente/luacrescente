@@ -1,7 +1,9 @@
 // Retorna o contador de membros online do servidor da guilda.
 // Usa o mesmo DISCORD_BOT_TOKEN do garmoth-coupons.js.
+// v2 — timeout no fetch do Discord.
 
 const GUILD_ID = '1444891989333115064';
+const FETCH_TIMEOUT_MS = 8000;
 
 exports.handler = async function () {
   const token = process.env.DISCORD_BOT_TOKEN;
@@ -10,7 +12,7 @@ exports.handler = async function () {
   try {
     const res = await fetch(
       `https://discord.com/api/v10/guilds/${GUILD_ID}?with_counts=true`,
-      { headers: { 'authorization': `Bot ${token}` } }
+      { headers: { 'authorization': `Bot ${token}` }, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) }
     );
     if (!res.ok) throw new Error(`Discord API ${res.status}`);
     const data = await res.json();

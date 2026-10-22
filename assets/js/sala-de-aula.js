@@ -29,15 +29,21 @@
     var date = window.LuaCrescenteBlog.formatDate(post.published);
     var href = '?post=' + encodeURIComponent(post.id);
 
-    return '' +
-      '<a class="guide-card" style="--guide-image:url(\'' + bg + '\')" href="' + href + '">' +
-        '<div class="guide-content">' +
-          '<span class="guide-tag">' + escapeHtml(label) + '</span>' +
-          '<h3 class="guide-title">' + escapeHtml(post.title) + '</h3>' +
-          '<p class="guide-desc">' + escapeHtml(desc) + '</p>' +
-          '<span class="guide-read">' + escapeHtml(date) + '</span>' +
-        '</div>' +
-      '</a>';
+    return `
+      <a class="guide-card" href="${href}">
+        <div class="guide-thumb-wrap">
+          <img class="guide-thumb" src="${bg}" alt="" loading="lazy">
+        </div>
+        <div class="guide-content">
+          <div class="guide-top">
+            <span class="guide-tag">${escapeHtml(label)}</span>
+            <span class="guide-read">${escapeHtml(date)}</span>
+          </div>
+          <h3 class="guide-title">${escapeHtml(post.title)}</h3>
+          <p class="guide-desc">${escapeHtml(desc)}</p>
+        </div>
+      </a>
+    `;
   }
 
   function renderGrid(posts) {

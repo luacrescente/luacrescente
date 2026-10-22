@@ -9,34 +9,40 @@ Site estático da guilda Lua Crescente.
 ├── index.html
 ├── receitas.html
 ├── sala-de-aula.html
+├── combos.html
+├── 404.html
 ├── assets/
 │   ├── css/
 │   │   ├── site.css
-│   │   └── coupons.css
+│   │   ├── coupons.css
+│   │   ├── events.css
+│   │   └── blog.css
 │   ├── data/
 │   │   ├── i18n/
 │   │   │   └── translations-es-LATAM.js
 │   │   ├── recipes/
-│   │   │   ├── assets/data/recipes/categories/*.json
+│   │   │   ├── categories/*.json
 │   │   │   └── recipe-metadata.js
 │   │   └── ui-translations.js
 │   ├── img/
 │   └── js/
-│       └── site-runtime.js
+│       ├── site-runtime.js
+│       ├── recipe-loader.js
+│       ├── combos.js
+│       ├── world-cycle.js
+│       ├── boss-timer.js
+│       ├── guild-boss-timer.js
+│       ├── bdo-events.js
+│       ├── blog-loader.js
+│       ├── home-guides.js
+│       └── sala-de-aula.js
 ├── netlify/
 │   └── functions/
-│       └── garmoth-coupons.js
+│       ├── garmoth-coupons.js
+│       ├── bdo-events.js
+│       ├── discord-announcements.js
+│       ├── discord-guild.js
+│       └── youtube-videos.js
 ├── AGENTS.md
 ├── netlify.toml
 └── README.md
-```
-
-## Princípio de manutenção
-
-O projeto usa HTML separado por página, CSS separado dos dados e JavaScript separado do catálogo de receitas. Não é necessário um build step para publicar no Netlify.
-
-Antes de qualquer alteração, ler `AGENTS.md`.
-
-## Publicação
-
-O diretório raiz do projeto é o diretório publicado pelo Netlify. As funções ficam em `netlify/functions/`.

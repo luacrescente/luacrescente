@@ -1,8 +1,7 @@
-/* Seção "Eventos" da Home — v7
+/* Seção "Eventos" da Home — v9
+   - Layout em lista (igual ao print)
    - Duas abas: Temporários / Permanentes
-   - Todas as barras começam 2 dias atrás com setinha ‹ (parece contínuo, igual Garmoth)
-   - Badge "Xd" FORA da barra (direita)
-   - Permanentes: barra cinza, sem badge
+   - Rolagem interna
 */
 (function(){
   'use strict';
@@ -10,12 +9,8 @@
   const root = document.getElementById('eventsTimeline');
   if(!root) return;
 
-  const CACHE_KEY = 'luaCrescenteEventsCache_v7';
+  const CACHE_KEY = 'luaCrescenteEventsCache_v8';
   const DAY_MS = 86400000;
-  const DAY_WIDTH = 44;
-  const ROW_HEIGHT = 36;
-  const PERMANENT_WINDOW_DAYS = 60;
-  const DAYS_BACK = 2;
 
   function cacheTTL(){
     const now = new Date();
@@ -31,13 +26,6 @@
       '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
     }[c]));
   }
-  function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
-  function fmtDay(d){ return String(d.getDate()).padStart(2,'0'); }
-  const WEEKDAYS = ['Do','Se','Te','Qu','Qu','Se','Sá'];
-  const MONTHS_SHORT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-
-  const PALETTE = ['#7a5a3d','#7a3d4a','#a04a2e','#3f6d89','#5a4f8a','#3f7a5a','#8a6a3d','#5a6a7a'];
-  function colorForIndex(i){ return PALETTE[i % PALETTE.length]; }
 
   let allEvents = [];
   let activeTab = 'temporary';
@@ -53,155 +41,45 @@
     const list = activeTab === 'temporary' ? tempEvents : permEvents;
     const valid = list.filter(e => e && e.title && e.link);
 
-    const tabsHtml = `
-      <div class="events-tabs" role="tablist">
-        <button type="button" class="events-tab ${activeTab==='temporary'?'active':''}" data-tab="temporary" role="tab" aria-selected="${activeTab==='temporary'}">
-          ⏱️ Temporários
-        </button>
-        <button type="button" class="events-tab ${activeTab==='permanent'?'active':''}" data-tab="permanent" role="tab" aria-selected="${activeTab==='permanent'}">
-          ∞ Permanentes
-        </button>
-      </div>`;
+    document.querySelectorAll('.events-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === activeTab);
+    });
 
     if(!valid.length){
-      root.innerHTML = tabsHtml + '<div class="events-status">Nenhum evento nesta categoria no momento.</div>';
-      bindTabs();
+      root.innerHTML = '<div class="events-status">Nenhum evento nesta categoria no momento.</div>';
       return;
     }
 
-    const now = new Date();
-    const today0 = startOfDay(now);
-
-    // Todas as barras começam 2 dias atrás (parece contínuo)
-    const windowStart = new Date(today0.getTime() - DAYS_BACK * DAY_MS);
-
-    // Descobre o maior fim pra dimensionar a janela
-    let maxEnd = today0.getTime() + 14 * DAY_MS;
-    valid.forEach(e => {
-      if(e.isPermanent) return;
-      const end = new Date(today0.getTime() + Math.max(0, Number(e.daysLeft) || 0) * DAY_MS);
-      if(end.getTime() > maxEnd) maxEnd = end.getTime();
-    });
-    const windowEnd = new Date(maxEnd + 2 * DAY_MS);
-
-    const totalDays = Math.round((windowEnd - windowStart) / DAY_MS) + 1;
-    const dayX = (d) => Math.round((startOfDay(d) - windowStart) / DAY_MS) * DAY_WIDTH;
-
-    // Régua
-    let ruler = '';
-    for(let i = 0; i < totalDays; i++){
-      const d = new Date(windowStart.getTime() + i * DAY_MS);
-      const isToday = d.getTime() === today0.getTime();
-      const isFirst = d.getDate() === 1;
-      ruler += `<div class="events-ruler-day${isToday?' is-today':''}${isFirst?' is-first-of-month':''}" style="left:${i*DAY_WIDTH}px">
-        ${isFirst ? `<span class="events-ruler-m">${MONTHS_SHORT[d.getMonth()]}</span>` : ''}
-        <span class="events-ruler-wd">${WEEKDAYS[d.getDay()]}</span>
-        <span class="events-ruler-n">${fmtDay(d)}</span>
-      </div>`;
-    }
-
-    const todayX = dayX(today0);
-
-    // Barras — TODAS começam em windowStart com setinha
-    let rows = '';
-    valid.forEach((e, i) => {
-      const endDate = e.isPermanent
-        ? new Date(today0.getTime() + PERMANENT_WINDOW_DAYS * DAY_MS)
-        : new Date(today0.getTime() + Math.max(0, Number(e.daysLeft) || 0) * DAY_MS);
-
-      const x1 = 0; // sempre começa na borda esquerda
-      const x2raw = dayX(endDate) + DAY_WIDTH;
-      const x2 = Math.min(totalDays * DAY_WIDTH, x2raw);
-      const w = Math.max(DAY_WIDTH, x2 - x1);
-
-      const color = e.isPermanent ? '#4a4f5a' : colorForIndex(i);
-
-      let label = '';
-      if(!e.isPermanent){
-        const msLeft = endDate - now;
-        const daysLeft = Math.max(0, Math.ceil(msLeft / DAY_MS));
-        if(msLeft <= 0) label = 'Encerrado';
-        else if(daysLeft <= 1) label = 'Hoje';
-        else label = `${daysLeft}d`;
+    root.innerHTML = valid.map(e => {
+      let timeText = '';
+      if (!e.isPermanent) {
+        const days = Math.max(0, Number(e.daysLeft) || 0);
+        timeText = days === 0 ? 'Termina hoje' : `Termina em ${days} dia${days === 1 ? '' : 's'}`;
+      } else {
+        timeText = 'Evento Permanente';
       }
 
-      const badgeHtml = (!e.isPermanent && label)
-        ? `<span class="events-bar-days" style="left:${x2 + 6}px">${esc(label)}</span>`
-        : '';
+      // Tenta pegar a imagem da API (pode vir como e.image ou e.thumbnail)
+      const imgUrl = e.image || e.thumbnail || '';
+      const imgHtml = imgUrl ? `<div class="event-thumb-wrap"><img class="event-thumb" src="${esc(imgUrl)}" alt="" loading="lazy"></div>` : '';
 
-      rows += `<a class="events-row${e.isPermanent?' is-permanent':''} came-from-before"
-                  href="${esc(e.link)}" target="_blank" rel="noopener"
-                  style="top:${i*ROW_HEIGHT}px"
-                  data-title="${esc(e.title)}">
-        <span class="events-bar" style="left:${x1}px;width:${w}px;background:${color};">
-          <span class="events-bar-arrow" aria-hidden="true">‹</span>
-          <span class="events-bar-label">${esc(e.title)}</span>
-        </span>
-        ${badgeHtml}
-      </a>`;
-    });
-
-    const rowsHeight = valid.length * ROW_HEIGHT;
-    const canvasHeight = 30 + rowsHeight + 6;
-
-    root.innerHTML = tabsHtml + `
-      <div class="events-scroll">
-        <div class="events-canvas" style="width:${totalDays*DAY_WIDTH}px;height:${canvasHeight}px">
-          <div class="events-ruler" style="height:30px">${ruler}</div>
-          <div class="events-today-line" style="left:${todayX}px;height:${canvasHeight}px"></div>
-          <div class="events-rows" style="top:30px;height:${rowsHeight}px">${rows}</div>
-        </div>
-      </div>`;
-
-    bindStickyLabels();
-    bindTabs();
-
-    const scroller = root.querySelector('.events-scroll');
-    if(scroller) scroller.scrollLeft = 0;
-  }
-
-  function bindStickyLabels(){
-    const scroller = root.querySelector('.events-scroll');
-    if(!scroller) return;
-    const rows = Array.from(root.querySelectorAll('.events-row'));
-    function update(){
-      const sl = scroller.scrollLeft;
-      rows.forEach(row => {
-        const bar = row.querySelector('.events-bar');
-        const label = row.querySelector('.events-bar-label');
-        const arrow = row.querySelector('.events-bar-arrow');
-        if(!bar || !label) return;
-
-        const barLeft = parseFloat(bar.style.left) || 0;
-        const barWidth = parseFloat(bar.style.width) || 0;
-        const barRight = barLeft + barWidth;
-
-        if(barRight < sl){
-          label.style.transform = '';
-          label.style.opacity = '0';
-          return;
-        }
-        label.style.opacity = '1';
-
-        if(barLeft < sl){
-          const offset = sl - barLeft;
-          const maxOffset = Math.max(0, barWidth - label.offsetWidth - 60);
-          label.style.transform = `translateX(${Math.min(offset, maxOffset)}px)`;
-          if(arrow) arrow.style.opacity = '0';
-        } else {
-          label.style.transform = '';
-          if(arrow) arrow.style.opacity = '0.85';
-        }
-      });
-    }
-    scroller.addEventListener('scroll', update, {passive:true});
-    window.addEventListener('resize', update);
-    requestAnimationFrame(update);
+      return `
+        <a class="event-row" href="${esc(e.link)}" target="_blank" rel="noopener">
+          ${imgHtml}
+          <div class="event-info">
+            <span class="event-title">${esc(e.title)}</span>
+            <span class="event-time">${timeText}</span>
+          </div>
+          <span class="event-badge">Ativo</span>
+        </a>
+      `;
+    }).join('');
   }
 
   function bindTabs(){
-    root.querySelectorAll('.events-tab').forEach(btn => {
-      btn.addEventListener('click', () => {
+    document.querySelectorAll('.events-tab').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
         const tab = btn.dataset.tab;
         if(tab === activeTab) return;
         activeTab = tab;
@@ -224,6 +102,8 @@
   }
 
   async function load(){
+    bindTabs(); // Ativa os cliques nos botões
+
     const cached = readCache();
     if(cached && cached.length){
       allEvents = cached;

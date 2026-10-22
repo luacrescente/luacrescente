@@ -1,17 +1,23 @@
 // Lê os últimos vídeos dos 2 canais via RSS público do YouTube.
 // Sem chave de API, sem cota, sem cadastro.
+// v2 — Promise.allSettled (um canal fora não derruba o outro) + timeout + entidades numéricas.
 
 const CHANNELS = {
-  lore: 'UCfvzJu34LUMreEYcPzXVwgA',
-  tutorial: 'UCCwIV4xwSPLrNEe1yBK_0SA'
+  lore: 'UCCwIV4xwSPLrNEe1yBK_0SA',
+  tutorial: 'UCfvzJu34LUMreEYcPzXVwgA'
 };
+
+const FETCH_TIMEOUT_MS = 8000;
 
 exports.handler = async function () {
   try {
-    const [lore, tut] = await Promise.all([
+    const [loreRes, tutRes] = await Promise.allSettled([
       fetchChannel(CHANNELS.lore),
       fetchChannel(CHANNELS.tutorial)
     ]);
+
+    const lore = loreRes.status === 'fulfilled' ? loreRes.value : [];
+    const tut = tutRes.status === 'fulfilled' ? tutRes.value : [];
 
     const combined = [
       ...lore.slice(0, 2).map(v => ({ ...v, source: 'lore' })),
@@ -32,7 +38,8 @@ async function fetchChannel(channelId) {
     headers: {
       'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
       'accept': 'application/xml, text/xml, */*'
-    }
+    },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
   });
   if (!res.ok) throw new Error(`RSS ${channelId}: HTTP ${res.status}`);
   const xml = await res.text();
@@ -70,7 +77,9 @@ function decodeXml(s) {
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
+    .replace(/&#39;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)));
 }
 
 function json(body) {

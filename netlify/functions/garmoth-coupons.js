@@ -1,3 +1,6 @@
+// Cupons do BDO — Garmoth (fonte principal: Discord; fallbacks: API, página, reader).
+// v2 — timeout em todos os fetch externos (evita travar se um upstream pendurar).
+
 const GARMOTH_URLS = [
   'https://garmoth.com/coupons?server=sa',
   'https://garmoth.com/coupons/?server=sa',
@@ -14,6 +17,13 @@ const API_URLS = [
 // confiável do que tentar acessar garmoth.com direto (que bloqueia com 403).
 // O ID do canal pode ser sobrescrito por variável de ambiente se precisar.
 const DISCORD_COUPON_CHANNEL_ID = process.env.DISCORD_COUPON_CHANNEL_ID || '1444891990452994199';
+
+const FETCH_TIMEOUT_MS = 6000;
+
+// Wrapper de fetch com timeout — todas as chamadas externas passam por aqui.
+function fetchT(url, opts = {}, ms = FETCH_TIMEOUT_MS) {
+  return fetch(url, { ...opts, signal: AbortSignal.timeout(ms) });
+}
 
 // Headers que imitam um navegador real. O antigo user-agent "compatible; ...Coupons/1.0"
 // se identificava explicitamente como bot, o que faz proteções tipo Cloudflare barrarem
@@ -245,7 +255,7 @@ function normalizeApi(payload) {
 async function fetchApiCoupons() {
   for(const url of API_URLS) {
     try {
-      const r=await fetch(url,{headers:apiHeaders,redirect:'follow'});
+      const r=await fetchT(url,{headers:apiHeaders,redirect:'follow'});
       if(!r.ok) continue;
       const p=await r.json(); const c=normalizeApi(p);
       if(c.length) return c;
@@ -279,7 +289,7 @@ function parseReaderText(text) {
 async function fetchReaderCoupons() {
   for(const url of READER_URLS) {
     try {
-      const r=await fetch(url,{headers:{'accept':'text/plain,text/markdown,text/html;q=0.9,*/*;q=0.8'},redirect:'follow'});
+      const r=await fetchT(url,{headers:{'accept':'text/plain,text/markdown,text/html;q=0.9,*/*;q=0.8'},redirect:'follow'}, 10000);
       if(!r.ok) continue;
       const text=await r.text();
       const coupons=parseReaderText(text);
@@ -353,7 +363,7 @@ function parseDiscordEmbedCoupon(embed, postedAt) {
 async function fetchDiscordCoupons() {
   const token=process.env.DISCORD_BOT_TOKEN;
   if(!token) throw new Error('DISCORD_BOT_TOKEN não configurado');
-  const r=await fetch(`https://discord.com/api/v10/channels/${DISCORD_COUPON_CHANNEL_ID}/messages?limit=30`,{
+  const r=await fetchT(`https://discord.com/api/v10/channels/${DISCORD_COUPON_CHANNEL_ID}/messages?limit=30`,{
     headers:{'authorization':`Bot ${token}`}
   });
   if(!r.ok) throw new Error(`Discord API ${r.status}`);
@@ -376,7 +386,7 @@ async function fetchPage() {
   let last='';
   for(const url of GARMOTH_URLS) {
     try {
-      const r=await fetch(url,{headers,redirect:'follow'});
+      const r=await fetchT(url,{headers,redirect:'follow'});
       if(r.ok) {
         const html=await r.text();
         if(/<input\b/i.test(html) && /(?:Available|Expires in)/i.test(html)) return {html,url};
@@ -411,7 +421,7 @@ exports.handler=async function(event){
     ];
     for(const u of candidates){
       try{
-        const ir=await fetch(u,{headers:{'User-Agent':'Mozilla/5.0','Accept':'image/avif,image/webp,image/png,image/*,*/*'}});
+        const ir=await fetchT(u,{headers:{'User-Agent':'Mozilla/5.0','Accept':'image/avif,image/webp,image/png,image/*,*/*'}});
         if(ir.ok){
           const buf=Buffer.from(await ir.arrayBuffer());
           return {statusCode:200,headers:{'content-type':ir.headers.get('content-type')||'image/png','cache-control':'public,max-age=604800'},body:buf.toString('base64'),isBase64Encoded:true};
@@ -420,13 +430,13 @@ exports.handler=async function(event){
     }
     // Last resort: ask Garmoth's tooltip endpoint for the item's image.
     try{
-      const r=await fetch(`https://api.garmoth.com/api/item/tooltip?main_key=${encodeURIComponent(iconId)}`,{headers:{...headers,accept:'application/json,text/plain,*/*'}});
+      const r=await fetchT(`https://api.garmoth.com/api/item/tooltip?main_key=${encodeURIComponent(iconId)}`,{headers:{...headers,accept:'application/json,text/plain,*/*'}});
       if(r.ok){
         const p=await r.json();
         const image=p?.image||p?.icon||p?.data?.image||p?.data?.icon||p?.data?.item?.image||p?.data?.item?.icon||'';
         if(image){
           const u=absoluteUrl(image,'https://api.garmoth.com/');
-          const ir=await fetch(u,{headers:{...headers,accept:'image/avif,image/webp,image/png,image/*,*/*'}});
+          const ir=await fetchT(u,{headers:{...headers,accept:'image/avif,image/webp,image/png,image/*,*/*'}});
           if(ir.ok){
             const buf=Buffer.from(await ir.arrayBuffer());
             return {statusCode:200,headers:{'content-type':ir.headers.get('content-type')||'image/png','cache-control':'public,max-age=604800'},body:buf.toString('base64'),isBase64Encoded:true};

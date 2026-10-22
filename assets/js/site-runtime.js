@@ -1,5 +1,7 @@
 // Lua Crescente — runtime compartilhado das páginas
 // A lógica de dados fica em assets/data/.
+// v106 — removeu o HTML morto do changelog (v90) que era sobrescrito pelo
+// renderChangelogTimeline, e adicionou guardas para os globais de tradução.
 
 var DATA = window.DATA || [];
 // Ícones neutros (SVG, herdam a cor do botão) usados nos botões de compartilhar/copiar link/imagem.
@@ -60,12 +62,12 @@ function rebuildExpandIndex(){
     registerExpandDefinition(item.name, {children:item.children, note:item.note, produces:item.produces});
   }
 });
-Object.entries(SUBRECIPES).forEach(([name, info])=>{
+Object.entries(typeof SUBRECIPES !== 'undefined' ? SUBRECIPES : {}).forEach(([name, info])=>{
   if(Array.isArray(info.children) && info.children.length) registerExpandDefinition(name, {children:info.children, note:info.note});
 });
 }
 
-const SOURCE_INDEX = {...LEAF_SOURCES};
+const SOURCE_INDEX = typeof LEAF_SOURCES !== 'undefined' ? {...LEAF_SOURCES} : {};
 
 // Recupera diretamente uma receita por título quando um ingrediente aponta
 // para uma variante que pertence a um grupo/rota. Isso evita que variantes
@@ -799,7 +801,7 @@ function renderFarmacoCards(item){
 }
 
 function renderRootShell(item, idx){
-  const rawRootIcon = ROOT_ITEM_ICONS[item.name] ?? ((item.group==='Culinária' || item.group==='Rações') ? (CULINARY_ICON_OVERRIDES[item.name] ?? CULINARY_ICON_IDS[item.name]) : '');
+  const rawRootIcon = ROOT_ITEM_ICONS[item.name] ?? CULINARY_ICON_OVERRIDES[item.name] ?? CULINARY_ICON_IDS[item.name];
   const rootIcon = rawRootIcon ? (typeof rawRootIcon === 'number' ? codexIcon(rawRootIcon) : rawRootIcon) : '';
   return `<div class="root-item" data-idx="${idx}" data-lazy-root="1" data-item-name="${escapeHtml(item.name)}" data-item-group="${escapeHtml(item.group)}">
     <div class="root-head">
@@ -842,8 +844,11 @@ function renderRoot(item, idx){
 
 function itemMatches(item, q){
   if((item.name.toLowerCase().includes(q) || tName(item.name).toLowerCase().includes(q))) return true;
+  if((item.group||'').toLowerCase().includes(q)) return true; // NOVO: Busca pelo nome do grupo também
+  
   const scan = (children)=> (children||[]).some(c=>(c.name.toLowerCase().includes(q) || tName(c.name).toLowerCase().includes(q)) || (c.alt && (c.alt.name.toLowerCase().includes(q) || tName(c.alt.name).toLowerCase().includes(q))));
   const scanRoutes = (routes)=> (routes||[]).some(r=> scan(r.children));
+  
   if(item.isGroup){
     if(item.routes) return item.routes.some(r=>(r.label||'').toLowerCase().includes(q) || (r.variants||[]).some(v=> v.title.toLowerCase().includes(q) || scan(v.children)));
     return item.variants.some(v=> v.title.toLowerCase().includes(q) || (v.routes? scanRoutes(v.routes) : scan(v.children)));
@@ -856,11 +861,787 @@ const listEl = document.getElementById('list');
 const emptyEl = document.getElementById('emptyState');
 
 // ---- Grupos (sidebar) ----
-const GROUP_ICONS = { 'Fármacos da Harmonia':'🧪', 'Fármacos Base':'🧪', 'Fármacos Tradicionais':'⚗️', 'Elixires Base':'🧴', 'Sangues':'🩸', 'Seivas':'🌿', 'Perfumes':'🌸', 'Culinária':'🍲', 'Culinária Especial':'✨', 'Rações':'🥕', 'Pergaminhos':'📜', 'Trabalhadores energia':'👷', 'Poções':'🧴', 'Itens Tesouro':'💎' };
-const GROUP_ORDER = ['Fármacos da Harmonia','Fármacos Base','Elixires Base','Sangues','Seivas','Fármacos Tradicionais','Perfumes','Culinária','Rações','Culinária Especial','Pergaminhos','Trabalhadores energia','Poções','Itens Tesouro'];
+const GROUP_ICONS = { 'Fármacos da Harmonia':'🧪', 'Fármacos Base':'🧪', 'Fármacos Tradicionais':'⚗️', 'Elixires Base':'🧴', 'Sangues':'🩸', 'Perfumes':'🌸', 'Culinária':'🍲', 'Culinária Especial':'✨', 'Rações':'🥕', 'Pergaminhos':'📜', 'Trabalhadores energia':'👷', 'Poções':'🧴', 'Itens Tesouro':'💎' };
+Object.assign(GROUP_ICONS, {
+  'Agitação': '🌀',
+  'Alquimia Simples': '⚗️',
+  'Aquecimento': '🔥',
+  'Corte': '🪵',
+  'Culinária Simples': '🥄',
+  'Desidratação': '☀️',
+  'Empacotar Alquimia Imperial': '📦',
+  'Empacotar Culinária Imperial': '📦',
+  'Fábrica': '🏭',
+  'Filtragem': '💧',
+  'Moagem': '🥣'
+});
+// =====================================================================
+// v107 — Ícones dos itens de Processamento (IDs do BDO Codex)
+// =====================================================================
+Object.assign(ROOT_ITEM_ICONS, {
+  'Abalone': codexIcon(6518),
+  'Abalone Desidratado': codexIcon(6523),
+  'Adaga Aparadora': codexIcon(10305),
+  'Adaga Krea': codexIcon(10324),
+  'Adaga Rosar': codexIcon(10325),
+  'Adaga de Aço': codexIcon(10304),
+  'Adaga de Bronze': codexIcon(10303),
+  'Amuleto Anti-Humanoide': codexIcon(10406),
+  'Amuleto Bares': codexIcon(10413),
+  'Amuleto Kalis': codexIcon(10412),
+  'Amuleto Krea': codexIcon(10456),
+  'Amuleto Massacrante de Delphad Castillion': codexIcon(10482),
+  'Amuleto Massacrante de Delphad Castillion Supremo': codexIcon(10485),
+  'Amuleto Rosar': codexIcon(10457),
+  'Amuleto Seleth': codexIcon(10407),
+  'Amuleto Yuria': codexIcon(10414),
+  'Anchova': codexIcon(8298),
+  'Anchova Desidratada': codexIcon(8598),
+  'Anchova-Azul': codexIcon(8273),
+  'Anchova-Azul Desidratada': codexIcon(8573),
+  'Anel Bares': codexIcon(12002),
+  'Anel Elisha': codexIcon(12004),
+  'Anel Hesus': codexIcon(12003),
+  'Anel Kalis': codexIcon(12005),
+  'Anel Nert': codexIcon(12011),
+  'Anel Talis': codexIcon(12006),
+  'Anel Yuria': codexIcon(12001),
+  'Anel de Bandido': codexIcon(12012),
+  'Anel de Bondade': codexIcon(12010),
+  'Anel de Coral Azul': codexIcon(12017),
+  'Anel de Coral Vermelho': codexIcon(12018),
+  'Anel de Diamante Dourado de Laventia': codexIcon(16286),
+  'Anel de Diamante Prateado de Laventia': codexIcon(16285),
+  'Anel de Laventia': codexIcon(16279),
+  'Anel de Ogro': codexIcon(11607),
+  'Anel de Ouro de Laventia': codexIcon(16284),
+  'Anel de Prata de Laventia': codexIcon(16283),
+  'Anis-Estrelado': codexIcon(7019),
+  'Arco Longo Anti-Humanoide': codexIcon(10206),
+  'Arco Longo Bares': codexIcon(10213),
+  'Arco Longo Kalis': codexIcon(10212),
+  'Arco Longo Krea': codexIcon(10256),
+  'Arco Longo Massacrante de Delphad Castillion': codexIcon(10282),
+  'Arco Longo Massacrante de Delphad Castillion Supremo': codexIcon(10285),
+  'Arco Longo Rosar': codexIcon(10257),
+  'Arco Longo Seleth': codexIcon(10207),
+  'Arco Longo Yuria': codexIcon(10214),
+  'Arco de Chifre Branco': codexIcon(13104),
+  'Arco de Chifre Krea': codexIcon(13124),
+  'Arco de Chifre Rosar': codexIcon(13125),
+  'Arco de Guerreiro de Chifre Branco': codexIcon(13105),
+  'Arco de Guerreiro de Chifre Preto': codexIcon(13103),
+  'Arenque': codexIcon(8262),
+  'Arenque Desidratado': codexIcon(8562),
+  'Arenque Redondo': codexIcon(8264),
+  'Arenque Redondo Desidratado': codexIcon(8564),
+  'Arenque Redondo Listrado': codexIcon(8265),
+  'Arenque Redondo Listrado Desidratado': codexIcon(8565),
+  'Aruanã': codexIcon(8242),
+  'Aruanã Desidratado': codexIcon(8542),
+  'Atka Cavala': codexIcon(8333),
+  'Atka Cavala Desidratada': codexIcon(8633),
+  'Atum Desidratado': codexIcon(8502),
+  'Avambraço Krea': codexIcon(11324),
+  'Avambraço Rosar': codexIcon(11325),
+  'Avambraço de Couro': codexIcon(11303),
+  'Avambraço de Escama': codexIcon(11304),
+  'Avambraço de Ferro': codexIcon(11305),
+  'Ayu': codexIcon(8243),
+  'Ayu Desidratado': codexIcon(8543),
+  'Azaleia Real Prata': codexIcon(5402),
+  'Azaleia Real Prata Especial': codexIcon(5465),
+  'Azaleia Real Prata de Qualidade Alta': codexIcon(5445),
+  'Açúcar': codexIcon(9002),
+  'Badejo': codexIcon(8266),
+  'Badejo Desidratado': codexIcon(8566),
+  'Bagre Amarelo': codexIcon(8293),
+  'Bagre Amarelo Desidratado': codexIcon(8593),
+  'Bagre Ichikawai': codexIcon(8356),
+  'Bagre Ichikawai Desidratado': codexIcon(8644),
+  'Bagre Listrado': codexIcon(8268),
+  'Bagre Listrado Desidratado': codexIcon(8568),
+  'Baiacu': codexIcon(8208),
+  'Baiacu Desidratado': codexIcon(8508),
+  'Baiacu Espinhoso': codexIcon(8331),
+  'Baiacu Espinhoso Desidratado': codexIcon(8631),
+  'Barbudo-Gigante': codexIcon(8286),
+  'Barbudo-Gigante Desidratado': codexIcon(8586),
+  'Barra de Acessório de Coral com Jade': codexIcon(4269),
+  'Batata Doce Especial': codexIcon(7014),
+  'Batata Doce de Alta Qualidade': codexIcon(7009),
+  'Batata Especial': codexIcon(7013),
+  'Batata de Alta Qualidade': codexIcon(7008),
+  'Baú Cheiroso de Cozinha do Cozinheiro Profissional': codexIcon(9808),
+  'Baú de Alquimia Precioso do Artesão': codexIcon(9830),
+  'Baú de Alquimia Resistente do Especialista': codexIcon(9826),
+  'Baú de Alquimia Secreta do Especialista': codexIcon(9825),
+  'Baú de Alquimia de Elixir da Mentalidade do Alquimista Hábil': codexIcon(9824),
+  'Baú de Alquimia de Elixir da Morte do Mestre': codexIcon(9834),
+  'Baú de Alquimia de Elixir das Asas do Alquimista Aprendiz': codexIcon(9820),
+  'Baú de Alquimia de Elixir de Amizade do Profissional': codexIcon(9827),
+  'Baú de Alquimia de Elixir de Assassino do Artesão': codexIcon(9832),
+  'Baú de Alquimia de Elixir de Assassino do Mestre': codexIcon(9841),
+  'Baú de Alquimia de Elixir de Caça a Humanoide do Profissional': codexIcon(9828),
+  'Baú de Alquimia de Elixir de Ceifador do Artesão': codexIcon(9829),
+  'Baú de Alquimia de Elixir de Detecção do Mestre': codexIcon(9833),
+  'Baú de Alquimia de Elixir de Energia do Alquimista Hábil': codexIcon(9823),
+  'Baú de Alquimia de Elixir de Frenesi do Mestre': codexIcon(9836),
+  'Baú de Alquimia de Elixir de Mão Dourada do Mestre': codexIcon(9835),
+  'Baú de Alquimia de Elixir de Perfuração do Mestre': codexIcon(9840),
+  'Baú de Alquimia de Elixir do Céu do Artesão': codexIcon(9831),
+  'Baú de Alquimia de Elixir do Selo Ágil do Alquimista Hábil': codexIcon(9821),
+  'Baú de Alquimia do Aprendiz': codexIcon(9819),
+  'Baú de Culinária de Biscoito de Colmeia do Artesão': codexIcon(9816),
+  'Baú de Culinária de Bolinho Deserto do Artesão': codexIcon(9813),
+  'Baú de Culinária de Carne do Cozinheiro Profisional': codexIcon(9815),
+  'Baú de Culinária de Chá Mate do Mestre': codexIcon(9817),
+  'Baú de Culinária de Chá com Leite do Mestre': codexIcon(9838),
+  'Baú de Culinária de Croquete de Carne do Artesão': codexIcon(9811),
+  'Baú de Culinária de Filé de Peixe do Cozinheiro Hábil': codexIcon(9805),
+  'Baú de Culinária de Licor de Mel do Artesão': codexIcon(9814),
+  'Baú de Culinária de Macarrão de Frutos do Mar de Artesão': codexIcon(9809),
+  'Baú de Culinária de Omelete do Cozinheiro Profissional': codexIcon(9810),
+  'Baú de Culinária de Ovo Cozido de Pássaro do Cozinheiro Aprendiz': codexIcon(9803),
+  'Baú de Culinária de Peixe Frito do Cozinheiro Aprendiz': codexIcon(9801),
+  'Baú de Culinária de Pudim Escuro do Mestre': codexIcon(9818),
+  'Baú de Culinária de Pudim de Frutas do Cozinheiro Hábil': codexIcon(9806),
+  'Baú de Culinária de Pão Macio do Cozinheiro Hábil': codexIcon(9804),
+  'Baú de Culinária de Queijo Gratinado do Artesão': codexIcon(9812),
+  'Baú de Culinária de Sanduíche de Carne do Mestre': codexIcon(9837),
+  'Baú de Culinária de Sanduíche de Presunto do Mestre': codexIcon(9839),
+  'Baú de Culinária de Sopa de Carne do Cozinheiro Hábil': codexIcon(9802),
+  'Baú de Culinária de Torta de Carne do Cozinheiro Profissional': codexIcon(9807),
+  'Baú de Laventia Brilhante': codexIcon(16289),
+  'Baú de Laventia Chique': codexIcon(16288),
+  'Baú de Laventia Resplandecente': codexIcon(16287),
+  'Baú de Tamareira Bem Desidratada': codexIcon(55877),
+  'Benevolente de Margoria': codexIcon(4084),
+  'Berloque Krea': codexIcon(13024),
+  'Berloque Rosar': codexIcon(13025),
+  'Berloque de Agulha': codexIcon(13004),
+  'Berloque de Incenso': codexIcon(13003),
+  'Berloque de Lâmina': codexIcon(13005),
+  'Bife': codexIcon(9401),
+  'Biscoito de Colmeia': codexIcon(9266),
+  'Bleeker': codexIcon(8254),
+  'Bleeker Desidratado': codexIcon(8554),
+  'Bodião-Xadrez': codexIcon(8304),
+  'Bodião-Xadrez Desidratado': codexIcon(8604),
+  'Bonito': codexIcon(8230),
+  'Bonito Desidratado': codexIcon(8530),
+  'Bramidae': codexIcon(8305),
+  'Bramidae Desidratado': codexIcon(8605),
+  'Brilhante Listrado': codexIcon(8288),
+  'Brilhante Listrado Desidratado': codexIcon(8588),
+  'Brinco Bares': codexIcon(11802),
+  'Brinco Elisha': codexIcon(11804),
+  'Brinco Hesus': codexIcon(11803),
+  'Brinco Kalis': codexIcon(11805),
+  'Brinco Mesto': codexIcon(11810),
+  'Brinco Ridell': codexIcon(11811),
+  'Brinco Talis': codexIcon(11806),
+  'Brinco Yuria': codexIcon(11801),
+  'Brinco de Bruxa': codexIcon(11808),
+  'Brinco de Coral Azul': codexIcon(11816),
+  'Brinco de Coral Vermelho': codexIcon(11817),
+  'Bótia Cara-de-Cavalo': codexIcon(8352),
+  'Bótia Cara-de-Cavalo Desidratado': codexIcon(8640),
+  'Cabeça-de-Cobra Desidratado': codexIcon(8521),
+  'Caixa de Presente de Feriado': codexIcon(9842),
+  'Cajado Anti-Humanoide': codexIcon(14406),
+  'Cajado Bares': codexIcon(14413),
+  'Cajado Kalis': codexIcon(14412),
+  'Cajado Krea': codexIcon(14456),
+  'Cajado Massacrante de Delphad Castillion': codexIcon(14482),
+  'Cajado Massacrante de Delphad Castillion Supremo': codexIcon(14485),
+  'Cajado Rosar': codexIcon(14457),
+  'Cajado Seleth': codexIcon(14407),
+  'Cajado Yuria': codexIcon(14414),
+  'Calamar Desidratado': codexIcon(8511),
+  'Cantarilho Desidratado': codexIcon(8510),
+  'Caranguejo Desidratado': codexIcon(8513),
+  'Cardume': codexIcon(8253),
+  'Cardume Desidratado': codexIcon(8553),
+  'Carne-Seca Bem Seca': codexIcon(7919),
+  'Carne-Seca Perfumada': codexIcon(7918),
+  'Carne-Seca Rara': codexIcon(7920),
+  'Carpa Couro': codexIcon(8287),
+  'Carpa Couro Desidratada': codexIcon(8587),
+  'Carpa Cruciana': codexIcon(8217),
+  'Carpa Rosada': codexIcon(8295),
+  'Carpa Rosada Desidratada': codexIcon(8595),
+  'Cavalinha': codexIcon(8228),
+  'Cavalinha Desidratada': codexIcon(8528),
+  'Cavalo Marinho Desidratado': codexIcon(8532),
+  'Cavalo-Marinho': codexIcon(8232),
+  'Cero': codexIcon(8256),
+  'Cero Desidratado': codexIcon(8556),
+  'Cevada Especial': codexIcon(7012),
+  'Cevada de Alta Qualidade': codexIcon(7007),
+  'Charuteiro Desidratado': codexIcon(8506),
+  'Chá Sute': codexIcon(9207),
+  'Chá de Anis-Estrelado': codexIcon(9306),
+  'Cinto Bares': codexIcon(12202),
+  'Cinto Elisha': codexIcon(12204),
+  'Cinto Gartner': codexIcon(12212),
+  'Cinto Hesus': codexIcon(12203),
+  'Cinto Kalis': codexIcon(12205),
+  'Cinto Talis': codexIcon(12206),
+  'Cinto Yuria': codexIcon(12201),
+  'Cinto de Elite de Rhutum': codexIcon(12208),
+  'Cinto de Gladiador Shultz': codexIcon(12211),
+  'Cinto de Rhutum': codexIcon(12207),
+  'Cinto do Espírito da Árvore': codexIcon(12210),
+  'Cogumelo Ganoderma': codexIcon(5514),
+  'Colar Bares': codexIcon(11602),
+  'Colar Elisha': codexIcon(11604),
+  'Colar Hesus': codexIcon(11603),
+  'Colar Kalis': codexIcon(11605),
+  'Colar Scarla': codexIcon(11610),
+  'Colar Talis': codexIcon(11606),
+  'Colar Yuria': codexIcon(11601),
+  'Colar de Bensho': codexIcon(11611),
+  'Colar de Bondade': codexIcon(11609),
+  'Coral Azul Aurora': codexIcon(4479),
+  'Coral Branco': codexIcon(6506),
+  'Coral Branco Ventoso': codexIcon(6526),
+  'Coral Dourado': codexIcon(6505),
+  'Coral Dourado Solar': codexIcon(6525),
+  'Coral Verde': codexIcon(6504),
+  'Coral Verde de Pradaria': codexIcon(6524),
+  'Coral Vermelho-Crepúsculo': codexIcon(4478),
+  'Coração de Vell': codexIcon(45332),
+  'Corcel Desidratado': codexIcon(8589),
+  'Corvina': codexIcon(8258),
+  'Corvina Amarela': codexIcon(8456),
+  'Corvina Desidratada': codexIcon(8558),
+  'Corça': codexIcon(8300),
+  'Corça Desidratada': codexIcon(8600),
+  'Couro de Cervo': codexIcon(6001),
+  'Couro de Cobra': codexIcon(6019),
+  'Couro de Dinossauro': codexIcon(6007),
+  'Couro de Doninha': codexIcon(6012),
+  'Couro de Dragão Guepardo': codexIcon(6016),
+  'Couro de Elefante': codexIcon(6026),
+  'Couro de Gazela': codexIcon(6023),
+  'Couro de Guaxinim': codexIcon(6010),
+  'Couro de Lagarto': codexIcon(6008),
+  'Couro de Leão': codexIcon(6020),
+  'Couro de Lobo': codexIcon(6014),
+  'Couro de Lobo Plumado': codexIcon(6021),
+  'Couro de Macaco': codexIcon(6011),
+  'Couro de Minhoca': codexIcon(6009),
+  'Couro de Ovelha': codexIcon(6002),
+  'Couro de Pantera Negra': codexIcon(6022),
+  'Couro de Porco': codexIcon(6005),
+  'Couro de Raposa': codexIcon(6003),
+  'Couro de Rinoceronte': codexIcon(6004),
+  'Couro de Waragon': codexIcon(6015),
+  'Cristal Mágico Ancestral - Addis': codexIcon(15649),
+  'Cristal Mágico Ancestral - Carmae': codexIcon(768801),
+  'Cristal Mágico Ancestral - Cobelinus': codexIcon(768798),
+  'Cristal Mágico Ancestral - Harpia': codexIcon(768797),
+  'Cristal Mágico Ancestral - Hystria': codexIcon(768800),
+  'Cristal Mágico Ancestral - Víbora': codexIcon(768799),
+  'Cristal Mágico Ancestral da Chama Carmesim - Poder': codexIcon(768802),
+  'Cristal Mágico Negro - Adamantina': codexIcon(15212),
+  'Cristal Mágico Negro - Addis': codexIcon(15650),
+  'Cristal Mágico Negro - Agilidade': codexIcon(15224),
+  'Cristal Mágico Negro - Armadura': codexIcon(15206),
+  'Cristal Mágico Negro - Ascensão': codexIcon(15213),
+  'Cristal Mágico Negro - Assalto': codexIcon(15216),
+  'Cristal Mágico Negro - Carmae': codexIcon(768814),
+  'Cristal Mágico Negro - Cobelinus': codexIcon(15629),
+  'Cristal Mágico Negro - Cura': codexIcon(15209),
+  'Cristal Mágico Negro - Energia': codexIcon(15215),
+  'Cristal Mágico Negro - Harpia': codexIcon(15628),
+  'Cristal Mágico Negro - Hystria': codexIcon(15631),
+  'Cristal Mágico Negro - Intimidação': codexIcon(15222),
+  'Cristal Mágico Negro - Memória': codexIcon(15221),
+  'Cristal Mágico Negro - Mira': codexIcon(15219),
+  'Cristal Mágico Negro - Paciência': codexIcon(15208),
+  'Cristal Mágico Negro - Potência': codexIcon(15202),
+  'Cristal Mágico Negro - Precisão': codexIcon(15201),
+  'Cristal Mágico Negro - Queda': codexIcon(15214),
+  'Cristal Mágico Negro - Rapidez': codexIcon(15211),
+  'Cristal Mágico Negro - Ressonância': codexIcon(15210),
+  'Cristal Mágico Negro - Robustez': codexIcon(15217),
+  'Cristal Mágico Negro - Valor': codexIcon(15218),
+  'Cristal Mágico Negro - Vigor': codexIcon(15207),
+  'Cristal Mágico Negro - Víbora': codexIcon(15630),
+  'Cristal de Espírito Ancestral - Rapidez': codexIcon(15641),
+  'Cristal de Espírito Ancestral - Valor': codexIcon(15652),
+  'Cristal de Espírito Ancestral - Víbora': codexIcon(15653),
+  'Cristal de Espírito Negro': codexIcon(15626),
+  'Cristal do Campo de Batalha Vermelho: Addis': codexIcon(15651),
+  'Cristal do Campo de Batalha Vermelho: Carmae': codexIcon(15638),
+  'Cristal do Campo de Batalha Vermelho: Cobelinus': codexIcon(15635),
+  'Cristal do Campo de Batalha Vermelho: Harpia': codexIcon(15634),
+  'Cristal do Campo de Batalha Vermelho: Hystria': codexIcon(15637),
+  'Cristal do Campo de Batalha Vermelho: Potência': codexIcon(15639),
+  'Cristal do Campo de Batalha Vermelho: Víbora': codexIcon(15636),
+  'Cristal do Espírito Desperto': codexIcon(15627),
+  'Cristal do Espírito Red': codexIcon(15633),
+  'Croquete de Carne': codexIcon(9404),
+  'Cágado': codexIcon(8244),
+  'Diamante Grande de Laventia': codexIcon(16282),
+  'Dourado-do-Mar': codexIcon(8267),
+  'Dourado-do-Mar Desidratado': codexIcon(8567),
+  'Elmo Crewhorn': codexIcon(11523),
+  'Elmo do Devorador': codexIcon(11527),
+  'Embiotocidae': codexIcon(8274),
+  'Embiotocidae Desidratado': codexIcon(8574),
+  'Enfeito de Cristal do Vento': codexIcon(40427),
+  'Enguia de Água Doce': codexIcon(8220),
+  'Enguia de Água Doce Desidratada': codexIcon(8520),
+  'Enguia do Mar': codexIcon(8257),
+  'Enguia do Mar Desidratada': codexIcon(8557),
+  'Ensopado de Carne': codexIcon(9414),
+  'Erva Aurora Especial': codexIcon(5464),
+  'Erva Aurora de Alta Qualidade': codexIcon(5444),
+  'Erva Daninha': codexIcon(5600),
+  'Erva Eterna': codexIcon(5406),
+  'Erva Eterna Especial': codexIcon(5469),
+  'Erva Eterna de Qualidade Alta': codexIcon(5449),
+  'Escudo Axion': codexIcon(10103),
+  'Escudo Kite': codexIcon(10105),
+  'Escudo Krea': codexIcon(10124),
+  'Escudo Vangertz': codexIcon(10102),
+  'Espada Curta Anti-Humanoide': codexIcon(13206),
+  'Espada Curta Bares': codexIcon(13213),
+  'Espada Curta Kalis': codexIcon(13212),
+  'Espada Curta Krea': codexIcon(13256),
+  'Espada Curta Massacrante de Delphad Castillion': codexIcon(13282),
+  'Espada Curta Massacrante de Delphad Castillion Suprema': codexIcon(13285),
+  'Espada Curta Rosar': codexIcon(13257),
+  'Espada Curta Seleth': codexIcon(13207),
+  'Espada Curta Yuria': codexIcon(13214),
+  'Espada Longa Anti-Humanoide': codexIcon(10006),
+  'Espada Longa Bares': codexIcon(10013),
+  'Espada Longa Kalis': codexIcon(10012),
+  'Espada Longa Krea': codexIcon(10056),
+  'Espada Longa Massacrante de Delphad Castillion': codexIcon(10082),
+  'Espada Longa Massacrante de Delphad Castillion Suprema': codexIcon(10085),
+  'Espada Longa Rosar': codexIcon(10057),
+  'Espada Longa Seleth': codexIcon(10007),
+  'Espada Longa Yuria': codexIcon(10014),
+  'Esparideo Desidratado': codexIcon(8507),
+  'Esperlano Desidratado': codexIcon(8594),
+  'Essência Espiritual da Terra': codexIcon(9314),
+  'Essência Espiritual da Água': codexIcon(9315),
+  'Essência Espiritual do Vento': codexIcon(9313),
+  'Essência Negra': codexIcon(4996),
+  'Essência Negra - Addis': codexIcon(4988),
+  'Essência Negra - Carmae': codexIcon(4995),
+  'Essência Negra - Cobelinus': codexIcon(4992),
+  'Essência Negra - Cristal de Espírito Negro': codexIcon(4990),
+  'Essência Negra - Harpia': codexIcon(4991),
+  'Essência Negra - Hystria': codexIcon(4994),
+  'Essência Negra - Víbora': codexIcon(4993),
+  'Essência Vermelha': codexIcon(4989),
+  'Estelano': codexIcon(8294),
+  'Estrala do Mar de Diamante': codexIcon(6514),
+  'Estrela do Mar': codexIcon(55933),
+  'Estrela do Mar Desidratadas': codexIcon(8533),
+  'Esturjão Desidratado': codexIcon(8538),
+  'Feno Cauda de Pedra': codexIcon(50804),
+  'Ferramenta de Reparo de Couro': codexIcon(40426),
+  'Fio Dourado': codexIcon(8270),
+  'Flor Escama de Fogo Especial': codexIcon(5466),
+  'Flor Escama de Fogo de Qualidade Alta': codexIcon(5446),
+  'Fragmento da Pedra Espiritual da Terra': codexIcon(44305),
+  'Fragmento da Pedra Espiritual da Água': codexIcon(44306),
+  'Fragmento da Pedra Espiritual da Árvore': codexIcon(44311),
+  'Fragmento da Pedra Espiritual do Vento': codexIcon(44304),
+  'Fragmento de Aço Derretido de Saunil': codexIcon(40428),
+  'Fragmento de Aço de Targark': codexIcon(40434),
+  'Fragmento de Coral': codexIcon(6501),
+  'Fragmento de Magia': codexIcon(4918),
+  'Fruta Imatura': codexIcon(9720),
+  'Fruta Incomum': codexIcon(9723),
+  'Fura-Vasos': codexIcon(8285),
+  'Fura-Vasos Desidratado': codexIcon(8585),
+  'Galeota': codexIcon(8338),
+  'Galeota Desidratada': codexIcon(8638),
+  'Garoupa': codexIcon(8284),
+  'Garoupa Desidratada': codexIcon(8584),
+  'Gobião Desidratado': codexIcon(8501),
+  'Grama Mel de Seda Especial': codexIcon(5468),
+  'Grama Mel de Seda de Qualidade Alta': codexIcon(5448),
+  'Grama Selvagem': codexIcon(5439),
+  'Guaravira': codexIcon(8203),
+  'Guaravira Desidratado': codexIcon(8503),
+  'Gunnel': codexIcon(8269),
+  'Gunnel Desidratado': codexIcon(8569),
+  'Hifa Misteriosa de Cogumelo Amanita': codexIcon(6891),
+  'Hifa Misteriosa de Cogumelo Ancestral': codexIcon(6890),
+  'Hifa Misteriosa de Cogumelo Anão': codexIcon(6881),
+  'Hifa Misteriosa de Cogumelo Blefista': codexIcon(6889),
+  'Hifa Misteriosa de Cogumelo Corcunda': codexIcon(6888),
+  'Hifa Misteriosa de Cogumelo Céu': codexIcon(6883),
+  'Hifa Misteriosa de Cogumelo Fantasma': codexIcon(6886),
+  'Hifa Misteriosa de Cogumelo Flecha': codexIcon(6880),
+  'Hifa Misteriosa de Cogumelo Imperador': codexIcon(6885),
+  'Hifa Misteriosa de Cogumelo Nevoeiro': codexIcon(6887),
+  'Hifa Misteriosa de Cogumelo Nuvem': codexIcon(6882),
+  'Hifa Misteriosa de Cogumelo Ramalhete': codexIcon(6896),
+  'Hifa Misteriosa de Cogumelo Roxo': codexIcon(6898),
+  'Hifa Misteriosa de Cogumelo Tigre': codexIcon(6884),
+  'Hifa Misteriosa de Cogumelo Torta': codexIcon(6899),
+  'Hifa Misteriosa de Cogumelo Vidente': codexIcon(6879),
+  'Hifa Misteriosa de Leccinum': codexIcon(6897),
+  'Hifa Misteriosa de Trufa': codexIcon(6892),
+  'Hifa de Cogumelo Amanita Especial': codexIcon(6990),
+  'Hifa de Cogumelo Ancestral Especial': codexIcon(6989),
+  'Hifa de Cogumelo Anão Especial': codexIcon(6980),
+  'Hifa de Cogumelo Blefista Especial': codexIcon(6988),
+  'Hifa de Cogumelo Corcunda Especial': codexIcon(6987),
+  'Hifa de Cogumelo Céu Especial': codexIcon(6982),
+  'Hifa de Cogumelo Fantasma Especial': codexIcon(6985),
+  'Hifa de Cogumelo Flecha Especial': codexIcon(6979),
+  'Hifa de Cogumelo Imperador Especial': codexIcon(6984),
+  'Hifa de Cogumelo Nuvem Especial': codexIcon(6981),
+  'Hifa de Cogumelo Névoa Especial': codexIcon(6986),
+  'Hifa de Cogumelo Ramalhete Especial': codexIcon(6995),
+  'Hifa de Cogumelo Roxo Especial': codexIcon(6997),
+  'Hifa de Cogumelo Tigre Especial': codexIcon(6983),
+  'Hifa de Cogumelo Torta Especial': codexIcon(6998),
+  'Hifa de Cogumelo Vidente Especial': codexIcon(6978),
+  'Hifa de Leccinum Especial': codexIcon(6996),
+  'Hifa deTrufa Especial': codexIcon(6991),
+  'Hwando Anti-Humanoide': codexIcon(13306),
+  'Hwando Bares': codexIcon(13313),
+  'Hwando Kalis': codexIcon(13312),
+  'Hwando Krea': codexIcon(13356),
+  'Hwando Massacrante de Delphad Castillion': codexIcon(13382),
+  'Hwando Massacrante de Delphad Castillion Supremo': codexIcon(13385),
+  'Hwando Rosar': codexIcon(13357),
+  'Hwando Seleth': codexIcon(13307),
+  'Hwando Yuria': codexIcon(13314),
+  'Kriegsmesser Anti-Humanoide': codexIcon(11356),
+  'Kriegsmesser Bares': codexIcon(11363),
+  'Kriegsmesser Kalis': codexIcon(11362),
+  'Kriegsmesser Krea': codexIcon(11370),
+  'Kriegsmesser Massacrate de Delphad Castillion': codexIcon(11432),
+  'Kriegsmesser Massacrate de Delphad Castillion Supremo': codexIcon(11435),
+  'Kriegsmesser Rosar': codexIcon(11371),
+  'Kriegsmesser Seleth': codexIcon(11357),
+  'Kriegsmesser Yuria': codexIcon(11364),
+  'Kuhlia Marginata': codexIcon(8299),
+  'Kuhlia Marginata Desidratada': codexIcon(8599),
+  'Kunai Estique': codexIcon(14504),
+  'Kunai Krea': codexIcon(14524),
+  'Kunai Quitar': codexIcon(14503),
+  'Kunai Rosar': codexIcon(14525),
+  'Kunai Tadd': codexIcon(14505),
+  'Lagosta Desidratada': codexIcon(6521),
+  'Lagostim': codexIcon(8246),
+  'Lagostim Desidratado': codexIcon(8546),
+  'Lenok': codexIcon(8241),
+  'Lenok Desidratado': codexIcon(8541),
+  'Licor de Mel': codexIcon(9206),
+  'Linguado': codexIcon(8204),
+  'Linguado Desidratado': codexIcon(8504),
+  'Lorcha': codexIcon(8259),
+  'Lorcha Desidratada': codexIcon(8559),
+  'Lula Desidratada': codexIcon(8634),
+  'Luva de Cristal do Vento': codexIcon(11528),
+  'Luvas de Ceasar': codexIcon(11525),
+  'Línguado Desidratado': codexIcon(8504),
+  'Macarrão com Frutos do Mar': codexIcon(9413),
+  'Machado Anti-Humanoide': codexIcon(10606),
+  'Machado Bares': codexIcon(10613),
+  'Machado Kalis': codexIcon(10612),
+  'Machado Krea': codexIcon(10656),
+  'Machado Massacrante de Delphad Castillion': codexIcon(10682),
+  'Machado Massacrante de Delphad Castillion Supremo': codexIcon(10685),
+  'Machado Rosar': codexIcon(10657),
+  'Machado Seleth': codexIcon(10607),
+  'Machado Yuria': codexIcon(10614),
+  'Madeira Compensada Revestida de Pinheiro': codexIcon(4691),
+  'Manopla Anti-Humanoide': codexIcon(11206),
+  'Manopla Bares': codexIcon(11251),
+  'Manopla Kalis': codexIcon(11212),
+  'Manopla Krea': codexIcon(11220),
+  'Manopla Massacrante de Delphad Castillion': codexIcon(11282),
+  'Manopla Massacrante de Delphad Castillion Supremo': codexIcon(11286),
+  'Manopla Rosar': codexIcon(11221),
+  'Manopla Seleth': codexIcon(11207),
+  'Manopla Yuria': codexIcon(11214),
+  'Maomao': codexIcon(8277),
+  'Maomao Desidratado': codexIcon(8577),
+  'Marca da Sombra': codexIcon(12007),
+  'Marisco Desidratado': codexIcon(8515),
+  'Marisco de Pérola Desidratado': codexIcon(6520),
+  'Material de Reparo de Navio': codexIcon(4688),
+  'Milho Especial': codexIcon(7015),
+  'Milho de Alta Qualidade': codexIcon(7010),
+  'Minério de Chumbo': codexIcon(4002),
+  'Minério de Cobre': codexIcon(4003),
+  'Minério de Estanho': codexIcon(4004),
+  'Minério de Ferro': codexIcon(4001),
+  'Minério de Ferrugem': codexIcon(4011),
+  'Minério de Ouro': codexIcon(4202),
+  'Minério de Platina': codexIcon(4203),
+  'Minério de Prata': codexIcon(4201),
+  'Minério de Titânio': codexIcon(4009),
+  'Minério de Vanádio': codexIcon(4008),
+  'Minério de Zinco': codexIcon(4005),
+  'Molusco Rei de Pérola': codexIcon(6509),
+  'Moréia': codexIcon(8329),
+  'Moréia Desidratada': codexIcon(8629),
+  'Nó Ornamental Krea': codexIcon(10724),
+  'Nó Ornamental Rosar': codexIcon(10725),
+  'Nó Ornamental Saiyer': codexIcon(10703),
+  'Nó Ornamental Theos': codexIcon(10705),
+  'Nó Ornamental de Oros': codexIcon(10704),
+  'Núcleo do Guardião Ancestral': codexIcon(12220),
+  'Olho de Boi': codexIcon(8206),
+  'Omelete': codexIcon(9269),
+  'Ouro Aluvial': codexIcon(4902),
+  'Pacu': codexIcon(8292),
+  'Pacu Desidratado': codexIcon(8592),
+  'Palheiro': codexIcon(7023),
+  'Pedra de Refinamento de Arma Nível 3': codexIcon(4910),
+  'Pedra de Refinamento de Armadura Nível 3': codexIcon(4911),
+  'Peixe Branco': codexIcon(8261),
+  'Peixe Branco Desidratado': codexIcon(8561),
+  'Peixe Chato': codexIcon(8260),
+  'Peixe Chato Desidratado': codexIcon(8560),
+  'Peixe Chifre': codexIcon(8336),
+  'Peixe Chifre Desidratado': codexIcon(8636),
+  'Peixe Dace': codexIcon(8247),
+  'Peixe Dace Desidratado': codexIcon(8547),
+  'Peixe Dourado Desidratado': codexIcon(8570),
+  'Peixe Encarnado Desidratado': codexIcon(8516),
+  'Peixe Eoreumchi': codexIcon(8351),
+  'Peixe Eoreumchi Desidratado': codexIcon(8639),
+  'Peixe Frito': codexIcon(9407),
+  'Peixe Kumgang-Mochi': codexIcon(8353),
+  'Peixe Kumgang-Mochi Desidratado': codexIcon(8641),
+  'Peixe Olho de Bolha': codexIcon(8291),
+  'Peixe Olho de Bolha Desidratado': codexIcon(8591),
+  'Peixe Phoxinus': codexIcon(8355),
+  'Peixe Phoxinus Desidratado': codexIcon(8643),
+  'Peixe Saury': codexIcon(8335),
+  'Peixe Saury Desidratado': codexIcon(8635),
+  'Peixe Tartaruga Desidratado': codexIcon(8544),
+  'Peixe Vermelho Desidratado': codexIcon(8583),
+  'Peixe Voador': codexIcon(8229),
+  'Peixe Voador Desidratado': codexIcon(8529),
+  'Peixe de Cauda Redonda': codexIcon(8296),
+  'Peixe de Cauda Redonda Desidratado': codexIcon(8596),
+  'Peixe-Amargor': codexIcon(8290),
+  'Peixe-Amargor Desidratado': codexIcon(8590),
+  'Peixe-Aranha': codexIcon(8279),
+  'Peixe-Aranha Desidratado': codexIcon(8579),
+  'Peixe-Azul': codexIcon(8248),
+  'Peixe-Azul Desidratado': codexIcon(8548),
+  'Peixe-Borboleta': codexIcon(8301),
+  'Peixe-Borboleta Desidratado': codexIcon(8601),
+  'Peixe-Donzela': codexIcon(8223),
+  'Peixe-Donzela Amarelo Defumado': codexIcon(8276),
+  'Peixe-Donzela Amarelo Defumado Desidratado': codexIcon(8576),
+  'Peixe-Donzela Desidratado': codexIcon(8523),
+  'Peixe-Escorpião': codexIcon(8235),
+  'Peixe-Espada': codexIcon(8227),
+  'Peixe-Espada Desidratado': codexIcon(8527),
+  'Peixe-Espada Preto': codexIcon(8275),
+  'Peixe-Espada Preto Desidratado': codexIcon(8575),
+  'Peixe-Galo': codexIcon(8281),
+  'Peixe-Galo Desidratado': codexIcon(8581),
+  'Peixe-Gato': codexIcon(8219),
+  'Peixe-Lama': codexIcon(8251),
+  'Peixe-Lama Desidratado': codexIcon(8551),
+  'Peixe-Lua': codexIcon(8224),
+  'Peixe-Lua Desidratado': codexIcon(8524),
+  'Peixe-Mandarim': codexIcon(8240),
+  'Peixe-Mandarim Desidratado': codexIcon(8540),
+  'Peixe-Mandíbula': codexIcon(8250),
+  'Peixe-Mandíbula Desidratado': codexIcon(8550),
+  'Peixe-Palhaço': codexIcon(8302),
+  'Peixe-Palhaço Desidratado': codexIcon(8602),
+  'Peixe-Porco': codexIcon(8234),
+  'Peixe-Porco Desidratado': codexIcon(8534),
+  'Peixe-Prata': codexIcon(8337),
+  'Peixe-Prata Desidratado': codexIcon(8637),
+  'Peixe-Telha': codexIcon(8330),
+  'Peixe-Telha Desidratado': codexIcon(8630),
+  'Pena Suave de Pássaro Kuku': codexIcon(6017),
+  'Pena de Flamingo': codexIcon(6018),
+  'Penas de Grifo': codexIcon(6024),
+  'Piranha': codexIcon(8239),
+  'Piranha Desidratada': codexIcon(8539),
+  'Planta Juba de Leão Especial': codexIcon(5467),
+  'Planta Juba de Leão de Alta Qualidade': codexIcon(5447),
+  'Planta Mutante': codexIcon(9719),
+  'Planta com Raiz Apodrecida': codexIcon(9722),
+  'Pluma Suave de Ferri': codexIcon(6025),
+  'Poder Mágico Concentrado de Vell': codexIcon(44335),
+  'Polegar-de-Moleiro': codexIcon(8255),
+  'Polegar-de-Moleiro Desidratado': codexIcon(8555),
+  'Poleiro': codexIcon(8249),
+  'Poleiro Desidratado': codexIcon(8549),
+  'Polvo Desidratado': codexIcon(8512),
+  'Promessa de Amizade': codexIcon(11807),
+  'Pudim de Fruta': codexIcon(9259),
+  'Pão Macio': codexIcon(9260),
+  'Pérola Ancestral': codexIcon(16290),
+  'Pó de Ouro de Laventia': codexIcon(16281),
+  'Pó de Prata de Laventia': codexIcon(16280),
+  'Queijo Gratinado': codexIcon(9203),
+  'Raia Desidratada': codexIcon(8531),
+  'Rascasso Desidratado': codexIcon(8535),
+  'Ração de Galinha': codexIcon(7028),
+  'Robalo Desidratado': codexIcon(8545),
+  'Robalo do Mar': codexIcon(8225),
+  'Robalo do Mar Desidratado': codexIcon(8525),
+  'Roedora': codexIcon(8271),
+  'Roedora Desidratada': codexIcon(8571),
+  'Roupa Resgatada': codexIcon(42370),
+  'Salmon Desidratado': codexIcon(8505),
+  'Salmão Cereja': codexIcon(8222),
+  'Salmão Cereja Desidratado': codexIcon(8522),
+  'Sanduíche de Carne': codexIcon(9415),
+  'Sanduíche de Presunto': codexIcon(9267),
+  'Sangue Pegajoso': codexIcon(40424),
+  'Sapato de Amerigo': codexIcon(11526),
+  'Sapato de Aventureiro Habilidoso': codexIcon(11529),
+  'Sardinha': codexIcon(8263),
+  'Sardinha Desidratada': codexIcon(8563),
+  'Sargentinho': codexIcon(8278),
+  'Sargentinho Desidratado': codexIcon(8578),
+  'Saurel Desidratado': codexIcon(8509),
+  'Scincus': codexIcon(8282),
+  'Scincus Desidratado': codexIcon(8582),
+  'Sebastes': codexIcon(8283),
+  'Selo de Guardião Ancestral': codexIcon(11613),
+  'Semente Comida por Pássaro': codexIcon(9721),
+  'Semente Especial de Batata Doce': codexIcon(6830),
+  'Semente Misteriosa de Abóbora': codexIcon(6855),
+  'Semente Misteriosa de Acácia': codexIcon(6900),
+  'Semente Misteriosa de Alho': codexIcon(6852),
+  'Semente Misteriosa de Azaleia Real Prata': codexIcon(6874),
+  'Semente Misteriosa de Azeitona': codexIcon(6860),
+  'Semente Misteriosa de Batata': codexIcon(6863),
+  'Semente Misteriosa de Batata Doce': codexIcon(6867),
+  'Semente Misteriosa de Cebola': codexIcon(6853),
+  'Semente Misteriosa de Cenoura': codexIcon(6856),
+  'Semente Misteriosa de Cevada': codexIcon(6864),
+  'Semente Misteriosa de Dalvenia Alrea': codexIcon(6895),
+  'Semente Misteriosa de Erva Aurora': codexIcon(6873),
+  'Semente Misteriosa de Erva Eterna': codexIcon(6878),
+  'Semente Misteriosa de Flor de Escama de Fogo': codexIcon(6875),
+  'Semente Misteriosa de Girassol': codexIcon(6859),
+  'Semente Misteriosa de Grama Mel de Seda': codexIcon(6877),
+  'Semente Misteriosa de Milho': codexIcon(6866),
+  'Semente Misteriosa de Morango': codexIcon(6857),
+  'Semente Misteriosa de Nolina': codexIcon(6893),
+  'Semente Misteriosa de Penestraria': codexIcon(6894),
+  'Semente Misteriosa de Pimenta': codexIcon(6854),
+  'Semente Misteriosa de Pimenta-do-Reino': codexIcon(6851),
+  'Semente Misteriosa de Pimentão': codexIcon(6862),
+  'Semente Misteriosa de Planta Juba de Leão': codexIcon(6876),
+  'Semente Misteriosa de Tomate': codexIcon(6861),
+  'Semente Misteriosa de Trigo': codexIcon(6865),
+  'Semente Misteriosa de Uva': codexIcon(6858),
+  'Semente de Abóbora Especial': codexIcon(6722),
+  'Semente de Acácia Especial': codexIcon(7000),
+  'Semente de Alho Especial': codexIcon(6718),
+  'Semente de Azaleia Real Prata Especial': codexIcon(6973),
+  'Semente de Azeitona Especial': codexIcon(6823),
+  'Semente de Batata Especial': codexIcon(6826),
+  'Semente de Cebola Especial': codexIcon(6719),
+  'Semente de Cenoura Especial': codexIcon(6723),
+  'Semente de Cevada Especial': codexIcon(6827),
+  'Semente de Dalvenia Alrea Especial': codexIcon(6994),
+  'Semente de Erva Aurora Especial': codexIcon(6972),
+  'Semente de Erva Eterna Especial': codexIcon(6977),
+  'Semente de Flor Escama de Fogo Especial': codexIcon(6974),
+  'Semente de Girassol Especial': codexIcon(6822),
+  'Semente de Grama Mel de Seda Especial': codexIcon(6976),
+  'Semente de Milho Especial': codexIcon(6829),
+  'Semente de Morango Especial': codexIcon(6709),
+  'Semente de Nolina Especial': codexIcon(6992),
+  'Semente de Penestraria Especial': codexIcon(6993),
+  'Semente de Pimenta Especial': codexIcon(6721),
+  'Semente de Pimenta-do-Reino Especial': codexIcon(6717),
+  'Semente de Pimentão Especial': codexIcon(6825),
+  'Semente de Planta Juba de Leão Especial': codexIcon(6975),
+  'Semente de Tomate Especial': codexIcon(6824),
+  'Semente de Trigo Especial': codexIcon(6828),
+  'Semente de Uva Especial': codexIcon(6821),
+  'Shuriken Estique': codexIcon(14604),
+  'Shuriken Krea': codexIcon(14624),
+  'Shuriken Quitar': codexIcon(14603),
+  'Shuriken Rosar': codexIcon(14625),
+  'Shuriken Tadd': codexIcon(14605),
+  'Siganid': codexIcon(8272),
+  'Siganid Desidratado': codexIcon(8572),
+  'Suspiro de Floresta Pura': codexIcon(50807),
+  'Swiri': codexIcon(8237),
+  'Swiri Desidratado': codexIcon(8537),
+  'Símbolo de Guardião de Santuário': codexIcon(12008),
+  'Tainha': codexIcon(8236),
+  'Tainha Desidratada': codexIcon(8536),
+  'Talismã Helrick': codexIcon(10503),
+  'Talismã Jubre': codexIcon(10504),
+  'Talismã Krea': codexIcon(10524),
+  'Talismã Rhik': codexIcon(10505),
+  'Talismã Rosar': codexIcon(10525),
+  'Tamboril Desidratado': codexIcon(8526),
+  'Tang Azul': codexIcon(8303),
+  'Tang Azul Desidratado': codexIcon(8603),
+  'Tecido Desgastado': codexIcon(42431),
+  'Torta de Carne': codexIcon(9265),
+  'Traço de Ascensão': codexIcon(5955),
+  'Traço de Batalha': codexIcon(5958),
+  'Traço de Desespero': codexIcon(5952),
+  'Traço de Memória': codexIcon(5963),
+  'Traço de Morte': codexIcon(5962),
+  'Traço de Origem': codexIcon(5957),
+  'Traço de Selvageria': codexIcon(5956),
+  'Traço de Violência': codexIcon(5961),
+  'Trigo Especial': codexIcon(7011),
+  'Trigo de Alta Qualidade': codexIcon(7006),
+  'Truta Desidratada': codexIcon(8518),
+  'Tímalo': codexIcon(8297),
+  'Tímalo Desidratado': codexIcon(8597),
+  'Vairão': codexIcon(8252),
+  'Vairão Desidratado': codexIcon(8552),
+  'Vairão Dourado': codexIcon(8354),
+  'Vairão Dourado Desidratado': codexIcon(8642),
+  'Vestígio da Natureza': codexIcon(5960),
+  'WON Cristal Mágico - Addis': codexIcon(768884),
+  'WON Cristal Mágico - Carmae': codexIcon(768881),
+  'WON Cristal Mágico - Cobelinus': codexIcon(768872),
+  'WON Cristal Mágico - Harpia': codexIcon(768869),
+  'WON Cristal Mágico - Hystria': codexIcon(768878),
+  'WON Cristal Mágico - Víbora': codexIcon(768875),
+  '[Grupo] Elixir Perfeito de Caça ao Humano': codexIcon(608),
+  '[Grupo] Elixir de Assassino': codexIcon(633),
+  '[Grupo] Elixir de Caça ao Humano': codexIcon(607),
+  '[Grupo] Elixir de Ceifador': codexIcon(649),
+  '[Grupo] Elixir de Concentração': codexIcon(637),
+  '[Grupo] Elixir de Defesa': codexIcon(653),
+  '[Grupo] Elixir de Energia': codexIcon(619),
+  '[Grupo] Elixir de Espinho': codexIcon(603),
+  '[Grupo] Elixir de Experiência Esplendida': codexIcon(652),
+  '[Grupo] Elixir de Fúria Infinita': codexIcon(642),
+  '[Grupo] Elixir de Morte': codexIcon(623),
+  '[Grupo] Elixir de Morte Bruta': codexIcon(624),
+  '[Grupo] Elixir de Rapidez Intrépida': codexIcon(628),
+  '[Grupo] Elixir de Tempo': codexIcon(751),
+  '[Guilda] Espigão de Hekaru': codexIcon(9978),
+  'Água Mineral': codexIcon(9059),
+  'Água-Viva': codexIcon(8214),
+  'Água-Viva Desidratada': codexIcon(8514)
+});
+const GROUP_ORDER = ['Fármacos da Harmonia','Fármacos Base','Elixires Base','Sangues','Fármacos Tradicionais','Perfumes','Culinária','Rações','Culinária Especial','Pergaminhos','Trabalhadores energia','Poções','Itens Tesouro'];
 const GROUP_LABELS = {
-  pt: {'Fármacos da Harmonia':'Fármacos da Harmonia','Fármacos Base':'Fármacos Base','Elixires Base':'Elixires Base','Sangues':'Sangues','Seivas':'Seivas','Fármacos Tradicionais':'Fármacos Tradicionais','Perfumes':'Perfumes','Culinária':'Culinária','Rações':'Rações','Culinária Especial':'Culinária Especial','Pergaminhos':'Pergaminhos','Trabalhadores energia':'Trabalhadores energia','Poções':'Poções','Itens Tesouro':'Itens Tesouro'},
-  es: {'Fármacos da Harmonia':'Fármacos de la Armonía','Fármacos Base':'Fármacos Base','Elixires Base':'Elixires Base','Sangues':'Sangres','Seivas':'Savia','Fármacos Tradicionais':'Fármacos Tradicionales','Perfumes':'Perfumes','Culinária':'Cocina','Rações':'Alimentos de montarias e mascotes','Culinária Especial':'Cocina Especial','Pergaminhos':'Pergaminos','Trabalhadores energia':'Energía de trabajadores','Poções':'Pociones','Itens Tesouro':'Tesoros'}
+  pt: {'Fármacos da Harmonia':'Fármacos da Harmonia','Fármacos Base':'Fármacos Base','Elixires Base':'Elixires Base','Sangues':'Sangues','Fármacos Tradicionais':'Fármacos Tradicionais','Perfumes':'Perfumes','Culinária':'Culinária','Rações':'Rações','Culinária Especial':'Culinária Especial','Pergaminhos':'Pergaminhos','Trabalhadores energia':'Trabalhadores energia','Poções':'Poções','Itens Tesouro':'Itens Tesouro','Agitação':'Agitação','Alquimia Simples':'Alquimia Simples','Aquecimento':'Aquecimento','Corte':'Corte','Culinária Simples':'Culinária Simples','Desidratação':'Desidratação','Empacotar Alquimia Imperial':'Empacotar Alquimia Imperial','Empacotar Culinária Imperial':'Empacotar Culinária Imperial','Fábrica':'Fábrica','Filtragem':'Filtragem','Moagem':'Moagem'},
+  es: {'Fármacos da Harmonia':'Fármacos de la Armonía','Fármacos Base':'Fármacos Base','Elixires Base':'Elixires Base','Sangues':'Sangres','Fármacos Tradicionais':'Fármacos Tradicionales','Perfumes':'Perfumes','Culinária':'Cocina','Rações':'Alimentos de montarias e mascotes','Culinária Especial':'Cocina Especial','Pergaminhos':'Pergaminos','Trabalhadores energia':'Energía de trabajadores','Poções':'Pociones','Itens Tesouro':'Tesoros','Agitação':'Agitación','Alquimia Simples':'Alquimia Simple','Aquecimento':'Calentamiento','Corte':'Corte','Culinária Simples':'Cocina Simple','Desidratação':'Deshidratación','Empacotar Alquimia Imperial':'Empaquetar Alquimia Imperial','Empacotar Culinária Imperial':'Empaquetar Cocina Imperial','Fábrica':'Fábrica','Filtragem':'Filtración','Moagem':'Molienda'}
 };
 let activeGroup = '';
 let categoryRequestToken = 0;
@@ -935,11 +1716,20 @@ document.addEventListener('keydown', e=>{
 function draw(filter){
   if(!listEl || typeof DATA==='undefined') return;
   const q = (filter||'').trim().toLowerCase();
-  const filtered = DATA.map((item,i)=>({item,i}))
-    .filter(({item})=> item.group===activeGroup)
-    .filter(({item})=> !q || itemMatches(item,q));
-  listEl.innerHTML = filtered.map(({item,i})=> renderRoot(item,i)).join('');
-  emptyEl.style.display = filtered.length? 'none':'block';
+  
+  let items = DATA.map((item,i)=>({item,i}));
+  
+  if (q) {
+    // Se tem algo digitado na busca, procura em TODAS as receitas da página
+    items = items.filter(({item}) => itemMatches(item, q));
+  } else {
+    // Se a busca estiver vazia, filtra apenas pelo grupo selecionado na lateral
+    items = items.filter(({item}) => item.group === activeGroup);
+  }
+
+  listEl.innerHTML = items.map(({item,i})=> renderRoot(item,i)).join('');
+  emptyEl.style.display = items.length ? 'none' : 'block';
+  
   if(q){
     document.querySelectorAll('.root-item').forEach(el=> { hydrateRoot(el); el.classList.add('open'); });
   }
@@ -1183,7 +1973,60 @@ listEl?.addEventListener('click', (e)=>{
   }
 });
 
-document.getElementById('search')?.addEventListener('input', (e)=> draw(e.target.value));
+// =====================================================================
+// BUSCA COM SUGESTÕES (AUTOCOMPLETE)
+// =====================================================================
+const searchInput = document.getElementById('search');
+const suggestionsBox = document.getElementById('searchSuggestions');
+
+if (searchInput && suggestionsBox) {
+  searchInput.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    
+    // Se estiver vazio, esconde as sugestões e volta a lista normal do grupo
+    if (!q) {
+      suggestionsBox.style.display = 'none';
+      draw(''); 
+      return;
+    }
+
+    // Filtra os itens que batem com a busca
+    const matches = DATA.filter(item => itemMatches(item, q)).slice(0, 8); // Limita a 8 sugestões para não lotar
+
+    if (matches.length === 0) {
+      suggestionsBox.innerHTML = '<div class="suggestion-item"><span class="suggestion-title" style="color:var(--text-dim)">Nenhuma receita encontrada</span></div>';
+      suggestionsBox.style.display = 'block';
+      return;
+    }
+
+    // Monta o HTML das sugestões
+    suggestionsBox.innerHTML = matches.map(item => `
+      <div class="suggestion-item" data-name="${item.name}">
+        <span class="suggestion-title">${tName(item.name)}</span>
+        <span class="suggestion-group">${item.group}</span>
+      </div>
+    `).join('');
+    
+    suggestionsBox.style.display = 'block';
+
+    // Adiciona o evento de clique em cada sugestão
+    suggestionsBox.querySelectorAll('.suggestion-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const name = el.dataset.name;
+        searchInput.value = name; // Coloca o nome no input
+        suggestionsBox.style.display = 'none'; // Fecha o dropdown
+        draw(name); // Filtra e expande a receita na tela principal
+      });
+    });
+  });
+
+  // Esconde o dropdown se clicar fora dele
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+      suggestionsBox.style.display = 'none';
+    }
+  });
+}
 document.getElementById('expandAll')?.addEventListener('click', ()=>{
   document.querySelectorAll('.root-item').forEach(el=>{ hydrateRoot(el); el.classList.add('open'); });
   document.querySelectorAll('.farmaco-card').forEach(el=>el.classList.add('open'));
@@ -1200,7 +2043,7 @@ if(listEl){
   const initialGroup=params.get('group') || document.body.dataset.defaultGroup || '';
   activeGroup = window.RECIPE_GROUP_COUNTS?.[initialGroup] != null ? initialGroup : (window.RECIPE_GROUPS?.[0] || GROUP_ORDER[0]);
   buildSidebar();
-  const searchEl=document.getElementById('search'); if(searchEl) searchEl.value=initialSearch;
+// document.getElementById('search')?.addEventListener('input', (e)=> draw(e.target.value));
   window.__LC_AFTER_CATEGORY_LOAD = function(){
     const initialItem=params.get('item');
     if(initialItem){
@@ -1239,6 +2082,43 @@ langMenu?.addEventListener('click', (e)=>{
 });
 
 document.addEventListener('click', ()=> langSwitch.classList.remove('open'));
+// ---- Menus suspensos (Receitas, Mapas, ...) ----
+(function(){
+  var dropdowns = document.querySelectorAll('.site-tab-dropdown');
+  if(!dropdowns.length) return;
+
+  function fecharTodos(){
+    dropdowns.forEach(function(d){ d.classList.remove('open'); });
+  }
+
+  dropdowns.forEach(function(dropdown){
+    var trigger = dropdown.querySelector(':scope > .site-tab');
+    if(!trigger) return;
+
+    trigger.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var vaiAbrir = !dropdown.classList.contains('open');
+      fecharTodos();
+      if(vaiAbrir) dropdown.classList.add('open');
+    });
+
+    dropdown.querySelectorAll('.site-tab-dropdown-menu .site-tab').forEach(function(link){
+      link.addEventListener('click', function(){ dropdown.classList.remove('open'); });
+    });
+  });
+
+  document.addEventListener('click', function(e){
+    var clicouDentro = Array.prototype.some.call(dropdowns, function(d){
+      return d.contains(e.target);
+    });
+    if(!clicouDentro) fecharTodos();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') fecharTodos();
+  });
+})();
 
 // ---- Navegação principal do site ----
 const nav = document.querySelector('.site-nav');
@@ -1280,16 +2160,13 @@ function closeGuildModal(e){
 }
 
 function setPage(page){
-  const urls={home:'/',culinaria:'/receitas.html','sala-de-aula':'/sala-de-aula.html',combos:'/combos.html'};
+  const urls={home:'/',culinaria:'/receitas.html','sala-de-aula':'/sala-de-aula.html',combos:'/combos.html',processamento:'/processamento.html','itens-tesouro':'/itens-tesouro.html',mapa:'/mapa.html'};
   const target=urls[page]||urls.home;
   if(location.pathname.endsWith('/'+target) || (target==='index.html' && (location.pathname.endsWith('/') || location.pathname.endsWith('index.html')))) return;
   location.href=target;
 }
 
-syncActiveNav();
-document.querySelectorAll('.site-tab').forEach(a=>{
-  a.addEventListener('click',()=>closeMobileMenu());
-});
+if (typeof syncActiveNav === 'function') syncActiveNav();
 
 document.querySelectorAll('[data-modal="guild"]').forEach(el=>el.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();openGuildModal();}));
 guildModal?.querySelectorAll('[data-guild-modal-close]').forEach(el=>el.addEventListener('click',closeGuildModal));
@@ -1454,20 +2331,12 @@ const FOOTER_TERMS_HTML = `
   <p>O conteúdo e o funcionamento do site podem mudar a qualquer momento, sem aviso prévio, conforme a guilda achar necessário.</p>
   <p>Dúvidas sobre estes termos podem ser tiradas com a administração da guilda no Discord.</p>
 `;
-const CURRENT_CHANGELOG_VERSION = 100;
-const FOOTER_CHANGELOG_HTML = `
-  <div class="changelog-version">Versão 90</div>
-  <div class="changelog-date">29 de setembro de 2026</div>
-  <ul>
-    <li>Nova seção "Eventos" na Home, abaixo dos cupons: uma linha do tempo automática com os eventos em andamento no BDO, lida direto do site oficial da Pearl Abyss (com paginação, pra não perder nenhum evento). Clique num evento pra abrir a página dele.</li>
-    <li>Cada evento ganhou uma cor sólida própria e o quadro passou a ter fundo escuro fixo, igual ao resto do site, em vez de deixar a imagem de fundo aparecer por trás.</li>
-    <li>Corrigido um bug de CSS que criava uma barra de rolagem vertical desnecessária no quadro de eventos; agora ele só cresce/encolhe verticalmente sozinho, mostrando sempre todos os eventos de uma vez (a rolagem horizontal pras datas continua normal).</li>
-  </ul>
-`;
-const FOOTER_MODAL_CONTENT = {privacy:FOOTER_PRIVACY_HTML, terms:FOOTER_TERMS_HTML, changelog:FOOTER_CHANGELOG_HTML};
+const CURRENT_CHANGELOG_VERSION = 140;
+// [v106] FOOTER_CHANGELOG_HTML (v90) e FOOTER_MODAL_CONTENT removidos:
+// o HTML v90 era injetado e imediatamente sobrescrito por
+// renderChangelogTimeline(), que usa CHANGELOG_DATA. Código morto.
 document.getElementById('footerPrivacyContent')?.insertAdjacentHTML('beforeend', FOOTER_PRIVACY_HTML);
 document.getElementById('footerTermsContent')?.insertAdjacentHTML('beforeend', FOOTER_TERMS_HTML);
-document.getElementById('footerChangelogContent')?.insertAdjacentHTML('beforeend', FOOTER_CHANGELOG_HTML);
 
 const LAST_SEEN_CHANGELOG_KEY = 'luaCrescenteLastSeenChangelog';
 function updateChangelogBadge(){
@@ -1590,66 +2459,81 @@ document.addEventListener('keydown', e=>{
 async function loadBdoCoupons(){
   const track=document.getElementById('couponTrack');
   if(!track) return;
+
+  const timeoutId = setTimeout(() => {
+      if (track.innerHTML.includes('Carregando')) {
+          track.innerHTML = '<div class="coupons-status">Nenhum cupom ativo no momento.</div>';
+      }
+  }, 5000);
+
   try{
     const r=await fetch('/.netlify/functions/garmoth-coupons?ts='+Date.now(),{cache:'no-store'});
-    if(!r.ok) throw new Error('endpoint indisponível');
+    clearTimeout(timeoutId);
+    if(!r.ok) throw new Error('HTTP ' + r.status);
     const payload=await r.json();
     const coupons=Array.isArray(payload.coupons)?payload.coupons:[];
-    if(!coupons.length) throw new Error('nenhum cupom ativo encontrado');
+    
+    if(!coupons.length) {
+       track.innerHTML = '<div class="coupons-status">Nenhum cupom ativo no momento.</div>';
+       return;
+    }
+    
     lastCouponsPayload=payload;
     renderCouponsModal(payload);
     if(location.hash==='#bdoCoupons') openCouponsModal();
 
-    track.innerHTML=coupons.slice(0,10).map(c=>{
+    // Puxa 3 cupons com a formatação correta (Bento)
+    track.innerHTML=coupons.slice(0, 3).map(c => {
       const code=String(c.code||'').trim();
-      const expiry=String(c.expiry||'Cupom ativo');
-      const items=Array.isArray(c.items)?c.items:[];
-      const fallbackItems=items.length?items:['Recompensas do cupom'];
-      const visibleCount=Math.min(4,fallbackItems.length);
-      const moreCount=Math.max(0,fallbackItems.length-visibleCount);
-      return `<article class="coupon-card ${c.source==='fallback'?'coupon-card-fallback':''}">
-        <div class="coupon-card-head">
-          <div class="coupon-badge">ENCELADUS CUPONS</div>
-          <span class="coupon-server">🇧🇷 SA</span>
+      const expiry=String(c.expiry||'Cupom ativo').replace('⏳ ', ''); 
+      const items = Array.isArray(c.items) ? c.items : [];
+      
+      const itemsHtml = items.slice(0, 2).map(item => {
+        const name = (typeof item === 'object' && item?.name) ? String(item.name) : (typeof item === 'string' ? item : 'Recompensa');
+        const img = (typeof item === 'object' && item?.image) ? String(item.image) : rewardIconFallback(name);
+        return img ? `<img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" title="${escapeHtml(name)}" class="bento-coupon-icon" onerror="this.style.display='none'">` : '';
+      }).join('');
+
+      return `<div class="bento-coupon-card">
+        <div class="bento-coupon-info">
+          <div class="bento-coupon-code">${escapeHtml(code)}</div>
+          <div class="bento-coupon-expiry">${escapeHtml(expiry)}</div>
         </div>
-        <div class="coupon-code-row">
-          <div class="coupon-code" title="${escapeHtml(code)}">${escapeHtml(code)}</div>
-          <button class="coupon-copy" type="button" data-coupon="${escapeHtml(code)}">COPIAR</button>
-        </div>
-        <div class="coupon-expiry"><span>⏳</span> ${escapeHtml(expiry)}</div>
-        <div class="coupon-rewards-title">🎁 RECOMPENSAS</div>
-        <div class="coupon-rewards" data-more="${moreCount}">
-          ${fallbackItems.slice(0,visibleCount).map((item,i)=>{
-          const raw=typeof item==='string' ? item : (item?.name||item?.title||'Recompensa');
-          const m=String(raw).match(/^(\d+)x\s*(.*)$/i);
-          const qty=(typeof item==='object' && item?.qty!==undefined && String(item.qty)!=='') ? String(item.qty) : (m?m[1]:'');
-          const name=(typeof item==='object' && item?.name) ? String(item.name) : (m?m[2]:String(raw));
-          const img=(typeof item==='object' && item?.image) ? String(item.image) : rewardIconFallback(name);
-          return `<div class="coupon-reward" title="${escapeHtml(name)}">${img?`<img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" data-itemid="${escapeHtml((img.match(/item\/(\d+)\.png/i)||[])[1]||'')}" data-name="${escapeHtml(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="if(!this.dataset.retry){this.dataset.retry='1';this.src='/.netlify/functions/garmoth-coupons?icon='+encodeURIComponent(this.dataset.itemid||'')+'&name='+encodeURIComponent(this.dataset.name||'')}else{this.onerror=null;this.style.display='none';this.parentElement.querySelector('.reward-fallback').style.display='flex'}">`:''}<span class="reward-fallback">${escapeHtml(name.slice(0,2).toUpperCase())}</span>${qty?`<span class="reward-qty">${escapeHtml(qty)}</span>`:''}<span class="reward-name">${escapeHtml(name)}</span></div>`;
-        }).join('')}
-        </div>
-        <div class="coupon-card-foot"><span>${payload.source==='cache'?'Última atualização conhecida':(payload.source==='discord'?'Atualizado via Discord':'Atualizado automaticamente')}</span></div>
-      </article>`;
+        <div class="bento-coupon-icons">${itemsHtml}</div>
+        <button class="bento-coupon-copy" type="button" data-coupon="${escapeHtml(code)}">Copiar</button>
+      </div>`;
     }).join('');
 
-    track.querySelectorAll('.coupon-copy').forEach(btn=>btn.addEventListener('click',async()=>{
+    track.querySelectorAll('.bento-coupon-copy').forEach(btn=>btn.addEventListener('click',async()=>{
       try{
         await navigator.clipboard.writeText(btn.dataset.coupon);
         const old=btn.textContent;
-        btn.textContent='COPIADO';
-        btn.classList.add('is-copied');
-        setTimeout(()=>{btn.textContent=old;btn.classList.remove('is-copied');},1300);
+        btn.textContent='Copiado!';
+        btn.style.background = '#5BD58A';
+        btn.style.color = '#0B0E17';
+        setTimeout(()=>{ btn.textContent=old; btn.style.background=''; btn.style.color=''; },1300);
       }catch{}
     }));
   }catch(err){
-    track.innerHTML='<div class="coupons-status coupons-error">Os cupons estão temporariamente indisponíveis. Tente novamente em instantes.</div>';
-    console.warn('[Cupons]',err);
+    clearTimeout(timeoutId);
+    console.warn('[Cupons] Falha na API:', err);
+    track.innerHTML='<div class="coupons-status">Os cupons estão temporariamente indisponíveis.</div>';
   }
 }
 function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 window.addEventListener('DOMContentLoaded',loadBdoCoupons);
 
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>{applyLanguage();syncActiveNav();});}else{applyLanguage();syncActiveNav();}
+// [v106] guardas para os globais de tradução: se ui-translations.js um dia
+// carregar depois deste arquivo, o boot não quebra silenciosamente.
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',()=>{
+    if(typeof applyLanguage==='function') applyLanguage();
+    if(typeof syncActiveNav==='function') syncActiveNav();
+  });
+}else{
+  if(typeof applyLanguage==='function') applyLanguage();
+  if(typeof syncActiveNav==='function') syncActiveNav();
+}
 
 // =====================================================================
 // v97 — Ícones dos itens novos (IDs verificados no BDOCodex)
@@ -1710,7 +2594,7 @@ Object.assign(ROOT_ITEM_ICONS, {
   'Elixir de Hemostasia':         codexIcon(730),
   'Elixir de Caça a Humano':      codexIcon(670),
   'Elixir de Caça a Humanoide':   codexIcon(678),
-  'Elixir de Boas Lembranças':    codexIcon(42413), // ⚠️ confere, não tá aparecendo
+  'Elixir de Boas Lembranças':    codexIcon(42413),
 
   // --- Elixires Base Superior (38) ---
   'Elixir da Fúria Infinita':              codexIcon(705),
@@ -1749,8 +2633,8 @@ Object.assign(ROOT_ITEM_ICONS, {
   'Elixir de Espírito Weenie Afluente':    codexIcon(774),
   'Elixir de Energia Afluente':            codexIcon(683),
   'Elixir do Selo Ágil':                   codexIcon(695),
-  'Elixir de Espiral Brilhante':           codexIcon(783), // ⚠️ chute +1
-  'Elixir de Pescador Habilidoso':         codexIcon(727), // ⚠️ confere, não tá aparecendo
+  'Elixir de Espiral Brilhante':           codexIcon(783),
+  'Elixir de Pescador Habilidoso':         codexIcon(727),
 
   // --- Poções ---
   'Poção de WP (M)':   codexIcon(828),
@@ -1767,16 +2651,172 @@ Object.assign(GROUP_ICONS, {
   'Reagentes de Alquimia': '⚗️',
   'Elixires Base Superior': '✨',
 });
-delete GROUP_ICONS['Seivas']; // categoria removida
 // v97.1 — corrige o ícone do grupo renomeado
 Object.assign(GROUP_ICONS, {
   'Fármacos Base da Harmonia': '🧪',
+});
+// =====================================================================
+// v108 — Auto-registro de ícones de Processamento
+// =====================================================================
+// 1. Todo item Culinária também vale como ícone global (Processamento etc.)
+Object.keys(CULINARY_ICON_IDS).forEach(function(k){
+  if(!ROOT_ITEM_ICONS[k]) ROOT_ITEM_ICONS[k] = CULINARY_ICON_IDS[k];
+});
+Object.keys(CULINARY_ICON_OVERRIDES).forEach(function(k){
+  if(!ROOT_ITEM_ICONS[k]) ROOT_ITEM_ICONS[k] = CULINARY_ICON_OVERRIDES[k];
+});
+
+// 2. [Grupo] Elixir X herda o ícone de Elixir X
+Object.keys(ROOT_ITEM_ICONS).slice().forEach(function(k){
+  if(k.indexOf('[Grupo] ') === 0) return;
+  var grupoKey = '[Grupo] ' + k;
+  if(!ROOT_ITEM_ICONS[grupoKey]) ROOT_ITEM_ICONS[grupoKey] = ROOT_ITEM_ICONS[k];
+});
+
+// 3. Ajustes de nomes específicos (apelidos que variam)
+Object.assign(ROOT_ITEM_ICONS, {
+  '[Grupo] Elixir de Caça ao Humano': ROOT_ITEM_ICONS['Elixir de Caça a Humano'],
+  '[Grupo] Elixir Perfeito de Caça ao Humano': ROOT_ITEM_ICONS['Elixir Perfeito de Caça a Humano'] || ROOT_ITEM_ICONS['Elixir de Caça a Humano'],
+  '[Grupo] Elixir de Caça a Humanoide': ROOT_ITEM_ICONS['Elixir de Caça a Humanoide'],
+  '[Grupo] Elixir de Caça a Humanoide Feroz': ROOT_ITEM_ICONS['Elixir de Caça a Humanoide Feroz'] || ROOT_ITEM_ICONS['Elixir de Caça a Humanoide'],
+  '[Grupo] Elixir de Carnificina': ROOT_ITEM_ICONS['Elixir de Carnificina'],
+  '[Grupo] Elixir de Carnificina Brutal': ROOT_ITEM_ICONS['Elixir de Carnificina Brutal'] || ROOT_ITEM_ICONS['Elixir de Carnificina'],
+  '[Grupo] Elixir de Detecção': ROOT_ITEM_ICONS['Elixir de Detecção'],
+  '[Grupo] Elixir de Detecção Afiada': ROOT_ITEM_ICONS['Elixir de Detecção Afiada'] || ROOT_ITEM_ICONS['Elixir de Detecção'],
+  '[Grupo] Elixir de Espinho': ROOT_ITEM_ICONS['Elixir de Espinhos'],
+  '[Grupo] Elixir de Espinho Afiado': ROOT_ITEM_ICONS['Elixir de Espinho Afiado'] || ROOT_ITEM_ICONS['Elixir de Espinhos'],
+  '[Grupo] Elixir de Espírito Weenie': ROOT_ITEM_ICONS['Elixir de Espírito Weenie'],
+  '[Grupo] Elixir de Espírito Looney': ROOT_ITEM_ICONS['Elixir de Espírito Looney'],
+  '[Grupo] Elixir de Fúria': ROOT_ITEM_ICONS['Elixir de Fúria'],
+  '[Grupo] Elixir de Fúria Infinita': ROOT_ITEM_ICONS['Elixir da Fúria Infinita'] || ROOT_ITEM_ICONS['Elixir de Fúria'],
+  '[Grupo] Elixir de Grifo': ROOT_ITEM_ICONS['Elixir de Grifo'],
+  '[Grupo] Elixir de Grifo Poderoso': ROOT_ITEM_ICONS['Elixir de Grifo Poderoso'] || ROOT_ITEM_ICONS['Elixir de Grifo'],
+  '[Grupo] Elixir de Morte': ROOT_ITEM_ICONS['Elixir da Morte'],
+  '[Grupo] Elixir de Morte Bruta': ROOT_ITEM_ICONS['Elixir de Morte Brutal'] || ROOT_ITEM_ICONS['Elixir da Morte'],
+  '[Grupo] Elixir de Resistência': ROOT_ITEM_ICONS['Elixir de Resistência'],
+  '[Grupo] Elixir de Resistência Afiada': ROOT_ITEM_ICONS['Elixir de Resistência Afiada'] || ROOT_ITEM_ICONS['Elixir de Resistência'],
+  '[Grupo] Elixir de Treinamento': ROOT_ITEM_ICONS['Elixir de Treinamento'],
+  '[Grupo] Elixir de Treinamento de Especialistas': ROOT_ITEM_ICONS['Elixir de Treinamento de Especialistas'] || ROOT_ITEM_ICONS['Elixir de Treinamento'],
+  '[Grupo] Elixir do Céu': ROOT_ITEM_ICONS['Elixir do Céu'],
+  '[Grupo] Elixir do Céu Impiedoso': ROOT_ITEM_ICONS['Elixir do Céu Impiedoso'] || ROOT_ITEM_ICONS['Elixir do Céu'],
+  '[Grupo] Elixir do Frenesi': ROOT_ITEM_ICONS['Elixir do Frenesi'],
+  '[Grupo] Elixir do Frenesi Infinito': ROOT_ITEM_ICONS['Elixir do Frenesi Infinito'] || ROOT_ITEM_ICONS['Elixir do Frenesi'],
+  '[Grupo] Elixir do Vento': ROOT_ITEM_ICONS['Elixir do Vento'],
+  '[Grupo] Elixir do Vento Afluente': ROOT_ITEM_ICONS['Elixir do Vento Fluente'] || ROOT_ITEM_ICONS['Elixir do Vento'],
+  '[Grupo] Elixir Selo Ágil': ROOT_ITEM_ICONS['Elixir do Selo Ágil'],
+  '[Grupo] Elixir de Vida': ROOT_ITEM_ICONS['Elixir de Vida'],
+  '[Grupo] Elixir de Tempo': ROOT_ITEM_ICONS['Elixir do Tempo'],
+  '[Grupo] Elixir de Tempo Afluente': ROOT_ITEM_ICONS['Elixir de Tempo Fluente'] || ROOT_ITEM_ICONS['Elixir do Tempo'],
+  '[Grupo] Elixir de Trabalhador': ROOT_ITEM_ICONS['Elixir de Trabalhador'],
+  '[Grupo] Elixir de Trabalhador Habilidoso': ROOT_ITEM_ICONS['Elixir de Trabalhador Habilidoso'] || ROOT_ITEM_ICONS['Elixir de Trabalhador'],
+  '[Grupo] Elixir de Pescador': ROOT_ITEM_ICONS['Elixir de Pescador'],
+  '[Grupo] Elixir de Pescador Habilidoso': ROOT_ITEM_ICONS['Elixir de Pescador Habilidoso'] || ROOT_ITEM_ICONS['Elixir de Pescador'],
+  '[Grupo] Elixir de Pilhagem': ROOT_ITEM_ICONS['Elixir de Pilhagem'],
+  '[Grupo] Elixir de Pilhagem Forte': ROOT_ITEM_ICONS['Elixir de Pilhagem Forte'] || ROOT_ITEM_ICONS['Elixir de Pilhagem'],
+  '[Grupo] Elixir de Rapidez': ROOT_ITEM_ICONS['Elixir de Rapidez'],
+  '[Grupo] Elixir de Rapidez Intrépida': ROOT_ITEM_ICONS['Elixir da Rapidez Intrépida'] || ROOT_ITEM_ICONS['Elixir de Rapidez'],
+  '[Grupo] Elixir de Feitiço': ROOT_ITEM_ICONS['Elixir de Feitiço'],
+  '[Grupo] Elixir de Feitiço Ágil': ROOT_ITEM_ICONS['Elixir de Feitiço Ágil'] || ROOT_ITEM_ICONS['Elixir de Feitiço'],
+  '[Grupo] Elixir de Concentração': ROOT_ITEM_ICONS['Elixir da Concentração'],
+  '[Grupo] Elixir de Concentração Avançada': ROOT_ITEM_ICONS['Elixir de Concentração Avançada'] || ROOT_ITEM_ICONS['Elixir da Concentração'],
+  '[Grupo] Elixir de Defesa': ROOT_ITEM_ICONS['Elixir da Defesa'],
+  '[Grupo] Elixir de Defesa de Aço': ROOT_ITEM_ICONS['Elixir de Defesa de Aço'] || ROOT_ITEM_ICONS['Elixir da Defesa'],
+  '[Grupo] Elixir de Energia': ROOT_ITEM_ICONS['Elixir da Energia'],
+  '[Grupo] Elixir de Energia Afluente': ROOT_ITEM_ICONS['Elixir de Energia Afluente'] || ROOT_ITEM_ICONS['Elixir da Energia'],
+  '[Grupo] Elixir de Estamina': ROOT_ITEM_ICONS['Elixir de Estamina'],
+  '[Grupo] Elixir de Estamina Esmagadora': ROOT_ITEM_ICONS['Elixir de Estamina Esmagadora'] || ROOT_ITEM_ICONS['Elixir de Estamina'],
+  '[Grupo] Elixir de Experiência': ROOT_ITEM_ICONS['Elixir de Experiência'],
+  '[Grupo] Elixir de Experiência Esplendida': ROOT_ITEM_ICONS['Elixir de Experiência Esplêndida'] || ROOT_ITEM_ICONS['Elixir de Experiência'],
+  '[Grupo] Elixir de Choque': ROOT_ITEM_ICONS['Elixir de Choque'],
+  '[Grupo] Elixir de Choque Poderoso': ROOT_ITEM_ICONS['Elixir de Choque Poderoso'] || ROOT_ITEM_ICONS['Elixir de Choque'],
+  '[Grupo] Elixir de Amizade': ROOT_ITEM_ICONS['Elixir de Amizade'],
+  '[Grupo] Elixir de Melhoria de Amizade': ROOT_ITEM_ICONS['Elixir de Melhoria de Amizade'] || ROOT_ITEM_ICONS['Elixir de Amizade'],
+  '[Grupo] Elixir de Antídoto': ROOT_ITEM_ICONS['Elixir de Antídoto'],
+  '[Grupo] Elixir de Assassino': ROOT_ITEM_ICONS['Elixir de Assassinato'],
+  '[Grupo] Elixir de Assassino Letal': ROOT_ITEM_ICONS['Elixir de Assassino Letal'] || ROOT_ITEM_ICONS['Elixir de Assassinato'],
+  '[Grupo] Elixir de Ceifador': ROOT_ITEM_ICONS['Elixir do Ceifador'],
+  '[Grupo] Elixir de Ceifador de Alma': ROOT_ITEM_ICONS['Elixir de Ceifador de Alma'] || ROOT_ITEM_ICONS['Elixir do Ceifador'],
+  '[Grupo] Elixir de Hemostasia': ROOT_ITEM_ICONS['Elixir de Hemostasia'],
+  '[Grupo] Elixir de Mentalidade': ROOT_ITEM_ICONS['Elixir de Mentalidade'],
+  '[Grupo] Elixir de Mentalidade Limpa': ROOT_ITEM_ICONS['Elixir de Mentalidade Limpa'] || ROOT_ITEM_ICONS['Elixir de Mentalidade'],
+  '[Grupo] Elixir de Perfuração': ROOT_ITEM_ICONS['Elixir de Perfuração'],
+  '[Grupo] Elixir de Perfuração Brutal': ROOT_ITEM_ICONS['Elixir de Perfuração Brutal'] || ROOT_ITEM_ICONS['Elixir de Perfuração'],
+  '[Grupo] Elixir de Remoção de Queimadura': ROOT_ITEM_ICONS['Elixir de Remoção de Queimadura'],
+  '[Grupo] Elixir de Ressurreição': ROOT_ITEM_ICONS['Elixir de Ressurreição'],
+  '[Grupo] Elixir de Ressurreição Poderosa': ROOT_ITEM_ICONS['Elixir de Ressurreição Poderosa'] || ROOT_ITEM_ICONS['Elixir de Ressurreição'],
+  '[Grupo] Elixir de Mão Dourada': ROOT_ITEM_ICONS['Elixir de Mão Dourada'],
+  '[Grupo] Elixir de Gloriosa Mão Dourada': ROOT_ITEM_ICONS['Elixir de Gloriosa Mão Dourada'] || ROOT_ITEM_ICONS['Elixir de Mão Dourada'],
+  '[Grupo] Elixir das Asas': ROOT_ITEM_ICONS['Elixir das Asas'],
+  '[Grupo] Elixir das Asas Ascendentes': ROOT_ITEM_ICONS['Elixir das Asas Ascendentes'] || ROOT_ITEM_ICONS['Elixir das Asas'],
+  '[Grupo] Elixir da Vontade': ROOT_ITEM_ICONS['Elixir da Vontade'],
+  '[Grupo] Elixir da Vontade Extraordinária': ROOT_ITEM_ICONS['Elixir da Vontade Extraordinária'] || ROOT_ITEM_ICONS['Elixir da Vontade'],
+  '[Grupo] Elixir Poderoso de Vida': ROOT_ITEM_ICONS['Elixir Poderoso de Vida'] || ROOT_ITEM_ICONS['Elixir de Vida']
 });
 // =====================================================================
 // v102 — Timeline do Registro de Alterações (10 versões)
 // =====================================================================
 
 const CHANGELOG_DATA = [
+  {
+    version: 140, date: '2026-10-21', tag: 'site',
+    added: [
+      'Novo layout "Bento Grid" na página inicial',
+      'Card da Sala de Aula integrado na Home puxando posts do Blogger',
+      'Busca global com sugestões em tempo real (autocomplete)',
+      'Botão de "Voltar ao topo" flutuante e discreto',
+      'Barra de rolagem personalizada (fina e dourada)',
+      'Rodapé reformulado com 5 colunas e QR Code do LivePix clicável',
+      'Contador de membros online do Discord no rodapé',
+      'Tela cheia nativa nas páginas de Mapa de Edania e Mapa de Pesca'
+    ],
+    changed: [
+      'Nova identidade visual: fundo com imagem do templo e degradê aplicado em todas as páginas',
+      'Timers do topo redesenhados (ícones de 20px e layout fixo)',
+      'Menus e páginas internas de Receitas, Processamento, Itens Tesouro e Combos totalmente reformulados',
+      'Menu principal agora conta com a aba "Artefatos" (Combos)'
+    ],
+    fixed: [
+      'Correção do ícone e nome da página "Bancada" no menu',
+      'Textos dos Avisos do Discord agora são limpos (sem os "#" e "*")',
+      'O nome de quem postou os avisos foi ocultado para preservar a privacidade',
+      'Layout dos botões da Árvore de Receitas e das abas (Imortalidade/Receita Base)',
+      'Responsividade mobile aprimorada em todo o site'
+    ]
+  },
+  {
+    version: 102, date: '2026-10-16', tag: 'site',
+    added: [
+      'Mapa de Edania / Dokebi',
+      'Mapa de Pesca — zonas com cores e bordas de fácil interpretação, filtros de camadas (zonas/hotspots/nomes), busca com autocomplete, painel da zona com tempo de mordida e lista de peixes, e card detalhado do peixe no hover (peso, vida útil, preço, descrição e guia)',
+      'Nova página "Processamento" com as receitas de refino',
+      'Página própria de "Itens Tesouro" (antes ficava dentro de Receitas)',
+      'Seção "Apoie" com link do Discord e QR Code do LivePix',
+      'Barra de pesquisa do site agora exibe os resultados em tempo real enquanto você digita'
+    ],
+    changed: [
+      'Aba "Receitas" renomeada para "Bancada" e reorganizada como Combinações de Artefatos'
+    ],
+    fixed: [
+      'Tags dos canais "Tutoriais" e "Lore" estavam invertidas',
+      'Problema de exibição na aba de Eventos',
+      'Problema de abertura/fechamento no modal de Agenda de Boss'
+    ]
+  },
+  {
+    version: 101, date: '2026-10-09', tag: 'site',
+    changed: [
+      'Rodapé padronizado nas 4 páginas (link do Discord + QR Code do LivePix na coluna "Apoie")',
+      'CSS consolidado: removidas duplicações em site.css e coupons.css',
+      'Versões de cache dos assets alinhadas entre as 4 páginas'
+    ],
+    fixed: [
+      'Seção "Receitas mais vistas" da Home voltou a aparecer',
+      'Rótulos dos vídeos na Home corrigidos (Lore/Tutorial estavam trocados)',
+      '"Seivas" removida dos fallbacks de categoria (já não existia no menu)',
+      'Scroll da página agora trava quando qualquer modal abre',
+      'README.md reescrito em UTF-8'
+    ]
+  },
   {
     version: 100, date: '2026-09-30', tag: 'site',
     added: [
@@ -1931,16 +2971,16 @@ async function loadYouTubeVideos(){
     const videos = Array.isArray(data.videos) ? data.videos : [];
     if(!videos.length) throw new Error('sem vídeos');
 
-    grid.innerHTML = videos.slice(0, 5).map(v => `
+    grid.innerHTML = videos.slice(0, 4).map(v => `
       <button type="button" class="video-card" data-video-id="${escapeHtml(v.id)}" data-video-title="${escapeHtml(v.title)}">
-        <span class="video-thumb-wrap">
+        <div class="video-thumb-wrap">
           <img class="video-thumb" src="${escapeHtml(v.thumbnail)}" alt="" loading="lazy" referrerpolicy="no-referrer">
           <span class="video-play" aria-hidden="true">▶</span>
-        </span>
-        <span class="video-info">
+        </div>
+        <div class="video-info">
           <span class="video-title">${escapeHtml(v.title)}</span>
           <span class="video-meta">${relativeDate(v.published)}${v.source==='lore' ? ' · 🌙 Lore' : ' · 📚 Tutorial'}</span>
-        </span>
+        </div>
       </button>
     `).join('');
 
@@ -1949,7 +2989,7 @@ async function loadYouTubeVideos(){
     });
   }catch(err){
     console.warn('[Vídeos]', err);
-    grid.innerHTML = '<div class="video-status">Não foi possível carregar os vídeos agora.</div>';
+    grid.innerHTML = '<div class="video-status" style="grid-column: 1/-1; text-align: center; color: var(--text-dim); padding: 40px;">Não foi possível carregar os vídeos agora.</div>';
   }
 }
 
@@ -1963,15 +3003,19 @@ async function loadDiscordAnnouncements(){
     const posts = Array.isArray(data.announcements) ? data.announcements : [];
     if(!posts.length) throw new Error('sem avisos');
 
-    grid.innerHTML = posts.slice(0, 5).map((p, i) => `
+    grid.innerHTML = posts.slice(0, 5).map((p, i) => {
+      // Remove os "#" e "*" do começo e fim do título
+      const tituloLimpo = p.title.replace(/^[#*\s]+/, '').replace(/[#*\s]+$/, '');
+      
+      return `
       <button type="button" class="announcement-card" data-idx="${i}">
-        ${p.image ? `<span class="announcement-thumb-wrap"><img class="announcement-thumb" src="${escapeHtml(p.image)}" alt="" loading="lazy" referrerpolicy="no-referrer"></span>` : ''}
-        <span class="announcement-info">
-          <span class="announcement-title">${escapeHtml(p.title)}</span>
-          <span class="announcement-meta">${relativeDate(p.timestamp)} · ${escapeHtml(p.author)}</span>
-        </span>
+        ${p.image ? `<div class="announcement-thumb-wrap"><img class="announcement-thumb" src="${escapeHtml(p.image)}" alt="" loading="lazy" referrerpolicy="no-referrer"></div>` : ''}
+        <div class="announcement-info">
+          <span class="announcement-meta">${relativeDate(p.timestamp)}</span>
+          <span class="announcement-title">${escapeHtml(tituloLimpo)}</span>
+        </div>
       </button>
-    `).join('');
+    `}).join('');
 
     grid.querySelectorAll('.announcement-card').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -2026,11 +3070,23 @@ function openAnnouncementModal(post){
   const modal = document.getElementById('homeModal');
   const content = document.getElementById('homeModalContent');
   if(!modal || !content) return;
+  
+  // 1. Limpa o título
+  const tituloLimpo = post.title.replace(/^[#*\s]+/, '').replace(/[#*\s]+$/, '');
+  
+  // 2. Limpa o corpo do texto (remove os "#" e "*" do Discord)
+  let corpoLimpo = post.body || '';
+  corpoLimpo = corpoLimpo.replace(/^[#*>\s]+/gm, ''); // Tira # e > do começo das linhas
+  corpoLimpo = corpoLimpo.replace(/\*\*(.*?)\*\*/g, '$1'); // Tira **negrito**
+  corpoLimpo = corpoLimpo.replace(/\*(.*?)\*/g, '$1'); // Tira *itálico*
+  corpoLimpo = corpoLimpo.replace(/__(.*?)__/g, '$1'); // Tira __sublinhado__
+  corpoLimpo = corpoLimpo.replace(/~~(.*?)~~/g, '$1'); // Tira ~~riscado~~
+
   content.innerHTML = `
-    <h2 id="homeModalTitle" class="home-modal-title">${escapeHtml(post.title)}</h2>
+    <h2 id="homeModalTitle" class="home-modal-title">${escapeHtml(tituloLimpo)}</h2>
     <div class="home-modal-meta">${relativeDate(post.timestamp)} · ${escapeHtml(post.author)}</div>
     ${post.image ? `<img class="home-modal-image" src="${escapeHtml(post.image)}" alt="" referrerpolicy="no-referrer">` : ''}
-    <div class="home-modal-body">${escapeHtml(post.body).replace(/\n/g, '<br>')}</div>
+    <div class="home-modal-body">${escapeHtml(corpoLimpo).replace(/\n/g, '<br>')}</div>
   `;
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
@@ -2072,8 +3128,143 @@ function relativeDate(iso){
 
 window.addEventListener('DOMContentLoaded', () => {
   if(document.body.getAttribute('data-page') === 'home'){
+    buildHomePopular();
     loadYouTubeVideos();
     loadDiscordAnnouncements();
   }
   loadDiscordCounter();
 });
+
+// =====================================================================
+// BUSCA COM SUGESTÕES (AUTOCOMPLETE) - v3 (via search-index.json)
+// =====================================================================
+(function() {
+  const searchInput = document.getElementById('search');
+  const suggestionsBox = document.getElementById('searchSuggestions');
+  
+  if (!searchInput || !suggestionsBox) return;
+
+  let SEARCH_INDEX = [];
+
+  fetch('/assets/data/search-index.json')
+    .then(r => r.ok ? r.json() : [])
+    .then(data => {
+      // Define qual tipo de dado buscar de acordo com a página
+let pageType = 'recipe';
+if (document.body.dataset.page === 'processamento') pageType = 'process';
+if (document.body.dataset.page === 'itens-tesouro') pageType = 'treasure';
+
+SEARCH_INDEX = (data || []).filter(e => e.t === pageType);
+      console.log('[Busca] Índice carregado:', SEARCH_INDEX.length, 'receitas');
+    })
+    .catch(err => console.warn('[Busca] Falha ao carregar índice:', err));
+
+  function normSearch(s){
+    return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  function openRecipeItem(name){
+    requestAnimationFrame(() => {
+      let el = null;
+      try { el = document.querySelector(`.root-item[data-item-name="${CSS.escape(name)}"]`); } catch(e) {}
+      if (!el) {
+        const idx = DATA.findIndex(i => i.name === name);
+        if (idx >= 0) el = document.querySelector(`.root-item[data-idx="${idx}"]`);
+      }
+      if (el) {
+        if (typeof hydrateRoot === 'function') hydrateRoot(el);
+        el.classList.add('open');
+        el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    });
+  }
+
+  searchInput.addEventListener('input', (e) => {
+    const raw = e.target.value.trim();
+    const q = normSearch(raw);
+    
+    if (!q) {
+      suggestionsBox.style.display = 'none';
+      if (typeof draw === 'function') draw('');
+      return;
+    }
+
+    const source = SEARCH_INDEX.length > 0 
+      ? SEARCH_INDEX.map(i => ({ n: i.n, g: i.g }))
+      : DATA.map(i => ({ n: i.name, g: i.group }));
+
+    const seen = new Set();
+    const unique = [];
+    for (const item of source) {
+      if (!item.n) continue;
+      const key = item.g + '::' + item.n;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      unique.push(item);
+    }
+
+    const matches = unique
+      .filter(item => normSearch(item.n).includes(q) || normSearch(item.g).includes(q))
+      .slice(0, 10);
+
+    if (!matches.length) {
+      suggestionsBox.innerHTML = '<div class="suggestion-item"><span class="suggestion-title" style="color:var(--text-dim)">Nenhuma receita encontrada</span></div>';
+      suggestionsBox.style.display = 'block';
+      return;
+    }
+
+    suggestionsBox.innerHTML = matches.map(item => `
+      <div class="suggestion-item" data-name="${item.n.replace(/"/g, '&quot;')}" data-group="${item.g.replace(/"/g, '&quot;')}">
+        <span class="suggestion-title">${item.n}</span>
+        <span class="suggestion-group">${item.g}</span>
+      </div>
+    `).join('');
+    
+    suggestionsBox.style.display = 'block';
+
+    suggestionsBox.querySelectorAll('.suggestion-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const name = el.dataset.name;
+        const group = el.dataset.group;
+        
+        suggestionsBox.style.display = 'none';
+        searchInput.value = name;
+
+        if (group && group !== activeGroup) {
+          if (typeof categoryRequestToken !== 'undefined') categoryRequestToken++;
+          const token = typeof categoryRequestToken !== 'undefined' ? categoryRequestToken : 1;
+          activeGroup = group;
+          if (typeof buildSidebar === 'function') buildSidebar();
+          
+          if (window.loadRecipeCategory) {
+            window.loadRecipeCategory(group).then(data => {
+              if (token !== categoryRequestToken) return;
+              if (window.applyRecipeData) window.applyRecipeData(data, group);
+              if (typeof draw === 'function') draw(name);
+              openRecipeItem(name);
+            }).catch(err => {
+              console.error('[Busca] Erro ao carregar grupo:', err);
+            });
+          }
+        } else {
+          if (typeof draw === 'function') draw(name);
+          openRecipeItem(name);
+        }
+      });
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+      suggestionsBox.style.display = 'none';
+    }
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      suggestionsBox.style.display = 'none';
+      if (typeof draw === 'function') draw('');
+    }
+  });
+})();

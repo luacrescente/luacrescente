@@ -1,6 +1,8 @@
 // Lê os eventos "em andamento" direto do site da Pearl Abyss (SA).
-// v4 — Lê APENAS a lista (páginas 1 e 2). Não entra em cada evento.
+// v5 — Lê APENAS a lista (páginas 1 e 2). Não entra em cada evento.
 // Cache: 24h normal; 5 min entre quinta 8h-10h (Brasília).
+// Erro nunca é cacheado (no-store) — evita servir "sem eventos" por 24h
+// depois de um 403/500 passageiro.
 
 const BASE = 'https://www.sa.playblackdesert.com';
 const LIST_URL = (page) =>
@@ -15,6 +17,7 @@ const headers = {
 
 const MAX_PAGES = 5;
 const MAX_EVENTS = 100;
+const FETCH_TIMEOUT_MS = 8000;
 
 function cacheSeconds() {
   const now = new Date();
@@ -26,12 +29,20 @@ function cacheSeconds() {
 }
 
 function json(body, statusCode = 200) {
-  const cc = cacheSeconds();
+  // Erro de verdade (sem eventos e com campo error) nunca entra no cache do CDN.
+  const hasError = !!(body && body.error && (!body.events || body.events.length === 0));
+  let cacheHeader;
+  if (hasError) {
+    cacheHeader = 'no-store';
+  } else {
+    const cc = cacheSeconds();
+    cacheHeader = `public, max-age=${cc}, s-maxage=${cc}, stale-while-revalidate=600`;
+  }
   return {
     statusCode,
     headers: {
       'content-type': 'application/json; charset=utf-8',
-      'cache-control': `public, max-age=${cc}, s-maxage=${cc}, stale-while-revalidate=600`,
+      'cache-control': cacheHeader,
       'access-control-allow-origin': '*'
     },
     body: JSON.stringify(body)
@@ -108,6 +119,10 @@ function parseEventBlock(block) {
   return { id, title, link, thumbnail, isPermanent, daysLeft };
 }
 
+async function fetchWithTimeout(url, opts = {}, ms = FETCH_TIMEOUT_MS) {
+  return fetch(url, { ...opts, signal: AbortSignal.timeout(ms) });
+}
+
 exports.handler = async function () {
   try {
     const allEvents = [];
@@ -117,7 +132,7 @@ exports.handler = async function () {
     for (let page = 1; page <= MAX_PAGES && allEvents.length < MAX_EVENTS; page++) {
       let res;
       try {
-        res = await fetch(LIST_URL(page), { headers });
+        res = await fetchWithTimeout(LIST_URL(page), { headers });
       } catch (_) { break; }
 
       if (!res.ok) {

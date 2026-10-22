@@ -1,0 +1,6 @@
+{
+  "maps": [
+    { "slug": "exemplo", "title": "Mapa Exemplo" },
+    { "slug": "edania-legacy", "title": "Edania — Legacy & Traces" }
+  ]
+}

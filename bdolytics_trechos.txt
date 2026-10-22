@@ -1,0 +1,626 @@
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_3KzQclwi.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/3KzQclwi.js
+======================================================================
+
+[questlog]
+(t.genre)??[];n.push(t),e.set(t.genre,n)}return[...e].map(([e,t])=>({genre:e,games:t}))}function Dy(){let e=Ve().public.questlog?.gameId;if(e===void 0)throw Error(`No questlog gameId is configured for this app.`);return e}function Oy(){let e=ri(Dy(
+
+[questlog]
+[...e].map(([e,t])=>({genre:e,games:t}))}function Dy(){let e=Ve().public.questlog?.gameId;if(e===void 0)throw Error(`No questlog gameId is configured for this app.`);return e}function Oy(){let e=ri(Dy());if(!e)throw Error(`Active questlog game is n
+
+[questlog]
+Error(`No questlog gameId is configured for this app.`);return e}function Oy(){let e=ri(Dy());if(!e)throw Error(`Active questlog game is not in QUESTLOG_GAME_CONFIG.`);let t=new URL(e.appBaseUrl);return{...e,domain:t.host,basePath:t.pathname.replac
+
+[questlog]
+from(new Uint8Array(r)).map(e=>e.toString(16).padStart(2,`0`)).join(``)}var Ay=P(e=>{let t=Ve().public.showAds&&!window.questlogDesktop,n=j(!1);if(t){let e=[];window.nitroAds??={createAd:(t,n)=>new Promise(r=>e.push([`createAd`,[t,n],r])),addUserTo
+
+[questlog]
+==(r===`website`)||(await e.app.open.mutate({path:t.fullPath}),!1)})}}),_b=5,vb=10,yb=P(e=>{let t=[],n=[],r=Ve().public.questlog?.gameId;if(r!==void 0&&ri(r)?.feedback){function r(e,t){let r=e instanceof Error?e.message:String(e??t),i=e instanceof 
+
+[questlog]
+${Math.round(t)}px)`}function Ix(e){let t=Px(Ax.get(e));if(!t){Lx();return}jx||(jx=document.createElement(`div`),jx.id=`questlog-tooltip`,jx.setAttribute(`role`,`tooltip`),jx.className=`questlog-tooltip questlog-tooltip--text`,document.body.append(
+
+[questlog]
+);return}jx||(jx=document.createElement(`div`),jx.id=`questlog-tooltip`,jx.setAttribute(`role`,`tooltip`),jx.className=`questlog-tooltip questlog-tooltip--text`,document.body.append(jx)),t.html?jx.innerHTML=t.text:jx.textContent=t.text,Mx!==e&&(Mx?
+
+[questlog]
+document.createElement(`div`),jx.id=`questlog-tooltip`,jx.setAttribute(`role`,`tooltip`),jx.className=`questlog-tooltip questlog-tooltip--text`,document.body.append(jx)),t.html?jx.innerHTML=t.text:jx.textContent=t.text,Mx!==e&&(Mx?.removeAttribute(
+
+[questlog]
+Builds, Guides, Database and Tools for ${n.name}`,link:[...s.value.link||[]],meta:[...s.value.meta||[]]}),oS([yC({name:`questlog`,url:`https://questlog.gg`}),xC({name:n.domain,url:n.appBaseUrl,description:`${n.domain} is a community-driven wiki and
+
+[questlog]
+e and Tools for ${n.name}`,link:[...s.value.link||[]],meta:[...s.value.meta||[]]}),oS([yC({name:`questlog`,url:`https://questlog.gg`}),xC({name:n.domain,url:n.appBaseUrl,description:`${n.domain} is a community-driven wiki and website for news, tool
+
+[questlog]
+4xl`},DC=[`innerHTML`],OC={class:`z-20 flex gap-3`},kC=ci(R({__name:`error`,props:{error:{}},setup(e){let t=Ve().public.questlog?.discordUrl,n=e,i=St(),a=g(()=>{let e=i.query.error;return e===`OAuthCreateAccount`?{title:`Account creation failed`,de
+
+[fishing]
+8,32,13,14,149,12,22,23,93,139,140,10,11,3,6,56,179,208,15,16,17,18,19,20,76,210,24,25,278]),import.meta.url)}]},{name:`fishing-tracker___en`,path:`/en/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+40,10,11,3,6,56,179,208,15,16,17,18,19,20,76,210,24,25,278]),import.meta.url)}]},{name:`fishing-tracker___en`,path:`/en/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___de`,path:`/de/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___de`,path:`/de/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___fr`,path:`/fr/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___fr`,path:`/fr/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___sp`,path:`/sp/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___sp`,path:`/sp/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___es`,path:`/es/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___es`,path:`/es/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___jp`,path:`/jp/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___jp`,path:`/jp/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___ko`,path:`/ko/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___ko`,path:`/ko/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___pt`,path:`/pt/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___pt`,path:`/pt/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___ru`,path:`/ru/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___ru`,path:`/ru/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___th`,path:`/th/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___th`,path:`/th/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___tr`,path:`/tr/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___tr`,path:`/tr/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___tw`,path:`/tw/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,
+
+[fishing]
+,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___tw`,path:`/tw/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___asia-en`,path:`/asia-en/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5
+
+[fishing]
+,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___asia-en`,path:`/asia-en/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[fishing]
+0,3,6,17,19,20,38,93,249,183,250,87,79,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___gl-en`,path:`/gl-en/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,
+
+[fishing]
+,116,90,156,153,154,25,155,89,92,88,95,157,251,252,282]),import.meta.url)},{name:`fishing-tracker___gl-en`,path:`/gl-en/fishing-tracker`,component:()=>V(()=>import(`./DhvsTX0a.js`),__vite__mapDeps([279,1,5,11,2,7,4,8,13,18,41,14,42,280,115,138,84,
+
+[offset]
+,t);return i.initial=!1,r.runWithContext(()=>Mu(r,e,a))},1),{global:!0})}},1);function Pu(e,t,n){return{line:e,column:t,offset:n}}function Fu(e,t,n){let r={start:e,end:t};return n!=null&&(r.source=n),r}var J={EXPECTED_TOKEN:1,INVALID_TOKEN_IN_PLA
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_7UFEww-9.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/7UFEww-9.js
+======================================================================
+
+[fishing]
+v.world`},{path:`/db/titles/combat`,name:`bd.nav.combat`},{path:`/db/titles/life`,name:`bd.nav.life`},{path:`/db/titles/fishing`,name:`bd.nav.fishing`}]},{path:`/db/achievements`,name:`bd.nav.achievements`,icon:`i-ph:trophy-bold`,image:`img/nav/db
+
+[fishing]
+itles/combat`,name:`bd.nav.combat`},{path:`/db/titles/life`,name:`bd.nav.life`},{path:`/db/titles/fishing`,name:`bd.nav.fishing`}]},{path:`/db/achievements`,name:`bd.nav.achievements`,icon:`i-ph:trophy-bold`,image:`img/nav/db/achievements.webp`,ch
+
+[fishing]
+tracker`,name:`bd.nav.knowledgeTracker`,icon:`i-bd:knowledge`,desc:`bd.nav.desc.knowledgeTracker`,status:`hot`},{path:`/fishing-tracker`,name:`bd.nav.fishingTracker`,icon:`i-ph:fish-bold`,desc:`bd.nav.desc.fishingTracker`},{path:`/skill-builder`,n
+
+[fishing]
+eTracker`,icon:`i-bd:knowledge`,desc:`bd.nav.desc.knowledgeTracker`,status:`hot`},{path:`/fishing-tracker`,name:`bd.nav.fishingTracker`,icon:`i-ph:fish-bold`,desc:`bd.nav.desc.fishingTracker`},{path:`/skill-builder`,name:`bd.skillBuilder`,icon:`i-
+
+[fishing]
+dgeTracker`,status:`hot`},{path:`/fishing-tracker`,name:`bd.nav.fishingTracker`,icon:`i-ph:fish-bold`,desc:`bd.nav.desc.fishingTracker`},{path:`/skill-builder`,name:`bd.skillBuilder`,icon:`i-ph:lightning-bold`,desc:`bd.nav.desc.skillBuilder`},{pat
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_8pTiXM3V.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/8pTiXM3V.js
+======================================================================
+
+[questlog]
+import{h as e}from"#entry";function t(t){let n=e(),r=`https://cdn.questlog.gg`;switch(n.id){case 1:return t?`${r}/blue-protocol${t}.webp`:``;case 2:return t?t.includes(`.`)?`${r}/throne-and-libe
+
+[cdn.questlog]
+import{h as e}from"#entry";function t(t){let n=e(),r=`https://cdn.questlog.gg`;switch(n.id){case 1:return t?`${r}/blue-protocol${t}.webp`:``;case 2:return t?t.includes(`.`)?`${r}/throne-and-libe
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_AAi2wZGD.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/AAi2wZGD.js
+======================================================================
+
+[fishing]
+gMinProfit:g(),processingMaxProfit:g(),huntingMastery:b,customKillsPerHour:_(f(),d()),trainingLevel:b,trainingMastery:b,fishingLevel:b}),S={region:`NA`,valuePackActive:!0,merchantRingActive:!1,familyFameBonus:.005,weight:2400,usedWeight:300,feathe
+
+[fishing]
+ngMinProfit:-5e7,processingMaxProfit:7e7,huntingMastery:1500,customKillsPerHour:{},trainingLevel:40,trainingMastery:1e3,fishingLevel:100};n(),r();var C=Object.keys(S),w={region:`bd.marketRegion`,familyFameBonus:`bd.familyFame`,featheryStepsTier:`b
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_BCWASExi.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/BCWASExi.js
+======================================================================
+
+[questlog]
+subscription`&&e.send(t,{id:o,type:`stop`})}})}return K({links:[i]})}t(),r();var X=new Map;function Z(e=q){let t=window.questlogDesktop;if(t)return X.has(e)||X.set(e,Y(t,e)),X.get(e)}function Q(e,t,n){if(!e)return;let r=e,i=!0,o,s;function c(){o=r.
+
+[questlog]
+retrying`,e),i&&(s=setTimeout(c,1e3))}})}c(),a(()=>{i=!1,clearTimeout(s),o?.unsubscribe()})}function te(){return window.questlogDesktop?.view}var $=new Map;function ne(t,r){let a=$.get(t);if(a)return a;let o=i(r);$.set(t,o);let s=Z();if(!s)return o
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_BQke3LvJ.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/BQke3LvJ.js
+======================================================================
+
+[offset]
+ue=Math.max(.6,1-e*.4)}},onSwipeEnd:(e,t)=>{if(!a.value||!p){_();return}if(t===s){let e=m?h.value:g.value,t=(m?n.value?.offsetWidth||300:n.value?.offsetHeight||600)*c;Math.abs(e)>t&&o()}_()}});function _(){u.value=1,d.value=0,f.value=!1}return e(
+
+[offset]
+nSwipeEnd:(e,t)=>{if(!a.value||!p){_();return}if(t===s){let e=m?h.value:g.value,t=(m?n.value?.offsetWidth||300:n.value?.offsetHeight||600)*c;Math.abs(e)>t&&o()}_()}});function _(){u.value=1,d.value=0,f.value=!1}return e(a,e=>{e||_()}),{swipeOpaci
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_BgHpZrhO.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/BgHpZrhO.js
+======================================================================
+
+[questlog]
+l-scale=1`},{charset:`utf-8`},{name:`darkreader-lock`,content:`1`}],link:[{rel:`icon`,type:`image/x-icon`,href:`https://questlog.gg/favicon.ico`}],style:[],script:[],noscript:[]},Gd={id:`__nuxt-loader`},Kd={componentName:`NuxtLink`,prefetch:!0,pref
+
+[offset]
+erHeight,markerUnits,markerWidth,mask,maskContentUnits,maskUnits,mathematical,max,media,method,min,mode,name,numOctaves,offset,opacity,operator,order,orient,orientation,origin,overflow,overline-position,overline-thickness,panose-1,paint-order,pat
+
+[offset]
+hTiles,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,string,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,style,surfaceScale,systemLanguage,tabindex
+
+[offset]
+multiplier,selection,separator,separators,shift,side,src,stackalign,stretchy,subscriptshift,superscriptshift,symmetric,voffset,width,widths,xlink:href,xlink:show,xlink:type,xmlns`),bt=/["'&<>]/,xt=/^(?:-?>)+|<!--|-->|--!>|<!-$/g,St=/[ !"#$%&'()*+
+
+[offset]
+){return e===`auto`?0:Number(e.slice(0,-1).replace(`,`,`.`))*1e3}function bl(e){return(e?e.ownerDocument:document).body.offsetHeight}function xl(e,t,n){let r=e[bu];r&&(t=(t?[t,...r]:[...r]).join(` `)),t==null?e.removeAttribute(`class`):n?e.setAtt
+
+[offset]
+e),n=Xu.get(e),r=t.left-n.left,i=t.top-n.top;if(r||i){let t=e.el,n=t.style,a=t.getBoundingClientRect(),o=1,s=1;return t.offsetWidth&&(o=a.width/t.offsetWidth),t.offsetHeight&&(s=a.height/t.offsetHeight),(!Number.isFinite(o)||o===0)&&(o=1),(!Numbe
+
+[offset]
+left,i=t.top-n.top;if(r||i){let t=e.el,n=t.style,a=t.getBoundingClientRect(),o=1,s=1;return t.offsetWidth&&(o=a.width/t.offsetWidth),t.offsetHeight&&(s=a.height/t.offsetHeight),(!Number.isFinite(o)||o===0)&&(o=1),(!Number.isFinite(s)||s===0)&&(s=
+
+[offset]
+top;if(r||i){let t=e.el,n=t.style,a=t.getBoundingClientRect(),o=1,s=1;return t.offsetWidth&&(o=a.width/t.offsetWidth),t.offsetHeight&&(s=a.height/t.offsetHeight),(!Number.isFinite(o)||o===0)&&(o=1),(!Number.isFinite(s)||s===0)&&(s=1),Math.abs(o-1
+
+[offset]
+style,a=t.getBoundingClientRect(),o=1,s=1;return t.offsetWidth&&(o=a.width/t.offsetWidth),t.offsetHeight&&(s=a.height/t.offsetHeight),(!Number.isFinite(o)||o===0)&&(o=1),(!Number.isFinite(s)||s===0)&&(s=1),Math.abs(o-1)<.01&&(o=1),Math.abs(s-1)<.
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_C39VpJkS.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/C39VpJkS.js
+======================================================================
+
+[questlog]
+el?`${e}?level=${a.level}`:e}),x=r(()=>a.id&&a.dbType);return n(()=>a.level,e=>{document.dispatchEvent(new CustomEvent(`questlog-tooltip-level-change`,{detail:e}))}),(n,r)=>{let i=_,u=h;return d(),s(u,{"data-tooltip-link":``,class:p([`flex min-w-0 
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_CDe1I7LS.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/CDe1I7LS.js
+======================================================================
+
+[offset]
+d(?:\\.\\d+)?`:`${t}(?::[0-5]\\d(?:\\.\\d+)?)?`}function Bt(e){return RegExp(`^${zt(e)}$`)}function Vt(e){let t=[`Z`];e.offset&&t.push(`([+-](?:[01]\\d|2[0-3]):[0-5]\\d)`);let n=`${zt({precision:e.precision,seconds:!0})}(?:${t.join(`|`)})`,r=e.lo
+
+[offset]
+`string_format`,abort:!1,...b(t)})}function Ii(e,t){return new e({type:`string`,format:`datetime`,check:`string_format`,offset:!1,local:!1,precision:null,...b(t)})}function Li(e,t){return new e({type:`string`,format:`date`,check:`string_format`,.
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_CurFbkbG.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/CurFbkbG.js
+======================================================================
+
+[offset]
+esBetween?` (looks like multiple versions of prosemirror-model were loaded)`:``))}};M.empty=new M([],0);var te={index:0,offset:0};function ne(e,t){return te.index=e,te.offset=t,te}function re(e,t){if(e===t)return!0;if(!(e&&typeof e==`object`)||!(
+
+[offset]
+semirror-model were loaded)`:``))}};M.empty=new M([],0);var te={index:0,offset:0};function ne(e,t){return te.index=e,te.offset=t,te}function re(e,t){if(e===t)return!0;if(!(e&&typeof e==`object`)||!(t&&typeof t==`object`))return!1;let n=Array.isAr
+
+[offset]
+.type.spec.isolating);e=e.lastChild)i++;return new e(t,r,i)}};P.empty=new P(M.empty,0,0);function ae(e,t,n){let{index:r,offset:i}=e.findIndex(t),a=e.maybeChild(r),{index:o,offset:s}=e.findIndex(n);if(i==t||a.isText){if(s!=n&&!e.child(o).isText)th
+
+[offset]
+(t,r,i)}};P.empty=new P(M.empty,0,0);function ae(e,t,n){let{index:r,offset:i}=e.findIndex(t),a=e.maybeChild(r),{index:o,offset:s}=e.findIndex(n);if(i==t||a.isText){if(s!=n&&!e.child(o).isText)throw RangeError(`Removing non-flat range`);return e.c
+
+[offset]
+moving non-flat range`);return e.replaceChild(r,a.copy(ae(a.content,t-i-1,n-i-1)))}function oe(e,t,n,r,i,a){let{index:o,offset:s}=e.findIndex(t),c=e.maybeChild(o);if(s==t||c.isText)return a&&r<=0&&i<=0&&!a.canReplace(o,o,n)?null:e.cut(0,t).append
+
+[offset]
+(!(n>=0&&n<=t.content.size))throw RangeError(`Position `+n+` out of range`);let r=[],i=0,a=n;for(let e=t;;){let{index:t,offset:n}=e.content.findIndex(a),o=a-n;if(r.push(e,t,i+n),!o||(e=e.child(t),e.isText))break;a=o-1,i+=n+1}return new e(n,r,a)}s
+
+[offset]
+.depth-a,i.depth-a)}replace(e,t,n){return se(this.resolve(e),this.resolve(t),n)}nodeAt(e){for(let t=this;;){let{index:n,offset:r}=t.content.findIndex(e);if(t=t.maybeChild(n),!t)return null;if(r==e||t.isText)return t;e-=r+1}}childAfter(e){let{inde
+
+[offset]
+t.content.findIndex(e);if(t=t.maybeChild(n),!t)return null;if(r==e||t.isText)return t;e-=r+1}}childAfter(e){let{index:t,offset:n}=this.content.findIndex(e);return{node:this.content.maybeChild(t),index:t,offset:n}}childBefore(e){if(e==0)return{nod
+
+[offset]
+ t;e-=r+1}}childAfter(e){let{index:t,offset:n}=this.content.findIndex(e);return{node:this.content.maybeChild(t),index:t,offset:n}}childBefore(e){if(e==0)return{node:null,index:0,offset:0};let{index:t,offset:n}=this.content.findIndex(e);if(n<e)ret
+
+[offset]
+t.findIndex(e);return{node:this.content.maybeChild(t),index:t,offset:n}}childBefore(e){if(e==0)return{node:null,index:0,offset:0};let{index:t,offset:n}=this.content.findIndex(e);if(n<e)return{node:this.content.child(t),index:t,offset:n};let r=thi
+
+[offset]
+node:this.content.maybeChild(t),index:t,offset:n}}childBefore(e){if(e==0)return{node:null,index:0,offset:0};let{index:t,offset:n}=this.content.findIndex(e);if(n<e)return{node:this.content.child(t),index:t,offset:n};let r=this.content.child(t-1);r
+
+[offset]
+null,index:0,offset:0};let{index:t,offset:n}=this.content.findIndex(e);if(n<e)return{node:this.content.child(t),index:t,offset:n};let r=this.content.child(t-1);return{node:r,index:t-1,offset:n-r.nodeSize}}resolve(e){return _e.resolveCached(this,e
+
+[offset]
+dex(e);if(n<e)return{node:this.content.child(t),index:t,offset:n};let r=this.content.child(t-1);return{node:r,index:t-1,offset:n-r.nodeSize}}resolve(e){return _e.resolveCached(this,e)}resolveNoCache(e){return _e.resolve(this,e)}rangeHasMark(e,t,n
+
+[offset]
+ize;t&&e++}return e}findAtPoint(e,t){if(this.find)for(let n=0;n<this.find.length;n++)this.find[n].node==e&&this.find[n].offset==t&&(this.find[n].pos=this.currentPos)}findInside(e){if(this.find)for(let t=0;t<this.find.length;t++)this.find[t].pos==
+
+[offset]
+let t=0;t<this.find.length;t++)this.find[t].node==e&&(this.find[t].pos=this.currentPos-(e.nodeValue.length-this.find[t].offset))}matchesContext(e){if(e.indexOf(`|`)>-1)return e.split(/\s*\|\s*/).some(this.matchesContext,this);let t=e.split(`/`),n
+
+[offset]
+t(){return new e(this.ranges,!this.inverted)}toString(){return(this.inverted?`-`:``)+JSON.stringify(this.ranges)}static offset(t){return t==0?e.empty:new e(t<0?[0,-t,0]:[0,0,t])}};Ot.empty=new Ot([]);var kt=class e{constructor(e,t,n=0,r=e?e.lengt
+
+[offset]
+ment;return t}function gr(e,t,n){if(e.caretPositionFromPoint)try{let r=e.caretPositionFromPoint(t,n);if(r)return{node:r.offsetNode,offset:Math.min(H(r.offsetNode),r.offset)}}catch{}if(e.caretRangeFromPoint){let r=e.caretRangeFromPoint(t,n);if(r)r
+
+[offset]
+ t}function gr(e,t,n){if(e.caretPositionFromPoint)try{let r=e.caretPositionFromPoint(t,n);if(r)return{node:r.offsetNode,offset:Math.min(H(r.offsetNode),r.offset)}}catch{}if(e.caretRangeFromPoint){let r=e.caretRangeFromPoint(t,n);if(r)return{node:
+
+[offset]
+){if(e.caretPositionFromPoint)try{let r=e.caretPositionFromPoint(t,n);if(r)return{node:r.offsetNode,offset:Math.min(H(r.offsetNode),r.offset)}}catch{}if(e.caretRangeFromPoint){let r=e.caretRangeFromPoint(t,n);if(r)return{node:r.startContainer,off
+
+[offset]
+sitionFromPoint)try{let r=e.caretPositionFromPoint(t,n);if(r)return{node:r.offsetNode,offset:Math.min(H(r.offsetNode),r.offset)}}catch{}if(e.caretRangeFromPoint){let r=e.caretRangeFromPoint(t,n);if(r)return{node:r.startContainer,offset:Math.min(H
+
+[offset]
+setNode),r.offset)}}catch{}if(e.caretRangeFromPoint){let r=e.caretRangeFromPoint(t,n);if(r)return{node:r.startContainer,offset:Math.min(H(r.startContainer),r.startOffset)}}}var _r=typeof navigator<`u`?navigator:null,vr=typeof document<`u`?documen
+
+[offset]
+entHeight}}function Fr(e,t){return typeof e==`number`?e:e[t]}function Ir(e){let t=e.getBoundingClientRect(),n=t.width/e.offsetWidth||1,r=t.height/e.offsetHeight||1;return{left:t.left,right:t.left+e.clientWidth*n,top:t.top,bottom:t.top+e.clientHei
+
+[offset]
+return typeof e==`number`?e:e[t]}function Ir(e){let t=e.getBoundingClientRect(),n=t.width/e.offsetWidth||1,r=t.height/e.offsetHeight||1;return{left:t.left,right:t.left+e.clientWidth*n,top:t.top,bottom:t.top+e.clientHeight*r}}function Lr(e,t,n){if
+
+[offset]
+,bottom:t.bottom-i}}}let l=e?`fixed`:getComputedStyle(o).position;if(/^(fixed|sticky)$/.test(l))break;o=l==`absolute`?o.offsetParent:tr(o)}}function Rr(e){let t=e.dom.getBoundingClientRect(),n=Math.max(0,t.top),r,i;for(let a=(t.left+t.right)/2,o=
+
+[offset]
+ight&&t.top>=p.top||t.left>=p.left&&t.top>=p.bottom)&&(a=d+1)}}return!n&&c&&(n=c,i=l,r=0),n&&W(n)?Gr(n,i):!n||r?{node:e,offset:a}:Wr(n,i)}function Gr(e,t){let n=e.nodeValue.length,r=document.createRange(),i;for(let a=0;a<n;a++){r.setEnd(e,a+1),r.
+
+[offset]
+eateRange(),i;for(let a=0;a<n;a++){r.setEnd(e,a+1),r.setStart(e,a);let n=$r(r,1);if(n.top!=n.bottom&&Kr(t,n)){i={node:e,offset:a+ +(t.left>=(n.left+n.right)/2)};break}}return r.detach(),i||{node:e,offset:0}}function Kr(e,t){return e.left>=t.left-
+
+[offset]
+,1);if(n.top!=n.bottom&&Kr(t,n)){i={node:e,offset:a+ +(t.left>=(n.left+n.right)/2)};break}}return r.detach(),i||{node:e,offset:0}}function Kr(e,t){return e.left>=t.left-1&&e.left<=t.right+1&&e.top>=t.top-1&&e.top<=t.bottom+1}function qr(e,t){let 
+
+[offset]
+.parentNode;return n&&/^li$/i.test(n.nodeName)&&t.left<e.getBoundingClientRect().left?n:e}function Jr(e,t,n){let{node:r,offset:i}=Wr(t,n),a=-1;if(U(r)&&!r.firstChild){let e=r.getBoundingClientRect();a=e.left!=e.right&&n.left>(e.left+e.right)/2?1:
+
+[offset]
+,i)}}if((a=(a+1)%r)==i)break}return e}function Zr(e,t){let n=e.dom.ownerDocument,r,i=0,a=gr(n,t.left,t.top);a&&({node:r,offset:i}=a);let o=(e.root.elementFromPoint?e.root:n).elementFromPoint(t.left,t.top),s;if(!o||!e.dom.contains(o)){let n=e.dom.
+
+[offset]
+.call(n,Qr)||e.getBoundingClientRect()}var ei=/[\u0590-\u05f4\u0600-\u06ff\u0700-\u08ac]/;function ti(e,t,n){let{node:r,offset:i,atom:a}=e.docView.domFromPos(t,n<0?-1:1),o=Mr||Tr;if(W(r)){if(o&&(ei.test(r.nodeValue)||(n<0?!i:i==r.nodeValue.length
+
+[offset]
+{r=t;break}}return r}if(e<i)return r.descAt(e-n-r.border);n=i}}domFromPos(e,t){if(!this.contentDOM)return{node:this.dom,offset:0,atom:e+1};let n=0,r=0;for(let t=0;n<this.children.length;n++){let i=this.children[n],a=t+i.size;if(a>e){r=e-t;break}t
+
+[offset]
+arentNode!=this.contentDOM;n--,r=!1);return e&&t&&r&&!e.border&&!e.domAtom?e.domFromPos(e.size,t):{node:this.contentDOM,offset:e?V(e.dom)+1:0}}{let e,r=!0;for(;e=n<this.children.length?this.children[n]:null,e&&e.dom.parentNode!=this.contentDOM;n+
+
+[offset]
+&e.dom.parentNode!=this.contentDOM;n++,r=!1);return e&&r&&!e.border&&!e.domAtom?e.domFromPos(0,t):{node:this.contentDOM,offset:e?V(e.dom):this.contentDOM.childNodes.length}}}parseRange(e,t,n=0){if(this.children.length==0)return{node:this.contentD
+
+[offset]
+eturn!1;let t=this.children[e<0?0:this.children.length-1];return t.size==0||t.emptyChildAt(e)}domAfterPos(e){let{node:t,offset:n}=this.domFromPos(e,0);if(!U(t)||n==t.childNodes.length)throw RangeError(`No node after pos `+e);return t.childNodes[n
+
+[offset]
+1),s=t==e?o:this.domFromPos(t,t?-1:1),c=n.root.getSelection(),l=n.domSelectionRange(),u=!1;if((Tr||K)&&e==t){let{node:e,offset:t}=o;if(W(e)){if(u=!!(t&&e.nodeValue[t-1]==` `),u&&t==e.nodeValue.length)for(let t=e,n;t;t=t.parentNode){if(n=t.nextSib
+
+[offset]
+,u&&t==e.nodeValue.length)for(let t=e,n;t;t=t.parentNode){if(n=t.nextSibling){n.nodeName==`BR`&&(o=s={node:n.parentNode,offset:V(n)+1});break}let e=t.pmViewDesc;if(e&&e.node&&e.node.isBlock)break}}else{let n=e.childNodes[t-1];u=n&&(n.nodeName==`B
+
+[offset]
+ocusNode)){let e=l.focusNode.childNodes[l.focusOffset];e&&e.contentEditable==`false`&&(r=!0)}if(!(r||u&&K)&&ar(o.node,o.offset,l.anchorNode,l.anchorOffset)&&ar(s.node,s.offset,l.focusNode,l.focusOffset))return;let d=!1;if((c.extend||e==t)&&!(u&&T
+
+[offset]
+fset];e&&e.contentEditable==`false`&&(r=!0)}if(!(r||u&&K)&&ar(o.node,o.offset,l.anchorNode,l.anchorOffset)&&ar(s.node,s.offset,l.focusNode,l.focusOffset))return;let d=!1;if((c.extend||e==t)&&!(u&&Tr)){c.collapse(o.node,o.offset);try{e!=t&&c.exten
+
+[offset]
+fset)&&ar(s.node,s.offset,l.focusNode,l.focusOffset))return;let d=!1;if((c.extend||e==t)&&!(u&&Tr)){c.collapse(o.node,o.offset);try{e!=t&&c.extend(s.node,s.offset),d=!0}catch{}}if(!d){if(e>t){let e=o;o=s,s=e}let n=document.createRange();n.setEnd(
+
+[offset]
+e,l.focusOffset))return;let d=!1;if((c.extend||e==t)&&!(u&&Tr)){c.collapse(o.node,o.offset);try{e!=t&&c.extend(s.node,s.offset),d=!0}catch{}}if(!d){if(e>t){let e=o;o=s,s=e}let n=document.createRange();n.setEnd(s.node,s.offset),n.setStart(o.node,o
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_CxdwFpos.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/CxdwFpos.js
+======================================================================
+
+[questlog]
+:{id:{},dbType:{},level:{},locale:{}},setup(n){let a=n;return t(()=>a.level,e=>{document.dispatchEvent(new CustomEvent(`questlog-tooltip-level-change`,{detail:e}))}),(t,n)=>(i(),e(`div`,{"data-questlog-tooltip-trigger":``,"data-id":a.id,"data-local
+
+[questlog]
+el,e=>{document.dispatchEvent(new CustomEvent(`questlog-tooltip-level-change`,{detail:e}))}),(t,n)=>(i(),e(`div`,{"data-questlog-tooltip-trigger":``,"data-id":a.id,"data-locale":a.locale,"data-db-type":a.dbType,"data-level":a.level},[r(t.$slots,`de
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_DfUMVGN1.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/DfUMVGN1.js
+======================================================================
+
+[questlog]
+var e={1:{slug:`blue-protocol`,shorthand:`bp`,name:`Blue Protocol: Star Resonance`,appBaseUrl:`https://questlog.gg/blue-protocol`,thumbnail:`https://cdn.questlog.gg/core/games/blue-protocol.webp`,background:`https://cdn.questlog.gg
+
+[questlog]
+orthand:`bp`,name:`Blue Protocol: Star Resonance`,appBaseUrl:`https://questlog.gg/blue-protocol`,thumbnail:`https://cdn.questlog.gg/core/games/blue-protocol.webp`,background:`https://cdn.questlog.gg/core/games/blue-protocol_background.webp`,logo:`h
+
+[questlog]
+://questlog.gg/blue-protocol`,thumbnail:`https://cdn.questlog.gg/core/games/blue-protocol.webp`,background:`https://cdn.questlog.gg/core/games/blue-protocol_background.webp`,logo:`https://cdn.questlog.gg/core/games/blue-protocol_logo.webp`,characte
+
+[questlog]
+mes/blue-protocol.webp`,background:`https://cdn.questlog.gg/core/games/blue-protocol_background.webp`,logo:`https://cdn.questlog.gg/core/games/blue-protocol_logo.webp`,character:`https://cdn.questlog.gg/core/games/blue-protocol_character.webp`,icon
+
+[questlog]
+blue-protocol_background.webp`,logo:`https://cdn.questlog.gg/core/games/blue-protocol_logo.webp`,character:`https://cdn.questlog.gg/core/games/blue-protocol_character.webp`,icon:`https://cdn.questlog.gg/core/games/blue-protocol_icon.webp`,publisher
+
+[questlog]
+/blue-protocol_logo.webp`,character:`https://cdn.questlog.gg/core/games/blue-protocol_character.webp`,icon:`https://cdn.questlog.gg/core/games/blue-protocol_icon.webp`,publisher:`BANDAI NAMCO`,id:1,order:1,genre:`mmorpg`,tagline:`Maps, Talent Build
+
+[questlog]
+l`}],backgroundImageCount:24},2:{slug:`throne-and-liberty`,shorthand:`tl`,name:`Throne and Liberty`,appBaseUrl:`https://questlog.gg/throne-and-liberty`,thumbnail:`https://cdn.questlog.gg/core/games/throne-and-liberty.webp`,background:`https://cdn.q
+
+[questlog]
+ty`,shorthand:`tl`,name:`Throne and Liberty`,appBaseUrl:`https://questlog.gg/throne-and-liberty`,thumbnail:`https://cdn.questlog.gg/core/games/throne-and-liberty.webp`,background:`https://cdn.questlog.gg/core/games/throne-and-liberty_background.web
+
+[questlog]
+g.gg/throne-and-liberty`,thumbnail:`https://cdn.questlog.gg/core/games/throne-and-liberty.webp`,background:`https://cdn.questlog.gg/core/games/throne-and-liberty_background.webp`,logo:`https://cdn.questlog.gg/core/games/throne-and-liberty_logo.webp
+
+[questlog]
+-and-liberty.webp`,background:`https://cdn.questlog.gg/core/games/throne-and-liberty_background.webp`,logo:`https://cdn.questlog.gg/core/games/throne-and-liberty_logo.webp`,character:`https://cdn.questlog.gg/core/games/throne-and-liberty_character.
+
+[questlog]
+-liberty_background.webp`,logo:`https://cdn.questlog.gg/core/games/throne-and-liberty_logo.webp`,character:`https://cdn.questlog.gg/core/games/throne-and-liberty_character.webp`,icon:`https://cdn.questlog.gg/core/games/throne-and-liberty_icon.webp`
+
+[questlog]
+d-liberty_logo.webp`,character:`https://cdn.questlog.gg/core/games/throne-and-liberty_character.webp`,icon:`https://cdn.questlog.gg/core/games/throne-and-liberty_icon.webp`,publisher:`NCSOFT`,id:2,order:2,genre:`mmorpg`,badge:`hot`,tagline:`Maps, C
+
+[questlog]
+avel-bold`}],backgroundImageCount:44},3:{slug:`crimson-desert`,shorthand:`cd`,name:`Crimson Desert`,appBaseUrl:`https://questlog.gg/crimson-desert`,thumbnail:`https://cdn.questlog.gg/core/games/crimson-desert.webp`,background:`https://cdn.questlog.
+
+[questlog]
+son-desert`,shorthand:`cd`,name:`Crimson Desert`,appBaseUrl:`https://questlog.gg/crimson-desert`,thumbnail:`https://cdn.questlog.gg/core/games/crimson-desert.webp`,background:`https://cdn.questlog.gg/core/games/crimson-desert_background.webp`,logo:
+
+[questlog]
+/questlog.gg/crimson-desert`,thumbnail:`https://cdn.questlog.gg/core/games/crimson-desert.webp`,background:`https://cdn.questlog.gg/core/games/crimson-desert_background.webp`,logo:`https://cdn.questlog.gg/core/games/crimson-desert_logo.webp`,charac
+
+[questlog]
+s/crimson-desert.webp`,background:`https://cdn.questlog.gg/core/games/crimson-desert_background.webp`,logo:`https://cdn.questlog.gg/core/games/crimson-desert_logo.webp`,character:`https://cdn.questlog.gg/core/games/crimson-desert_character.webp`,ic
+
+[questlog]
+imson-desert_background.webp`,logo:`https://cdn.questlog.gg/core/games/crimson-desert_logo.webp`,character:`https://cdn.questlog.gg/core/games/crimson-desert_character.webp`,icon:`https://cdn.questlog.gg/core/games/crimson-desert_icon.webp`,publish
+
+[questlog]
+rimson-desert_logo.webp`,character:`https://cdn.questlog.gg/core/games/crimson-desert_character.webp`,icon:`https://cdn.questlog.gg/core/games/crimson-desert_icon.webp`,publisher:`Pearl Abyss`,id:3,order:5,genre:`rpg`,tagline:`Maps, Gear Viewer, Ch
+
+[questlog]
+,icon:`i-ph:map-trifold-fill`}],backgroundImageCount:1},4:{slug:`dokev`,shorthand:`dv`,name:`DokeV`,appBaseUrl:`https://questlog.gg/dokev`,thumbnail:`https://cdn.questlog.gg/core/games/dokev.webp`,logo:`https://cdn.questlog.gg/core/games/dokev_logo
+
+[questlog]
+ImageCount:1},4:{slug:`dokev`,shorthand:`dv`,name:`DokeV`,appBaseUrl:`https://questlog.gg/dokev`,thumbnail:`https://cdn.questlog.gg/core/games/dokev.webp`,logo:`https://cdn.questlog.gg/core/games/dokev_logo.webp`,character:`https://cdn.questlog.gg/
+
+[questlog]
+keV`,appBaseUrl:`https://questlog.gg/dokev`,thumbnail:`https://cdn.questlog.gg/core/games/dokev.webp`,logo:`https://cdn.questlog.gg/core/games/dokev_logo.webp`,character:`https://cdn.questlog.gg/core/games/dokev_character.webp`,icon:`https://cdn.qu
+
+[questlog]
+cdn.questlog.gg/core/games/dokev.webp`,logo:`https://cdn.questlog.gg/core/games/dokev_logo.webp`,character:`https://cdn.questlog.gg/core/games/dokev_character.webp`,icon:`https://cdn.questlog.gg/core/games/dokev_icon.webp`,publisher:`Pearl Abyss`,i
+
+[questlog]
+og.gg/core/games/dokev_logo.webp`,character:`https://cdn.questlog.gg/core/games/dokev_character.webp`,icon:`https://cdn.questlog.gg/core/games/dokev_icon.webp`,publisher:`Pearl Abyss`,id:4,hidden:!0,order:99,genre:`rpg`,tagline:`News, Patch Notes a
+
+[questlog]
+paper-bold`}],backgroundImageCount:0},5:{slug:`chrono-odyssey`,shorthand:`co`,name:`Chrono Odyssey`,appBaseUrl:`https://questlog.gg/chrono-odyssey`,thumbnail:`https://cdn.questlog.gg/core/games/chrono-odyssey.webp`,background:`https://cdn.questlog.
+
+[questlog]
+no-odyssey`,shorthand:`co`,name:`Chrono Odyssey`,appBaseUrl:`https://questlog.gg/chrono-odyssey`,thumbnail:`https://cdn.questlog.gg/core/games/chrono-odyssey.webp`,background:`https://cdn.questlog.gg/core/games/chrono-odyssey_background.webp`,logo:
+
+[questlog]
+/questlog.gg/chrono-odyssey`,thumbnail:`https://cdn.questlog.gg/core/games/chrono-odyssey.webp`,background:`https://cdn.questlog.gg/core/games/chrono-odyssey_background.webp`,logo:`https://cdn.questlog.gg/core/games/chrono-odyssey_logo.webp`,charac
+
+[questlog]
+s/chrono-odyssey.webp`,background:`https://cdn.questlog.gg/core/games/chrono-odyssey_background.webp`,logo:`https://cdn.questlog.gg/core/games/chrono-odyssey_logo.webp`,character:`https://cdn.questlog.gg/core/games/chrono-odyssey_character.webp`,ic
+
+[questlog]
+rono-odyssey_background.webp`,logo:`https://cdn.questlog.gg/core/games/chrono-odyssey_logo.webp`,character:`https://cdn.questlog.gg/core/games/chrono-odyssey_character.webp`,icon:`https://cdn.questlog.gg/core/games/chrono-odyssey_icon.webp`,publish
+
+[questlog]
+hrono-odyssey_logo.webp`,character:`https://cdn.questlog.gg/core/games/chrono-odyssey_character.webp`,icon:`https://cdn.questlog.gg/core/games/chrono-odyssey_icon.webp`,publisher:`Kakao Games`,id:5,order:8,genre:`mmorpg`,tagline:`Maps, Item Databas
+
+[questlog]
+}],backgroundImageCount:43},6:{slug:`archeage-chronicles`,shorthand:`ac`,name:`ArcheAge Chronicles`,appBaseUrl:`https://questlog.gg/archeage-chronicles`,thumbnail:`https://cdn.questlog.gg/core/games/archeage-chronicles.webp`,background:`https://cdn
+
+[questlog]
+`,shorthand:`ac`,name:`ArcheAge Chronicles`,appBaseUrl:`https://questlog.gg/archeage-chronicles`,thumbnail:`https://cdn.questlog.gg/core/games/archeage-chronicles.webp`,background:`https://cdn.questlog.gg/core/games/archeage-chronicles_background.w
+
+[questlog]
+gg/archeage-chronicles`,thumbnail:`https://cdn.questlog.gg/core/games/archeage-chronicles.webp`,background:`https://cdn.questlog.gg/core/games/archeage-chronicles_background.webp`,logo:`https://cdn.questlog.gg/core/games/archeage-chronicles_logo.we
+
+[questlog]
+-chronicles.webp`,background:`https://cdn.questlog.gg/core/games/archeage-chronicles_background.webp`,logo:`https://cdn.questlog.gg/core/games/archeage-chronicles_logo.webp`,character:`https://cdn.questlog.gg/core/games/archeage-chronicles_characte
+
+[questlog]
+onicles_background.webp`,logo:`https://cdn.questlog.gg/core/games/archeage-chronicles_logo.webp`,character:`https://cdn.questlog.gg/core/games/archeage-chronicles_character.webp`,icon:`https://cdn.questlog.gg/core/games/archeage-chronicles_icon.web
+
+[questlog]
+ronicles_logo.webp`,character:`https://cdn.questlog.gg/core/games/archeage-chronicles_character.webp`,icon:`https://cdn.questlog.gg/core/games/archeage-chronicles_icon.webp`,publisher:`XLGAMES`,id:6,order:12,genre:`mmorpg`,badge:`new`,tagline:`Inte
+
+[questlog]
+paper-bold`}],backgroundImageCount:7},7:{slug:`dune-awakening`,shorthand:`da`,name:`Dune Awakening`,appBaseUrl:`https://questlog.gg/dune-awakening`,thumbnail:`https://cdn.questlog.gg/core/games/dune-awakening.webp`,background:`https://cdn.questlog.
+
+[questlog]
+-awakening`,shorthand:`da`,name:`Dune Awakening`,appBaseUrl:`https://questlog.gg/dune-awakening`,thumbnail:`https://cdn.questlog.gg/core/games/dune-awakening.webp`,background:`https://cdn.questlog.gg/core/games/dune-awakening_background.webp`,logo:
+
+[questlog]
+/questlog.gg/dune-awakening`,thumbnail:`https://cdn.questlog.gg/core/games/dune-awakening.webp`,background:`https://cdn.questlog.gg/core/games/dune-awakening_background.webp`,logo:`https://cdn.questlog.gg/core/games/dune-awakening_logo.webp`,charac
+
+[questlog]
+s/dune-awakening.webp`,background:`https://cdn.questlog.gg/core/games/dune-awakening_background.webp`,logo:`https://cdn.questlog.gg/core/games/dune-awakening_logo.webp`,character:`https://cdn.questlog.gg/core/games/dune-awakening_character.webp`,ic
+
+[questlog]
+ne-awakening_background.webp`,logo:`https://cdn.questlog.gg/core/games/dune-awakening_logo.webp`,character:`https://cdn.questlog.gg/core/games/dune-awakening_character.webp`,icon:`https://cdn.questlog.gg/core/games/dune-awakening_icon.webp`,publish
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_S5MOVWfF.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/S5MOVWfF.js
+======================================================================
+
+[offset]
+ce((e,{blockSize:t})=>e+t,0)}else c.value=t.contentRect.width,l.value=t.contentRect.height},r);V(()=>{let n=G(e);if(n&&`offsetWidth`in n){if(o===`content-box`&&i){let e=i.getComputedStyle(n),t=Number.parseFloat(e.paddingLeft)+Number.parseFloat(e.
+
+[offset]
+r.parseFloat(e.borderRightWidth),o=Number.parseFloat(e.borderTopWidth)+Number.parseFloat(e.borderBottomWidth);c.value=n.offsetWidth-t-a,l.value=n.offsetHeight-r-o}else c.value=n.offsetWidth,l.value=n.offsetHeight}else n&&(c.value=t.width,l.value=
+
+[offset]
+Width),o=Number.parseFloat(e.borderTopWidth)+Number.parseFloat(e.borderBottomWidth);c.value=n.offsetWidth-t-a,l.value=n.offsetHeight-r-o}else c.value=n.offsetWidth,l.value=n.offsetHeight}else n&&(c.value=t.width,l.value=t.height)});let d=n(()=>G(
+
+[offset]
+derTopWidth)+Number.parseFloat(e.borderBottomWidth);c.value=n.offsetWidth-t-a,l.value=n.offsetHeight-r-o}else c.value=n.offsetWidth,l.value=n.offsetHeight}else n&&(c.value=t.width,l.value=t.height)});let d=n(()=>G(e),e=>{c.value=e?t.width:0,l.val
+
+[offset]
+rseFloat(e.borderBottomWidth);c.value=n.offsetWidth-t-a,l.value=n.offsetHeight-r-o}else c.value=n.offsetWidth,l.value=n.offsetHeight}else n&&(c.value=t.width,l.value=t.height)});let d=n(()=>G(e),e=>{c.value=e?t.width:0,l.value=e?t.height:0});func
+
+[offset]
+reset:f,stop:h,start:m,isPending:l(u)}}var ht=1;function gt(e,t={}){let{throttle:n=0,idle:r=200,onStop:o=P,onScroll:s=P,offset:c={left:0,right:0,top:0,bottom:0},observe:l={mutation:!1},eventListenerOptions:u={capture:!1,passive:!0},behavior:d=`au
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_Y8u2ua8M.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/Y8u2ua8M.js
+======================================================================
+
+[questlog]
+n c(e){if(`ontouchstart`in document.documentElement&&navigator.userAgent.toLocaleLowerCase().includes(`mobi`))return;o(`questlog:embed:db:tooltip:request-mouse-move`,{x:e.clientX,y:e.clientY});let t=e.target?.closest(`a`);if(!t?.href){o(`questlog:e
+
+[questlog]
+(`questlog:embed:db:tooltip:request-mouse-move`,{x:e.clientX,y:e.clientY});let t=e.target?.closest(`a`);if(!t?.href){o(`questlog:embed:db:tooltip:request-destroy`);return}let r;try{r=new URL(t.href,window.location.origin)}catch{o(`questlog:embed:db
+
+[questlog]
+href){o(`questlog:embed:db:tooltip:request-destroy`);return}let r;try{r=new URL(t.href,window.location.origin)}catch{o(`questlog:embed:db:tooltip:request-destroy`);return}let i=r.origin===window.location.origin?s(r.pathname):null;if(!i){o(`questlog
+
+[questlog]
+questlog:embed:db:tooltip:request-destroy`);return}let i=r.origin===window.location.origin?s(r.pathname):null;if(!i){o(`questlog:embed:db:tooltip:request-destroy`);return}let a=t.dataset.level??r.searchParams.get(`level`);o(`questlog:embed:db:toolt
+
+[questlog]
+null;if(!i){o(`questlog:embed:db:tooltip:request-destroy`);return}let a=t.dataset.level??r.searchParams.get(`level`);o(`questlog:embed:db:tooltip:request-update`,{...i,level:a||null,origin:r.origin,basePath:n.basePath})}return i(document,`mousemove
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_lEHLqdkK.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/lEHLqdkK.js
+======================================================================
+
+[fishing]
+.serverTypes.${r}`)}return n}function C(e){switch(e){case 0:return`bd.lifeSkills.gathering`;case 1:return`bd.lifeSkills.fishing`;case 2:return`bd.lifeSkills.hunting`;case 3:return`bd.lifeSkills.cooking`;case 4:return`bd.lifeSkills.alchemy`;case 5:
+
+======================================================================
+ARQUIVO: bdolytics_js\_static_black-desert__nuxt_xP0mhGss.js
+URL: https://cdn.questlog.gg/_static/black-desert/_nuxt/xP0mhGss.js
+======================================================================
+
+[questlog]
+();s(()=>k.fullPath,ce),Ce(`mousemove`,ne),Ce(`scroll`,q,{capture:!0}),Ce(`mousedown`,q,{capture:!0}),Ce(`blur`,ce),Ce(`questlog-tooltip-level-change`,ie);let j=d({top:0,left:0}),{width:N,height:P}=J(n),{width:F}=J(a),I=f(()=>j.left+10+N.value+F.va
+
+[questlog]
+.value||u.value))return;let t=e.target;if(!t)return;let n=t.closest(`[data-tooltip-link]`),r=n?.href,i=t.closest(`[data-questlog-tooltip-trigger]`),a=t.closest(`[data-questlog-tooltip-disabled]`),s=!!n&&!!r,c=!!i;if(!s&&(!c||a)){q(),B.value=``;retu
+
+[questlog]
+turn;let n=t.closest(`[data-tooltip-link]`),r=n?.href,i=t.closest(`[data-questlog-tooltip-trigger]`),a=t.closest(`[data-questlog-tooltip-disabled]`),s=!!n&&!!r,c=!!i;if(!s&&(!c||a)){q(),B.value=``;return}let l=null,d=null,f=null,p=null;if(s){let e=
+
+[questlog]
+db\/([^/]+)\/(.+)$/);if(!t||t.length<=2)return;l=t[1],d=t[2],f=e.searchParams.get(`level`)}if(c){let e=t.closest(`[data-questlog-tooltip-trigger]`);l=e?.dataset.dbType??null,d=e?.dataset.id??null,f=e?.dataset.level??null,p=e?.dataset.locale??null}i
+
+[questlog]
+border-light hover:bg-light hover:text-white`},Br=Object.assign(z({__name:`GameSwitcherPanel`,setup(e){let n=B().public.questlog?.gameId,i=qe();return(e,a)=>{let o=Y;return R(),r(`div`,Tr,[m(`div`,Er,[(R(!0),r(t,null,A(b(i),i=>(R(),r(`div`,{key:i.g
+
+[questlog]
+`,{"bg-default":b(i)===e.code}]),"aria-label":`Switch language to ${e.name}`},{default:M(()=>[m(`img`,{src:`https://cdn.questlog.gg/core/country-flags/${e.img}`,alt:e.name,class:`size-6`},null,8,hi),m(`span`,null,c(e.name),1)]),_:2},1032,[`to`,`cla
+
+[questlog]
+a=Object.assign(z({__name:`HeaderDesktop`,emits:[`update:isMenuHovered`],setup(e,{emit:n}){let{discordUrl:a}=B().public.questlog??{},{headerItems:o,getMegaMenuSections:u,getMegaMenuConfig:p}=yt(),h=n,g=E(!1),_=E(null),v=E(``),y=E(null),S=E(null),C=
+
+[questlog]
+s:`truncate`},Eo=Object.assign(Pe(z({__name:`HeaderMobile`,setup(e){let{showAds:n}=B().public,{discordUrl:a}=B().public.questlog??{},{isLoggedIn:u,isPaying:d}=pe(`core`),{signIn:p,data:h,signOut:_}=le(),{locale:v,locales:y}=Z(),S=ce(),{isOpen:C,clo
+
+[questlog]
+overflow-hidden rounded-lg bg-light transition-colors hover:brightness-110`},[b(K)?(R(),r(`img`,{key:0,src:`https://cdn.questlog.gg/core/country-flags/${b(K).img}`,alt:b(K).name,class:`absolute inset-0 size-full scale-150 object-cover opacity-30 bl
+
+[questlog]
+k`},{default:M(()=>[l(w,{class:U([b(v)===e.code?`!bg-light font-medium`:``])},{default:M(()=>[m(`img`,{src:`https://cdn.questlog.gg/core/country-flags/${e.img}`,alt:e.name,class:`size-5 rounded`},null,8,no),m(`span`,{class:U([`flex-1`,[b(v)===e.cod
+
+[questlog]
+items-center gap-1.5 sm:flex`},Ms=[`onClick`],Ns=Object.assign(z({__name:`Footer`,setup(e){let{discordUrl:n}=B().public.questlog??{},i=Be(),a=Ie(),o=oe(`feedback-open`,()=>!1),{locale:s,locales:u}=Z(),d=ce(),p=ie(),{footerPaths:h}=yt(),{resolvePath
+
+[questlog]
+ermsOfService`)),1)]),_:1})])])])]),d[2]||=m(`hr`,{class:`my-8 border-dark`},null,-1),m(`div`,Os,[m(`p`,ks,c(e.$t(`core.questlogAffiliationPlaceholder`,{siteName:b(i).domain,gameName:b(i).name,publisherName:b(i).publisher})),1),m(`div`,As,[m(`div`,
+
+[questlog]
+ text-dark`},Ws=[`href`],Gs=z({__name:`default`,setup(e){let{$apiClient:t}=I(),{locale:n}=Z(),{discordUrl:r}=B().public.questlog??{};return Lt({fetchItems:(e,r)=>t.database.searchEntities.query({searchTerm:e,language:n.value,extendSearch:!1},{signa
+
+[cdn.questlog]
+ight`,{"bg-default":b(i)===e.code}]),"aria-label":`Switch language to ${e.name}`},{default:M(()=>[m(`img`,{src:`https://cdn.questlog.gg/core/country-flags/${e.img}`,alt:e.name,class:`size-6`},null,8,hi),m(`span`,null,c(e.name),1)]),_:2},1032,[`to`,`cla
+
+[cdn.questlog]
+ter overflow-hidden rounded-lg bg-light transition-colors hover:brightness-110`},[b(K)?(R(),r(`img`,{key:0,src:`https://cdn.questlog.gg/core/country-flags/${b(K).img}`,alt:b(K).name,class:`absolute inset-0 size-full scale-150 object-cover opacity-30 bl
+
+[cdn.questlog]
+block`},{default:M(()=>[l(w,{class:U([b(v)===e.code?`!bg-light font-medium`:``])},{default:M(()=>[m(`img`,{src:`https://cdn.questlog.gg/core/country-flags/${e.img}`,alt:e.name,class:`size-5 rounded`},null,8,no),m(`span`,{class:U([`flex-1`,[b(v)===e.cod
+
+[offset]
+height:0});function j(e){if(!e||!k.value){A.visible=!1;return}A.animate=A.visible;let t=0,n=e;for(;n&&n!==k.value;)t+=n.offsetTop,n=n.offsetParent;A.top=t,A.height=e.offsetHeight,A.visible=!0}return Ke(n,`data-v-focusable`,`data-v-active`,j),ie()
+
+[offset]
+ction j(e){if(!e||!k.value){A.visible=!1;return}A.animate=A.visible;let t=0,n=e;for(;n&&n!==k.value;)t+=n.offsetTop,n=n.offsetParent;A.top=t,A.height=e.offsetHeight,A.visible=!0}return Ke(n,`data-v-focusable`,`data-v-active`,j),ie().beforeEach(()
+
+[offset]
+sible=!1;return}A.animate=A.visible;let t=0,n=e;for(;n&&n!==k.value;)t+=n.offsetTop,n=n.offsetParent;A.top=t,A.height=e.offsetHeight,A.visible=!0}return Ke(n,`data-v-focusable`,`data-v-active`,j),ie().beforeEach(()=>{p()}),s(u,()=>{h.value=``,A.v
+
+[offset]
+,left:0,top:0,width:0,height:0});function F(e){let t=e.currentTarget.firstElementChild;t&&(P.animate=P.visible,P.left=t.offsetLeft,P.top=t.offsetTop,P.width=t.offsetWidth,P.height=t.offsetHeight,P.visible=!0)}function I(e){e.value&&=(clearTimeout
+
+[offset]
+:0,height:0});function F(e){let t=e.currentTarget.firstElementChild;t&&(P.animate=P.visible,P.left=t.offsetLeft,P.top=t.offsetTop,P.width=t.offsetWidth,P.height=t.offsetHeight,P.visible=!0)}function I(e){e.value&&=(clearTimeout(e.value),null)}fun
+
+[offset]
+on F(e){let t=e.currentTarget.firstElementChild;t&&(P.animate=P.visible,P.left=t.offsetLeft,P.top=t.offsetTop,P.width=t.offsetWidth,P.height=t.offsetHeight,P.visible=!0)}function I(e){e.value&&=(clearTimeout(e.value),null)}function L(){g.value=!1
+
+[offset]
+Target.firstElementChild;t&&(P.animate=P.visible,P.left=t.offsetLeft,P.top=t.offsetTop,P.width=t.offsetWidth,P.height=t.offsetHeight,P.visible=!0)}function I(e){e.value&&=(clearTimeout(e.value),null)}function L(){g.value=!1,_.value=null,v.value=`

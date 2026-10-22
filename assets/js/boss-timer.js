@@ -314,11 +314,12 @@
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
+    // Tamanho dos ícones ajustado para 20x20px
     bossesEl.innerHTML = next.names.map(name => `
       <span class="boss-timer-boss" title="${escapeHtml(name)}">
-        <img src="${BOSS_ICONS[name] || ''}" alt="${escapeHtml(name)}" class="boss-timer-icon" width="28" height="28" style="width:28px;height:28px;min-width:28px;min-height:28px;max-width:28px;max-height:28px;object-fit:contain;display:block" onerror="this.style.display='none'">
+        <img src="${BOSS_ICONS[name] || ''}" alt="${escapeHtml(name)}" class="boss-timer-icon" width="20" height="20" style="width:20px;height:20px;min-width:20px;min-height:20px;max-width:20px;max-height:20px;object-fit:contain;display:block" onerror="this.style.display='none'">
         <strong class="boss-timer-name">${escapeHtml(name)}</strong>
-      </span>`).join('<span class="boss-timer-name-sep">+</span>');
+      </span>`).join('<span class="boss-timer-name-sep">•</span>');
 
     countEl.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 
@@ -341,7 +342,7 @@
     createAgendaModal();
 
     const agendaButton = document.getElementById('bossTimerAgenda');
-    if(agendaButton) agendaButton.addEventListener('click', openAgenda, {once:true});
+    if(agendaButton) agendaButton.addEventListener('click', openAgenda);
 
     document.addEventListener('keydown', event => {
       if(event.key === 'Escape') closeAgenda();

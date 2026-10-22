@@ -1,319 +1,374 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="/assets/img/favicon-lua-crescente.svg?v=101">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lua Crescente · Santuário</title>
-<meta name="description" content="Santuário da guilda Lua Crescente: receitas, cupons, eventos e recursos para o Black Desert Online.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lua Crescente · Santuário da Guilda">
-<meta property="og:description" content="Receitas, cupons, eventos e recursos para o Black Desert Online.">
-<meta property="og:image" content="https://santuarioluacrescente.netlify.app/assets/img/santuario-bg.webp">
-<meta property="og:url" content="https://santuarioluacrescente.netlify.app/">
-<meta property="og:locale" content="pt_BR">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lua Crescente · Santuário da Guilda">
-<meta name="twitter:description" content="Receitas, cupons, eventos e recursos para o Black Desert Online.">
-<meta name="twitter:image" content="https://santuarioluacrescente.netlify.app/assets/img/santuario-bg.webp">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/coupons.css?v=101">
-<meta name="lua-crescente-build" content="v92">
-  <link rel="stylesheet" href="/assets/css/site.css?v=103">
-  <link rel="stylesheet" href="/assets/css/events.css?v=101">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="lua-crescente-build" content="v136">
+  <title>Lua Crescente · Santuário da Guilda</title>
+  <meta name="description" content="Santuário da guilda Lua Crescente. Receitas, timers e guias do Black Desert Online.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E7C98A'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E">
   
-</head><body data-page="home"><div class="site-background-wrap" aria-hidden="true"><img class="site-background" src="/assets/img/santuario-bg.webp?v=101" alt="" onerror="this.onerror=null;this.src='/assets/img/santuario-bg.jpg?v=101';"></div>
-<div class="utility-top-bar" id="utilityTopBar" role="region" aria-label="Informações do mundo e próximos bosses">
-  <div class="world-cycle-bar" id="worldCycleBar" aria-live="polite">
-    <div class="world-cycle-inner">
-      <span class="world-cycle-icon" id="worldCycleIcon" aria-hidden="true">☾</span>
-      <span class="world-cycle-label" id="worldCycleLabel">Noite em:</span>
-      <strong class="world-cycle-count" id="worldCycleCount">--h --m</strong>
-    </div>
-  </div>
-  <div class="guild-boss-timer-bar" id="guildBossTimerBar" title="Próximo Boss da Guilda: sábado às 19:00" aria-live="polite">
-    <div class="guild-boss-timer-inner">
-      <img class="guild-boss-timer-icon" src="/assets/img/savior.png?v=101" width="24" height="24" alt="Savior" />
-      <span class="guild-boss-timer-label" id="guildBossTimerLabel">Boss Guilda</span>
-      <strong class="guild-boss-timer-count" id="guildBossTimerCount">--h --m</strong>
-    </div>
-  </div>
-</div>
-<nav class="site-nav">
-  <a class="brand" href="/" role="button">
-    <img class="brand-icon" src="/assets/img/logo-lua-crescente.png" alt="Emblema da guilda Lua Crescente">
-    <div class="brand-text">
-      <span class="brand-name">Lua Crescente</span><span class="seasonal-badge" id="seasonalBadge" aria-hidden="true"></span>
-      <span class="brand-tagline" data-i18n="tagline">Santuário da guilda</span>
-    </div>
-  </a>
-  <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-controls="siteTabs" data-i18n-attr="aria-label:menu_open" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="site-tabs" id="siteTabs">
-    <a class="site-tab" data-page="home" href="/" data-i18n="nav_home">Início</a>
-    <a class="site-tab" data-page="culinaria" href="/receitas.html" data-i18n="nav_culinaria">Receitas</a>
-    <a class="site-tab" data-page="sala-de-aula" href="/sala-de-aula.html" data-i18n="nav_sala">Sala de Aula</a>
-    <a class="site-tab" data-page="combos" href="/combos.html" data-i18n="nav_combos">Artefatos</a>
-  </div>
-  <div class="lang-switch" id="langSwitch">
-    <button class="lang-btn" id="langBtn" type="button">
-      <span class="lang-icon" aria-hidden="true">文A</span><span id="langLabel" data-i18n="lang_pt">Português</span><span class="lang-caret">▾</span>
-    </button>
-    <div class="lang-menu" id="langMenu">
-      <button class="lang-option" data-lang="pt" type="button">🇧🇷 <span data-i18n="lang_pt">Português</span></button>
-      <button class="lang-option" data-lang="es" type="button">🇪🇸 <span data-i18n="lang_es">Español (LATAM)</span></button>
-    </div>
-  </div>
-</nav>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/assets/css/site.css?v=136">
+    <link rel="stylesheet" href="/assets/css/site.css?v=136">
+  <link rel="stylesheet" href="/assets/css/coupons.css?v=1">
+</head>
+<body data-page="home">
 
-<div class="anniversary-banner" id="anniversaryBanner" role="region" aria-label="Aviso de aniversário da guilda" hidden>
-  <div class="anniversary-banner-inner">
-    <span class="anniversary-banner-text" id="anniversaryBannerText"></span>
-    <button type="button" class="anniversary-banner-close" id="anniversaryBannerClose" aria-label="Fechar aviso">&times;</button>
+  <!-- ==================== TOP BAR (TIMERS) ==================== -->
+  <div class="utility-top-bar" id="utilityTopBar">
+    <!-- O JS injeta o Dia/Noite e o Próximo Chefe aqui -->
+      <div class="guild-boss-timer-bar" id="guildBossTimerBar">
+      <div class="guild-boss-timer-inner">
+        <!-- Ícone do Boss Guilda adicionado aqui -->
+        <img src="/assets/img/guild-boss.png" alt="Boss Guilda" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">
+        <span class="guild-boss-timer-label" id="guildBossTimerLabel">Boss Guilda</span>
+        <strong class="guild-boss-timer-count" id="guildBossTimerCount">--h --m</strong>
+      </div>
+    </div>
   </div>
-</div>
 
-<section class="site-page active" id="page-home">
-  <div class="home-hero">
-    <div class="home-eyebrow" data-i18n="home_eyebrow">Conhecimento da guilda</div>
-    <h1 class="home-title"><span data-i18n="home_title_1">Lua Crescente</span><br><span class="accent" data-i18n="home_title_2">Santuário</span></h1>
-    <p class="home-sub" data-i18n="home_sub">Ferramentas, guias e conhecimento para os membros da Lua Crescente.</p>
-    <form class="home-search" id="homeSearchForm">
-      <span class="home-search-icon">⌕</span>
-      <input id="homeSearchInput" type="text" aria-label="Pesquisar receita, ingrediente ou material" placeholder="Pesquisar receita, ingrediente ou material..." data-i18n-attr="placeholder:home_search_placeholder">
-      <button type="submit" data-i18n="search_button">Buscar</button>
+  <!-- ==================== NAVEGAÇÃO ==================== -->
+  <nav class="site-nav">
+        <a href="/" class="brand" aria-label="Página inicial">
+      <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <span class="brand-name">Lua Crescente</span>
+    </a>
+    
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    
+    <div class="site-tabs" id="siteTabs">
+      <a class="site-tab active" href="index.html" data-i18n="nav_home">Início</a>
+      
+      <div class="site-tab-dropdown">
+        <span class="site-tab" data-i18n="nav_receitas_root">Receitas</span>
+        <div class="site-tab-dropdown-menu">
+          <a class="site-tab" href="receitas.html" data-i18n="nav_culinaria">Bancada</a>
+          <a class="site-tab" href="processamento.html" data-i18n="nav_processamento">Processamento</a>
+          <a class="site-tab" href="itens-tesouro.html" data-i18n="nav_itens_tesouro">Itens Tesouro</a>
+		  <a class="site-tab" href="combos.html">Artefatos</a>
+        </div>
+      </div>
+      
+      <div class="site-tab-dropdown">
+        <span class="site-tab" data-i18n="nav_mapas_root">Mapas</span>
+        <div class="site-tab-dropdown-menu">
+          <a class="site-tab" href="mapa.html" data-i18n="nav_mapa">Mapa de Edania</a>
+          <a class="site-tab" href="pesca.html" data-i18n="nav_pesca">Mapa de Pesca</a>
+        </div>
+      </div>
+      
+      <a class="site-tab" href="sala-de-aula.html" data-i18n="nav_sala">Sala de Aula</a>
+    </div>
+
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-btn" id="langBtn">Português ▾</button>
+      <div class="lang-menu" id="langMenu">
+        <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
+        <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO & BUSCA ==================== -->
+  <section class="home-hero-new">
+    <div class="home-eyebrow" data-i18n="home_eyebrow">CONHECIMENTO DA GUILDA</div>
+    <h1 class="home-title-new" data-i18n="home_title">Um lugar para voltar sempre.</h1>
+    <p class="home-sub-new" data-i18n="home_sub">Receitas, timers, guias e tudo o que a guilda precisa — reunido num só lugar.</p>
+    
+    <form class="home-search-new" id="homeSearchForm" autocomplete="off">
+      <span class="home-search-icon" aria-hidden="true"></span>
+      <input id="homeSearchInput" class="global-search-input" type="text" autocomplete="off" aria-label="Buscar" data-i18n-attr="placeholder:home_search_placeholder" placeholder="Buscar receitas, guias, itens...">
+      <span class="search-shortcut">Ctrl K</span>
+      <button type="submit" style="display:none;">Buscar</button>
     </form>
-    <p class="home-search-hint" data-i18n="home_search_hint">Pesquise qualquer item da árvore de Receitas.</p>
-  </div>
-
-  <div class="home-section">
-    <div class="home-section-head">
-      <div>
-        <h2 class="home-section-title">📖 <span data-i18n="classroom">Sala de Aula</span></h2>
-        <p class="home-section-sub" data-i18n="classroom_sub">Aprenda, compartilhe e evolua junto com a Lua Crescente.</p>
-      </div>
-      <button class="home-section-link gold-link" type="button" data-page="sala-de-aula" onclick="setPage('sala-de-aula')"><span data-i18n="all_guides">VER TODOS OS GUIAS →</span></button>
-    </div>
-    <div class="guide-layout">
-      <a class="guide-card-featured" href="/sala-de-aula.html" style="--guide-image:url('/assets/img/santuario-bg.webp')">
-        <span class="guide-badge">DESTAQUE</span>
-        <div class="guide-featured-content">
-          <span class="guide-tag" data-i18n="tag_alchemy">Alquimia</span>
-          <h3 class="guide-featured-title" data-i18n="guide_alchemy">Guia de Alquimia</h3>
-          <p class="guide-featured-desc" data-i18n="guide_alchemy_desc">Aprenda desde os primeiros passos até as combinações mais avançadas.</p>
-        </div>
-      </a>
-      <div class="guide-side">
-        <a class="guide-card-small" href="/sala-de-aula.html" style="--guide-image:url('/assets/img/santuario-bg.webp')">
-          <span class="guide-badge">NOVO</span>
-          <div class="guide-small-content">
-            <span class="guide-tag" data-i18n="tag_cooking">Culinária</span>
-            <h3 class="guide-small-title" data-i18n="guide_cooking">Guia de Culinária</h3>
-          </div>
-        </a>
-        <a class="guide-card-small" href="/sala-de-aula.html" style="--guide-image:url('/assets/img/santuario-bg.webp')">
-          <div class="guide-small-content">
-            <span class="guide-tag" data-i18n="tag_production">Produção</span>
-            <h3 class="guide-small-title" data-i18n="guide_production">Produção e Cadeias</h3>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="home-popular">
-    <div class="home-section-head">
-      <div>
-        <h2 class="home-section-title">🔥 <span data-i18n="popular_recipes">Receitas mais vistas</span></h2>
-        <p class="home-section-sub" data-i18n="popular_sub">As receitas mais acessadas pelos membros da guilda.</p>
-      </div>
-    </div>
-    <div id="homePopularGrid"></div>
-  </div>
-
-  <section class="coupons-section" id="bdoCoupons" aria-labelledby="bdoCouponsTitle">
-    <div class="coupons-shell">
-      <div class="coupons-head">
-        <div>
-          <h2 class="coupons-title" id="bdoCouponsTitle">🎟️ Cupons do BDO</h2>
-          <p class="coupons-sub">Cupons ativos do servidor SA, atualizados automaticamente pelo canal de cupons da guilda no Discord.</p>
-        </div>
-        <button class="coupons-link" type="button" id="openCouponsModalBtn">Ver todos os cupons ↗</button>
-      </div>
-      <div id="couponTrack" class="coupons-track" aria-live="polite">
-        <div class="coupons-status">Carregando cupons…</div>
-      </div>
+    
+    <div class="home-chips">
+      <a href="receitas.html?group=Fármacos%20da%20Harmonia" class="chip">Alquimia</a>
+      <a href="receitas.html?group=Culinária" class="chip">Culinária</a>
+      <a href="receitas.html?group=Processamento" class="chip">Produção e cadeias</a>
     </div>
   </section>
-<section class="home-videos" id="homeVideos" aria-labelledby="homeVideosTitle">
-  <div class="home-section-head">
-    <div>
-      <h2 class="home-section-title">📺 <span id="homeVideosTitle">Últimos Vídeos</span></h2>
-      <p class="home-section-sub">Guias em vídeo, tutoriais e lore narrada pela guilda.</p>
-    </div>
-  </div>
-  <div class="video-grid" id="videoGrid" aria-live="polite">
-    <div class="video-status">Carregando vídeos…</div>
-  </div>
-</section>
-  <section class="events-section" id="bdoEvents" aria-labelledby="bdoEventsTitle">
-    <div class="events-shell">
-      <div class="events-head">
+
+  <!-- ==================== BENTO GRID ==================== -->
+  <main class="bento-grid">
+    
+    <!-- Bloco: Receitas mais vistas -->
+    <div class="bento-card col-span-7">
+      <div class="bento-card-head">
         <div>
-          <h2 class="events-title" id="bdoEventsTitle">📅 Eventos</h2>
-          <p class="events-sub">Eventos em andamento no BDO, lidos direto do site oficial da Pearl Abyss. Clique num evento pra abrir a página dele.</p>
+          <h2 class="bento-title" data-i18n="popular_recipes">Receitas mais vistas</h2>
+          <p class="bento-sub" data-i18n="popular_sub">As mais acessadas pelos membros.</p>
+        </div>
+        <a href="receitas.html" class="bento-link" data-i18n="view_tree">Ver árvore ↗</a>
+      </div>
+      <div id="homePopularGrid" class="bento-list"></div>
+    </div>
+
+    <!-- Bloco: Cupons ativos -->
+    <div class="bento-card col-span-5">
+      <div class="bento-card-head">
+        <div>
+          <h2 class="bento-title" data-i18n="bento_coupons">Cupons ativos</h2>
+          <p class="bento-sub" data-i18n="bento_coupons_sub">Atualizados pelo canal de cupons da guilda.</p>
         </div>
       </div>
-      <div id="eventsTimeline" class="events-timeline" aria-live="polite">
+      <div id="couponTrack" class="coupons-track-bento" aria-live="polite">
+        <div class="coupons-status">Carregando cupons…</div>
+      </div>
+      <button id="openCouponsModalBtn" class="bento-link" style="margin-top: 18px; text-align: left;" data-i18n="bento_view_all_coupons">Ver todos os cupons ↗</button>
+    </div>
+
+    <!-- Bloco: Sala de Aula (No lugar do Guia de Alquimia) -->
+    <div class="bento-card col-span-4">
+      <div class="bento-card-head">
+        <div>
+          <h2 class="bento-title" data-i18n="nav_sala">Sala de Aula</h2>
+        </div>
+      </div>
+      <div id="homeClassroomGrid" class="classroom-list-bento" aria-live="polite">
+        <div class="classroom-status">Carregando guias…</div>
+      </div>
+      <a href="sala-de-aula.html" class="bento-link" style="margin-top: 18px; text-align: left;">Ver todos os guias ↗</a>
+    </div>
+
+    <!-- Bloco: Eventos -->
+    <div class="bento-card col-span-5" id="bdoEvents">
+      <div class="bento-card-head" style="margin-bottom: 12px;">
+        <div>
+          <h2 class="bento-title" data-i18n="bento_events">Eventos</h2>
+        </div>
+        <div class="events-tabs">
+          <button type="button" class="events-tab active" data-tab="temporary" data-i18n="bento_temp">Temporários</button>
+          <button type="button" class="events-tab" data-tab="permanent" data-i18n="bento_perm">Permanentes</button>
+        </div>
+      </div>
+      <div class="events-scroll-area" id="eventsTimeline" aria-live="polite">
         <div class="events-status">Carregando eventos…</div>
       </div>
     </div>
-  </section>
-<section class="home-announcements" id="homeAnnouncements" aria-labelledby="homeAnnouncementsTitle">
-  <div class="home-section-head">
-    <div>
-      <h2 class="home-section-title">📢 <span id="homeAnnouncementsTitle">Avisos da Guilda</span></h2>
-      <p class="home-section-sub">Últimos comunicados oficiais da liderança.</p>
-    </div>
-  </div>
-  <div class="announcement-grid" id="announcementGrid" aria-live="polite">
-    <div class="announcement-status">Carregando avisos…</div>
-  </div>
-</section>
-  <div class="home-cta">
-    <div class="home-cta-inner">
-      <div><h3 class="home-cta-title" data-i18n="cta_title">Juntos somos mais fortes</h3><p class="home-cta-text" data-i18n="cta_text">Colabore, participe e ajude a Lua Crescente a crescer cada vez mais.</p></div>
-      <button type="button" data-modal="guild"><span data-i18n="learn_guild">SAIBA MAIS SOBRE A GUILDA →</span></button>
-    </div>
-  </div>
-</section>
-<div class="guild-modal" id="guildModal" aria-hidden="true">
-  <div class="guild-modal-backdrop" data-guild-modal-close></div>
-  <div class="guild-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="guildModalTitle">
-    <button class="guild-modal-close" type="button" aria-label="Fechar" data-i18n-attr="aria-label:close" data-guild-modal-close>×</button>
-    <div class="guild-modal-eyebrow" data-i18n="modal_eyebrow">Lua Crescente · Santuário</div>
-    <h2 id="guildModalTitle" data-i18n="modal_title">Santuário Lua Crescente</h2>
-    <p data-i18n="modal_p1">O Santuário Lua Crescente é uma guilda, mas, acima disso, é um ponto de retorno.</p>
-    <p data-i18n="modal_p2">Criada como um ambiente voltado ao PvE, a Lua Crescente nunca foi fundada para conquistar terras ou buscar domínio. Nasceu do desejo de viver aventuras, explorar novos caminhos, adquirir conhecimento e, sobretudo, compartilhar tudo isso com respeito.</p>
-    <p data-i18n="modal_p3">Seus primeiros membros eram pessoas que buscavam diversão, descobertas e boas companhias. Nunca houve um juramento que os obrigasse a permanecer juntos, pois acreditamos que ninguém precisa ficar para sempre para fazer parte de algo. Ainda assim, enquanto a Lua Crescente existir, aqueles que um dia caminharam sob ela saberão que não precisam se perder: sempre haverá um lugar para onde voltar.</p>
-    <p data-i18n="modal_p4">Desde sua concepção, o Santuário foi pensado para acolher aqueles que procuram paz, amizade e aquilo que muitos chamariam de família.</p>
-    <p data-i18n="modal_p5">Sabemos que não podemos receber todos. Não somos capazes de alcançar ou ajudar todas as pessoas que cruzarem nosso caminho. Mas, para aqueles que estiverem ao nosso alcance e encontrarem na Lua Crescente os mesmos valores que buscamos preservar, queremos oferecer algo simples e verdadeiro:</p>
-    <div class="guild-modal-note" data-i18n="modal_note">um lugar que possam chamar de lar.</div>
-  </div>
-</div>
-<div class="guild-modal home-modal" id="homeModal" aria-hidden="true">
-  <div class="guild-modal-backdrop" data-home-modal-close></div>
-  <div class="guild-modal-dialog home-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="homeModalTitle">
-    <button class="guild-modal-close" type="button" aria-label="Fechar" data-home-modal-close>×</button>
-    <div id="homeModalContent"></div>
-  </div>
-</div>
-<div class="guild-modal coupons-modal" id="couponsModal" aria-hidden="true">
-  <div class="guild-modal-backdrop" data-coupons-modal-close></div>
-  <div class="guild-modal-dialog coupons-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="couponsModalTitle">
-    <button class="guild-modal-close" type="button" aria-label="Fechar" data-coupons-modal-close>×</button>
-    <div class="guild-modal-eyebrow">Lua Crescente · Cupons</div>
-    <h2 id="couponsModalTitle">🎟️ Todos os cupons ativos</h2>
-    <p style="margin-top:-6px;">Lidos automaticamente do canal de cupons da guilda no Discord.</p>
-    <div id="couponsModalList" class="discord-coupon-list"><div class="coupons-status">Carregando cupons…</div></div>
-  </div>
-</div>
-<footer class="site-footer site-footer-nav" aria-label="Rodapé">
-  <div class="footer-columns-wrap">
-    <div class="footer-columns">
-      <div class="footer-col footer-col-brand">
-        <div class="footer-brand">
-          <img src="/assets/img/enceladus-mascote.png" alt="Lua Crescente" class="footer-brand-icon">
-          <span>Lua Crescente</span>
-        </div>
-        <p class="footer-brand-tag">Santuário da guilda: receitas, cupons e recursos para o Black Desert Online.</p>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Navegação</div>
-        <a href="/">Início</a>
-        <a href="/receitas.html">Receitas</a>
-        <a href="/sala-de-aula.html">Sala de Aula</a>
-        <a href="/combos.html">Artefatos</a>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Recursos</div>
-        <a href="/#bdoCoupons" id="footerCouponsLink">Cupons do BDO</a>
-<a href="https://discord.gg/" id="footerDiscordLink" class="footer-discord" target="_blank" rel="noopener">
-  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4ac.svg" alt="Discord" class="footer-discord-icon">
-  <span id="discordOnlineCount">—</span>
-</a>
-        <button type="button" data-footer-modal="changelog">Registro de Alterações <span class="changelog-badge" style="display:none">🔔 Novidades</span></button>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col-title">Legal</div>
-        <button type="button" data-footer-modal="privacy">Política de Privacidade</button>
-        <button type="button" data-footer-modal="terms">Termos de Serviço</button>
-      </div>
-    </div>
-  </div>
-  <div class="footer-legal-bar">
-    <p class="footer-founding-counter" id="footerFoundingCounter"></p>
-    <span>santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. <strong>© 2026 santuarioluacrescente.netlify.app</strong></span>
-  </div>
-</footer>
-<div class="guild-modal footer-modal" id="footerPrivacyModal" aria-hidden="true">
-  <div class="guild-modal-backdrop" data-footer-modal-close></div>
-  <div class="guild-modal-dialog footer-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="footerPrivacyTitle">
-    <button class="guild-modal-close" type="button" aria-label="Fechar" data-footer-modal-close>×</button>
-    <h2 id="footerPrivacyTitle">Política de Privacidade</h2>
-    <div id="footerPrivacyContent" class="footer-modal-body"></div>
-  </div>
-</div>
-<div class="guild-modal footer-modal" id="footerTermsModal" aria-hidden="true">
-  <div class="guild-modal-backdrop" data-footer-modal-close></div>
-  <div class="guild-modal-dialog footer-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="footerTermsTitle">
-    <button class="guild-modal-close" type="button" aria-label="Fechar" data-footer-modal-close>×</button>
-    <h2 id="footerTermsTitle">Termos de Serviço</h2>
-    <div id="footerTermsContent" class="footer-modal-body"></div>
-  </div>
-</div>
-<div class="guild-modal footer-modal" id="footerChangelogModal" aria-hidden="true">
-  <div class="guild-modal-backdrop" data-footer-modal-close></div>
-  <div class="guild-modal-dialog footer-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="footerChangelogTitle">
-    <button class="guild-modal-close" type="button" aria-label="Fechar" data-footer-modal-close>×</button>
-    <h2 id="footerChangelogTitle">Registro de Alterações</h2>
-    <div id="footerChangelogContent" class="footer-modal-body"></div>
-  </div>
-</div>
 
-<script src="/assets/data/recipes/recipe-metadata.js?v=101"></script>
-<script src="/assets/data/i18n/translations-es-LATAM.js?v=101"></script>
-<script src="/assets/data/ui-translations.js?v=101"></script>
-<script src="/assets/js/world-cycle.js?v=101" defer></script>
-<script src="/assets/js/guild-boss-timer.js?v=101" defer></script>
-<script src="/assets/js/boss-timer.js?v=101" defer></script>
-<script src="/assets/js/bdo-events.js?v=101" defer></script>
-<script src="/assets/js/blog-loader.js?v=101"></script>
-<script src="/assets/js/home-guides.js?v=101"></script>
-<script src="/assets/js/site-runtime.js?v=103" defer></script>
-<script>
-/* Focus trap para todos os modais — Tab circula dentro do modal aberto */
-(function(){
-  function trapFocus(modal){
-    var focusables = modal.querySelectorAll('a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])');
-    if(!focusables.length) return;
-    var first = focusables[0];
-    var last = focusables[focusables.length - 1];
-    modal.addEventListener('keydown', function(e){
-      if(e.key !== 'Tab') return;
-      if(e.shiftKey && document.activeElement === first){
-        e.preventDefault();
-        last.focus();
-      } else if(!e.shiftKey && document.activeElement === last){
-        e.preventDefault();
-        first.focus();
-      }
-    });
-  }
-  document.querySelectorAll('.guild-modal, .boss-agenda-modal, .footer-modal').forEach(trapFocus);
-})();
-</script>
+    <!-- Bloco: Avisos -->
+    <div class="bento-card col-span-3" id="homeAnnouncements">
+      <div class="bento-card-head">
+        <div>
+          <h2 class="bento-title" data-i18n="bento_announcements">Avisos</h2>
+        </div>
+      </div>
+      <div id="announcementGrid" class="announcement-list-bento" aria-live="polite">
+        <div class="announcement-status">Carregando avisos…</div>
+      </div>
+    </div>
+
+    <!-- Bloco: Últimos vídeos -->
+    <div class="bento-card col-span-12" id="homeVideos">
+      <div class="bento-card-head">
+        <div>
+          <h2 class="bento-title" data-i18n="bento_videos">Últimos vídeos</h2>
+          <p class="bento-sub" data-i18n="bento_videos_sub">Tutoriais e lore no canal da guilda.</p>
+        </div>
+      </div>
+      <div class="video-grid-bento" id="videoGrid" aria-live="polite">
+        <div class="video-status">Carregando vídeos…</div>
+      </div>
+    </div>
+
+    <!-- Bloco: CTA Guilda -->
+    <div class="bento-card col-span-12 cta-bento">
+      <div>
+        <h2 class="bento-title" data-i18n="cta_title">Juntos somos mais fortes.</h2>
+        <p class="bento-sub" style="margin-bottom: 0;" data-i18n="cta_text">A guilda Lua Crescente está de portas abertas para quem quer aprender, ajudar e crescer.</p>
+      </div>
+      <button type="button" class="bento-btn" data-modal="guild" data-i18n="bento_cta_btn">Conhecer a guilda</button>
+    </div>
+
+  </main>
+
+  <!-- ==================== RODAPÉ ==================== -->
+  <!-- ==================== RODAPÉ ==================== -->
+  <footer class="site-footer">
+    <div class="footer-columns-wrap">
+      <div class="footer-columns">
+        
+        <!-- Coluna 1: Marca -->
+            <div class="footer-col-brand">
+          <div class="footer-brand">
+            <svg class="brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="#E7C98A" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <span>Lua Crescente</span>
+          </div>
+          <p class="footer-desc">Santuário da guilda: receitas, cupons e recursos para o Black Desert Online.</p>
+          
+          <!-- Link do Discord movido para baixo do texto -->
+          <a href="https://discord.gg/mXg9pQD8kQ" target="_blank" rel="noopener" class="footer-discord-link" style="margin-top: 12px; display: inline-flex;">
+            <svg class="footer-discord-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
+            <span class="discord-online-dot"></span>
+            <span id="discordOnlineCount">Discord</span>
+          </a>
+
+          <p class="footer-founding-counter" id="footerFoundingCounter" style="margin-top: 16px;"></p>
+        </div>
+
+        <!-- Coluna 2: Navegação -->
+        <div class="footer-col">
+          <div class="footer-col-title">Navegação</div>
+          <a href="index.html">Início</a>
+          <a href="receitas.html">Bancada</a>
+          <a href="combos.html">Artefatos</a>
+          <a href="processamento.html">Processamentos</a>
+          <a href="itens-tesouro.html">Itens Tesouros</a>
+          <a href="sala-de-aula.html">Sala de Aula</a>
+        </div>
+
+     
+        <!-- Coluna 3: Recursos -->
+        <div class="footer-col">
+          <div class="footer-col-title">Recursos</div>
+          <a href="#" id="footerCouponsLink">Cupons do BDO</a>
+          <a href="https://discord.gg/" target="_blank" rel="noopener" class="footer-discord-link">
+            <svg class="footer-discord-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
+            <span class="discord-online-dot"></span>
+            <span id="discordOnlineCount">Discord</span>
+          </a>
+          <button type="button" data-footer-modal="changelog">Registro de Alterações</button>
+        </div>
+
+        <!-- Coluna 4: Legal -->
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <button type="button" data-footer-modal="privacy">Política de Privacidade</button>
+          <button type="button" data-footer-modal="terms">Termos de Serviço</button>
+        </div>
+
+      
+                 <!-- Coluna 5: Apoie -->
+        <div class="footer-col footer-col-apoie">
+          <div class="footer-col-title">Apoie</div>
+          
+          <!-- Link do seu LivePix configurado -->
+          <a href="https://livepix.gg/skarsgardsson" target="_blank" rel="noopener" class="footer-qr-link" title="Abrir LivePix">
+            <img src="/assets/img/qr-code.png" alt="QR Code PIX" class="footer-qr-code" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://livepix.gg/skarsgardsson'">
+          </a>
+          
+          <span class="footer-apoie-text">Apoie o projeto 🤍</span>
+        </div>
+
+      </div>
+      
+      <!-- Barra inferior -->
+      <div class="footer-bottom-bar">
+        <div class="footer-founding-counter" id="footerFoundingCounter"></div>
+        <div class="footer-legal-text">
+          santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. &copy; 2026 santuarioluacrescente.netlify.app
+        </div>
+      </div>
+    </div>
+	  <!-- Botão Voltar ao Topo -->
+  <button id="backToTop" aria-label="Voltar ao topo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+  </footer>
+
+  <!-- ==================== MODAIS ==================== -->
+    <!-- Modal: Guilda -->
+  <div class="guild-modal" id="guildModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-guild-modal-close></div>
+    <div class="guild-modal-dialog">
+      <button class="guild-modal-close" data-guild-modal-close aria-label="Fechar">×</button>
+      
+      <div class="modal-eyebrow">Lua Crescente · Santuário</div>
+      <h2>Santuário Lua Crescente</h2>
+      
+      <p>O Santuário Lua Crescente é uma guilda, mas, acima disso, é um ponto de retorno.</p>
+      
+      <p>Criada como um ambiente voltado ao PvE, a Lua Crescente nunca foi fundada para conquistar terras ou buscar domínio. Nasceu do desejo de viver aventuras, explorar novos caminhos, adquirir conhecimento e, sobretudo, compartilhar tudo isso com respeito.</p>
+      
+      <p>Seus primeiros membros eram pessoas que buscavam diversão, descobertas e boas companhias. Nunca houve um juramento que os obrigasse a permanecer juntos, pois acreditamos que ninguém precisa ficar para sempre para fazer parte de algo. Ainda assim, enquanto a Lua Crescente existir, aqueles que um dia caminharam sob ela saberão que não precisam se perder: sempre haverá um lugar para onde voltar.</p>
+      
+      <p>Desde sua concepção, o Santuário foi pensado para acolher aqueles que procuram paz, amizade e aquilo que muitos chamariam de família.</p>
+      
+      <p>Sabemos que não podemos receber todos. Não somos capazes de alcançar ou ajudar todas as pessoas que cruzarem nosso caminho. Mas, para aqueles que estiverem ao nosso alcance e encontrarem na Lua Crescente os mesmos valores que buscamos preservar, queremos oferecer algo simples e verdadeiro:</p>
+      
+      <blockquote class="modal-highlight">um lugar que possam chamar de lar.</blockquote>
+      
+      <!-- Botão adicionado aqui -->
+      <div style="text-align: center; margin-top: 32px;">
+        <a href="https://discord.gg/mXg9pQD8kQ" target="_blank" rel="noopener" class="bento-btn" style="text-decoration: none; width: 100%; max-width: 300px; display: inline-flex;">Entrar no Discord</a>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="guild-modal" id="couponsModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-coupons-modal-close></div>
+    <div class="guild-modal-dialog coupons-modal-dialog">
+      <button class="guild-modal-close" data-coupons-modal-close aria-label="Fechar">×</button>
+      <h2>Todos os Cupons</h2>
+      <div id="couponsModalList" class="coupons-modal-list"></div>
+    </div>
+  </div>
+
+  <div class="guild-modal" id="homeModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-home-modal-close></div>
+    <div class="guild-modal-dialog home-modal-dialog">
+      <button class="guild-modal-close" data-home-modal-close aria-label="Fechar">×</button>
+      <div id="homeModalContent"></div>
+    </div>
+  </div>
+
+  <div class="guild-modal footer-modal" id="footerPrivacyModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-footer-modal-close></div>
+    <div class="guild-modal-dialog footer-modal-dialog">
+      <button class="guild-modal-close" data-footer-modal-close aria-label="Fechar">×</button>
+      <h2>Política de Privacidade</h2>
+      <div id="footerPrivacyContent" class="footer-modal-content"></div>
+    </div>
+  </div>
+
+  <div class="guild-modal footer-modal" id="footerTermsModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-footer-modal-close></div>
+    <div class="guild-modal-dialog footer-modal-dialog">
+      <button class="guild-modal-close" data-footer-modal-close aria-label="Fechar">×</button>
+      <h2>Termos de Uso</h2>
+      <div id="footerTermsContent" class="footer-modal-content"></div>
+    </div>
+  </div>
+
+  <div class="guild-modal footer-modal" id="footerChangelogModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-footer-modal-close></div>
+    <div class="guild-modal-dialog footer-modal-dialog" style="width: min(900px, 100%);">
+      <button class="guild-modal-close" data-footer-modal-close aria-label="Fechar">×</button>
+      <h2>Registro de Alterações</h2>
+      <div id="footerChangelogContent" class="footer-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="/assets/js/ui-translations.js?v=133"></script>
+  <script src="/assets/js/recipe-metadata.js?v=110"></script>
+  
+  <script src="/assets/js/site-runtime.js?v=105"></script>
+  <script src="/assets/js/bdo-events.js?v=131"></script>
+  <script src="/assets/js/boss-timer.js?v=110"></script>
+  <script src="/assets/js/guild-boss-timer.js?v=105"></script>
+  <script src="/assets/js/world-cycle.js?v=105"></script>
+  <script src="/assets/js/global-search.js?v=105"></script>
+  
+  <script src="/assets/js/blog-loader.js?v=1"></script>
+  <script src="/assets/js/home-classroom.js?v=1"></script>
+    <!-- Botão Voltar ao Topo -->
+  <button id="backToTop" aria-label="Voltar ao topo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
 </body>
 </html>

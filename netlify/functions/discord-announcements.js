@@ -1,7 +1,9 @@
 // Lê os últimos 5 avisos do canal de avisos da guilda.
+// v2 — timeout no fetch do Discord.
 
 const CHANNEL_ID = '1444891990687748188';
 const MAX = 5;
+const FETCH_TIMEOUT_MS = 8000;
 
 exports.handler = async function () {
   const token = process.env.DISCORD_BOT_TOKEN;
@@ -10,7 +12,7 @@ exports.handler = async function () {
   try {
     const res = await fetch(
       `https://discord.com/api/v10/channels/${CHANNEL_ID}/messages?limit=${MAX}`,
-      { headers: { 'authorization': `Bot ${token}` } }
+      { headers: { 'authorization': `Bot ${token}` }, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) }
     );
     if (!res.ok) throw new Error(`Discord API ${res.status}`);
     const messages = await res.json();

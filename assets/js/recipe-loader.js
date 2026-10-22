@@ -1,4 +1,4 @@
-// Lua Crescente — carregador sob demanda das categorias de receitas (v67)
+// Lua Crescente — carregador sob demanda das categorias de receitas (v106)
 (function(){
   const groups = {
     "Fármacos da Harmonia":"farmacos-da-harmonia",
@@ -11,13 +11,13 @@
     "Reagentes de Alquimia":"reagentes-alquimia",
     "Culinária":"culinaria",
     "Culinária Especial":"culinaria-especial",
-    "Itens Tesouro":"itens-tesouro",
+
     "Poções":"pocoes",
     "Trabalhadores energia":"trabalhadores-energia",
     "Pergaminhos":"pergaminhos",
     "Rações":"racoes"
   };
-  const counts = {"Fármacos da Harmonia":5,"Fármacos Base da Harmonia":5,"Fármacos Tradicionais":9,"Sangues":5,"Elixires Base":44,"Elixires Base Superior":38,"Perfumes":11,"Reagentes de Alquimia":23,"Culinária":153,"Culinária Especial":16,"Itens Tesouro":10,"Poções":15,"Trabalhadores energia":2,"Pergaminhos":6,"Rações":5};
+  const counts = {"Fármacos da Harmonia":5,"Fármacos Base da Harmonia":5,"Fármacos Tradicionais":9,"Sangues":5,"Elixires Base":44,"Elixires Base Superior":38,"Perfumes":11,"Reagentes de Alquimia":23,"Culinária":153,"Culinária Especial":16,"Poções":15,"Trabalhadores energia":2,"Pergaminhos":6,"Rações":5};
   const cache = Object.create(null);
   const pending = Object.create(null);
 
@@ -32,7 +32,7 @@
     if(cache[group]) return Promise.resolve(cache[group]);
     if(pending[group]) return pending[group];
 
-    const url = `/assets/data/recipes/categories/${slug}.json?v=67`;
+    const url = `/assets/data/recipes/categories/${slug}.json?v=106`;
     pending[group] = fetch(url, {
       cache: 'no-store',
       headers: { 'Accept': 'application/json' }
