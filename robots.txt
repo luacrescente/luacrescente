@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://santuarioluacrescente.netlify.app/sitemap.xml
