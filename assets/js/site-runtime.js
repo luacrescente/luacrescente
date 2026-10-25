@@ -2404,25 +2404,99 @@ document.getElementById('anniversaryBannerClose')?.addEventListener('click', ()=
 });
 updateAnniversaryBanner();
 
-function getActiveSeasonalTheme(){
-  const today = new Date();
-  const m = today.getMonth();
-  const d = today.getDate();
-  if(m === GUILD_FOUNDING_DATE.getMonth() && d === GUILD_FOUNDING_DATE.getDate()) return 'anniversary';
-  if(m === 9 && d >= 25 && d <= 31) return 'halloween';
-  if(m === 11 && d >= 20 && d <= 26) return 'christmas';
-  return null;
+// ---- Temas Sazonais Avançados ----
+function calcularPascoa(y) {
+  var a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4,
+      f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3),
+      h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+      l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
+      mo = Math.floor((h + l - 7 * m + 114) / 31), da = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(y, mo - 1, da);
 }
-function applySeasonalTheme(){
+
+function getActiveSeasonalTheme() {
+  const today = new Date();
+  const y = today.getFullYear(), m = today.getMonth() + 1, d = today.getDate();
+  const e = calcularPascoa(y);
+  const D = 864e5;
+  const t = new Date(y, m - 1, d).getTime();
+  const E = e.getTime();
+
+  // Aniversário da Guilda (se você tiver a data, mantém a prioridade)
+  if (typeof GUILD_FOUNDING_DATE !== 'undefined') {
+    if (m === (GUILD_FOUNDING_DATE.getMonth() + 1) && d === GUILD_FOUNDING_DATE.getDate()) return 'anniversary';
+  }
+
+  // Datas comemorativas
+  if (t >= E - 51 * D && t <= E - 46 * D) return "carnaval";
+  if (t >= E - 7 * D && t <= E + 1 * D) return "pascoa";
+  if ((m == 10 && d >= 20) || (m == 11 && d == 1)) return "halloween";
+  if (m == 12 && d >= 10 && d <= 26) return "natal";
+  if ((m == 12 && d >= 27) || (m == 1 && d <= 3)) return "anonovo";
+  if (m == 6 && d >= 5 && d <= 12) return "namorados";
+  if ((m == 6 && d >= 13) || (m == 7 && d == 1)) return "junina";
+  
+  return null; // Padrão
+}
+
+function applySeasonalTheme() {
   const theme = getActiveSeasonalTheme();
-  if(theme){ document.body.dataset.season = theme; } else { delete document.body.dataset.season; }
+  
+  // Aplica a classe no body
+  if (theme) {
+    document.body.dataset.season = theme;
+  } else {
+    delete document.body.dataset.season;
+  }
+
+  // Atualiza o ícone do topo (se você tiver um)
   const badge = document.getElementById('seasonalBadge');
-  if(!badge) return;
-  const icons = { anniversary:'🎉', halloween:'🎃', christmas:'🎄' };
-  badge.textContent = theme ? icons[theme] : '';
+  if (badge) {
+    const icons = { 
+      anniversary:'🎉', halloween:'🎃', natal:'🎄', 
+      anonovo:'🎆', carnaval:'🎭', pascoa:'🐰', 
+      namorados:'💘', junina:'🎈' 
+    };
+    badge.textContent = theme ? icons[theme] : '';
+  }
+
+  // Emojis que vão cair na tela
+  const emojis = {
+    halloween: ["🦇", "🎃", "👻", "🕸️"],
+    natal: ["❄️", "❄️", "⭐", "🎁"],
+    anonovo: ["✨", "🎇", "🥂", "⭐"],
+    carnaval: ["🎊", "🎭", "🎉", "🪇"],
+    pascoa: ["🥚", "🐰", "🌷", "🐣"],
+    namorados: ["💖", "💘", "💕", "🌹"],
+    junina: ["🎈", "🌽", "🔥", "🪅"],
+    anniversary: ["🎉", "🎂", "✨"]
+  };
+
+  // Cria a caixa de efeitos se não existir
+  let fxBox = document.querySelector('.seasonal-fx');
+  if (!fxBox) {
+    fxBox = document.createElement('div');
+    fxBox.className = 'seasonal-fx';
+    fxBox.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(fxBox);
+  }
+  fxBox.innerHTML = ''; // Limpa a chuva anterior
+
+  // Se tiver um tema ativo, gera as partículas
+  if (theme && emojis[theme]) {
+    const list = emojis[theme];
+    for (let i = 0; i < 25; i++) {
+      const span = document.createElement('span');
+      span.textContent = list[i % list.length];
+      span.style.left = Math.random() * 100 + "%";
+      span.style.fontSize = (14 + Math.random() * 18) + "px";
+      span.style.animationDuration = (9 + Math.random() * 12) + "s";
+      span.style.animationDelay = (-Math.random() * 16) + "s";
+      fxBox.appendChild(span);
+    }
+  }
 }
 applySeasonalTheme();
-
 function hideFooterModal(modal, restoreFocus=true){
   if(!modal) return;
   modal.classList.remove('open');
