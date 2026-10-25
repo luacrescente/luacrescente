@@ -2930,3 +2930,48 @@ body[data-page="receitas"] {
   align-items: center;
   gap: 6px;
 }
+
+/* =====================================================================
+   TEMAS SAZONAIS (Cores)
+   ===================================================================== */
+body[data-season="halloween"] {
+  --bg: #120a14; --panel: #201024; --panel-2: #2c1632; --border: #4a2a50;
+  --gold: #ff8c1a; --text: #f6eefa; --text-dim: #b79cc2;
+}
+body[data-season="natal"] {
+  --bg: #0a1410; --panel: #10241b; --panel-2: #183427; --border: #2f5a43;
+  --gold: #f1c453; --text: #f2f8f3; --text-dim: #9fc2ad;
+}
+body[data-season="anonovo"] {
+  --bg: #080813; --panel: #12122a; --panel-2: #1a1a3a; --border: #33336a;
+  --gold: #f5d76e; --text: #f6f6ff; --text-dim: #a3a8d0;
+}
+body[data-season="carnaval"] {
+  --bg: #12082a; --panel: #201046; --panel-2: #2c1860; --border: #5a2f9a;
+  --gold: #ff2e93; --text: #fbf3ff; --text-dim: #c0a6e6;
+}
+body[data-season="pascoa"] {
+  --bg: #17121f; --panel: #251c36; --panel-2: #30244a; --border: #54407a;
+  --gold: #ffb3d9; --text: #fbf4ff; --text-dim: #bfa9d8;
+}
+body[data-season="namorados"] {
+  --bg: #190a13; --panel: #2a1220; --panel-2: #381830; --border: #6a2e55;
+  --gold: #ff5d8f; --text: #fff3f7; --text-dim: #d6a5ba;
+}
+body[data-season="junina"] {
+  --bg: #1a0f08; --panel: #2c1a0e; --panel-2: #3a2414; --border: #6a4424;
+  --gold: #ffb703; --text: #fff6ea; --text-dim: #cfae8c;
+}
+
+/* =====================================================================
+   EFEITO DE PARTÍCULAS (Chuva de emojis)
+   ===================================================================== */
+.seasonal-fx {
+  position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 10;
+}
+.seasonal-fx span {
+  position: absolute; top: -10%; animation: seasonal-fall linear infinite; opacity: 0.85;
+}
+@keyframes seasonal-fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
