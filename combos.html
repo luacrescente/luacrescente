@@ -3,23 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="lua-crescente-build" content="v144">
-  <title>Artefatos · Lua Crescente</title>
+  <meta name="lua-crescente-build" content="v148">
+  <title>Artefatos · Lua Crescente BDO</title>
+  <meta name="description" content="Combinações de Pedras da Luz para maximizar seus atributos de combate e lifeskill no Black Desert Online.">
+  <meta name="keywords" content="artefatos bdo, combos bdo, pedras da luz, lua crescente bdo">
+  <meta property="og:title" content="Artefatos · Lua Crescente BDO">
+  <meta property="og:description" content="Combinações de Pedras da Luz para o Black Desert Online.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://santuarioluacrescente.netlify.app/combos.html">
+  <meta property="og:image" content="https://santuarioluacrescente.netlify.app/assets/img/home-bg.webp">
+  
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E7C98A'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/assets/css/site.css?v=144">
+  <link rel="stylesheet" href="/assets/css/site.css?v=148">
 </head>
 <body data-page="combos">
 
-  <!-- ==================== TOP BAR (TIMERS) ==================== -->
   <div class="utility-top-bar" id="utilityTopBar">
-     <div class="guild-boss-timer-bar" id="guildBossTimerBar">
+    <div class="guild-boss-timer-bar" id="guildBossTimerBar">
       <div class="guild-boss-timer-inner">
-        <!-- Ícone do Boss Guilda adicionado aqui -->
         <img src="/assets/img/guild-boss.png" alt="Boss Guilda" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">
         <span class="guild-boss-timer-label" id="guildBossTimerLabel">Boss Guilda</span>
         <strong class="guild-boss-timer-count" id="guildBossTimerCount">--h --m</strong>
@@ -27,9 +33,8 @@
     </div>
   </div>
 
-  <!-- ==================== NAVEGAÇÃO ==================== -->
   <nav class="site-nav">
-        <a href="/" class="brand" aria-label="Página inicial">
+    <a href="/" class="brand" aria-label="Página inicial">
       <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
@@ -45,7 +50,7 @@
           <a class="site-tab" href="receitas.html">Bancada</a>
           <a class="site-tab" href="processamento.html">Processamento</a>
           <a class="site-tab" href="itens-tesouro.html">Itens Tesouro</a>
-          <a class="site-tab active" href="combos.html">Artefatos</a> <!-- LINK ADICIONADO AQUI -->
+          <a class="site-tab active" href="combos.html">Artefatos</a>
         </div>
       </div>
       
@@ -67,18 +72,15 @@
     </div>
   </nav>
 
-  <!-- ==================== HERO ==================== -->
   <section class="receitas-hero">
     <div class="receitas-breadcrumb">Início / Receitas / Artefatos</div>
     <h1 class="receitas-title">Artefatos</h1>
     <p class="receitas-sub">Combinações de Pedras da Luz para maximizar seus atributos de combate e lifeskill.</p>
   </section>
 
-  <!-- ==================== LAYOUT PRINCIPAL ==================== -->
   <main class="receitas-layout" style="grid-template-columns: 1fr;">
     <section class="receitas-main">
       
-      <!-- Barra de Ferramentas (Abas e Busca) -->
       <div class="combos-toolbar">
         <div class="combo-tabs">
           <button type="button" class="combo-tab active" data-mode="combate">Combate</button>
@@ -90,14 +92,11 @@
         </div>
       </div>
 
-      <!-- Filtros (Injetados pelo combos.js) -->
       <div id="comboFilters" class="combo-filters-wrap"></div>
 
-      <!-- Lista de Combos -->
       <div id="comboList" class="receitas-tree-list"></div>
       <div id="comboEmpty" class="empty-state" style="display:none;">Nenhum artefato encontrado.</div>
 
-      <!-- Botões de Expandir/Recolher -->
       <div class="receitas-actions" style="margin-top: 24px; border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--panel);">
         <button id="comboExpandAll" type="button">Expandir Tudo</button>
         <button id="comboCollapseAll" type="button">Recolher Tudo</button>
@@ -106,11 +105,10 @@
     </section>
   </main>
 
-  <!-- ==================== RODAPÉ ==================== -->
   <footer class="site-footer">
     <div class="footer-columns-wrap">
       <div class="footer-columns">
-                <div class="footer-col-brand">
+        <div class="footer-col-brand">
           <div class="footer-brand">
             <svg class="brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="#E7C98A" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -119,7 +117,6 @@
           </div>
           <p class="footer-desc">Santuário da guilda: receitas, cupons e recursos para o Black Desert Online.</p>
           
-          <!-- Link do Discord movido para baixo do texto -->
           <a href="https://discord.gg/mXg9pQD8kQ" target="_blank" rel="noopener" class="footer-discord-link" style="margin-top: 12px; display: inline-flex;">
             <svg class="footer-discord-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
             <span class="discord-online-dot"></span>
@@ -128,24 +125,24 @@
 
           <p class="footer-founding-counter" id="footerFoundingCounter" style="margin-top: 16px;"></p>
         </div>
+        
         <div class="footer-col">
           <div class="footer-col-title">Navegação</div>
           <a href="index.html">Início</a><a href="receitas.html">Bancada</a><a href="combos.html">Artefatos</a><a href="processamento.html">Processamentos</a><a href="itens-tesouro.html">Itens Tesouros</a><a href="sala-de-aula.html">Sala de Aula</a>
         </div>
+
         <div class="footer-col">
           <div class="footer-col-title">Recursos</div>
           <a href="#" id="footerCouponsLink">Cupons do BDO</a>
-          <a href="https://discord.gg/" target="_blank" rel="noopener" class="footer-discord-link">
-            <svg class="footer-discord-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
-            <span class="discord-online-dot"></span><span id="discordOnlineCount">Discord</span>
-          </a>
           <button type="button" data-footer-modal="changelog">Registro de Alterações</button>
         </div>
+
         <div class="footer-col">
           <div class="footer-col-title">Legal</div>
           <button type="button" data-footer-modal="privacy">Política de Privacidade</button>
           <button type="button" data-footer-modal="terms">Termos de Serviço</button>
         </div>
+
         <div class="footer-col footer-col-apoie">
           <div class="footer-col-title">Apoie</div>
           <a href="https://livepix.gg/skarsgardsson" target="_blank" rel="noopener" class="footer-qr-link" title="Abrir LivePix">
@@ -154,20 +151,20 @@
           <span class="footer-apoie-text">Apoie o projeto 🤍</span>
         </div>
       </div>
+      
       <div class="footer-bottom-bar">
         <div class="footer-founding-counter" id="footerFoundingCounter"></div>
         <div class="footer-legal-text">santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. &copy; 2026 santuarioluacrescente.netlify.app</div>
       </div>
     </div>
-	  <!-- Botão Voltar ao Topo -->
+  </footer>
+
   <button id="backToTop" aria-label="Voltar ao topo">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M18 15l-6-6-6 6"/>
     </svg>
   </button>
-  </footer>
 
-  <!-- Modais -->
   <div class="guild-modal footer-modal" id="footerPrivacyModal" aria-hidden="true" role="dialog">
     <div class="guild-modal-backdrop" data-footer-modal-close></div>
     <div class="guild-modal-dialog footer-modal-dialog">
@@ -193,18 +190,11 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="/assets/js/ui-translations.js?v=133"></script>
-  <script src="/assets/js/combos.js?v=4"></script> <!-- SCRIPT ESPECÍFICO DE COMBOS -->
+  <script src="/assets/js/combos.js?v=4"></script>
   <script src="/assets/js/site-runtime.js?v=105"></script>
   <script src="/assets/js/boss-timer.js?v=110"></script>
   <script src="/assets/js/guild-boss-timer.js?v=105"></script>
   <script src="/assets/js/world-cycle.js?v=105"></script>
-    <!-- Botão Voltar ao Topo -->
-  <button id="backToTop" aria-label="Voltar ao topo">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 15l-6-6-6 6"/>
-    </svg>
-  </button>
 </body>
 </html>

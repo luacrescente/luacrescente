@@ -3,24 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="lua-crescente-build" content="v145">
-  <title>Mapa de Edania · Lua Crescente</title>
+  <meta name="lua-crescente-build" content="v148">
+  <title>Mapa de Edania · Lua Crescente BDO</title>
+  <meta name="description" content="Explore o Mapa de Edania no Black Desert Online. Encontre relíquias, vestígios, conhecimento e acompanhe seu progresso.">
+  <meta name="keywords" content="mapa edania bdo, dokkebi, relíquias bdo, lua crescente bdo">
+  <meta property="og:title" content="Mapa de Edania · Lua Crescente BDO">
+  <meta property="og:description" content="Explore o Mapa de Edania e acompanhe seu progresso no BDO.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://santuarioluacrescente.netlify.app/mapa.html">
+  <meta property="og:image" content="https://santuarioluacrescente.netlify.app/assets/img/home-bg.webp">
+  
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E7C98A'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/assets/css/site.css?v=145">
+  <link rel="stylesheet" href="/assets/css/site.css?v=148">
   <link rel="stylesheet" href="/assets/css/mapa-edania.css?v=115">
 </head>
 <body data-page="mapa">
 
-  <!-- ==================== TOP BAR (TIMERS) ==================== -->
   <div class="utility-top-bar" id="utilityTopBar">
-     <div class="guild-boss-timer-bar" id="guildBossTimerBar">
+    <div class="guild-boss-timer-bar" id="guildBossTimerBar">
       <div class="guild-boss-timer-inner">
-        <!-- Ícone do Boss Guilda adicionado aqui -->
         <img src="/assets/img/guild-boss.png" alt="Boss Guilda" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">
         <span class="guild-boss-timer-label" id="guildBossTimerLabel">Boss Guilda</span>
         <strong class="guild-boss-timer-count" id="guildBossTimerCount">--h --m</strong>
@@ -28,9 +34,8 @@
     </div>
   </div>
 
-  <!-- ==================== NAVEGAÇÃO ==================== -->
   <nav class="site-nav">
-        <a href="/" class="brand" aria-label="Página inicial">
+    <a href="/" class="brand" aria-label="Página inicial">
       <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
@@ -68,19 +73,15 @@
     </div>
   </nav>
 
-  <!-- ==================== MAPA ==================== -->
   <main style="max-width: 1400px; margin: 0 auto; padding: 0 32px;">
     
-    <!-- Controles do Topo do Mapa -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
       <div>
         <h1 id="mapa-edania-title" style="font-family: var(--font-heading); font-size: 32px; margin: 0; color: var(--gold);">Carregando Mapa...</h1>
         <p style="color: var(--text-dim); margin: 4px 0 0; font-size: 14px;">Explore os pontos de interesse e acompanhe seu progresso.</p>
       </div>
       <div style="display: flex; gap: 8px;">
-        <select id="mapa-edania-select" class="mapa-edania-select">
-          <!-- Opções injetadas pelo JS -->
-        </select>
+        <select id="mapa-edania-select" class="mapa-edania-select"></select>
         <button id="mapa-edania-fs" class="mapa-edania-fs" type="button">
           <span class="mapa-edania-fs-icon">⛶</span>
           <span class="mapa-edania-fs-text">Tela cheia</span>
@@ -88,13 +89,10 @@
       </div>
     </div>
 
-    <!-- O Wrapper do Mapa (onde o canvas é desenhado) -->
     <div class="mapa-edania-wrap" id="mapa-edania-wrap">
-      
       <div class="mapa-edania-stage" id="mapa-edania-stage">
         <canvas id="mapa-edania-canvas"></canvas>
         
-        <!-- Sidebar de Ferramentas -->
         <div class="mapa-edania-panel mapa-edania-sidebar" id="mapa-edania-ui">
           <div class="mapa-edania-head" id="mapa-edania-ui-head">
             <h2 class="mapa-edania-title">Ferramentas</h2>
@@ -102,24 +100,19 @@
           </div>
           
           <div class="mapa-edania-body" id="mapa-edania-ui-body">
-            <!-- Busca -->
             <div class="mapa-edania-search" id="mapa-edania-search-wrap">
               <input type="text" id="mapa-edania-q" placeholder="Buscar ponto (ex: Relíquia 1)..." autocomplete="off">
               <div class="mapa-edania-hits hidden" id="mapa-edania-hits"></div>
             </div>
 
-            <!-- Camadas -->
             <div class="mapa-edania-sec">Camadas do mapa</div>
             <div id="mapa-edania-layers"></div>
 
-            <!-- Progresso -->
             <div class="mapa-edania-sec">Progresso</div>
             <div id="mapa-edania-prog" class="mapa-edania-prog"></div>
 
-            <!-- Missões principais -->
             <div id="mapa-edania-mainq"></div>
 
-            <!-- Botões de Ação -->
             <div class="mapa-edania-row">
               <button id="mapa-edania-btn-fit" type="button">Ver tudo</button>
               <button id="mapa-edania-btn-reset" type="button">Resetar</button>
@@ -132,7 +125,6 @@
           </div>
         </div>
 
-        <!-- Painel de Seleção -->
         <div class="mapa-edania-panel mapa-edania-sel" id="mapa-edania-sel">
           <button class="mapa-edania-sel-close" id="mapa-edania-sel-close">×</button>
           <div class="mapa-edania-sel-t" id="mapa-edania-sel-t"></div>
@@ -142,11 +134,9 @@
           <button id="mapa-edania-sel-done" style="margin-top:12px; width:100%; padding: 8px; border-radius: 6px; cursor:pointer;"></button>
         </div>
 
-        <!-- Tooltip e Toast -->
         <div class="mapa-edania-tip" id="mapa-edania-tip"></div>
         <div class="mapa-edania-toast" id="mapa-edania-toast"></div>
 
-        <!-- Lightbox -->
         <div class="mapa-edania-lb" id="mapa-edania-lb">
           <div id="mapa-edania-lb-title"></div>
           <button class="mapa-edania-lb-nav" id="mapa-edania-lb-prev">‹</button>
@@ -156,16 +146,14 @@
           <button class="mapa-edania-lb-nav" id="mapa-edania-lb-close">×</button>
           <div id="mapa-edania-lb-count"></div>
         </div>
-
       </div>
     </div>
   </main>
 
-  <!-- ==================== RODAPÉ ==================== -->
   <footer class="site-footer" style="margin-top: 40px;">
     <div class="footer-columns-wrap">
       <div class="footer-columns">
-             <div class="footer-col-brand">
+        <div class="footer-col-brand">
           <div class="footer-brand">
             <svg class="brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="#E7C98A" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -174,7 +162,6 @@
           </div>
           <p class="footer-desc">Santuário da guilda: receitas, cupons e recursos para o Black Desert Online.</p>
           
-          <!-- Link do Discord movido para baixo do texto -->
           <a href="https://discord.gg/mXg9pQD8kQ" target="_blank" rel="noopener" class="footer-discord-link" style="margin-top: 12px; display: inline-flex;">
             <svg class="footer-discord-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
             <span class="discord-online-dot"></span>
@@ -190,10 +177,6 @@
         <div class="footer-col">
           <div class="footer-col-title">Recursos</div>
           <a href="#" id="footerCouponsLink">Cupons do BDO</a>
-          <a href="https://discord.gg/" target="_blank" rel="noopener" class="footer-discord-link">
-            <svg class="footer-discord-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
-            <span class="discord-online-dot"></span><span id="discordOnlineCount">Discord</span>
-          </a>
           <button type="button" data-footer-modal="changelog">Registro de Alterações</button>
         </div>
         <div class="footer-col">
@@ -214,15 +197,14 @@
         <div class="footer-legal-text">santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. &copy; 2026 santuarioluacrescente.netlify.app</div>
       </div>
     </div>
-	  <!-- Botão Voltar ao Topo -->
+  </footer>
+
   <button id="backToTop" aria-label="Voltar ao topo">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M18 15l-6-6-6 6"/>
     </svg>
   </button>
-  </footer>
 
-  <!-- Modais -->
   <div class="guild-modal footer-modal" id="footerPrivacyModal" aria-hidden="true" role="dialog">
     <div class="guild-modal-backdrop" data-footer-modal-close></div>
     <div class="guild-modal-dialog footer-modal-dialog">
@@ -248,31 +230,24 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="/assets/js/ui-translations.js?v=133"></script>
   <script src="/assets/js/site-runtime.js?v=105"></script>
   <script src="/assets/js/mapa-edania.js?v=115"></script>
   <script src="/assets/js/boss-timer.js?v=110"></script>
   <script src="/assets/js/guild-boss-timer.js?v=105"></script>
   <script src="/assets/js/world-cycle.js?v=105"></script>
-    <!-- Script para fazer o botão de Tela Cheia funcionar -->
-  <!-- Script de Tela Cheia Nativo (com botão de sair visível e ESC funcionando) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const btnFs = document.getElementById('mapa-edania-fs');
-      const mainEl = document.querySelector('main'); // Usamos o MAIN inteiro (contém o botão e o mapa)
-      
+      const mainEl = document.querySelector('main'); 
       if (btnFs && mainEl) {
         btnFs.addEventListener('click', () => {
           if (!document.fullscreenElement) {
-            mainEl.requestFullscreen().catch(err => {
-              console.error(`Erro ao tentar tela cheia: ${err.message}`);
-            });
+            mainEl.requestFullscreen().catch(err => console.error(`Erro ao tentar tela cheia: ${err.message}`));
           } else {
             document.exitFullscreen();
           }
         });
-        
         document.addEventListener('fullscreenchange', () => {
           const txt = btnFs.querySelector('.mapa-edania-fs-text');
           if (document.fullscreenElement) {
@@ -286,11 +261,5 @@
       }
     });
   </script>
-    <!-- Botão Voltar ao Topo -->
-  <button id="backToTop" aria-label="Voltar ao topo">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 15l-6-6-6 6"/>
-    </svg>
-  </button>
 </body>
 </html>

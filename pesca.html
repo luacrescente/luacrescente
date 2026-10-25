@@ -3,24 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="lua-crescente-build" content="v146">
-  <title>Mapa de Pesca · Lua Crescente</title>
+  <meta name="lua-crescente-build" content="v148">
+  <title>Mapa de Pesca · Lua Crescente BDO</title>
+  <meta name="description" content="Explore as zonas de pesca do Black Desert Online, encontre hotspots, tempos de mordida e lista de peixes.">
+  <meta name="keywords" content="mapa pesca bdo, peixes bdo, hotspots pesca, lua crescente bdo">
+  <meta property="og:title" content="Mapa de Pesca · Lua Crescente BDO">
+  <meta property="og:description" content="Guia de pesca completo para o Black Desert Online.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://santuarioluacrescente.netlify.app/pesca.html">
+  <meta property="og:image" content="https://santuarioluacrescente.netlify.app/assets/img/home-bg.webp">
+  
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E7C98A'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/assets/css/site.css?v=146">
-  <link rel="stylesheet" href="/assets/css/pesca.css?v=146">
+  <link rel="stylesheet" href="/assets/css/site.css?v=148">
+  <link rel="stylesheet" href="/assets/css/pesca.css?v=148">
 </head>
 <body data-page="pesca">
 
-  <!-- ==================== TOP BAR (TIMERS) ==================== -->
   <div class="utility-top-bar" id="utilityTopBar">
-     <div class="guild-boss-timer-bar" id="guildBossTimerBar">
+    <div class="guild-boss-timer-bar" id="guildBossTimerBar">
       <div class="guild-boss-timer-inner">
-        <!-- Ícone do Boss Guilda adicionado aqui -->
         <img src="/assets/img/guild-boss.png" alt="Boss Guilda" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">
         <span class="guild-boss-timer-label" id="guildBossTimerLabel">Boss Guilda</span>
         <strong class="guild-boss-timer-count" id="guildBossTimerCount">--h --m</strong>
@@ -28,9 +34,8 @@
     </div>
   </div>
 
-  <!-- ==================== NAVEGAÇÃO ==================== -->
   <nav class="site-nav">
-        <a href="/" class="brand" aria-label="Página inicial">
+    <a href="/" class="brand" aria-label="Página inicial">
       <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
@@ -68,9 +73,7 @@
     </div>
   </nav>
 
-  <!-- ==================== CONTEÚDO ==================== -->
   <main style="max-width: 1400px; margin: 0 auto; padding: 0 32px;">
-    
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
       <div>
         <h1 id="pesca-title" style="font-family: var(--font-heading); font-size: 32px; margin: 0; color: var(--gold);">Mapa de Pesca</h1>
@@ -84,12 +87,10 @@
       </div>
     </div>
 
-    <!-- O Mapa de Pesca -->
     <div class="pesca-wrap" id="pesca-wrap">
       <div class="pesca-stage">
         <canvas id="pesca-canvas"></canvas>
 
-        <!-- Sidebar de Ferramentas -->
         <div class="pesca-panel pesca-sidebar" id="pesca-ui">
           <div class="pesca-head" id="pesca-ui-head">
             <h2 class="pesca-sidebar-title">Pesca</h2>
@@ -97,7 +98,6 @@
           </div>
           
           <div class="pesca-body" id="pesca-ui-body">
-            
             <div class="pesca-search-wrap" id="pesca-search-wrap">
               <input type="text" id="pesca-q" placeholder="Buscar peixe ou zona..." autocomplete="off">
               <div class="pesca-hits hidden" id="pesca-hits"></div>
@@ -133,23 +133,20 @@
           </div>
         </div>
 
-        <!-- Painel de Seleção -->
         <div class="pesca-panel pesca-sel" id="pesca-sel" style="display:none;">
           <button class="pesca-sel-close" id="pesca-sel-close">×</button>
           <div class="pesca-sel-t" id="pesca-sel-t"></div>
           <div class="pesca-sel-s" id="pesca-sel-s"></div>
           <div class="pesca-sel-content" id="pesca-sel-content"></div>
         </div>
-
       </div>
     </div>
   </main>
 
-  <!-- ==================== RODAPÉ ==================== -->
   <footer class="site-footer" style="margin-top: 40px;">
     <div class="footer-columns-wrap">
       <div class="footer-columns">
-                <div class="footer-col-brand">
+        <div class="footer-col-brand">
           <div class="footer-brand">
             <svg class="brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="#E7C98A" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -158,7 +155,6 @@
           </div>
           <p class="footer-desc">Santuário da guilda: receitas, cupons e recursos para o Black Desert Online.</p>
           
-          <!-- Link do Discord movido para baixo do texto -->
           <a href="https://discord.gg/mXg9pQD8kQ" target="_blank" rel="noopener" class="footer-discord-link" style="margin-top: 12px; display: inline-flex;">
             <svg class="footer-discord-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
             <span class="discord-online-dot"></span>
@@ -174,10 +170,6 @@
         <div class="footer-col">
           <div class="footer-col-title">Recursos</div>
           <a href="#" id="footerCouponsLink">Cupons do BDO</a>
-          <a href="https://discord.gg/" target="_blank" rel="noopener" class="footer-discord-link">
-            <svg class="footer-discord-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
-            <span class="discord-online-dot"></span><span id="discordOnlineCount">Discord</span>
-          </a>
           <button type="button" data-footer-modal="changelog">Registro de Alterações</button>
         </div>
         <div class="footer-col">
@@ -198,15 +190,14 @@
         <div class="footer-legal-text">santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. &copy; 2026 santuarioluacrescente.netlify.app</div>
       </div>
     </div>
-	  <!-- Botão Voltar ao Topo -->
+  </footer>
+
   <button id="backToTop" aria-label="Voltar ao topo">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M18 15l-6-6-6 6"/>
     </svg>
   </button>
-  </footer>
 
-  <!-- Modais -->
   <div class="guild-modal footer-modal" id="footerPrivacyModal" aria-hidden="true" role="dialog">
     <div class="guild-modal-backdrop" data-footer-modal-close></div>
     <div class="guild-modal-dialog footer-modal-dialog">
@@ -232,7 +223,6 @@
     </div>
   </div>
 
-  <!-- ==================== SCRIPTS ==================== -->
   <script src="/assets/js/ui-translations.js?v=133"></script>
   <script src="/assets/js/site-runtime.js?v=105"></script>
   <script src="/assets/js/pesca.js?v=146"></script>
@@ -240,23 +230,18 @@
   <script src="/assets/js/guild-boss-timer.js?v=105"></script>
   <script src="/assets/js/world-cycle.js?v=105"></script>
 
-  <!-- Script de Tela Cheia Nativo -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const btnFs = document.getElementById('pesca-fullscreen');
-      const mainEl = document.querySelector('main'); // O elemento que vai virar tela cheia
-      
+      const mainEl = document.querySelector('main'); 
       if (btnFs && mainEl) {
         btnFs.addEventListener('click', () => {
           if (!document.fullscreenElement) {
-            mainEl.requestFullscreen().catch(err => {
-              console.error(`Erro ao tentar tela cheia: ${err.message}`);
-            });
+            mainEl.requestFullscreen().catch(err => console.error(`Erro ao tentar tela cheia: ${err.message}`));
           } else {
             document.exitFullscreen();
           }
         });
-        
         document.addEventListener('fullscreenchange', () => {
           const txt = btnFs.querySelector('.pesca-fs-text');
           if (document.fullscreenElement) {
@@ -270,11 +255,5 @@
       }
     });
   </script>
-    <!-- Botão Voltar ao Topo -->
-  <button id="backToTop" aria-label="Voltar ao topo">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 15l-6-6-6 6"/>
-    </svg>
-  </button>
 </body>
 </html>
