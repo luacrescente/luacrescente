@@ -3027,3 +3027,40 @@ body[data-season="junina"] {
 .home-modal-body > h3:first-child {
   margin-top: 0;
 }
+
+/* =====================================================================
+   ESTILOS DE CÓDIGO E LISTAS DENTRO DO MODAL
+   ===================================================================== */
+.home-modal-body code {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--gold);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.home-modal-body pre {
+  background: #0b0e17;
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.home-modal-body pre code {
+  background: transparent;
+  padding: 0;
+  color: #a9beff;
+}
+
+.home-modal-body ul,
+.home-modal-body ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.home-modal-body li {
+  margin-bottom: 6px;
+}
