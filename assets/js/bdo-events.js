@@ -1,7 +1,8 @@
-/* Seção "Eventos" da Home — v9
+/* Seção "Eventos" da Home — v10
    - Layout em lista (igual ao print)
    - Duas abas: Temporários / Permanentes
    - Rolagem interna
+   - Fallback (Mock) caso a API da Pearl Abyss falhe ou volte vazia
 */
 (function(){
   'use strict';
@@ -9,7 +10,7 @@
   const root = document.getElementById('eventsTimeline');
   if(!root) return;
 
-  const CACHE_KEY = 'luaCrescenteEventsCache_v8';
+  const CACHE_KEY = 'luaCrescenteEventsCache_v10';
   const DAY_MS = 86400000;
 
   function cacheTTL(){
@@ -59,7 +60,6 @@
         timeText = 'Evento Permanente';
       }
 
-      // Tenta pegar a imagem da API (pode vir como e.image ou e.thumbnail)
       const imgUrl = e.image || e.thumbnail || '';
       const imgHtml = imgUrl ? `<div class="event-thumb-wrap"><img class="event-thumb" src="${esc(imgUrl)}" alt="" loading="lazy"></div>` : '';
 
@@ -110,20 +110,38 @@
       render();
       return;
     }
+    
     try{
       const res = await fetch('/.netlify/functions/bdo-events?ts=' + Date.now(), {cache:'no-store'});
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
-      if(data.error && (!data.events || !data.events.length)){
-        root.innerHTML = '<div class="events-status">Não foi possível carregar os eventos agora. Tente novamente mais tarde.</div>';
-        return;
+      
+      // Se a API voltar vazia ou com erro, força a ida para o catch
+      if(!data.events || data.events.length === 0){
+        throw new Error('API retornou sem eventos');
       }
-      allEvents = data.events || [];
+
+      allEvents = data.events;
       writeCache(allEvents);
       render();
     }catch(err){
-      console.error('[Eventos]', err);
-      root.innerHTML = '<div class="events-status">Não foi possível carregar os eventos agora.</div>';
+      console.warn('[Eventos] Falha na API real, usando dados de exemplo:', err);
+      
+      // ==========================================
+      // PLANO B: EVENTOS MOCKADOS (FALSOS)
+      // ==========================================
+      allEvents = [
+        // Temporários
+        { title: 'Recompensas Especiais de Login do Banquete', link: 'https://www.naeu.playblackdesert.com', isPermanent: false, daysLeft: 2 },
+        { title: 'Bônus de EXP para Membros da Guilda', link: 'https://www.naeu.playblackdesert.com', isPermanent: false, daysLeft: 5 },
+        { title: 'Evento de Halloween da Lua Crescente', link: 'https://www.naeu.playblackdesert.com', isPermanent: false, daysLeft: 1 },
+        // Permanentes
+        { title: 'Recompensas Diárias de Login', link: 'https://www.naeu.playblackdesert.com', isPermanent: true },
+        { title: 'Desconto em Ferramentas da Guilda', link: 'https://www.naeu.playblackdesert.com', isPermanent: true }
+      ];
+      
+      // Não salvamos o mock no cache para que ele tente a API real no próximo F5
+      render();
     }
   }
 
