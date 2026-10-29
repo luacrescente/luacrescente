@@ -3078,8 +3078,13 @@ async function loadDiscordAnnouncements(){
     if(!posts.length) throw new Error('sem avisos');
 
     grid.innerHTML = posts.slice(0, 5).map((p, i) => {
-      // Remove os "#" e "*" do começo e fim do título
-      const tituloLimpo = p.title.replace(/^[#*\s]+/, '').replace(/[#*\s]+$/, '');
+      // Limpeza pesada no título para os cards pequenos
+      let tituloLimpo = p.title;
+      tituloLimpo = tituloLimpo.replace(/^[#*\s]+/, ''); // Remove # e * do começo
+      tituloLimpo = tituloLimpo.replace(/^(?:📢\s*)?AVISO\s*IMPORTANTE\s*[-—:]?\s*/i, ''); // Remove "AVISO IMPORTANTE"
+      tituloLimpo = tituloLimpo.replace(/[#*\s]+$/, ''); // Remove # e * do final
+
+      if(!tituloLimpo) tituloLimpo = 'Novo Aviso'; // Fallback se o título ficar vazio
       
       return `
       <button type="button" class="announcement-card" data-idx="${i}">
