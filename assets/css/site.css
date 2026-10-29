@@ -2975,3 +2975,55 @@ body[data-season="junina"] {
 @keyframes seasonal-fall {
   to { transform: translateY(110vh) rotate(360deg); }
 }
+
+/* =====================================================================
+   AJUSTE DO BOTÃO VOLTAR AO TOPO (Para não bater no Netlify)
+   ===================================================================== */
+#backToTop {
+  bottom: 85px !important; /* Sobe o botão para ficar acima do selo do Netlify */
+}
+
+/* =====================================================================
+   ESTILOS DE MARKDOWN DENTRO DO MODAL DE AVISOS
+   ===================================================================== */
+.home-modal-body {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* Títulos dentro do aviso */
+.home-modal-body h1, 
+.home-modal-body h2, 
+.home-modal-body h3 {
+  font-family: var(--font-heading);
+  color: var(--gold);
+  margin: 24px 0 12px;
+  line-height: 1.3;
+}
+.home-modal-body h1 { font-size: 24px; }
+.home-modal-body h2 { font-size: 20px; }
+.home-modal-body h3 { font-size: 18px; }
+
+/* Texto em negrito e itálico */
+.home-modal-body strong { color: var(--text); font-weight: 700; }
+.home-modal-body em { font-style: italic; }
+.home-modal-body u { text-decoration: underline; text-decoration-color: var(--gold); }
+
+/* Citações (blockquotes) */
+.home-modal-body blockquote {
+  border-left: 3px solid var(--gold);
+  background: rgba(231, 201, 138, 0.05);
+  padding: 12px 16px;
+  margin: 16px 0;
+  border-radius: 0 8px 8px 0;
+  color: var(--text);
+  font-style: italic;
+}
+
+/* Remove a margem do primeiro título para não ficar muito espaço no topo */
+.home-modal-body > h1:first-child,
+.home-modal-body > h2:first-child,
+.home-modal-body > h3:first-child {
+  margin-top: 0;
+}
