@@ -3145,27 +3145,54 @@ function openVideoModal(id, title){
   document.body.classList.add('modal-open');
 }
 
+// Função mágica para transformar Markdown em HTML (Deve ficar acima do modal)
+function parseDiscordMarkdown(text) {
+  if (!text) return '';
+  // 1. Escapa HTML para segurança
+  let html = text.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  
+  // 2. Blocos de código (```texto```)
+  html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+  
+  // 3. Código inline (`texto`)
+  html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+  
+  // 4. Substitui os Markdowns de texto
+  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+  
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  html = html.replace(/__(.*?)__/g, '<u>$1</u>');
+  html = html.replace(/~~(.*?)~~/g, '<s>$1</s>');
+  
+  html = html.replace(/^&gt; (.*$)/gim, '<blockquote>$1</blockquote>');
+  
+  // 5. Transforma quebras de linha normais em <br>
+  html = html.replace(/\n/g, '<br>');
+  return html;
+}
+
 function openAnnouncementModal(post){
   const modal = document.getElementById('homeModal');
   const content = document.getElementById('homeModalContent');
   if(!modal || !content) return;
   
-  // 1. Limpa o título
-  const tituloLimpo = post.title.replace(/^[#*\s]+/, '').replace(/[#*\s]+$/, '');
-  
-  // 2. Limpa o corpo do texto (remove os "#" e "*" do Discord)
-  let corpoLimpo = post.body || '';
-  corpoLimpo = corpoLimpo.replace(/^[#*>\s]+/gm, ''); // Tira # e > do começo das linhas
-  corpoLimpo = corpoLimpo.replace(/\*\*(.*?)\*\*/g, '$1'); // Tira **negrito**
-  corpoLimpo = corpoLimpo.replace(/\*(.*?)\*/g, '$1'); // Tira *itálico*
-  corpoLimpo = corpoLimpo.replace(/__(.*?)__/g, '$1'); // Tira __sublinhado__
-  corpoLimpo = corpoLimpo.replace(/~~(.*?)~~/g, '$1'); // Tira ~~riscado~~
+  // Limpa o título principal do modal (remove #, * e "AVISO IMPORTANTE")
+  let tituloLimpo = post.title;
+  tituloLimpo = tituloLimpo.replace(/^[#*\s]+/, ''); 
+  tituloLimpo = tituloLimpo.replace(/^(?:📢\s*)?AVISO\s*IMPORTANTE\s*[-—:]?\s*/i, '');
+  tituloLimpo = tituloLimpo.replace(/[#*\s]+$/, '');
+
+  // Aplica o Markdown no corpo do texto
+  const corpoFormatado = parseDiscordMarkdown(post.body || '');
 
   content.innerHTML = `
     <h2 id="homeModalTitle" class="home-modal-title">${escapeHtml(tituloLimpo)}</h2>
-    <div class="home-modal-meta">${relativeDate(post.timestamp)} · ${escapeHtml(post.author)}</div>
+    <div class="home-modal-meta">${relativeDate(post.timestamp)}</div>
     ${post.image ? `<img class="home-modal-image" src="${escapeHtml(post.image)}" alt="" referrerpolicy="no-referrer">` : ''}
-    <div class="home-modal-body">${escapeHtml(corpoLimpo).replace(/\n/g, '<br>')}</div>
+    <div class="home-modal-body">${corpoFormatado}</div>
   `;
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
