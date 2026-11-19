@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDO Fashion · Santuário Lua Crescente</title>
+    <meta name="description" content="Vitrine de trajes de Black Desert Online da guilda Lua Crescente.">
+    
+    <!-- Fontes do site -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E7C98A'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E">
+    <!-- CSS Global do site -->
+    <link rel="stylesheet" href="/assets/css/site.css?v=146">
+    <!-- CSS Específico da Vitrine -->
+    <link rel="stylesheet" href="/assets/css/fashion.css?v=1">
+</head>
+<body data-page="bdofashion">
+
+<div class="utility-top-bar" id="utilityTopBar">
+    <!-- O JS injeta o Dia/Noite e o Próximo Chefe aqui -->
+      <div class="guild-boss-timer-bar" id="guildBossTimerBar">
+      <div class="guild-boss-timer-inner">
+        <!-- Ícone do Boss Guilda adicionado aqui -->
+        <img src="/assets/img/guild-boss.png" alt="Boss Guilda" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover;">
+        <span class="guild-boss-timer-label" id="guildBossTimerLabel">Boss Guilda</span>
+        <strong class="guild-boss-timer-count" id="guildBossTimerCount">--h --m</strong>
+      </div>
+    </div>
+</div>
+<nav class="site-nav">
+        <a href="/" class="brand" aria-label="Página inicial">
+      <svg class="brand-icon" width="28" height="28" viewBox="0 0 24 24" fill="var(--gold)" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <span class="brand-name">Lua Crescente</span>
+    </a>
+    
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    
+    <div class="site-tabs" id="siteTabs">
+      <a class="site-tab" href="index.html" data-i18n="nav_home">Início</a>
+      
+      <div class="site-tab-dropdown">
+        <span class="site-tab" data-i18n="nav_receitas_root">Receitas</span>
+        <div class="site-tab-dropdown-menu">
+          <a class="site-tab" href="receitas.html" data-i18n="nav_culinaria">Bancada</a>
+          <a class="site-tab" href="processamento.html" data-i18n="nav_processamento">Processamento</a>
+          <a class="site-tab" href="itens-tesouro.html" data-i18n="nav_itens_tesouro">Itens Tesouro</a>
+		  <a class="site-tab" href="combos.html">Artefatos</a>
+        </div>
+      </div>
+      
+      <div class="site-tab-dropdown">
+        <span class="site-tab" data-i18n="nav_mapas_root">Mapas</span>
+        <div class="site-tab-dropdown-menu">
+          <a class="site-tab" href="mapa.html" data-i18n="nav_mapa">Mapa de Edania</a>
+          <a class="site-tab" href="pesca.html" data-i18n="nav_pesca">Mapa de Pesca</a>
+        </div>
+      </div>
+      
+      <a class="site-tab" href="sala-de-aula.html" data-i18n="nav_sala">Sala de Aula</a>
+      <a class="site-tab active" href="bdofashion.html" aria-current="page">BDO Fashion</a>
+    </div>
+
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-btn" id="langBtn">Português ▾</button>
+      <div class="lang-menu" id="langMenu">
+        <button class="lang-option" data-lang="pt">🇧🇷 Português</button>
+        <button class="lang-option" data-lang="es">🇪🇸 Español</button>
+      </div>
+    </div>
+  </nav>
+
+        <section class="home-hero-new fashion-hero" aria-labelledby="fashion-title">
+            <div class="home-eyebrow">VITRINE DE TRAJES</div>
+            <h1 class="home-title-new" id="fashion-title">BDO Fashion</h1>
+            <p class="home-sub-new">Pesquise trajes e explore os visuais disponíveis.</p>
+            <form class="home-search-new fashion-search" id="fashionSearchForm" autocomplete="off">
+                <span class="home-search-icon" aria-hidden="true"></span>
+                <input type="text" id="fashion-search-input" class="global-search-input" autocomplete="off" placeholder="Buscar trajes, classes, categorias..." aria-label="Buscar" data-i18n-attr="placeholder:home_search_placeholder">
+                <span class="search-shortcut">Ctrl K</span>
+                <button type="submit" hidden>Buscar</button>
+            </form>
+        </section>
+
+        <main class="fashion-page">
+            <div class="fashion-grid" id="fashion-grid" aria-live="polite">
+                <div class="fashion-loading">Carregando vitrine de trajes...</div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+    <div class="footer-columns-wrap">
+      <div class="footer-columns">
+                <div class="footer-col-brand">
+          <div class="footer-brand">
+            <svg class="brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="#E7C98A" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <span>Lua Crescente</span>
+          </div>
+          <p class="footer-desc">Santuário da guilda: receitas, cupons e recursos para o Black Desert Online.</p>
+          
+          <!-- Link do Discord movido para baixo do texto -->
+          <a href="https://discord.gg/mXg9pQD8kQ" target="_blank" rel="noopener" class="footer-discord-link" style="margin-top: 12px; display: inline-flex;">
+            <svg class="footer-discord-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
+            <span class="discord-online-dot"></span>
+            <span id="discordOnlineCount">Discord</span>
+          </a>
+
+          <p class="footer-founding-counter" id="footerFoundingCounter" style="margin-top: 16px;"></p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Navegação</div>
+          <a href="index.html">Início</a><a href="receitas.html">Bancada</a><a href="combos.html">Artefatos</a><a href="processamento.html">Processamentos</a><a href="itens-tesouro.html">Itens Tesouros</a><a href="sala-de-aula.html">Sala de Aula</a><a href="bdofashion.html">BDO Fashion</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Recursos</div>
+          <a href="#" id="footerCouponsLink">Cupons do BDO</a>
+          <a href="https://discord.gg/" target="_blank" rel="noopener" class="footer-discord-link">
+            <svg class="footer-discord-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.5c-1.5-.7-3.2-1.2-4.9-1.5-.3.5-.6 1.2-.8 1.8-1.8-.3-3.7-.3-5.5 0-.2-.6-.5-1.3-.8-1.8-1.7.3-3.4.8-4.9 1.5C1.5 8.7.9 12.8 1.2 16.9c1.9 1.4 3.7 2.3 5.5 2.9.5-.7.9-1.5 1.2-2.3-.7-.3-1.4-.6-2-1 .2-.1.3-.3.5-.4 4 1.8 8.3 1.8 12.2 0 .2.1.3.3.5.4-.6.4-1.3.7-2 1 .3.8.7 1.6 1.2 2.3 1.8-.6 3.6-1.5 5.5-2.9.4-4.8-.6-8.8-3.2-12.4zM8.5 14.7c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm7 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z"/></svg>
+            <span class="discord-online-dot"></span><span id="discordOnlineCount">Discord</span>
+          </a>
+          <button type="button" data-footer-modal="changelog">Registro de Alterações</button>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <button type="button" data-footer-modal="privacy">Política de Privacidade</button>
+          <button type="button" data-footer-modal="terms">Termos de Serviço</button>
+        </div>
+        <div class="footer-col footer-col-apoie">
+          <div class="footer-col-title">Apoie</div>
+          <a href="https://livepix.gg/skarsgardsson" target="_blank" rel="noopener" class="footer-qr-link" title="Abrir LivePix">
+            <img src="/assets/img/qr-code.png" alt="QR Code PIX" class="footer-qr-code" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://livepix.gg/skarsgardsson'">
+          </a>
+          <span class="footer-apoie-text">Apoie o projeto 🤍</span>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div class="footer-founding-counter" id="footerFoundingCounter"></div>
+        <div class="footer-legal-text">santuarioluacrescente.netlify.app não é afiliado à Pearl Abyss ou ao Black Desert Online. &copy; 2026 santuarioluacrescente.netlify.app</div>
+      </div>
+    </div>
+  </footer>
+
+<div class="guild-modal footer-modal" id="footerPrivacyModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-footer-modal-close></div>
+    <div class="guild-modal-dialog footer-modal-dialog">
+      <button class="guild-modal-close" data-footer-modal-close aria-label="Fechar">×</button>
+      <h2>Política de Privacidade</h2>
+      <div id="footerPrivacyContent" class="footer-modal-content"></div>
+    </div>
+  </div>
+  <div class="guild-modal footer-modal" id="footerTermsModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-footer-modal-close></div>
+    <div class="guild-modal-dialog footer-modal-dialog">
+      <button class="guild-modal-close" data-footer-modal-close aria-label="Fechar">×</button>
+      <h2>Termos de Uso</h2>
+      <div id="footerTermsContent" class="footer-modal-content"></div>
+    </div>
+  </div>
+  <div class="guild-modal footer-modal" id="footerChangelogModal" aria-hidden="true" role="dialog">
+    <div class="guild-modal-backdrop" data-footer-modal-close></div>
+    <div class="guild-modal-dialog footer-modal-dialog" style="width: min(900px, 100%);">
+      <button class="guild-modal-close" data-footer-modal-close aria-label="Fechar">×</button>
+      <h2>Registro de Alterações</h2>
+      <div id="footerChangelogContent" class="footer-modal-content"></div>
+    </div>
+  </div>
+  
+    <!-- MODAL DO BDO FASHION -->
+    <div class="fashion-modal-backdrop" id="fashion-modal" role="dialog" aria-hidden="true" aria-modal="true" aria-labelledby="fashion-modal-title">
+        <div class="fashion-modal">
+            <button class="fashion-modal-close" onclick="closeFashionModal()">×</button>
+            
+            <div class="fashion-modal-left">
+            <div class="fashion-modal-image-stage">
+                <button class="fashion-gallery-arrow fashion-gallery-prev" id="fashion-gallery-prev" type="button" aria-label="Foto anterior" hidden>‹</button>
+                <div class="fashion-modal-img" id="fashion-modal-img" aria-live="polite"></div>
+                <button class="fashion-gallery-arrow fashion-gallery-next" id="fashion-gallery-next" type="button" aria-label="Próxima foto" hidden>›</button>
+            </div>
+            </div>
+
+            <div class="fashion-modal-right">
+                <div>
+                    <div class="fashion-eyebrow" id="fashion-modal-class" hidden>Classe · Gênero</div>
+                    <h2 class="fashion-modal-title" id="fashion-modal-title">Nome do Traje</h2>
+                </div>
+
+                <div class="fashion-panel" id="fashion-panel-classes" hidden>
+                    <div class="fashion-panel-label">Classes disponíveis</div>
+                    <div class="fashion-panel-value" id="fashion-modal-classes"></div>
+                </div>
+
+                <div class="fashion-panel" id="fashion-panel-source" hidden>
+                    <div class="fashion-panel-label">Como conseguir</div>
+                    <div class="fashion-panel-value" id="fashion-modal-source"></div>
+                </div>
+
+                <div class="fashion-panel" id="fashion-panel-description" hidden>
+                    <div class="fashion-panel-label">Descrição</div>
+                    <div class="fashion-panel-value" id="fashion-modal-description"></div>
+                </div>
+
+                <!-- AQUI ESTÁ A ÁREA DOS PREÇOS COM OS ÍCONES -->
+                <div class="fashion-panel flex-between" id="fashion-panel-market-price" hidden>
+                    <div id="fashion-field-price" hidden>
+                        <div class="fashion-panel-label">Média em Pérolas</div>
+                        <div class="fashion-price" style="display: flex; align-items: center; gap: 8px;">
+                            <img src="https://bdocodex.com/items/new_icon/00000006_special.webp" alt="Pérolas" style="width: 20px; height: 20px; object-fit: contain;">
+                            <span id="fashion-modal-price"></span>
+                        </div>
+                    </div>
+                    <div id="fashion-field-market" style="text-align:right;" hidden>
+                        <div class="fashion-panel-label">No Mercado</div>
+                        <div class="fashion-panel-value text-dim" style="display: flex; align-items: center; justify-content: flex-end; gap: 8px;">
+                            <img src="https://bdocodex.com/items/new_icon/00000001_special.webp" alt="Moedas de Prata" style="width: 20px; height: 20px; object-fit: contain;">
+                            <span id="fashion-modal-market"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="fashion-dynamic-fields"></div>
+                <p class="fashion-disclaimer">Santuário Lua Crescente não vende trajes. Página para fins de verificação visual de trajes.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/ui-translations.js?v=146"></script>
+    <script src="/assets/js/site-runtime.js?v=146"></script>
+    <script src="/assets/js/boss-timer.js?v=146"></script>
+    <script src="/assets/js/guild-boss-timer.js?v=146"></script>
+    <script src="/assets/js/world-cycle.js?v=146"></script>
+    
+    <!-- ATUALIZADO PARA v=3 -->
+    <script src="/assets/js/bdofashion.js?v=3"></script> 
+    <script src="/assets/js/global-search.js?v=146"></script>
+
+    <!-- Botão Voltar ao Topo -->
+    <button id="backToTop" aria-label="Voltar ao topo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+</body>
+</html>
