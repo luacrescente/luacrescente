@@ -36,6 +36,8 @@
       url = '/itens-tesouro.html?item=' + encodeURIComponent(e.n);
     } else if(t === 'blog'){
       url = '/sala-de-aula.html?post=' + encodeURIComponent(e.id);
+    } else if(t === 'fashion'){
+      url = '/bdofashion.html?outfit=' + encodeURIComponent(e.id);
     }
 
     var tipoLabel = {
@@ -43,7 +45,8 @@
       'process': 'Processamento',
       'combo': 'Artefato',
       'treasure': 'Tesouro',
-      'blog': 'Guia'
+      'blog': 'Guia',
+      'fashion': 'Traje'
     }[t] || 'Item';
 
     var tipoIcon = {
@@ -51,7 +54,8 @@
       'process': '⚗️',
       'combo': '💠',
       'treasure': '💎',
-      'blog': '📖'
+      'blog': '📖',
+      'fashion': '👗'
     }[t] || '•';
 
     return {
@@ -61,7 +65,7 @@
       typeLabel: tipoLabel,
       typeIcon: tipoIcon,
       url: url,
-      search: norm(e.n + ' ' + (e.g || ''))
+      search: norm(e.n + ' ' + (e.g || '') + ' ' + (e.s || ''))
     };
   }
 
@@ -74,7 +78,8 @@
         return r.json();
       })
       .then(function(data){
-        index = data.map(normalizarItem);
+        var extras = Array.isArray(window.LuaCrescenteSearchItems) ? window.LuaCrescenteSearchItems : [];
+        index = data.map(normalizarItem).concat(extras.map(normalizarItem));
         return index;
       })
       .catch(function(err){
