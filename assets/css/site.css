@@ -1,3 +1,4 @@
+/* Atualizado em 22/11/2026 por Codex: toast, skeleton, tooltip e modal LivePix. */
 /* =====================================================================
    LUA CRESCENTE — CSS COMPLETO E DEFINITIVO (v132)
    ===================================================================== */
@@ -158,13 +159,54 @@ body[data-page="processamento"] {
 .site-tab-dropdown-menu .site-tab { padding: 10px 20px; border-radius: 0; text-align: left; font-size: 14px; justify-content: flex-start;}
 .site-tab-dropdown-menu .site-tab:hover { background: rgba(255,255,255,0.05); color: var(--gold); }
 
-.lang-switch { flex: 1; display: flex; justify-content: flex-end; position: relative; }
+.nav-utility-actions { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+.lang-switch { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-end; position: relative; gap: 0; padding: 3px; border: 1px solid var(--border); border-radius: 999px; background: rgba(255, 255, 255, 0.03); }
 .lang-btn { background: transparent; border: 1px solid var(--border); color: var(--text-dim); padding: 8px 16px; border-radius: 999px; font-size: 14px; cursor: pointer; font-family: var(--font-body); }
 .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+.lang-switch .lang-btn, .lang-switch .support-nav-btn { border: 0; background: transparent; }
+.lang-switch .lang-btn:hover { background: rgba(231, 201, 138, 0.08); }
+.lang-switch .support-nav-btn { flex: 0 0 auto; margin: 0; color: var(--gold); font-weight: 700; }
+.lang-switch .support-nav-btn:hover { border-color: transparent; background: rgba(231, 201, 138, 0.1); color: var(--gold); }
 .lang-menu { position: absolute; right: 0; top: calc(100% + 8px); background: var(--panel); border: 1px solid var(--border); border-radius: 12px; display: none; z-index: 100; padding: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 .lang-switch.open .lang-menu { display: block; }
 .lang-option { display: block; width: 100%; border: 0; background: transparent; color: #ccc; padding: 10px 14px; text-align: left; cursor: pointer; border-radius: 8px; }
 .lang-option:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
+/* Botão de apoio junto ao seletor de idioma */
+
+.support-livepix-backdrop {
+  position: absolute;
+  inset: 0;
+}
+.support-livepix-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(360px, 100%);
+  text-align: center;
+}
+.support-livepix-dialog h2 {
+  margin: 0 36px 10px 0;
+}
+.support-livepix-description {
+  color: var(--text-dim);
+  margin: 0 0 18px;
+  line-height: 1.5;
+}
+.support-livepix-dialog .footer-qr-code {
+  width: 160px;
+  height: 160px;
+}
+.support-livepix-caption {
+  display: block;
+}
+@media (max-width: 768px) {
+  .site-nav .support-nav-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .guild-modal-dialog.support-livepix-dialog {
+    width: min(360px, 95%) !important;
+  }
+}
 .menu-toggle { display: none; }
 
 /* =====================================================================
@@ -2930,137 +2972,85 @@ body[data-page="receitas"] {
   align-items: center;
   gap: 6px;
 }
-
-/* =====================================================================
-   TEMAS SAZONAIS (Cores)
-   ===================================================================== */
-body[data-season="halloween"] {
-  --bg: #120a14; --panel: #201024; --panel-2: #2c1632; --border: #4a2a50;
-  --gold: #ff8c1a; --text: #f6eefa; --text-dim: #b79cc2;
-}
-body[data-season="natal"] {
-  --bg: #0a1410; --panel: #10241b; --panel-2: #183427; --border: #2f5a43;
-  --gold: #f1c453; --text: #f2f8f3; --text-dim: #9fc2ad;
-}
-body[data-season="anonovo"] {
-  --bg: #080813; --panel: #12122a; --panel-2: #1a1a3a; --border: #33336a;
-  --gold: #f5d76e; --text: #f6f6ff; --text-dim: #a3a8d0;
-}
-body[data-season="carnaval"] {
-  --bg: #12082a; --panel: #201046; --panel-2: #2c1860; --border: #5a2f9a;
-  --gold: #ff2e93; --text: #fbf3ff; --text-dim: #c0a6e6;
-}
-body[data-season="pascoa"] {
-  --bg: #17121f; --panel: #251c36; --panel-2: #30244a; --border: #54407a;
-  --gold: #ffb3d9; --text: #fbf4ff; --text-dim: #bfa9d8;
-}
-body[data-season="namorados"] {
-  --bg: #190a13; --panel: #2a1220; --panel-2: #381830; --border: #6a2e55;
-  --gold: #ff5d8f; --text: #fff3f7; --text-dim: #d6a5ba;
-}
-body[data-season="junina"] {
-  --bg: #1a0f08; --panel: #2c1a0e; --panel-2: #3a2414; --border: #6a4424;
-  --gold: #ffb703; --text: #fff6ea; --text-dim: #cfae8c;
+@media (max-width: 768px) {
+  .site-nav > .nav-utility-actions { display: none !important; }
 }
 
-/* =====================================================================
-   EFEITO DE PARTÍCULAS (Chuva de emojis)
-   ===================================================================== */
-.seasonal-fx {
-  position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 10;
+/* Atualizado em 22/11/2026 por Codex: corrige largura do modal LivePix e alinhamento responsivo da frase. */
+.guild-modal-dialog.support-livepix-dialog {
+  width: min(440px, calc(100vw - 32px)) !important;
 }
-.seasonal-fx span {
-  position: absolute; top: -10%; animation: seasonal-fall linear infinite; opacity: 0.85;
+.guild-modal-dialog.support-livepix-dialog h2 {
+  margin: 0 36px 12px 0 !important;
+  font-size: clamp(24px, 4vw, 30px) !important;
 }
-@keyframes seasonal-fall {
-  to { transform: translateY(110vh) rotate(360deg); }
+.guild-modal-dialog p.support-livepix-description {
+  width: min(38ch, 100%);
+  margin: 0 auto 18px !important;
+  text-align: center !important;
+  text-wrap: balance;
+  line-height: 1.5 !important;
 }
-
-/* =====================================================================
-   AJUSTE DO BOTÃO VOLTAR AO TOPO (Para não bater no Netlify)
-   ===================================================================== */
-#backToTop {
-  bottom: 85px !important; /* Sobe o botão para ficar acima do selo do Netlify */
+/* Atualizado em 22/11/2026 por Codex: componentes globais de toast, skeleton e tooltip. */
+.lc-toast-region { position:fixed; right:max(20px,env(safe-area-inset-right)); bottom:max(20px,env(safe-area-inset-bottom)); z-index:100100; display:flex; flex-direction:column; align-items:flex-end; gap:10px; width:min(360px,calc(100vw - 32px)); pointer-events:none; }
+.lc-toast { width:fit-content; max-width:100%; padding:12px 16px; border:1px solid rgba(231,201,138,.35); border-radius:12px; background:var(--panel,#141827); color:var(--text,#f5f2eb); box-shadow:0 12px 34px rgba(0,0,0,.42); font:600 13px/1.45 var(--font-body,Manrope,sans-serif); opacity:0; transform:translateY(8px); transition:opacity .18s ease,transform .18s ease; }
+.lc-toast.is-visible { opacity:1; transform:translateY(0); }
+.lc-toast--success { border-left:3px solid #63d49a; }
+.lc-toast--error { border-left:3px solid #f07878; }
+.lc-toast--info { border-left:3px solid var(--gold,#e7c98a); }
+.lc-sr-only { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
+.lc-skeleton-list { display:contents; }
+.lc-skeleton { min-width:0; overflow:hidden; }
+.lc-skeleton-block { position:relative; display:block; max-width:100%; overflow:hidden; border-radius:6px; background:linear-gradient(100deg,rgba(255,255,255,.045) 25%,rgba(255,255,255,.1) 42%,rgba(255,255,255,.045) 62%); background-size:220% 100%; animation:lc-skeleton-shimmer 1.35s ease-in-out infinite; }
+@keyframes lc-skeleton-shimmer { to { background-position-x:-220%; } }
+.lc-skeleton-info { display:flex; min-width:0; flex:1; flex-direction:column; gap:8px; }
+.lc-skeleton--coupon { display:flex; align-items:center; gap:12px; min-height:62px; padding:12px 16px; border:1px dashed rgba(231,201,138,.25); border-radius:14px; }
+.lc-skeleton-button,.lc-skeleton-badge { flex:0 0 auto; border-radius:8px; }
+.lc-skeleton--classroom { display:flex; min-height:72px; flex-direction:column; justify-content:center; gap:8px; padding:12px 14px; border-left:2px solid rgba(255,255,255,.12); border-radius:8px; background:rgba(255,255,255,.02); }
+.lc-skeleton--event { display:flex; min-height:52px; align-items:center; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border); }
+.lc-skeleton--announcement { display:flex; min-height:54px; flex-direction:column; justify-content:center; gap:8px; padding:10px 12px; border-left:2px solid rgba(255,255,255,.12); border-radius:4px; background:rgba(255,255,255,.02); }
+.lc-skeleton--video { display:flex; flex-direction:column; gap:10px; overflow:hidden; padding-bottom:12px; border:1px solid var(--border); border-radius:14px; background:var(--panel-2); }
+.lc-skeleton-media { width:100%; aspect-ratio:16/9; border-radius:0; }
+.lc-skeleton--video > .lc-skeleton-block:not(.lc-skeleton-media) { margin-inline:12px; }
+.lc-skeleton--recipe { display:flex; min-height:56px; align-items:center; gap:12px; margin-bottom:10px; padding:10px 14px; border:1px solid var(--border); border-radius:10px; background:rgba(255,255,255,.025); }
+.lc-skeleton-icon { width:34px; height:34px; flex:0 0 auto; border-radius:50%; }
+.lc-tooltip { position:fixed; z-index:100200; max-width:min(280px,calc(100vw - 24px)); padding:7px 10px; border:1px solid rgba(231,201,138,.28); border-radius:7px; background:#111521; color:var(--text,#f5f2eb); box-shadow:0 8px 22px rgba(0,0,0,.35); font:500 12px/1.4 var(--font-body,Manrope,sans-serif); text-align:center; pointer-events:none; opacity:0; transform:translateY(3px); transition:opacity .12s ease,transform .12s ease; }
+.lc-tooltip.is-visible { opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion:reduce) { .lc-skeleton-block { animation:none; } .lc-toast,.lc-tooltip { transition:none; } }
+@media (max-width:480px) { .lc-toast-region { right:12px; bottom:12px; width:calc(100vw - 24px); } .lc-toast { width:100%; } }
+/* Atualizado em 22/11/2026 por Codex: hover consistente nos dois pontos de Apoie. */
+.lang-switch .support-nav-btn:hover,
+.lang-switch .support-nav-btn:focus-visible {
+  color: #ffe7ad;
+  background: rgba(231, 201, 138, .18);
+  box-shadow: inset 0 0 0 1px rgba(231, 201, 138, .24);
 }
-
-/* =====================================================================
-   ESTILOS DE MARKDOWN DENTRO DO MODAL DE AVISOS
-   ===================================================================== */
-.home-modal-body {
-  font-size: 15px;
-  color: var(--text-dim);
-  line-height: 1.7;
+.footer-col-apoie .footer-qr-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 12px;
 }
-
-/* Títulos dentro do aviso */
-.home-modal-body h1, 
-.home-modal-body h2, 
-.home-modal-body h3 {
-  font-family: var(--font-heading);
-  color: var(--gold);
-  margin: 24px 0 12px;
-  line-height: 1.3;
+.footer-col-apoie .footer-qr-code {
+  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
 }
-.home-modal-body h1 { font-size: 24px; }
-.home-modal-body h2 { font-size: 20px; }
-.home-modal-body h3 { font-size: 18px; }
-
-/* Texto em negrito e itálico */
-.home-modal-body strong { color: var(--text); font-weight: 700; }
-.home-modal-body em { font-style: italic; }
-.home-modal-body u { text-decoration: underline; text-decoration-color: var(--gold); }
-
-/* Citações (blockquotes) */
-.home-modal-body blockquote {
-  border-left: 3px solid var(--gold);
-  background: rgba(231, 201, 138, 0.05);
-  padding: 12px 16px;
-  margin: 16px 0;
-  border-radius: 0 8px 8px 0;
-  color: var(--text);
-  font-style: italic;
+.footer-col-apoie:hover .footer-qr-code,
+.footer-col-apoie:focus-within .footer-qr-code {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+  box-shadow: 0 0 0 2px rgba(231, 201, 138, .42), 0 8px 24px rgba(231, 201, 138, .14);
 }
-
-/* Remove a margem do primeiro título para não ficar muito espaço no topo */
-.home-modal-body > h1:first-child,
-.home-modal-body > h2:first-child,
-.home-modal-body > h3:first-child {
-  margin-top: 0;
+.footer-col-apoie .footer-apoie-text {
+  transition: color .2s ease, text-shadow .2s ease, transform .2s ease;
 }
-
-/* =====================================================================
-   ESTILOS DE CÓDIGO E LISTAS DENTRO DO MODAL
-   ===================================================================== */
-.home-modal-body code {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--gold);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 0.9em;
+.footer-col-apoie:hover .footer-apoie-text,
+.footer-col-apoie:focus-within .footer-apoie-text {
+  color: #ffe7ad;
+  text-shadow: 0 0 12px rgba(231, 201, 138, .28);
+  transform: translateY(-1px);
 }
-
-.home-modal-body pre {
-  background: #0b0e17;
-  border: 1px solid var(--border);
-  padding: 12px;
-  border-radius: 8px;
-  overflow-x: auto;
-  margin: 16px 0;
-}
-
-.home-modal-body pre code {
-  background: transparent;
-  padding: 0;
-  color: #a9beff;
-}
-
-.home-modal-body ul,
-.home-modal-body ol {
-  margin: 12px 0;
-  padding-left: 24px;
-}
-
-.home-modal-body li {
-  margin-bottom: 6px;
+@media (prefers-reduced-motion: reduce) {
+  .footer-col-apoie .footer-qr-code,
+  .footer-col-apoie .footer-apoie-text {
+    transition: none;
+  }
 }
