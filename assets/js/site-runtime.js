@@ -1,9 +1,65 @@
+// Atualizado em 22/11/2026 por Codex: toast, skeleton, tooltip e modal LivePix no runtime compartilhado.
 // Lua Crescente — runtime compartilhado das páginas
 // A lógica de dados fica em assets/data/.
 // v106 — removeu o HTML morto do changelog (v90) que era sobrescrito pelo
 // renderChangelogTimeline, e adicionou guardas para os globais de tradução.
 
 var DATA = window.DATA || [];
+// Atualizado em 22/11/2026 por Codex: utilitários globais de toast, skeleton e tooltip.
+window.LCUI = window.LCUI || {};
+(function setupSharedUI(){
+  let toastRegion = null;
+  let tooltipNode = null;
+  let activeTooltipTarget = null;
+  window.LCUI.toast = function(message, type = 'success', duration = 2800){
+    if(!toastRegion){ toastRegion=document.createElement('div'); toastRegion.className='lc-toast-region'; toastRegion.setAttribute('aria-live','polite'); toastRegion.setAttribute('aria-relevant','additions'); document.body.appendChild(toastRegion); }
+    const toast=document.createElement('div');
+    const safeType=['success','error','info'].includes(type)?type:'info';
+    toast.className=`lc-toast lc-toast--${safeType}`; toast.textContent=String(message||''); toastRegion.appendChild(toast);
+    while(toastRegion.children.length>4) toastRegion.firstElementChild.remove();
+    requestAnimationFrame(()=>toast.classList.add('is-visible'));
+    window.setTimeout(()=>{ toast.classList.remove('is-visible'); window.setTimeout(()=>toast.remove(),220); },Math.max(1200,duration));
+  };
+  const skeletonParts={
+    coupon:'<div class="lc-skeleton-info"><i class="lc-skeleton-block" style="width:112px;height:14px"></i><i class="lc-skeleton-block" style="width:76px;height:10px"></i></div><i class="lc-skeleton-block lc-skeleton-button" style="width:72px;height:34px"></i>',
+    classroom:'<i class="lc-skeleton-block" style="width:74px;height:9px"></i><i class="lc-skeleton-block" style="width:78%;height:13px"></i><i class="lc-skeleton-block" style="width:58%;height:10px"></i>',
+    event:'<div class="lc-skeleton-info"><i class="lc-skeleton-block" style="width:68%;height:13px"></i><i class="lc-skeleton-block" style="width:42%;height:10px"></i></div><i class="lc-skeleton-block lc-skeleton-badge" style="width:62px;height:22px"></i>',
+    announcement:'<i class="lc-skeleton-block" style="width:36%;height:9px"></i><i class="lc-skeleton-block" style="width:82%;height:13px"></i>',
+    video:'<i class="lc-skeleton-block lc-skeleton-media"></i><i class="lc-skeleton-block" style="width:82%;height:13px"></i><i class="lc-skeleton-block" style="width:48%;height:10px"></i>',
+    recipe:'<i class="lc-skeleton-block lc-skeleton-icon"></i><div class="lc-skeleton-info"><i class="lc-skeleton-block" style="width:56%;height:13px"></i><i class="lc-skeleton-block" style="width:28%;height:9px"></i></div>'
+  };
+  window.LCUI.showSkeletons=function(container,kind='recipe',count=3){
+    if(typeof container==='string') container=document.querySelector(container); if(!container) return;
+    const part=skeletonParts[kind]||skeletonParts.recipe, total=Math.max(1,Math.min(6,Number(count)||3));
+    container.setAttribute('aria-busy','true');
+    container.innerHTML=`<div class="lc-skeleton-list lc-skeleton-list--${kind}" aria-hidden="true">${Array.from({length:total},()=>`<div class="lc-skeleton lc-skeleton--${kind}">${part}</div>`).join('')}</div><span class="lc-sr-only">Carregando...</span>`;
+    if(typeof MutationObserver==='function'){
+      const observer=new MutationObserver(()=>{ if(!container.querySelector('.lc-skeleton')){container.removeAttribute('aria-busy');observer.disconnect();} });
+      observer.observe(container,{childList:true,subtree:true});
+    }
+  };
+  function findTooltipTarget(node){return node?.closest?.('[data-tooltip],button[title],a[title],[role="button"][title],button[aria-label],a[aria-label],[role="button"][aria-label]')||null;}
+  function hideTooltip(){if(!tooltipNode)return;tooltipNode.classList.remove('is-visible');activeTooltipTarget=null;}
+  function showTooltip(target){
+    if(!target||!document.body.contains(target))return;
+    const nativeTitle=target.getAttribute('title'); if(nativeTitle&&!target.dataset.tooltip){target.dataset.tooltip=nativeTitle;target.removeAttribute('title');}
+    const label=target.dataset.tooltip||target.getAttribute('aria-label'); if(!label)return;
+    if(!tooltipNode){tooltipNode=document.createElement('div');tooltipNode.className='lc-tooltip';tooltipNode.id='lcTooltip';tooltipNode.setAttribute('role','tooltip');document.body.appendChild(tooltipNode);}
+    activeTooltipTarget=target;tooltipNode.textContent=label;tooltipNode.classList.add('is-visible');
+    const rect=target.getBoundingClientRect(),tip=tooltipNode.getBoundingClientRect();
+    const left=Math.max(8,Math.min(window.innerWidth-tip.width-8,rect.left+rect.width/2-tip.width/2));
+    let top=rect.top-tip.height-9;if(top<8)top=Math.min(window.innerHeight-tip.height-8,rect.bottom+9);
+    tooltipNode.style.left=`${left}px`;tooltipNode.style.top=`${Math.max(8,top)}px`;
+  }
+  document.addEventListener('pointerover',e=>{const target=findTooltipTarget(e.target);if(target)showTooltip(target);});
+  document.addEventListener('pointerout',e=>{if(activeTooltipTarget&&activeTooltipTarget.contains(e.target)&&!activeTooltipTarget.contains(e.relatedTarget))hideTooltip();});
+  document.addEventListener('focusin',e=>{const target=findTooltipTarget(e.target);if(target)showTooltip(target);});
+  document.addEventListener('focusout',e=>{if(activeTooltipTarget&&activeTooltipTarget.contains(e.target))hideTooltip();});
+  window.addEventListener('scroll',hideTooltip,true);window.addEventListener('resize',hideTooltip);
+  [['couponTrack','coupon',2],['homeClassroomGrid','classroom',3],['eventsTimeline','event',4],['announcementGrid','announcement',2],['videoGrid','video',3]].forEach(([id,kind,count])=>{
+    const target=document.getElementById(id);if(target&&/carregando/i.test(target.textContent||''))window.LCUI.showSkeletons(target,kind,count);
+  });
+})();
 // Ícones neutros (SVG, herdam a cor do botão) usados nos botões de compartilhar/copiar link/imagem.
 window.LC_ICONS = (function(){
   const svg = (inner)=>`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${inner}</svg>`;
@@ -859,6 +915,7 @@ function itemMatches(item, q){
 
 const listEl = document.getElementById('list');
 const emptyEl = document.getElementById('emptyState');
+if(listEl) window.LCUI.showSkeletons(listEl, 'recipe', 5);
 
 // ---- Grupos (sidebar) ----
 const GROUP_ICONS = { 'Fármacos da Harmonia':'🧪', 'Fármacos Base':'🧪', 'Fármacos Tradicionais':'⚗️', 'Elixires Base':'🧴', 'Sangues':'🩸', 'Perfumes':'🌸', 'Culinária':'🍲', 'Culinária Especial':'✨', 'Rações':'🥕', 'Pergaminhos':'📜', 'Trabalhadores energia':'👷', 'Poções':'🧴', 'Itens Tesouro':'💎' };
@@ -1676,6 +1733,7 @@ document.getElementById('groupSidebar')?.addEventListener('click', (e)=>{
   if(!group) return;
   const token = ++categoryRequestToken;
   activeGroup = group;
+  if(listEl) window.LCUI.showSkeletons(listEl, 'recipe', 5);
   buildSidebar();
   closeGroupSidebarMobile();
   document.getElementById('groupSidebar')?.setAttribute('aria-busy','true');
@@ -1875,6 +1933,7 @@ listEl?.addEventListener('click', (e)=>{
       const old = exportBtn.innerHTML;
       exportBtn.innerHTML = icon || LC_ICONS.check;
       exportBtn.classList.add('is-copied');
+      window.LCUI.toast(icon === LC_ICONS.download ? 'Imagem baixada.' : 'Imagem pronta.');
       setTimeout(()=>{ exportBtn.innerHTML = old; exportBtn.classList.remove('is-copied'); }, 1300);
     };
     const canvas = renderIngredientListImage(name, route.label, payload.effect, items);
@@ -1919,22 +1978,23 @@ listEl?.addEventListener('click', (e)=>{
     e.stopPropagation();
     const name = copyBtn.dataset.copyName;
     const link = buildRecipeLink(name, copyBtn.dataset.copyGroup);
-    const showFeedback=()=>{
+    const showFeedback=(message)=>{
       const old = copyBtn.innerHTML;
       copyBtn.innerHTML = LC_ICONS.check;
       copyBtn.classList.add('is-copied');
+      window.LCUI.toast(message);
       setTimeout(()=>{ copyBtn.innerHTML = old; copyBtn.classList.remove('is-copied'); }, 1300);
     };
     const copyToClipboard=()=>{
       if(navigator.clipboard?.writeText){
-        navigator.clipboard.writeText(link).then(showFeedback).catch(()=>{ window.prompt('Copie o link abaixo:', link); });
+        navigator.clipboard.writeText(link).then(()=>showFeedback('Link copiado.')).catch(()=>{ window.prompt('Copie o link abaixo:', link); });
       } else {
         window.prompt('Copie o link abaixo:', link);
       }
     };
     if(SUPPORTS_NATIVE_SHARE){
       navigator.share({ title: `${name} — Lua Crescente`, url: link })
-        .then(showFeedback)
+        .then(()=>showFeedback('Link compartilhado.'))
         .catch(err=>{
           if(err && err.name === 'AbortError') return;
           copyToClipboard();
@@ -2059,7 +2119,8 @@ if(listEl){
     window.loadRecipeCategory(activeGroup).then(data=>{
       window.applyRecipeData?.(data, activeGroup);
       window.__LC_AFTER_CATEGORY_LOAD?.();
-    }).catch(err=>{ console.error('[Receitas]',err); if(emptyEl){ emptyEl.style.display='block'; emptyEl.textContent='Não foi possível carregar a categoria.'; } });
+    }).catch(err=>{ console.error('[Receitas]',err); if(listEl) listEl.innerHTML='';
+      if(emptyEl){ emptyEl.style.display='block'; emptyEl.textContent='Não foi possível carregar a categoria.'; } });
   }
 }
 
@@ -2082,6 +2143,64 @@ langMenu?.addEventListener('click', (e)=>{
 });
 
 document.addEventListener('click', ()=> langSwitch.classList.remove('open'));
+// Botão de apoio ao lado do seletor de idioma; o Apoie do rodapé permanece independente.
+(function setupLivepixSupport(){
+  if(!langSwitch || document.getElementById('supportLivepixModal')) return;
+
+  const supportButton = document.createElement('button');
+  supportButton.type = 'button';
+  supportButton.className = 'lang-btn support-nav-btn';
+  supportButton.textContent = 'Apoie';
+  supportButton.setAttribute('aria-haspopup', 'dialog');
+  supportButton.setAttribute('aria-controls', 'supportLivepixModal');
+  const navActions = document.createElement('div');
+  navActions.className = 'nav-utility-actions';
+  langSwitch.parentNode.insertBefore(navActions, langSwitch);
+  navActions.appendChild(langSwitch);
+  langSwitch.appendChild(supportButton);
+
+  const modal = document.createElement('div');
+  modal.id = 'supportLivepixModal';
+  modal.className = 'guild-modal support-livepix-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-labelledby', 'supportLivepixTitle');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <div class="support-livepix-backdrop" data-support-modal-close></div>
+    <div class="guild-modal-dialog support-livepix-dialog">
+      <button type="button" class="guild-modal-close" data-support-modal-close aria-label="Fechar">×</button>
+      <h2 id="supportLivepixTitle">Apoie o projeto</h2>
+      <p class="support-livepix-description">Aponte a câmera para o QR Code ou clique nele para abrir o LivePix.</p>
+      <a href="https://livepix.gg/skarsgardsson" target="_blank" rel="noopener" class="footer-qr-link" title="Abrir LivePix">
+        <img src="/assets/img/qr-code.png" alt="QR Code PIX do LivePix" class="footer-qr-code" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://livepix.gg/skarsgardsson'">
+      </a>
+      <span class="footer-apoie-text support-livepix-caption">Apoie o projeto 🤍</span>
+    </div>`;
+  document.body.appendChild(modal);
+
+  let lastSupportFocus = null;
+  function closeSupportModal(restoreFocus = true){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if(restoreFocus && lastSupportFocus && typeof lastSupportFocus.focus === 'function') lastSupportFocus.focus();
+  }
+
+  supportButton.addEventListener('click', ()=>{
+    lastSupportFocus = document.activeElement;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    closeMobileMenu();
+    requestAnimationFrame(()=>modal.querySelector('.guild-modal-close')?.focus());
+  });
+  modal.querySelectorAll('[data-support-modal-close]').forEach(el=>el.addEventListener('click', ()=>closeSupportModal()));
+  modal.querySelector('.support-livepix-dialog')?.addEventListener('click', e=>e.stopPropagation());
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape' && modal.classList.contains('open')) closeSupportModal();
+  });
+})();
 // ---- Menus suspensos (Receitas, Mapas, ...) ----
 (function(){
   var dropdowns = document.querySelectorAll('.site-tab-dropdown');
@@ -2121,6 +2240,7 @@ document.addEventListener('click', ()=> langSwitch.classList.remove('open'));
 })();
 
 // ---- Navegação principal do site ----
+document.getElementById('backToTop')?.setAttribute('data-tooltip', 'Voltar ao topo');
 const nav = document.querySelector('.site-nav');
 const menuToggle = document.getElementById('menuToggle');
 const guildModal = document.getElementById('guildModal');
@@ -2271,9 +2391,10 @@ function renderCouponsModal(payload){
       await navigator.clipboard.writeText(btn.dataset.coupon);
       const old=btn.textContent;
       btn.textContent='Copiado!';
+      window.LCUI.toast('Cupom copiado: ' + btn.dataset.coupon, 'success');
       btn.classList.add('is-copied');
       setTimeout(()=>{btn.textContent=old;btn.classList.remove('is-copied');},1300);
-    }catch{}
+    }catch{window.LCUI.toast('Não foi possível copiar o cupom.','error')}
   }));
 }
 function hideCouponsModal(restoreFocus=true){
@@ -2404,99 +2525,25 @@ document.getElementById('anniversaryBannerClose')?.addEventListener('click', ()=
 });
 updateAnniversaryBanner();
 
-// ---- Temas Sazonais Avançados ----
-function calcularPascoa(y) {
-  var a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4,
-      f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3),
-      h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
-      l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
-      mo = Math.floor((h + l - 7 * m + 114) / 31), da = ((h + l - 7 * m + 114) % 31) + 1;
-  return new Date(y, mo - 1, da);
-}
-
-function getActiveSeasonalTheme() {
+function getActiveSeasonalTheme(){
   const today = new Date();
-  const y = today.getFullYear(), m = today.getMonth() + 1, d = today.getDate();
-  const e = calcularPascoa(y);
-  const D = 864e5;
-  const t = new Date(y, m - 1, d).getTime();
-  const E = e.getTime();
-
-  // Aniversário da Guilda (se você tiver a data, mantém a prioridade)
-  if (typeof GUILD_FOUNDING_DATE !== 'undefined') {
-    if (m === (GUILD_FOUNDING_DATE.getMonth() + 1) && d === GUILD_FOUNDING_DATE.getDate()) return 'anniversary';
-  }
-
-  // Datas comemorativas
-  if (t >= E - 51 * D && t <= E - 46 * D) return "carnaval";
-  if (t >= E - 7 * D && t <= E + 1 * D) return "pascoa";
-  if ((m == 10 && d >= 20) || (m == 11 && d == 1)) return "halloween";
-  if (m == 12 && d >= 10 && d <= 26) return "natal";
-  if ((m == 12 && d >= 27) || (m == 1 && d <= 3)) return "anonovo";
-  if (m == 6 && d >= 5 && d <= 12) return "namorados";
-  if ((m == 6 && d >= 13) || (m == 7 && d == 1)) return "junina";
-  
-  return null; // Padrão
+  const m = today.getMonth();
+  const d = today.getDate();
+  if(m === GUILD_FOUNDING_DATE.getMonth() && d === GUILD_FOUNDING_DATE.getDate()) return 'anniversary';
+  if(m === 9 && d >= 25 && d <= 31) return 'halloween';
+  if(m === 11 && d >= 20 && d <= 26) return 'christmas';
+  return null;
 }
-
-function applySeasonalTheme() {
+function applySeasonalTheme(){
   const theme = getActiveSeasonalTheme();
-  
-  // Aplica a classe no body
-  if (theme) {
-    document.body.dataset.season = theme;
-  } else {
-    delete document.body.dataset.season;
-  }
-
-  // Atualiza o ícone do topo (se você tiver um)
+  if(theme){ document.body.dataset.season = theme; } else { delete document.body.dataset.season; }
   const badge = document.getElementById('seasonalBadge');
-  if (badge) {
-    const icons = { 
-      anniversary:'🎉', halloween:'🎃', natal:'🎄', 
-      anonovo:'🎆', carnaval:'🎭', pascoa:'🐰', 
-      namorados:'💘', junina:'🎈' 
-    };
-    badge.textContent = theme ? icons[theme] : '';
-  }
-
-  // Emojis que vão cair na tela
-  const emojis = {
-    halloween: ["🦇", "🎃", "👻", "🕸️"],
-    natal: ["❄️", "❄️", "⭐", "🎁"],
-    anonovo: ["✨", "🎇", "🥂", "⭐"],
-    carnaval: ["🎊", "🎭", "🎉", "🪇"],
-    pascoa: ["🥚", "🐰", "🌷", "🐣"],
-    namorados: ["💖", "💘", "💕", "🌹"],
-    junina: ["🎈", "🌽", "🔥", "🪅"],
-    anniversary: ["🎉", "🎂", "✨"]
-  };
-
-  // Cria a caixa de efeitos se não existir
-  let fxBox = document.querySelector('.seasonal-fx');
-  if (!fxBox) {
-    fxBox = document.createElement('div');
-    fxBox.className = 'seasonal-fx';
-    fxBox.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(fxBox);
-  }
-  fxBox.innerHTML = ''; // Limpa a chuva anterior
-
-  // Se tiver um tema ativo, gera as partículas
-  if (theme && emojis[theme]) {
-    const list = emojis[theme];
-    for (let i = 0; i < 25; i++) {
-      const span = document.createElement('span');
-      span.textContent = list[i % list.length];
-      span.style.left = Math.random() * 100 + "%";
-      span.style.fontSize = (14 + Math.random() * 18) + "px";
-      span.style.animationDuration = (9 + Math.random() * 12) + "s";
-      span.style.animationDelay = (-Math.random() * 16) + "s";
-      fxBox.appendChild(span);
-    }
-  }
+  if(!badge) return;
+  const icons = { anniversary:'🎉', halloween:'🎃', christmas:'🎄' };
+  badge.textContent = theme ? icons[theme] : '';
 }
 applySeasonalTheme();
+
 function hideFooterModal(modal, restoreFocus=true){
   if(!modal) return;
   modal.classList.remove('open');
@@ -2583,10 +2630,11 @@ async function loadBdoCoupons(){
         await navigator.clipboard.writeText(btn.dataset.coupon);
         const old=btn.textContent;
         btn.textContent='Copiado!';
+      window.LCUI.toast('Cupom copiado: ' + btn.dataset.coupon, 'success');
         btn.style.background = '#5BD58A';
         btn.style.color = '#0B0E17';
         setTimeout(()=>{ btn.textContent=old; btn.style.background=''; btn.style.color=''; },1300);
-      }catch{}
+      }catch{window.LCUI.toast('Não foi possível copiar o cupom.','error')}
     }));
   }catch(err){
     clearTimeout(timeoutId);
@@ -3078,13 +3126,8 @@ async function loadDiscordAnnouncements(){
     if(!posts.length) throw new Error('sem avisos');
 
     grid.innerHTML = posts.slice(0, 5).map((p, i) => {
-      // Limpeza pesada no título para os cards pequenos
-      let tituloLimpo = p.title;
-      tituloLimpo = tituloLimpo.replace(/^[#*\s]+/, ''); // Remove # e * do começo
-      tituloLimpo = tituloLimpo.replace(/^(?:📢\s*)?AVISO\s*IMPORTANTE\s*[-—:]?\s*/i, ''); // Remove "AVISO IMPORTANTE"
-      tituloLimpo = tituloLimpo.replace(/[#*\s]+$/, ''); // Remove # e * do final
-
-      if(!tituloLimpo) tituloLimpo = 'Novo Aviso'; // Fallback se o título ficar vazio
+      // Remove os "#" e "*" do começo e fim do título
+      const tituloLimpo = p.title.replace(/^[#*\s]+/, '').replace(/[#*\s]+$/, '');
       
       return `
       <button type="button" class="announcement-card" data-idx="${i}">
@@ -3145,54 +3188,27 @@ function openVideoModal(id, title){
   document.body.classList.add('modal-open');
 }
 
-// Função mágica para transformar Markdown em HTML (Deve ficar acima do modal)
-function parseDiscordMarkdown(text) {
-  if (!text) return '';
-  // 1. Escapa HTML para segurança
-  let html = text.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  
-  // 2. Blocos de código (```texto```)
-  html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-  
-  // 3. Código inline (`texto`)
-  html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
-  
-  // 4. Substitui os Markdowns de texto
-  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-  
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  html = html.replace(/__(.*?)__/g, '<u>$1</u>');
-  html = html.replace(/~~(.*?)~~/g, '<s>$1</s>');
-  
-  html = html.replace(/^&gt; (.*$)/gim, '<blockquote>$1</blockquote>');
-  
-  // 5. Transforma quebras de linha normais em <br>
-  html = html.replace(/\n/g, '<br>');
-  return html;
-}
-
 function openAnnouncementModal(post){
   const modal = document.getElementById('homeModal');
   const content = document.getElementById('homeModalContent');
   if(!modal || !content) return;
   
-  // Limpa o título principal do modal (remove #, * e "AVISO IMPORTANTE")
-  let tituloLimpo = post.title;
-  tituloLimpo = tituloLimpo.replace(/^[#*\s]+/, ''); 
-  tituloLimpo = tituloLimpo.replace(/^(?:📢\s*)?AVISO\s*IMPORTANTE\s*[-—:]?\s*/i, '');
-  tituloLimpo = tituloLimpo.replace(/[#*\s]+$/, '');
-
-  // Aplica o Markdown no corpo do texto
-  const corpoFormatado = parseDiscordMarkdown(post.body || '');
+  // 1. Limpa o título
+  const tituloLimpo = post.title.replace(/^[#*\s]+/, '').replace(/[#*\s]+$/, '');
+  
+  // 2. Limpa o corpo do texto (remove os "#" e "*" do Discord)
+  let corpoLimpo = post.body || '';
+  corpoLimpo = corpoLimpo.replace(/^[#*>\s]+/gm, ''); // Tira # e > do começo das linhas
+  corpoLimpo = corpoLimpo.replace(/\*\*(.*?)\*\*/g, '$1'); // Tira **negrito**
+  corpoLimpo = corpoLimpo.replace(/\*(.*?)\*/g, '$1'); // Tira *itálico*
+  corpoLimpo = corpoLimpo.replace(/__(.*?)__/g, '$1'); // Tira __sublinhado__
+  corpoLimpo = corpoLimpo.replace(/~~(.*?)~~/g, '$1'); // Tira ~~riscado~~
 
   content.innerHTML = `
     <h2 id="homeModalTitle" class="home-modal-title">${escapeHtml(tituloLimpo)}</h2>
-    <div class="home-modal-meta">${relativeDate(post.timestamp)}</div>
+    <div class="home-modal-meta">${relativeDate(post.timestamp)} · ${escapeHtml(post.author)}</div>
     ${post.image ? `<img class="home-modal-image" src="${escapeHtml(post.image)}" alt="" referrerpolicy="no-referrer">` : ''}
-    <div class="home-modal-body">${corpoFormatado}</div>
+    <div class="home-modal-body">${escapeHtml(corpoLimpo).replace(/\n/g, '<br>')}</div>
   `;
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');

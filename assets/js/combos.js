@@ -1,6 +1,7 @@
 /* Página "Combos de Artefato" — Combate e Lifeskill.
    Dados: /assets/data/combos/combos-combate.json e combos-lifeskill.json
    (valores do Garmoth em PT-BR: só o combo / com pedras / com pedras amplificadas). */
+/* Atualizado em 22/11/2026 por Codex: feedback de cópia/compartilhamento por toast. */
 (function(){
   'use strict';
 
@@ -195,7 +196,7 @@
   function shareComboImage(it, btn){
     if(!it) return;
     const I = window.LC_ICONS || {};
-    const feedback = (icon)=>{ const old = btn.innerHTML; btn.innerHTML = icon; setTimeout(()=>{ btn.innerHTML = old; },1300); };
+    const feedback = (icon,message='Imagem do artefato pronta.')=>{ const old = btn.innerHTML; btn.innerHTML = icon; setTimeout(()=>{ btn.innerHTML = old; },1300); window.LCUI?.toast(message,'success'); };
     drawComboImage(it).toBlob(async (blob)=>{
       if(!blob){ window.prompt('Não foi possível gerar a imagem. Copie o link:', comboLink(it.name)); return; }
       const filename = `artefato-${slugify(it.name)}.png`;
@@ -212,7 +213,7 @@
       const a = document.createElement('a'); a.href = url; a.download = filename;
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(()=>URL.revokeObjectURL(url), 4000);
-      feedback(I.download);
+      feedback(I.download,'Imagem do artefato baixada.');
     }, 'image/png');
   }
 
@@ -242,13 +243,13 @@
       e.preventDefault(); e.stopPropagation();
       const name = item.dataset.combo;
       const link = comboLink(name);
-      const done = ()=>{ const old = share.innerHTML; share.innerHTML=(window.LC_ICONS||{}).check||'OK'; setTimeout(()=>{ share.innerHTML = old; },1300); };
+      const done = (message='Link do artefato copiado.')=>{ const old = share.innerHTML; share.innerHTML=(window.LC_ICONS||{}).check||'OK'; setTimeout(()=>{ share.innerHTML = old; },1300); window.LCUI?.toast(message,'success'); };
       const copy = ()=>{
         if(navigator.clipboard?.writeText) navigator.clipboard.writeText(link).then(done).catch(()=>window.prompt('Copie o link abaixo:',link));
         else window.prompt('Copie o link abaixo:',link);
       };
       if(SUPPORTS_SHARE){
-        navigator.share({title:`${name} — Lua Crescente`,url:link}).then(done).catch(err=>{ if(err && err.name==='AbortError') return; copy(); });
+        navigator.share({title:`${name} — Lua Crescente`,url:link}).then(()=>done('Link do artefato compartilhado.')).catch(err=>{ if(err && err.name==='AbortError') return; copy(); });
       } else copy();
       return;
     }
